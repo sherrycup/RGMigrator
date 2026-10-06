@@ -1,0 +1,4 @@
+.godot/
+*.uid
+test_exports_*/
+
