@@ -52,8 +52,38 @@ foreach ($outputProject in $results.exports) {
     if (-not $SkipImport) {
         Invoke-GodotCheck "sample-$index-import" $outputProject @('--import')
     }
+    Invoke-GodotCheck "sample-$index-editor-compile" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorCompileTests.gd')) 'EDITOR COMPILE: PASSED'
+	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorTilesetLayersScenario.gd') -Destination (Join-Path $outputProject '.godot/EditorTilesetLayersScenario.gd')
+	Invoke-GodotCheck "sample-$index-tileset-layers" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorTilesetLayersTests.gd')) 'TILESET LAYERS TESTS: PASSED'
+	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorMapEditingScenario.gd') -Destination (Join-Path $outputProject '.godot/EditorMapEditingScenario.gd')
+	Invoke-GodotCheck "sample-$index-map-editing" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorMapEditingTests.gd')) 'MAP EDITING TESTS: PASSED'
+	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorEventAuthoringScenario.gd') -Destination (Join-Path $outputProject '.godot/EditorEventAuthoringScenario.gd')
+	Invoke-GodotCheck "sample-$index-event-authoring" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorEventAuthoringTests.gd')) 'EVENT AUTHORING TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-editor" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorTests.gd')) 'EDITOR TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-command-blocks" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorCommandBlockTests.gd')) 'COMMAND BLOCK TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-database-editor" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorDatabaseTests.gd')) 'DATABASE EDITOR TESTS: PASSED'
+	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorDatabaseAuthoringScenario.gd') -Destination (Join-Path $outputProject '.godot/EditorDatabaseAuthoringScenario.gd')
+	Invoke-GodotCheck "sample-$index-database-authoring" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorDatabaseAuthoringTests.gd')) 'DATABASE AUTHORING TESTS: PASSED'
+	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorFeedbackScenario.gd') -Destination (Join-Path $outputProject '.godot/EditorFeedbackScenario.gd')
+	Invoke-GodotCheck "sample-$index-editor-feedback" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorFeedbackTests.gd')) 'EDITOR FEEDBACK TESTS: PASSED'
+
+    Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorFinalUiScenario.gd') -Destination (Join-Path $outputProject '.godot/EditorFinalUiScenario.gd')
+    Invoke-GodotCheck "sample-$index-final-ui" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorFinalUiTests.gd')) 'FINAL UI TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-editor-readability" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorReadabilityTests.gd')) 'EDITOR READABILITY TESTS: PASSED'
     Invoke-GodotCheck "sample-$index-title" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/TitleTests.gd')) 'TITLE TESTS: PASSED'
     Invoke-GodotCheck "sample-$index-runtime" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/RuntimeTests.gd'), '--quit-after', '1200') 'RUNTIME TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-events" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/EventTests.gd')) 'EVENT TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-event-values" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/EventValueTests.gd')) 'EVENT VALUE TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-event-movement" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/EventMovementTests.gd')) 'EVENT MOVEMENT TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-push-box" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/PushBoxRegressionTests.gd')) 'PUSH BOX TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-event-screen" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/EventScreenTests.gd')) 'EVENT SCREEN TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-event-presentation" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/EventPresentationTests.gd')) 'EVENT PRESENTATION TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-event-actor-scene" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/EventActorSceneTests.gd')) 'EVENT ACTOR SCENE TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-event-save" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/EventSaveTests.gd')) 'EVENT SAVE TESTS: PASSED'
+    $eventRestartDirectory = (Join-Path $outputProject ('.godot/event_restart_' + [Guid]::NewGuid().ToString('N'))).Replace('\', '/')
+    foreach ($phase in @('write', 'read')) {
+        Invoke-GodotCheck "sample-$index-event-restart-$phase" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/EventSaveTests.gd'), '--', "--save-directory=$eventRestartDirectory", "--phase=$phase") 'EVENT SAVE TESTS: PASSED'
+    }
     Invoke-GodotCheck "sample-$index-menu" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/MenuTests.gd')) 'MENU TESTS: PASSED'
     Invoke-GodotCheck "sample-$index-inventory" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/InventoryTests.gd')) 'INVENTORY TESTS: PASSED'
     Invoke-GodotCheck "sample-$index-skills-animation" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/SkillAnimationTests.gd')) 'SKILL ANIMATION TESTS: PASSED'

@@ -1,11 +1,13 @@
 extends Node2D
-## Native common display/motion component. Autonomous and event routes are deferred.
+## Native common display/motion with a separate per-character route cursor.
 const Motion = preload("res://runtime/scripts/CharacterMotion.gd")
 const Cache = preload("res://runtime/scripts/RmxpCache.gd")
 const Portrait = preload("res://runtime/scripts/CharacterSprite.gd")
 signal arrived(kind: String)
 signal occupancy_changed
 var motion: RefCounted = Motion.new()
+var routes: RefCounted = preload("res://runtime/scripts/CharacterRoute.gd").new(self)
+var always_on_top := false
 var map_runtime: Node
 var character_id := -1
 var _texture: Texture2D
@@ -15,6 +17,8 @@ var _material_blend := -1
 var _name := ""
 var _hue := 0
 var _tile_id := 0
+var _original_direction := 2
+var _original_pattern := 0
 var _sort_offset := 0.0
 var _last_frame := -1
 var _last_options := {}
@@ -67,8 +71,7 @@ func set_graphic(name_value: String, hue: int = 0, tile_id: int = 0) -> void:
 		add_child(_sprite)
 	_texture = null
 	if tile_id >= 384 and map_runtime != null:
-		var index := tile_id - 384
-		_texture = Cache.region("Tilesets", str(map_runtime.tileset.get("tileset_name", "")), Rect2((index % 8) * 32, int(index / 8) * 32, 32, 32))
+		_texture = map_runtime.tile_texture(tile_id)
 	elif not name_value.is_empty():
 		_texture = Cache.character(name_value)
 		if _texture == null:
@@ -95,6 +98,24 @@ func motion_snapshot() -> Dictionary:
 	return motion.snapshot()
 
 
+func persistent_data() -> Dictionary:
+	return {"motion": motion.persistent_data(), "routes": routes.persistent_data(), "name": _name, "hue": _hue, "tile_id": _tile_id,
+		"original_direction": _original_direction, "original_pattern": _original_pattern, "always_on_top": always_on_top, "fallback_visible": fallback_visible}
+
+
+func restore_persistent(value: Dictionary) -> void:
+	motion = Motion.decode(value.motion, map_runtime.map_width(), map_runtime.map_height()).value
+	if character_id == -1: RuntimeState.player_motion = motion
+	routes.restore_persistent(value.routes)
+	_original_direction = int(value.original_direction); _original_pattern = int(value.original_pattern)
+	always_on_top = value.always_on_top; fallback_visible = value.fallback_visible
+	set_graphic(value.name, int(value.hue), int(value.tile_id))
+	if character_id > 0:
+		set("tile_id", int(value.tile_id))
+		set("blocking", not value.name.is_empty() and int(value.tile_id) == 0)
+	_sync_position()
+
+
 func jumping() -> bool:
 	return motion.jumping()
 
@@ -111,14 +132,72 @@ func turn(direction: int) -> bool:
 	return changed
 
 
-func move_straight(direction: int) -> bool:
+func move_straight(direction: int, turn_on_failure: bool = true) -> bool:
 	if not motion.is_idle() or not Motion.DIRECTIONS.has(direction) or map_runtime == null: return false
-	motion.turn(direction)
+	if turn_on_failure: motion.turn(direction)
 	_sync_position()
 	if not map_runtime.can_move(motion.cell, Motion.DIRECTIONS[direction], bool(motion.options.through), character_id): return false
 	var started: bool = motion.begin_move(direction)
 	if started: occupancy_changed.emit()
 	return started
+
+
+func move_diagonal(offset: Vector2i) -> bool:
+	if not motion.is_idle() or map_runtime == null or absi(offset.x) != 1 or absi(offset.y) != 1: return false
+	motion.turn_diagonal(offset)
+	_sync_position()
+	if not map_runtime.can_move_diagonal(motion.cell, offset, bool(motion.options.through), character_id): return false
+	var started: bool = motion.begin_diagonal(offset)
+	if started:
+		_sync_position()
+		occupancy_changed.emit()
+	return started
+
+
+func force_move_route(route: Dictionary, source: String = "", on_error: Callable = Callable()) -> Dictionary:
+	return routes.force(route, source, on_error)
+
+
+func cancel_move_route(stop_autonomous: bool = false) -> void:
+	routes.cancel()
+	if stop_autonomous: routes.move_type = 0
+
+
+func reset_route_state() -> void:
+	routes.configure(0, 3, {"repeat": false, "skippable": false, "list": [{"code": 0}]})
+	_original_direction = 2
+	_original_pattern = 0
+	set_always_on_top(false)
+
+
+func route_locked() -> bool:
+	return false
+
+
+func clear_route_lock_direction() -> void:
+	pass
+
+
+func set_always_on_top(value: bool) -> void:
+	always_on_top = value
+	_sync_position()
+
+
+func set_route_graphic(name_value: String, hue: int, direction: int, pattern: int) -> void:
+	_apply_graphic_pose(direction, pattern)
+	set_graphic(name_value, hue)
+	occupancy_changed.emit()
+
+
+func _apply_graphic_pose(direction: int, pattern: int) -> void:
+	if _original_direction != direction:
+		motion.turn(direction, true)
+		_original_direction = direction
+		clear_route_lock_direction()
+	if _original_pattern != pattern:
+		motion.configure({"idle_pattern": pattern})
+		motion.pattern = pattern
+		_original_pattern = pattern
 
 
 func move_to(x: int, y: int) -> bool:
@@ -132,7 +211,11 @@ func move_to(x: int, y: int) -> bool:
 func jump(x: int, y: int) -> bool:
 	if not motion.is_idle() or map_runtime == null: return false
 	var destination: Vector2i = motion.cell + Vector2i(x, y)
-	if not map_runtime.can_stand(destination, bool(motion.options.through), character_id): return false
+	if absi(x) > absi(y): motion.turn(6 if x > 0 else 4)
+	elif y != 0: motion.turn(2 if y > 0 else 8)
+	_sync_position()
+	if not map_runtime.valid(destination.x, destination.y): return false
+	if (x != 0 or y != 0) and not map_runtime.can_stand(destination, bool(motion.options.through), character_id): return false
 	var started: bool = motion.begin_jump(Vector2i(x, y))
 	if started: occupancy_changed.emit()
 	return started
@@ -155,10 +238,12 @@ func advance_motion(delta: float) -> String:
 	if not completed.is_empty():
 		occupancy_changed.emit()
 		arrived.emit(completed)
+	routes.advance(delta)
 	return completed
 
 
 func _sync_position() -> void:
+	z_index = 1024 if always_on_top else 0
 	_sort_offset = (map_runtime.tile_priority(_tile_id) - 1) * 32.0 if _tile_id > 0 and map_runtime != null else 0.0
 	position = motion.visual_cell * 32 + Vector2(16, 16 + _sort_offset)
 	_last_pose = Vector4(motion.visual_cell.x, motion.visual_cell.y, motion.direction, motion.pattern)
@@ -196,7 +281,7 @@ func _sync_position() -> void:
 		_visual_material.shader = _shaders[blend]
 		material = _visual_material
 		_material_values = Vector3(INF, INF, INF)
-	var bush: bool = map_runtime != null and map_runtime.is_bush(motion.cell.x, motion.cell.y) and not motion.jumping()
+	var bush: bool = map_runtime != null and map_runtime.is_bush(motion.cell.x, motion.cell.y) and not motion.jumping() and not always_on_top
 	var values := Vector3(float(_hue) / 360.0, height, 12.0 if bush and _tile_id == 0 else 0.0)
 	if values.x != _material_values.x: _visual_material.set_shader_parameter("hue", values.x)
 	if values.y != _material_values.y: _visual_material.set_shader_parameter("frame_height", values.y)
@@ -214,3 +299,7 @@ func _draw() -> void:
 	if _texture == null and fallback_visible:
 		draw_circle(Vector2(0, -motion.jump_height), 11, Color("ffd166"))
 		draw_line(Vector2(0, -motion.jump_height), Vector2(facing) * 13 - Vector2(0, motion.jump_height), Color("1a1a1a"), 3)
+
+
+func _exit_tree() -> void:
+	routes.cancel()

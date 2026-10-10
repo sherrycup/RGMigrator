@@ -27,10 +27,13 @@ static func item_reason(item_id: int) -> String:
 	var item := Data.record("Items", item_id)
 	if item.is_empty():
 		return "Items[%d] 不存在。" % item_id
-	if int(item.get("common_event_id", 0)) != 0:
-		return "此物品依赖公共事件，本版不执行；不会消耗物品。"
+	var common_id := int(item.get("common_event_id", 0))
+	if common_id != 0 and Data.record("CommonEvents", common_id).is_empty(): return "物品引用的公共事件不存在。"
 	if int(item.get("occasion", 3)) not in [0, 2]:
 		return "此物品不可在菜单中使用。"
+	# Enemy/none scopes return directly to the map in native Scene_Item; their
+	# combat effects have no menu target, while the common event still runs.
+	if common_id > 0 and int(item.get("scope", 0)) in [0, 1, 2]: return ""
 	if int(item.get("scope", 0)) not in [3, 4]:
 		return "本版仅支持对存活队友的单体/全体 HP、SP 恢复。"
 	if int(item.get("parameter_type", 0)) != 0 or not item.get("plus_state_set", []).is_empty() or not item.get("minus_state_set", []).is_empty():
@@ -42,7 +45,7 @@ static func item_reason(item_id: int) -> String:
 		if int(item.get(field, 0)) < 0:
 			return "本版不支持造成伤害的物品。"
 		has_recovery = has_recovery or int(item.get(field, 0)) > 0
-	return "" if has_recovery else "此物品没有可执行的标准恢复效果；自定义 Ruby 效果未迁移。"
+	return "" if has_recovery or common_id > 0 else "此物品没有可执行的标准恢复效果；自定义 Ruby 效果未迁移。"
 
 
 static func use_item(state: Node, item_id: int, target_id: int) -> Dictionary:
@@ -53,9 +56,15 @@ static func use_item(state: Node, item_id: int, target_id: int) -> Dictionary:
 	if int(state.inventory.get(key, 0)) <= 0:
 		return failure("物品数量不足。")
 	var item := Data.record("Items", item_id)
+	var common_id := int(item.get("common_event_id", 0))
+	if common_id > 0:
+		var common_reason: String = state.common_event_reason(common_id)
+		if not common_reason.is_empty(): return failure(common_reason)
 	var targets: Array = state.party.duplicate() if int(item.scope) == 4 else [target_id]
+	if int(item.scope) in [0, 1, 2]: targets = []
 	var changes: Array[Dictionary] = []
 	var visited := {}
+	var living_targets := 0
 	for raw_id in targets:
 		var id := int(raw_id)
 		if visited.has(id):
@@ -71,21 +80,26 @@ static func use_item(state: Node, item_id: int, target_id: int) -> Dictionary:
 			return failure("目标角色属性无法计算，未消耗物品。")
 		if int(view.hp) <= 0:
 			continue
+		living_targets += 1
 		var hp_gain := int(int(view.parameters.maxhp) * int(item.get("recover_hp_rate", 0)) / 100.0) + int(item.get("recover_hp", 0))
 		var sp_gain := int(int(view.parameters.maxsp) * int(item.get("recover_sp_rate", 0)) / 100.0) + int(item.get("recover_sp", 0))
 		var new_hp := mini(int(view.parameters.maxhp), int(view.hp) + hp_gain)
 		var new_sp := mini(int(view.parameters.maxsp), int(view.sp) + sp_gain)
 		if new_hp != int(view.hp) or new_sp != int(view.sp):
 			changes.append({"actor": actor, "hp": new_hp, "sp": new_sp})
-	if changes.is_empty():
+	if changes.is_empty() and common_id == 0:
 		return failure("没有需要恢复的有效目标，未消耗物品。")
+	if common_id > 0 and int(item.scope) in [3, 4] and living_targets == 0: return failure("没有存活的有效目标，未消耗物品。")
+	if common_id > 0:
+		var reserved: Dictionary = state.reserve_common_event(common_id, "item:%d" % item_id, 0, target_id)
+		if not reserved.ok: return reserved
 	if bool(item.get("consumable", true)):
 		state.inventory[key] = int(state.inventory[key]) - 1
 	for change in changes:
 		change.actor.hp = change.hp
 		change.actor.sp = change.sp
 	state.state_changed.emit()
-	return {"ok": true, "message": "使用了 %s，恢复 %d 名角色。" % [item.name, changes.size()], "targets": changes.size()}
+	return {"ok": true, "message": "使用了 %s。" % item.name, "targets": changes.size(), "common_event": common_id}
 
 
 static func equip_reason(state: Node, actor_id: int, slot: int, equipment_id: int) -> String:

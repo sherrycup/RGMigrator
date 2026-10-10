@@ -205,7 +205,44 @@ func _test_converter_diagnostics() -> void:
 	_expect(converter.unsupported_commands.size() == 2, "unsupported routes and Ruby conditions must be reported")
 	_expect(converter.unsupported_commands[0]["command_index"] == 1, "diagnostic command numbers must be one-based")
 	converter._scan_command_list([{"code": 318, "parameters": [1, 0, 1]}, {"code": 207, "parameters": [-1, 1]}, {"code": 111, "parameters": [4, 1, 2, 1]}, {"code": 111, "parameters": [4, 1, 3, 1]}], "Map002", "8", 1)
-	_expect(converter.unsupported_commands.size() == 3 and converter.unsupported_commands.back().command_index == 4, "only learned-skill actor condition is newly supported")
+	_expect(converter.unsupported_commands.size() == 2, "all non-battle actor conditions are supported")
+	converter.unsupported_commands.clear()
+	converter._scan_command_list([{"code": 106, "parameters": [20]}, {"code": 116}, {"code": 106, "parameters": [1.5]}, {"code": 301}, {"code": 209, "parameters": [0, {"list": [{"code": 15}, {"code": 45}, {"code": 0}]}]}], "CommonEvents", "3", 1)
+	_expect(converter.unsupported_commands.size() == 5, "catalog supports wait/erase and scans unsupported nested routes")
+	_expect(converter.unsupported_commands[1].reason.contains("不在迁移范围"), "report explicitly excludes turn-based battle")
+	_expect(converter.unsupported_commands[-1].route_index == 2 and converter.unsupported_commands[-1].route_code == 45, "nested script location retains route command index")
+	converter.unsupported_commands.clear()
+	var native_wait := {"code": 15, "parameters": [20]}
+	var native_route := {"repeat": false, "skippable": true, "list": [native_wait, {"code": 0}]}
+	converter._scan_command_list([
+		{"code": 201, "parameters": [0, 1, 2, 3, 6, 1]},
+		{"code": 202, "parameters": [0, 2, -1, 0, 8]},
+		{"code": 208, "parameters": [0]},
+		{"code": 209, "parameters": [-1, native_route]},
+		{"code": 509, "parameters": [native_wait]},
+		{"code": 210, "parameters": []}
+	], "Map003", "9", 2)
+	_expect(converter.unsupported_commands.is_empty(), "native movement commands and509 display copies must not be reported as unsupported")
+	converter._scan_map_commands({"events": {"9": {"pages": [{"move_route": native_route, "list": []}]}}}, "Map003")
+	_expect(converter.unsupported_commands.is_empty(), "native autonomous page route must remain supported")
+	converter._scan_map_commands({"events": {"9": {"pages": [{"move_route": {"list": [{"code": 45, "parameters": ["Ruby"]}]}, "list": []}]}}}, "Map003")
+	_expect(converter.unsupported_commands.size() == 1 and converter.unsupported_commands[0].command_index == 0 and converter.unsupported_commands[0].route_index == 1, "autonomous Ruby exclusion must retain page route location")
+	converter._scan_command_list([{"code": 209, "parameters": {"bad": true}}], "Map004", "1", 1)
+	_expect(converter.unsupported_commands.size() == 2 and converter.unsupported_commands[-1].reason.contains("数组"), "non-array event parameters must produce a diagnostic without crashing")
+	var channels := PackedByteArray(); channels.resize(32)
+	for index in 4: channels.encode_double(index * 8, [20.0, 30.0, 40.0, 100.0][index])
+	var native_tone: Dictionary = converter._convert_value({"_rmxp_user_defined": "Tone", "payload": channels})
+	var native_color: Dictionary = converter._convert_value({"_rmxp_user_defined": "Color", "payload": channels})
+	_expect(native_tone.gray == 100 and native_color.alpha == 100 and not native_tone.has("alpha"), "native Marshal Tone and Color keep distinct fourth channels")
+	converter.unsupported_commands.clear()
+	converter._scan_command_list([
+		{"code": 221, "parameters": []}, {"code": 222, "parameters": [""]},
+		{"code": 223, "parameters": [native_tone, 20]}, {"code": 224, "parameters": [native_color, 20]},
+		{"code": 225, "parameters": [5, 4, 20]}, {"code": 231, "parameters": [1, "picture", 0, 0, 10, 20, 100, 100, 255, 0]},
+		{"code": 232, "parameters": [1, 20, 1, 1, 41, 42, 150, 100, 128, 2]}, {"code": 233, "parameters": [1, -2]},
+		{"code": 234, "parameters": [1, native_tone, 20]}, {"code": 235, "parameters": [1]}, {"code": 236, "parameters": [3, 9, 20]}
+	], "Map005", "3", 1)
+	_expect(converter.unsupported_commands.is_empty(), "all native screen commands including converted Tone/Color are supported in migration report")
 	converter._convert_value({"_rmxp_user_defined": "Table", "payload": PackedByteArray([0])})
 	_expect(not converter.errors.is_empty(), "invalid Table must become a migration error")
 

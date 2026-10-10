@@ -7,6 +7,10 @@ const Motion = preload("res://runtime/scripts/CharacterMotion.gd")
 const MapView = preload("res://runtime/scripts/MapViewState.gd")
 const Effects = preload("res://runtime/scripts/MapEffectsState.gd")
 const Countdown = preload("res://runtime/scripts/GameTimer.gd")
+const Settings = preload("res://runtime/scripts/SystemSettings.gd")
+const Audio = preload("res://runtime/scripts/AudioRuntime.gd")
+const Cache = preload("res://runtime/scripts/RmxpCache.gd")
+const Events = preload("res://runtime/scripts/EventPersistence.gd")
 const MAX_INTEGER := 9007199254740991
 
 
@@ -22,16 +26,25 @@ static func capture(state: Node) -> Dictionary:
 		actors.append(state.actors[id].persistent_data())
 	return {"map_id": state.map_id, "player_x": state.player_x, "player_y": state.player_y, "player_direction": state.player_direction,
 		"gold": state.gold, "steps": state.steps, "play_seconds": state.play_seconds, "party": state.party.duplicate(), "actors": actors,
+		"save_count": state.save_count, "message_position": state.message_position, "message_frame": state.message_frame,
 		"switches": state.switches.duplicate(true), "variables": state.variables.duplicate(true), "self_switches": state.self_switches.duplicate(true),
 		"inventory": state.inventory.duplicate(true), "save_disabled": state.save_disabled, "menu_disabled": state.menu_disabled,
+		"system_settings": state.system_settings.snapshot(), "audio": state.audio.persistent_snapshot(),
 		"testing": Data.testing_snapshot(), "screen": state.screen.snapshot(), "player_options": state.player_motion.options.duplicate(),
-		"map_view": state.map_view.snapshot(), "map_effects": state.map_effects.snapshot(), "timer": state.timer.snapshot()}
+		"map_view": state.map_view.snapshot(), "map_effects": state.map_effects.snapshot(), "timer": state.timer.snapshot(),
+		"event_state": state.game().capture_event_state() if state.game() != null else state.pending_event_state.duplicate(true),
+		"common_event_reservation": state.common_event_reservation.duplicate(true)}
 
 
 static func prepare(value: Variant) -> Dictionary:
 	if not value is Dictionary:
 		return fail("进度必须是对象。")
 	var saved: Dictionary = value.duplicate(true)
+	for field in ["save_count", "message_position", "message_frame"]:
+		var default_value := 2 if field == "message_position" else 0
+		var limit := MAX_INTEGER if field == "save_count" else (2 if field == "message_position" else 1)
+		if not integer(saved.get(field, default_value), 0, limit): return fail("%s 无效。" % field)
+		saved[field] = int(saved.get(field, default_value))
 	for field in ["map_id", "player_x", "player_y", "player_direction", "gold", "steps"]:
 		if not integer(saved.get(field)):
 			return fail("%s 必须为有效整数。" % field)
@@ -93,13 +106,13 @@ static func prepare(value: Variant) -> Dictionary:
 				if not integer(entry.parameter_plus.get(key), -Actor.Parameters.maximum(key), Actor.Parameters.maximum(key)):
 					return fail("Actors[%d].%s_plus 无效。" % [id, key])
 				entry.parameter_plus[key] = int(entry.parameter_plus[key])
-		for field in ["character_name", "character_hue"]:
+		for field in ["character_name", "character_hue", "battler_name", "battler_hue"]:
 			if not entry.has(field):
 				continue
-			if field == "character_name" and (not entry[field] is String or entry[field].length() > 1024):
-				return fail("Actors[%d].character_name 无效。" % id)
-			if field == "character_hue" and not integer(entry[field], 0, 360):
-				return fail("Actors[%d].character_hue 无效。" % id)
+			if field in ["character_name", "battler_name"] and (not entry[field] is String or entry[field].length() > 1024):
+				return fail("Actors[%d].%s 无效。" % [id, field])
+			if field in ["character_hue", "battler_hue"] and not integer(entry[field], 0, 360):
+				return fail("Actors[%d].%s 无效。" % [id, field])
 		var instance := Actor.new()
 		instance.configure(id, Data.source_record("Actors", id), lookup)
 		var reason := instance.restore_persistent(entry)
@@ -139,22 +152,47 @@ static func prepare(value: Variant) -> Dictionary:
 				if field == "variables":
 					saved.variables[key] = int(entry)
 	# Additive schema-1 field: old native saves default to an empty neutral screen.
+	var settings := Settings.decode(saved.get("system_settings", Settings.new().snapshot()))
+	if not settings.ok: return settings
+	var skin: Variant = settings.value.windowskin_override
+	if skin != null and not skin.is_empty():
+		var texture: Texture2D = Cache.windowskin(skin)
+		if texture == null or texture.get_width() != 192 or texture.get_height() != 128: return fail("存档的窗口皮肤缺失或尺寸错误。")
+	var audio := Audio.decode_persistent(saved.get("audio", {"playing": {}, "memory": {}, "fades": {}}))
+	if not audio.ok: return audio
+	saved.system_settings = settings.value.snapshot()
+	saved.audio = saved.get("audio", {"playing": {}, "memory": {}, "fades": {}}).duplicate(true)
 	var screen_value: Variant = saved.get("screen", Screen.new().snapshot())
 	var screen_result := Screen.decode(screen_value)
 	if not screen_result.ok: return fail(screen_result.message)
 	for entry in screen_value.pictures:
 		if entry.name.begins_with("@test_") and not saved.testing.enabled:
 			return fail("正式存档包含测试图片。")
-	saved.screen = screen_result.screen.snapshot()
 	var extensions := {}
 	for entry in [["map_view", MapView], ["map_effects", Effects], ["timer", Countdown]]:
 		var script: Script = entry[1]
 		var result: Dictionary = script.decode(saved.get(entry[0], script.new().snapshot()))
 		if not result.ok: return fail(result.message)
 		extensions[entry[0]] = result.value
+		if entry[0] == "map_effects" and result.get("legacy_weather") != null:
+			var legacy_weather: RefCounted = result.legacy_weather
+			if screen_value.has("weather") and screen_result.screen.weather_snapshot() != legacy_weather.snapshot(): return fail("屏幕与旧地图表现的天气字段冲突。")
+			screen_result.screen.weather_state = legacy_weather
+	saved.screen = screen_result.screen.snapshot()
+	saved.map_effects = extensions.map_effects.snapshot()
 	if int(extensions.map_effects.data.map_id) not in [0, saved.map_id]: return fail("地图表现所属地图与进度不一致。")
+	var events := Events.decode(saved.get("event_state", {}), map, lookup)
+	if not events.ok: return events
+	if not events.value.is_empty() and int(events.value.map_id) != int(saved.map_id): return fail("事件现场所属地图与进度不一致。")
+	if not events.value.is_empty() and (int(events.value.player.motion.cell[0]) != int(saved.player_x) or int(events.value.player.motion.cell[1]) != int(saved.player_y) or int(events.value.player.motion.direction) != int(saved.player_direction) or events.value.player.motion.options != saved.player_options): return fail("玩家与事件现场的人物记录冲突。")
+	var reservation: Variant = saved.get("common_event_reservation", {})
+	if not reservation is Dictionary: return fail("公共事件预约无效。")
+	if not reservation.is_empty():
+		if not integer(reservation.get("id"), 1) or lookup.call("CommonEvents", int(reservation.id)).is_empty() or not reservation.get("source") is String or not integer(reservation.get("actor_id"), 0) or not integer(reservation.get("target_id"), 0): return fail("公共事件预约引用无效。")
+	saved.event_state = events.value
+	saved.common_event_reservation = reservation.duplicate(true)
 	return {"ok": true, "state": saved, "actors": actors, "test_records": records, "screen": screen_result.screen,
-		"map_view": extensions.map_view, "map_effects": extensions.map_effects, "timer": extensions.timer}
+		"map_view": extensions.map_view, "map_effects": extensions.map_effects, "timer": extensions.timer, "system_settings": settings.value, "audio": audio}
 
 
 static func testing_records(value: Variant) -> Dictionary:

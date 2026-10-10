@@ -5,13 +5,52 @@ const Cache = preload("res://runtime/scripts/RmxpCache.gd")
 var content: Control
 var _cursor: Control
 var _elapsed := 0.0
+var _skin_root: Control
+var _skin_name := "\u0001"
+var _skin_overridden := false
 
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_theme_font_override("font", Resources.font())
 	add_theme_font_size_override("font_size", 20)
-	var skin_name := str(Resources.RuntimeData.system().get("windowskin_name", ""))
+	_skin_root = Control.new()
+	_skin_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_skin_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(_skin_root)
+	_apply_skin()
+	RuntimeState.system_settings_changed.connect(_refresh_skin)
+	content = Control.new()
+	content.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	content.offset_left = 16
+	content.offset_top = 16
+	content.offset_right = -16
+	content.offset_bottom = -16
+	content.clip_contents = true
+	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(content)
+	set_process(false)
+
+
+func _refresh_skin() -> void:
+	if _skin_name == RuntimeState.windowskin_name() and _skin_overridden == (RuntimeState.system_settings.windowskin_override != null): return
+	var area := Rect2(_cursor.position, _cursor.size)
+	var active := _cursor.visible
+	remove_child(_cursor)
+	_cursor.queue_free()
+	for child in _skin_root.get_children():
+		_skin_root.remove_child(child)
+		child.queue_free()
+	_apply_skin()
+	_cursor.position = area.position
+	_cursor.size = area.size
+	_cursor.visible = active
+	move_child(_cursor, 1)
+
+func _apply_skin() -> void:
+	var skin_name := RuntimeState.windowskin_name()
+	_skin_name = skin_name
+	_skin_overridden = RuntimeState.system_settings.windowskin_override != null
 	var skin := Cache.windowskin(skin_name)
 	if skin != null and skin.get_width() == 192 and skin.get_height() == 128:
 		var background := TextureRect.new()
@@ -24,12 +63,16 @@ func _ready() -> void:
 		background.offset_bottom = -2
 		background.modulate.a = 0.9
 		background.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		add_child(background)
+		_skin_root.add_child(background)
 		var border := _patch(Cache.region("Windowskins", skin_name, Rect2(128, 0, 64, 64)), 16)
 		border.draw_center = false
 		border.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		add_child(border)
+		_skin_root.add_child(border)
 		_cursor = _patch(Cache.region("Windowskins", skin_name, Rect2(128, 64, 32, 32)), 2)
+	elif skin_name.is_empty() and RuntimeState.system_settings.windowskin_override != null:
+		var cursor := ColorRect.new()
+		cursor.color = Color.TRANSPARENT
+		_cursor = cursor
 	else:
 		RuntimeState.report_diagnostic("System.windowskin_name：%s 缺失或不是 192×128 窗口皮肤；使用 Godot 简易样式，不载入 RTP。" % skin_name)
 		var panel := Panel.new()
@@ -41,23 +84,13 @@ func _ready() -> void:
 		panel.add_theme_stylebox_override("panel", style)
 		panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		add_child(panel)
+		_skin_root.add_child(panel)
 		var cursor := ColorRect.new()
 		cursor.color = Color("80a8d966")
 		_cursor = cursor
 	_cursor.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_cursor.visible = false
 	add_child(_cursor)
-	content = Control.new()
-	content.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	content.offset_left = 16
-	content.offset_top = 16
-	content.offset_right = -16
-	content.offset_bottom = -16
-	content.clip_contents = true
-	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(content)
-	set_process(false)
 
 
 func label(text: String, rectangle: Rect2, color: Color = Color.WHITE, font_size: int = 20) -> Label:

@@ -1,10 +1,13 @@
 class_name RmxpDataConverter
 extends RefCounted
 
+const EditorScripts = preload("res://templates/editor/addons/rgm_editor/EditorScriptAdapter.gd")
+
 const RmxpMarshalReader = preload("res://scripts/importer/RmxpMarshalReader.gd")
 const RmxpTableDecoder = preload("res://scripts/importer/RmxpTableDecoder.gd")
 const RmxpTextCodec = preload("res://scripts/importer/RmxpTextCodec.gd")
 const RAW_STRING_KEY := "_rmxp_raw_string"
+const EventCommands = preload("res://templates/runtime/scripts/EventCommandCatalog.gd")
 
 var _codec: RmxpTextCodec
 var _asset_index: Dictionary = {}
@@ -64,6 +67,7 @@ func convert(source_root: String, output_root: String, progress: Callable = Call
 			_write_json(output_data.path_join("map_infos.json"), converted)
 			manifest["map_infos"] = "map_infos.json"
 		elif filename.begins_with("Map"):
+			converted = EditorScripts.adapt_map(converted)
 			var map_name := filename.get_basename()
 			_write_json(output_data.path_join("maps").path_join("%s.json" % map_name), converted)
 			manifest["maps"].append(map_name)
@@ -75,12 +79,19 @@ func convert(source_root: String, output_root: String, progress: Callable = Call
 				_write_json(output_data.path_join("system.json"), converted)
 				manifest["system"] = "system.json"
 			else:
+				if output_name in ["CommonEvents", "CommonEvent"] and converted is Array: converted = EditorScripts.adapt_common(converted)
 				_write_json(output_data.path_join("database").path_join("%s.json" % output_name), converted)
 				manifest["database"].append(output_name)
-				if output_name == "CommonEvents" and converted is Array:
+				if output_name in ["CommonEvents", "CommonEvent"] and converted is Array:
 					for event in converted:
 						if event is Dictionary:
 							_scan_command_list(event.get("list", []), "公共事件", str(event.get("id", 0)), 0)
+				if output_name == "Troops" and converted is Array:
+					for troop in converted:
+						if not troop is Dictionary: continue
+						var pages: Array = troop.get("pages", [])
+						for index in pages.size():
+							_scan_command_list(pages[index].get("list", []), "敌群（回合制战斗不迁移）", str(troop.get("id", 0)), index + 1)
 		converted_files += 1
 	for missing in _missing_assets:
 		warnings.append("缺少非 RTP 素材或仍依赖 RTP：%s" % missing)
@@ -253,6 +264,7 @@ func _scan_map_commands(map: Variant, map_name: String) -> void:
 			if not (page is Dictionary):
 				continue
 			_scan_command_list(page.get("list", []), map_name, str(event_id), page_index + 1)
+			_scan_route(page.get("move_route", {}), map_name, str(event_id), page_index + 1, 0)
 
 
 func _scan_command_list(commands: Variant, map_name: String, event_id: String, page: int) -> void:
@@ -263,21 +275,33 @@ func _scan_command_list(commands: Variant, map_name: String, event_id: String, p
 		if not (command is Dictionary):
 			continue
 		var code := int(command.get("code", 0))
-		var supported := code in [0, 101, 401, 102, 103, 108, 408, 111, 112, 113, 115, 117, 118, 119, 121, 122, 123, 125, 126, 127, 128, 129, 134, 135, 201, 207, 235, 241, 245, 249, 250, 251, 302, 605, 318, 402, 403, 404, 411, 412, 413]
-		var parameters: Array = command.get("parameters", [])
-		if code == 111 and not parameters.is_empty() and int(parameters[0]) not in [0, 1, 2]:
-			supported = parameters.size() >= 4 and int(parameters[0]) == 4 and int(parameters[2]) == 2
-		if code == 122 and parameters.size() > 3 and int(parameters[3]) not in [0, 1, 2]:
-			supported = false
-		if not supported:
+		var raw: Variant = command.get("parameters", [])
+		var parameters: Array = raw if raw is Array else []
+		var reason := EventCommands.reason(code, parameters) if raw is Array else "事件参数不是数组"
+		if not reason.is_empty():
 			unsupported_commands.append({
 				"map": map_name,
 				"event_id": event_id,
 				"page": page,
 				"command_index": command_index + 1,
 				"code": code,
-				"reason": _unsupported_reason(code)
+				"reason": reason
 			})
+		if code == 209 and parameters.size() > 1: _scan_route(parameters[1], map_name, event_id, page, command_index + 1)
+
+
+func _scan_route(route: Variant, map_name: String, event_id: String, page: int, command_index: int) -> void:
+	if not route is Dictionary: return
+	var raw: Variant = route.get("list", [])
+	if not raw is Array: return
+	var commands: Array = raw
+	for index in commands.size():
+		if not commands[index] is Dictionary: continue
+		var code := int(commands[index].get("code", 0))
+		var p: Variant = commands[index].get("parameters", [])
+		var reason := EventCommands.route_reason(code, p) if p is Array else "路线参数不是数组"
+		if reason.is_empty(): continue
+		unsupported_commands.append({"map": map_name, "event_id": event_id, "page": page, "command_index": command_index, "code": 209, "route_index": index + 1, "route_code": code, "reason": reason})
 
 
 func _unsupported_reason(code: int) -> String:

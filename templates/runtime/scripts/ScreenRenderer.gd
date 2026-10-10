@@ -51,7 +51,7 @@ func full_rect(parent: Node) -> ColorRect:
 
 
 func _process(delta: float) -> void:
-	if RuntimeState.playing and not get_tree().paused: RuntimeState.screen.advance(delta)
+	if RuntimeState.playing and not RuntimeState.map_time_paused(): RuntimeState.screen.advance(delta)
 	sync()
 
 

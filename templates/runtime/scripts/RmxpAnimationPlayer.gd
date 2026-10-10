@@ -60,6 +60,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if RuntimeState.game() != null and get_parent() == RuntimeState.game().event_map() and RuntimeState.map_time_paused(): return
 	advance(delta)
 
 

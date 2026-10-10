@@ -44,6 +44,7 @@ func run() -> void:
 	state.inventory["item:%d" % int(setup.stock[0].id)] = 2
 	actor.forget_skill(int(setup.toggle_skill_id))
 	var expected: Dictionary = codec.capture(state)
+	expected.save_count += 1
 	var first_save: Dictionary = saves.save_slot(1, state)
 	if not first_save.ok: printerr("SAVE REASON: ", first_save.message)
 	expect(first_save.ok, "save actual source actor, equipment and testing overlay")
@@ -122,6 +123,11 @@ func run() -> void:
 	# Actual menu -> slot confirmation -> title -> load -> Game route.
 	state.begin_new_game(system)
 	state.actor(int(state.party[0])).hp = 3
+	# Schema-1 save UI requires a quiet map. Always-running source parallels
+	# now correctly forbid saving; EventTests verifies that explicit gate.
+	var quiet_map: Dictionary = data.map(int(system.start_map_id)).duplicate(true)
+	quiet_map.events = {}
+	data._cache["res://data/maps/Map%03d.json" % int(system.start_map_id)] = quiet_map
 	var game: Node = load("res://scenes/Game.tscn").instantiate()
 	state.resume_from_save = true
 	root.add_child(game)

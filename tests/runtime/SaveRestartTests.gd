@@ -18,9 +18,15 @@ func run() -> void:
 	var saves: Script = load("res://runtime/scripts/SaveService.gd")
 	var data: Script = load("res://runtime/scripts/RuntimeData.gd")
 	var state: Node = root.get_node("RuntimeState")
+	restart_audio_fixture(data, mode)
 	saves.directory_override = directory
 	if mode == "write":
 		state.begin_new_game(data.system())
+		state.set_windowskin("@restart_skin")
+		state.audio.play("BGM", {"name": "@restart_audio", "volume": 80, "pitch": 120}, 2.5)
+		state.audio.memorize()
+		state.audio.fade_out("BGM", 4)
+		state.audio._process(1)
 		state.gold = 4567
 		state.steps = 89
 		state.play_seconds = 987.5
@@ -36,6 +42,7 @@ func run() -> void:
 			printerr("FAIL: restart actor mutation preparation")
 			quit(1)
 			return
+		actor.set_event_graphic(actor.character_name, 120, "跨进程战斗元数据", 180)
 		var skill := int(data.test_config().toggle_skill_id)
 		state.change_skill(int(state.party[0]), skill, false)
 		state.inventory["item:%d" % int(data.test_config().stock[0].id)] = 1
@@ -48,7 +55,8 @@ func run() -> void:
 		state.screen.start_shake(10, 1, 2)
 		state.screen.advance(0.5)
 		state.configure_map_view({"view_rect": [160, 0, 480, 480], "follow_center": [180, 192]})
-		state.map_effects.weather(3, 8, 2)
+		state.screen.weather(3, 8, 2)
+		state.screen.weather_state.advance(0.5)
 		state.map_effects.fade_fog(20, 2)
 		state.map_effects.advance(0.5)
 		state.timer.start(12)
@@ -65,6 +73,10 @@ func run() -> void:
 			printerr("FAIL: process restart did not restore saved counters")
 			quit(1)
 			return
+		if state.windowskin_name() != "@restart_skin" or not state.audio.channels.has("BGM") or not state.audio.memory.has("BGM") or not state.audio.fades.has("BGM") or state.audio.fades.BGM.remaining != 3 or state.audio.channels.BGM.get_playback_position() < 2.4:
+			printerr("FAIL: restart lost system skin/audio position/memory/fade")
+			quit(1)
+			return
 		var actor: RefCounted = state.actor(int(state.party[0]))
 		if state.player_motion.options.move_speed != 5 or not state.player_motion.options.step_anime or not state.player_motion.options.direction_fix or state.player_motion.options.opacity != 180 or state.player_motion.options.blend_type != 1 or not state.player_motion.is_idle():
 			printerr("FAIL: process restart lost player options or restored an unfinished move")
@@ -74,12 +86,12 @@ func run() -> void:
 			printerr("FAIL: process restart reinitialized actor or supplied testing stock")
 			quit(1)
 			return
-		if actor.atk_plus != 7 or actor.str_plus != -10 or actor.actor_name != "重启测试角色" or actor.character_hue != 120:
+		if actor.atk_plus != 7 or actor.str_plus != -10 or actor.actor_name != "重启测试角色" or actor.character_hue != 120 or actor.battler_name != "跨进程战斗元数据" or actor.battler_hue != 180:
 			printerr("FAIL: process restart lost permanent bonuses or actor identity")
 			quit(1)
 			return
 		var picture: RefCounted = state.screen.picture(7)
-		if state.map_view.options.follow_center != [180.0, 192.0] or state.map_view.options.view_rect != [160.0, 0.0, 480.0, 480.0] or state.map_effects.data.weather_type != 3 or state.map_effects.data.weather_remaining != 1.5 or state.timer.remaining != 11.5:
+		if state.map_view.options.follow_center != [180.0, 192.0] or state.map_view.options.view_rect != [160.0, 0.0, 480.0, 480.0] or state.screen.weather_snapshot().weather_type != 3 or state.screen.weather_snapshot().weather_remaining != 1.5 or state.timer.remaining != 11.5:
 			printerr("FAIL: restart lost map view, weather/fog or countdown")
 			quit(1)
 			return
@@ -100,9 +112,31 @@ func run() -> void:
 			printerr("FAIL: restarted Game did not restore direction or replayed startup event")
 			quit(1)
 			return
+		if not state.audio.channels.has("BGM") or not state.audio.fades.has("BGM") or state.audio.channels.BGM.get_playback_position() < 2.4:
+			printerr("FAIL: map autoplay replaced restored audio")
+			quit(1)
+			return
 		game.queue_free()
 		current_scene = null
 		await process_frame
 		await create_timer(0.2).timeout
+	state.audio.stop_all()
+	for step in 3: await process_frame
+	await create_timer(0.2).timeout
 	print("SAVE RESTART TESTS: PASSED / ", mode)
 	quit(0)
+
+func restart_audio_fixture(data: Script, mode: String) -> void:
+	var skin_path := "res://.godot/restart-skin.tres"
+	var audio_path := "res://.godot/restart-audio.tres"
+	if mode == "write":
+		var image := Image.create(192, 128, false, Image.FORMAT_RGBA8)
+		image.fill(Color("408060"))
+		ResourceSaver.save(ImageTexture.create_from_image(image), skin_path)
+		var wav := AudioStreamWAV.new()
+		wav.format = AudioStreamWAV.FORMAT_16_BITS; wav.mix_rate = 11025
+		var bytes := PackedByteArray(); bytes.resize(11025 * 12 * 2); wav.data = bytes
+		ResourceSaver.save(wav, audio_path)
+	var index: Dictionary = data.read_json("res://data/asset_index.json")
+	index["Graphics/Windowskins/@restart_skin"] = skin_path
+	index["Audio/BGM/@restart_audio"] = audio_path

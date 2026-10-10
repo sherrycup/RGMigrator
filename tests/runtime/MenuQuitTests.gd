@@ -14,6 +14,10 @@ func run_suite() -> void:
 	title.call("_on_new_game")
 	for _frame in 4:
 		await process_frame
+	# Exit is verified independently of the source opening story.
+	current_scene.call("reset_event_execution")
+	root.get_node("RuntimeState").menu_disabled = false
+	await process_frame
 	var dialogue: Node = current_scene.get("_dialogue")
 	if dialogue.call("is_open"):
 		for child in dialogue.get("_content").get_children():

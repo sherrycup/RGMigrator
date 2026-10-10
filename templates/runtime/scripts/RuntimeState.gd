@@ -2,6 +2,7 @@ extends Node
 
 const ActorState = preload("res://runtime/scripts/ActorState.gd")
 const RuntimeData = preload("res://runtime/scripts/RuntimeData.gd")
+const ActorEvents = preload("res://runtime/scripts/ActorEventService.gd")
 const InventoryService = preload("res://runtime/scripts/InventoryService.gd")
 const ShopService = preload("res://runtime/scripts/ShopService.gd")
 const ScreenState = preload("res://runtime/scripts/ScreenState.gd")
@@ -9,9 +10,13 @@ const Cache = preload("res://runtime/scripts/RmxpCache.gd")
 const CharacterMotion = preload("res://runtime/scripts/CharacterMotion.gd")
 const MapView = preload("res://runtime/scripts/MapViewState.gd")
 const MapEffects = preload("res://runtime/scripts/MapEffectsState.gd")
+const Settings = preload("res://runtime/scripts/SystemSettings.gd")
 const Countdown = preload("res://runtime/scripts/GameTimer.gd")
 const AudioService = preload("res://runtime/scripts/AudioRuntime.gd")
+signal system_settings_changed
 signal state_changed
+signal event_state_changed(kind: String, key: String)
+signal execution_reset
 signal diagnostic_added(message: String)
 
 var switches: Dictionary = {}
@@ -19,6 +24,9 @@ var variables: Dictionary = {}
 var self_switches: Dictionary = {}
 var inventory: Dictionary = {}
 var gold := 0
+var save_count := 0
+var message_position := 2
+var message_frame := 0
 var party: Array = []
 var map_id := 1
 var player_motion: RefCounted = CharacterMotion.new()
@@ -33,6 +41,8 @@ var player_direction: int:
 	get: return player_motion.direction
 	set(value): player_motion.turn(value, true)
 var resume_from_save := false
+var pending_event_state: Dictionary = {}
+var common_event_reservation: Dictionary = {}
 var save_disabled := false
 var menu_disabled := false
 var actors: Dictionary = {}
@@ -43,6 +53,7 @@ var playing := false
 var testing_enabled := false
 var _clock_second := 0
 var _quitting := false
+var system_settings: RefCounted = Settings.new()
 var screen: RefCounted = ScreenState.new()
 var map_view: RefCounted = MapView.new()
 var map_effects: RefCounted = MapEffects.new()
@@ -84,7 +95,42 @@ func _process(delta: float) -> void:
 			state_changed.emit()
 
 
+func set_event_switch(id: int, value: bool) -> bool:
+	if id <= 0: return false
+	var key := str(id)
+	if bool(switches.get(key, false)) == value: return true
+	switches[key] = value
+	event_state_changed.emit("switch", key)
+	state_changed.emit()
+	return true
+
+
+func set_event_variable(id: int, value: int) -> bool:
+	if id <= 0: return false
+	var key := str(id)
+	if int(variables.get(key, 0)) == value: return true
+	variables[key] = value
+	event_state_changed.emit("variable", key)
+	state_changed.emit()
+	return true
+
+
+func set_event_self_switch(map: int, event: int, letter: String, value: bool) -> bool:
+	if event <= 0 or letter not in ["A", "B", "C", "D"]: return false
+	var key := self_switch_key(map, event, letter)
+	if bool(self_switches.get(key, false)) == value: return true
+	self_switches[key] = value
+	event_state_changed.emit("self", key)
+	state_changed.emit()
+	return true
+
+
 func begin_new_game(system: Dictionary, testing_override: Dictionary = {}) -> void:
+	execution_reset.emit()
+	pending_event_state.clear()
+	common_event_reservation.clear()
+	system_settings = Settings.new()
+	system_settings_changed.emit()
 	screen = ScreenState.new()
 	map_view = MapView.new()
 	var configured: Dictionary = map_view.configure({"view_rect": ProjectSettings.get_setting("rgmigrator/map_view_rect", []), "follow_center": ProjectSettings.get_setting("rgmigrator/map_follow_center", [])})
@@ -108,6 +154,9 @@ func begin_new_game(system: Dictionary, testing_override: Dictionary = {}) -> vo
 	self_switches.clear()
 	inventory.clear()
 	gold = 0
+	save_count = 0
+	message_position = 2
+	message_frame = 0
 	# JSON numbers are floats. Runtime IDs must be ints for Array.has/erase.
 	party = []
 	for raw_id in system.get("party_members", []):
@@ -130,6 +179,21 @@ func begin_new_game(system: Dictionary, testing_override: Dictionary = {}) -> vo
 
 func inventory_entries() -> Array[Dictionary]:
 	return InventoryService.entries(self)
+
+func common_event_reason(id: int) -> String:
+	if id <= 0 or RuntimeData.record("CommonEvents", id).is_empty(): return "公共事件%d不存在。" % id
+	if game() == null or not playing: return "公共事件使用需要当前地图场景。"
+	if not common_event_reservation.is_empty(): return "已有公共事件等待执行，请先返回地图。"
+	return ""
+
+func reserve_common_event(id: int, source: String = "", actor_id: int = 0, target_id: int = 0) -> Dictionary:
+	var reason := common_event_reason(id)
+	if not reason.is_empty(): return {"ok": false, "message": reason}
+	common_event_reservation = {"id": id, "source": source, "actor_id": actor_id, "target_id": target_id}
+	return {"ok": true, "common_event": id}
+
+func use_skill(actor_id: int, skill_id: int, target_id: int = 0) -> Dictionary:
+	return preload("res://runtime/scripts/CommonEventUse.gd").use_skill(self, actor_id, skill_id, target_id)
 
 
 func change_skill(actor_id: int, skill_id: int, learning: bool) -> Dictionary:
@@ -213,6 +277,9 @@ func _actor_call(actor_id: int, method: String, arguments: Array) -> Dictionary:
 		report_diagnostic("Actors[%d]：%s" % [actor_id, result.message])
 	return result
 
+
+func apply_actor_event(code: int, parameters: Array) -> Dictionary:
+	return ActorEvents.execute(self, code, parameters)
 
 func change_actor_parameter(actor_id: int, key: String, amount: Variant) -> Dictionary:
 	return _actor_call(actor_id, "add_parameter_plus", [key, amount])
@@ -454,6 +521,21 @@ func game() -> Node:
 	if instance == null or not instance.is_inside_tree() or instance.is_queued_for_deletion(): return null
 	return instance
 
+func map_time_paused() -> bool:
+	return get_tree().paused or (game() != null and (game().event_screen_transition_active() or game().event_scene_transition_active()))
+
+func windowskin_name() -> String: return system_settings.windowskin_name()
+
+func set_windowskin(name_value: String) -> Dictionary:
+	var parsed := Settings.decode({"windowskin_name": name_value})
+	if not parsed.ok: return parsed
+	if not name_value.is_empty():
+		var skin: Texture2D = Cache.windowskin(name_value)
+		if skin == null or skin.get_width() != 192 or skin.get_height() != 128: return {"ok": false, "message": "Windowskins/%s 缺失或不是192×128；原皮肤保持。" % name_value}
+	system_settings = parsed.value
+	system_settings_changed.emit()
+	return {"ok": true}
+
 func configure_map_view(changes: Dictionary) -> Dictionary:
 	var result: Dictionary = map_view.configure(changes)
 	if result.ok and game() != null: game()._camera.sync(0)
@@ -470,6 +552,10 @@ func scroll_map(direction: int, tiles: Variant, seconds: Variant = 0.0) -> Dicti
 	if game() == null: return {"ok": false, "message": "当前没有地图。"}
 	return game()._camera.scroll(direction, tiles, seconds)
 
+func scroll_map_native(direction: int, tiles: int, speed: int) -> Dictionary:
+	if game() == null: return {"ok": false, "message": "当前没有地图。"}
+	return game().scroll_event_map(direction, tiles, speed)
+
 func resume_map_follow() -> void: map_view.resume_follow()
 
 func fade_screen(opacity: Variant, seconds: Variant = 0.0) -> Dictionary:
@@ -485,21 +571,27 @@ func transition_screen(seconds: Variant = 0.2, name_value: String = "", vague: V
 	return game()._transition.transition(seconds, name_value, vague)
 
 func cancel_screen_transition() -> void:
-	if game() != null: game()._transition.cancel()
+	if game() != null:
+		game().cancel_event_transfer()
+		game().cancel_event_screen_transition()
 
 
 func self_switch_key(map_value: int, event_id: int, letter: String) -> String:
 	return "%d:%d:%s" % [map_value, event_id, letter]
 
 
-func restore_prepared(prepared: Dictionary) -> void:
+func restore_prepared(prepared: Dictionary, preserve_audio: bool = false) -> void:
+	execution_reset.emit()
 	screen = prepared.screen
 	map_view = prepared.map_view
 	map_effects = prepared.map_effects
 	timer = prepared.timer
-	if audio != null: audio.stop_all()
+	system_settings = prepared.system_settings
+	if audio != null and not preserve_audio: audio.restore_prepared(prepared.audio)
 	# SaveCodec has validated every field and built detached actors before commit.
 	var saved: Dictionary = prepared.state
+	pending_event_state = saved.get("event_state", {}).duplicate(true)
+	common_event_reservation = saved.get("common_event_reservation", {}).duplicate(true)
 	player_motion.reset()
 	player_motion.configure(saved.player_options)
 	RuntimeData.install_testing(saved.testing.enabled, prepared.test_records)
@@ -509,7 +601,7 @@ func restore_prepared(prepared: Dictionary) -> void:
 		instance.changed.connect(func() -> void: state_changed.emit())
 	for field in ["switches", "variables", "self_switches", "inventory", "party"]:
 		set(field, saved[field].duplicate(true))
-	for field in ["gold", "map_id", "player_x", "player_y", "player_direction", "steps"]:
+	for field in ["gold", "map_id", "player_x", "player_y", "player_direction", "steps", "save_count", "message_position", "message_frame"]:
 		set(field, int(saved[field]))
 	play_seconds = float(saved.play_seconds)
 	_clock_second = int(play_seconds)
@@ -518,4 +610,6 @@ func restore_prepared(prepared: Dictionary) -> void:
 	diagnostics.clear()
 	playing = true
 	resume_from_save = true
+	system_settings_changed.emit()
 	state_changed.emit()
+	if not preserve_audio and game() != null and not pending_event_state.is_empty(): game().restore_event_state()

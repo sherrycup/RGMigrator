@@ -41,7 +41,7 @@ func freeze_screen() -> Dictionary:
 	var generation := _generation
 	await RenderingServer.frame_post_draw
 	if not is_inside_tree() or generation != _generation:
-		busy = false
+		# Cancellation or a newer capture owns the state now.
 		return P.fail("场景已关闭。")
 	frozen = ImageTexture.create_from_image(get_viewport().get_texture().get_image())
 	busy = false

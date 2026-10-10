@@ -195,6 +195,11 @@ func test_real_interface() -> void:
 		system.start_map_id = 585
 		system.start_x = 13
 		system.start_y = 6
+	# Exercise actor UI over the real map graphics; source Ruby-dependent
+	# parallel stories are covered separately by EventTests and source rendering.
+	var quiet_map: Dictionary = data.map(int(system.start_map_id)).duplicate(true)
+	quiet_map.events = {}
+	data._cache["res://data/maps/Map%03d.json" % int(system.start_map_id)] = quiet_map
 	state.begin_new_game(system)
 	state.resume_from_save = true
 	var actor_id := int(state.party[0])

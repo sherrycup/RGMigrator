@@ -40,10 +40,14 @@ static func fingerprint() -> String:
 
 
 static func save_slot(slot: int, state: Node) -> Dictionary:
-	if slot < 1 or slot > SLOT_COUNT or state.save_disabled or not state.playing:
+	var game: Node = state.game()
+	if slot < 1 or slot > SLOT_COUNT or (state.save_disabled and (game == null or not game.event_save_override())) or not state.playing:
 		return fail("槽位无效或当前禁止存档。")
 	if not state.player_motion.is_idle(): return fail("人物正在行走或跳跃，请等待到达完整格后存档。")
+	if game != null and not game.event_save_reason().is_empty(): return fail(game.event_save_reason())
 	var snapshot := Codec.capture(state)
+	if state.save_count >= Codec.MAX_INTEGER: return fail("存档次数超出可保存范围。")
+	snapshot.save_count = state.save_count + 1
 	var prepared := Codec.prepare(snapshot)
 	if not prepared.ok:
 		return prepared
@@ -86,6 +90,8 @@ static func save_slot(slot: int, state: Node) -> Dictionary:
 	# Same-directory rename; never delete the primary before replacing it.
 	if DirAccess.rename_absolute(temporary, path) != OK:
 		return fail("替换存档失败；原件或备份仍可恢复。")
+	state.save_count = snapshot.save_count
+	state.state_changed.emit()
 	return {"ok": true, "message": "已保存至存档 %d。" % slot, "path": ProjectSettings.globalize_path(path)}
 
 

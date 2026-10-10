@@ -2,6 +2,7 @@ extends Control
 ## Retained item/equipment view. Transactions live in RuntimeState/InventoryService.
 signal back_requested
 signal sound_requested(key: String)
+signal common_event_requested
 const WindowBase = preload("res://runtime/scripts/WindowBase.gd")
 const WindowSelectable = preload("res://runtime/scripts/WindowSelectable.gd")
 const Resources = preload("res://runtime/scripts/UIResources.gd")
@@ -206,11 +207,19 @@ func activate() -> void:
 			message = "请在装备菜单中使用武器或防具。" if entry.kind != "item" else Service.item_reason(entry.id)
 			if message.is_empty():
 				active_item_id = entry.id
+				var item := Data.record("Items", entry.id)
+				if int(item.get("scope", 0)) in [0, 1, 2]:
+					var result: Dictionary = RuntimeState.use_item(active_item_id, 0)
+					message = result.message
+					sound_requested.emit("decision_se" if result.ok else "buzzer_se")
+					if result.ok and int(result.get("common_event", 0)) > 0: common_event_requested.emit(); return
+					refresh(); return
 				page = "target"
 		"target":
 			var result := RuntimeState.use_item(active_item_id, int(_targets[target_index].id))
 			message = result.message
 			sound_requested.emit("decision_se" if result.ok else "buzzer_se")
+			if result.ok and int(result.get("common_event", 0)) > 0: common_event_requested.emit(); return
 			refresh()
 			return
 		"slots":

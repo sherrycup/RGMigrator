@@ -1,5 +1,6 @@
 extends Control
 signal close_requested
+signal event_test_requested
 signal title_requested
 signal quit_requested
 signal sound_requested(key: String)
@@ -103,6 +104,7 @@ func _layout() -> void:
 	elif page in ["inventory", "equipment", "skills", "save", "shop", "state_tools", "actor_tools", "test_tools", "screen_tools", "movement_tools", "presentation_tools"]:
 		var script: Script = {"shop": ShopScene, "state_tools": StateTools, "save": SaveSlots, "skills": SkillScene, "actor_tools": ActorTools, "test_tools": TestTools, "screen_tools": ScreenTools, "movement_tools": MovementTools, "presentation_tools": PresentationTools}.get(page, InventoryScene)
 		_commerce = script.new()
+		if page in ["inventory", "skills"]: _commerce.common_event_requested.connect(func() -> void: close_requested.emit())
 		if page == "test_tools":
 			_commerce.tool_requested.connect(_push)
 		if page == "save":
@@ -320,6 +322,9 @@ func handle_back() -> void:
 
 
 func _push(next_page: String) -> void:
+	if next_page == "event_tools":
+		event_test_requested.emit()
+		return
 	scene_stack.append(next_page)
 	page = next_page
 	_layout()

@@ -51,13 +51,14 @@ func run() -> void:
 	var hp: int = actor.hp
 	var sp: int = actor.sp
 	expect(not actor.has_state(1) and actor.add_state(1).changed and actor.has_state(1), "add_state / has_state")
-	expect(actor.hp == hp and actor.sp == sp and not actor.has_state(2), "zero_hp/slip/plus_state_set are data only; no trigger rules")
-	expect(not actor.add_state(1).changed and actor.get_state_ids(false) == [1], "duplicate state add is idempotent")
+	expect(hp > 0 and actor.hp == 0 and actor.sp == sp and actor.has_state(2), "zero_hp and plus links execute; slip damage has no turn-based ticking")
+	expect(not actor.add_state(1).changed and actor.get_state_ids(false) == [1, 2], "duplicate state add is idempotent")
 	var copy: Array = actor.get_state_ids()
 	copy.clear()
-	expect(actor.get_state_ids() == [1], "state queries return detached sorted IDs")
+	expect(actor.get_state_ids() == [1, 2], "state queries return detached sorted IDs")
 	expect(not actor.add_state(999).ok and not actor.remove_state(0).ok, "bad state references rejected")
 	actor.equipment[1] = 1
+	actor.remove_state(2)
 	expect(actor.has_state(2) and actor.get_state_ids() == [1, 2] and actor.get_state_ids(false) == [1], "equipment source included only in effective queries")
 	actor.add_state(2)
 	expect(actor.remove_state(2).changed and actor.has_state(2), "removing ordinary source preserves equipment source")

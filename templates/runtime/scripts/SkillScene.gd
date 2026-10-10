@@ -1,7 +1,8 @@
 extends Control
-## Read-only production list. Debug controls exist only with testing enabled.
+## Learned skills and native common-event use; debug animation previews separate.
 signal back_requested
 signal sound_requested(key: String)
+signal common_event_requested
 const BaseWindow = preload("res://runtime/scripts/WindowBase.gd")
 const Selectable = preload("res://runtime/scripts/WindowSelectable.gd")
 const Resources = preload("res://runtime/scripts/UIResources.gd")
@@ -21,6 +22,8 @@ var _target: ColorRect
 var _selection_id := 0
 var _lab: Control
 var _scroll_row := 0
+var _target_selection: Control
+var _target_ids: Array[int] = []
 
 
 func _ready() -> void:
@@ -46,7 +49,7 @@ func refresh() -> void:
 	add_child(_panel)
 	var skill := Data.record("Skills", _selection_id)
 	var header := _window(BaseWindow, Rect2(0, 0, size.x, 116))
-	header.label("%s · 已学特技（只读）" % RuntimeState.actor(actor_id).actor_name, Rect2(0, 0, size.x - 32, 28), Color("c0e0ff"))
+	header.label("%s · 已学特技" % RuntimeState.actor(actor_id).actor_name, Rect2(0, 0, size.x - 32, 28), Color("c0e0ff"))
 	var description: Label = header.label(str(skill.get("description", "没有已学特技。")), Rect2(0, 30, size.x - 32, 68), Color.WHITE, 16)
 	description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	var footer_height := 128.0 if RuntimeState.testing_enabled else 64.0
@@ -69,7 +72,8 @@ func refresh() -> void:
 		_list.label(prefix + str(entry.get("name", "缺失特技")), Rect2(36, y, size.x - 180, 40))
 		_list.label("SP %d" % int(entry.get("sp_cost", 0)), Rect2(size.x - 140, y, 100, 40), Color("b4bed1"), 16)
 	var footer := _window(BaseWindow, Rect2(0, size.y - footer_height, size.x, footer_height))
-	_hint = footer.label("仅查看，不执行效果或扣 SP；Esc/X 返回。", Rect2(0, 0, size.x - 32, 28), Color("ffe9a8"), 15)
+	var reason := preload("res://runtime/scripts/CommonEventUse.gd").skill_reason(RuntimeState, actor_id, _selection_id) if _selection_id > 0 else "没有已学特技。"
+	_hint = footer.label("确认使用，返回地图执行公共事件；Esc/X 返回。" if reason.is_empty() else reason, Rect2(0, 0, size.x - 32, 28), Color("ffe9a8"), 15)
 	if RuntimeState.testing_enabled:
 		var actions := HBoxContainer.new()
 		actions.position = Vector2(0, 32)
@@ -96,6 +100,10 @@ func _window(script: Script, rectangle: Rect2) -> Control:
 
 
 func navigate(direction: int) -> void:
+	if is_instance_valid(_target_selection):
+		_target_selection.move_selection(direction)
+		sound_requested.emit("cursor_se")
+		return
 	if is_instance_valid(_lab):
 		_lab.navigate(direction)
 		return
@@ -110,10 +118,43 @@ func activate() -> void:
 	if is_instance_valid(_lab):
 		_lab.activate()
 		return
-	_hint.text = "此页只查看特技；动画预览不代表施放技能。"
+	if is_instance_valid(_target_selection):
+		_use_skill(_target_ids[_target_selection.index])
+		return
+	var reason := preload("res://runtime/scripts/CommonEventUse.gd").skill_reason(RuntimeState, actor_id, _selection_id)
+	if not reason.is_empty():
+		_hint.text = reason
+		sound_requested.emit("buzzer_se")
+		return
+	var skill := Data.record("Skills", _selection_id)
+	if int(skill.get("scope", 0)) != 3:
+		_use_skill(actor_id if int(skill.get("scope", 0)) == 7 else 0)
+		return
+	_target_ids.clear()
+	var entries: Array = []
+	for view in RuntimeState.party_snapshots():
+		_target_ids.append(int(view.id))
+		entries.append({"text": "%s  HP %d/%d" % [view.name, view.hp, view.parameters.maxhp], "enabled": int(view.hp) > 0})
+	_target_selection = preload("res://runtime/scripts/WindowCommand.gd").new()
+	_target_selection.position = Vector2(24, 140); _target_selection.size = Vector2(size.x - 48, maxi(80, entries.size() * 40 + 32))
+	add_child(_target_selection)
+	_target_selection.configure(entries, 0)
+	_panel.hide()
+
+func _use_skill(target_id: int) -> void:
+	var result: Dictionary = RuntimeState.use_skill(actor_id, _selection_id, target_id)
+	sound_requested.emit("decision_se" if result.ok else "buzzer_se")
+	if result.ok: common_event_requested.emit()
+	else:
+		_hint.text = result.message
+		if is_instance_valid(_target_selection):
+			_target_selection.queue_free(); _target_selection = null; _panel.show()
 
 
 func back() -> void:
+	if is_instance_valid(_target_selection):
+		_target_selection.queue_free(); _target_selection = null; _panel.show()
+		return
 	if is_instance_valid(_lab):
 		_lab.back()
 		return

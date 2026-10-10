@@ -16,7 +16,7 @@ func _init() -> void:
 	expect(str(ProjectSettings.get_setting("application/config/name")) == Version.DISPLAY_NAME, "migrator project title matches source")
 	expect(FileAccess.get_file_as_string("res://README.md").begins_with("# " + Version.DISPLAY_NAME), "README current version matches source")
 	var files: Array[String] = ["scripts/Main.gd", "scripts/Version.gd"]
-	for directory in ["templates/runtime/scripts", "scripts/importer"]:
+	for directory in ["templates/runtime/scripts", "scripts/importer", "templates/editor/addons/rgm_editor"]:
 		for filename in DirAccess.get_files_at("res://" + directory):
 			if filename.ends_with(".gd"): files.append(directory.path_join(filename))
 	files.sort()
@@ -28,7 +28,7 @@ func _init() -> void:
 	headings.compile("(?m)^### ([A-Za-z0-9_]+\\.gd)$")
 	expect(headings.search_all(doc).size() == files.size(), "no stale or undocumented script headings")
 	expect(doc.contains("全部%d个生产脚本" % files.size()), "declared script count matches scanned files")
-	expect(doc.contains("不存在 ScreenState.weather()"), "weather ownership gap remains explicit")
+	expect(doc.contains("天气唯一状态由ScreenState持有") and FileAccess.get_file_as_string("res://templates/runtime/scripts/ScreenState.gd").contains("func weather("), "weather ownership matches screen implementation")
 	check_generated_version()
 	for message in failures: printerr("FAIL: ", message)
 	print("DOCUMENTATION TESTS: ", "PASSED" if failures.is_empty() else "FAILED", " / ", checks,

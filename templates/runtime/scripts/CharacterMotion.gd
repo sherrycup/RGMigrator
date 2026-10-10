@@ -92,8 +92,28 @@ func begin_move(value: int) -> bool:
 	return true
 
 
+func begin_diagonal(offset: Vector2i) -> bool:
+	if not is_idle() or absi(offset.x) != 1 or absi(offset.y) != 1: return false
+	turn_diagonal(offset)
+	_start = visual_cell
+	target = cell + offset
+	# RM advances each axis at its cardinal speed, rather than normalizing diagonals.
+	_duration = 32.0 / pixels_per_second()
+	_elapsed = 0
+	_idle_seconds = 0
+	_kind = "walk"
+	return true
+
+
+func turn_diagonal(offset: Vector2i) -> bool:
+	if absi(offset.x) != 1 or absi(offset.y) != 1: return false
+	if direction == (4 if offset.x > 0 else 6): return turn(6 if offset.x > 0 else 4)
+	if direction == (8 if offset.y > 0 else 2): return turn(2 if offset.y > 0 else 8)
+	return false
+
+
 func begin_jump(offset: Vector2i) -> bool:
-	if not is_idle() or offset == Vector2i.ZERO: return false
+	if not is_idle(): return false
 	if abs(offset.x) > abs(offset.y): turn(6 if offset.x > 0 else 4)
 	elif offset.y != 0: turn(2 if offset.y > 0 else 8)
 	_start = visual_cell
@@ -139,3 +159,36 @@ func advance(delta: float) -> String:
 
 func snapshot() -> Dictionary:
 	return {"x": cell.x, "y": cell.y, "target_x": target.x, "target_y": target.y, "real_x": visual_cell.x * 32, "real_y": visual_cell.y * 32, "direction": direction, "pattern": pattern, "moving": moving(), "jumping": jumping(), "jump_height": jump_height, "options": options.duplicate()}
+
+
+func persistent_data() -> Dictionary:
+	return {"cell": [cell.x, cell.y], "target": [target.x, target.y], "start": [_start.x, _start.y], "direction": direction,
+		"pattern": pattern, "options": options.duplicate(), "kind": _kind, "duration": _duration, "elapsed": _elapsed,
+		"animation": _animation, "idle_seconds": _idle_seconds}
+
+
+static func decode(value: Variant, width: int, height: int) -> Dictionary:
+	if not value is Dictionary or not validate(value.get("options"), true): return {"ok": false, "message": "人物运动参数无效。"}
+	for key in ["cell", "target", "start"]:
+		var pair: Variant = value.get(key)
+		if not pair is Array or pair.size() != 2: return {"ok": false, "message": "人物坐标无效。"}
+		for axis in 2:
+			var number: Variant = pair[axis]
+			if not (number is int or number is float) or not is_finite(float(number)) or number < 0 or number > (width - 1 if axis == 0 else height - 1) or (key != "start" and floor(float(number)) != number): return {"ok": false, "message": "人物坐标越界。"}
+	if not preload("res://runtime/scripts/ActorParameters.gd").integer(value.get("direction"), 2, 8) or int(value.direction) not in [2, 4, 6, 8] or not preload("res://runtime/scripts/ActorParameters.gd").integer(value.get("pattern"), 0, 3) or value.get("kind") not in ["", "walk", "jump"]: return {"ok": false, "message": "人物朝向或运动类型无效。"}
+	for key in ["duration", "elapsed", "animation", "idle_seconds"]:
+		var number: Variant = value.get(key)
+		if not (number is int or number is float) or not is_finite(float(number)) or number < 0 or number > 1000000000: return {"ok": false, "message": "人物运动时间无效。"}
+	if value.elapsed > value.duration or (value.kind != "" and (value.duration <= 0 or value.elapsed >= value.duration)) or (value.kind == "" and value.cell != value.target): return {"ok": false, "message": "人物运动进度不一致。"}
+	var result: RefCounted = load("res://runtime/scripts/CharacterMotion.gd").new()
+	result.configure(value.options)
+	result.cell = Vector2i(int(value.cell[0]), int(value.cell[1]))
+	result.target = Vector2i(int(value.target[0]), int(value.target[1]))
+	result._start = Vector2(value.start[0], value.start[1])
+	result.direction = int(value.direction); result.pattern = int(value.pattern)
+	result._kind = value.kind; result._duration = float(value.duration); result._elapsed = float(value.elapsed)
+	result._animation = float(value.animation); result._idle_seconds = float(value.idle_seconds)
+	var t: float = result._elapsed / result._duration if value.kind != "" else 1.0
+	result.visual_cell = result._start.lerp(Vector2(result.target), t) if value.kind != "" else Vector2(result.cell)
+	result.jump_height = 4.0 * (24.0 + minf(64.0, result._start.distance_to(Vector2(result.target)) * 4.0)) * t * (1 - t) if value.kind == "jump" else 0.0
+	return {"ok": true, "value": result}

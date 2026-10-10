@@ -6,9 +6,11 @@ const Cache = preload("res://runtime/scripts/RmxpCache.gd")
 const MapEvent = preload("res://runtime/scripts/MapEvent.gd")
 const RmxpPlayer = preload("res://runtime/scripts/RmxpAnimationPlayer.gd")
 const TileRow = preload("res://runtime/scripts/MapTileRow.gd")
+const TilesetLayout = preload("res://runtime/scripts/TilesetLayout.gd")
 
 signal event_requested(commands: Array, event_id: int)
 signal map_changed(map_id: int)
+signal events_changed
 
 const TILE_SIZE := 32
 const AUTOTILE_PARTS := [
@@ -29,6 +31,7 @@ const AUTOTILE_PARTS := [
 var map_data: Dictionary = {}
 var tileset: Dictionary = {}
 var _tileset_texture: Texture2D
+var _normal_layout: RefCounted
 var _autotile_textures: Array[Texture2D] = []
 var _event_nodes: Array[MapEvent] = []
 var _bgm: AudioStreamPlayer
@@ -44,6 +47,16 @@ var _autotile_frame := 0
 var _animated_ground := false
 var _loaded_id := 0
 var background_visible := true
+var trigger_allowed: Callable
+var generation := 0
+var _erased_events: Dictionary = {}
+var _page_dependencies: Dictionary = {}
+var _dirty_event_ids: Dictionary = {}
+var _dormant_events: Dictionary = {}
+
+
+func _ready() -> void:
+	RuntimeState.event_state_changed.connect(_mark_event_refresh)
 
 
 func load_map(map_id: int) -> bool:
@@ -76,6 +89,10 @@ func load_definition(definition: Dictionary, tileset_definition: Dictionary) -> 
 
 
 func _finish_load() -> void:
+	generation += 1
+	_erased_events.clear()
+	_dormant_events.clear()
+	_dirty_event_ids.clear()
 	for animation in _animations:
 		if is_instance_valid(animation):
 			animation.stop()
@@ -105,6 +122,17 @@ func tile_id(x: int, y: int, layer: int) -> int:
 
 func tile_priority(id: int) -> int:
 	return _table_value(tileset.get("priorities", {}), id, 0, 0)
+
+func tile_texture(id: int) -> Texture2D:
+	if _normal_layout==null:
+		_normal_layout=TilesetLayout.new(); _normal_layout.configure(tileset,Cache.tileset)
+	return _normal_layout.tile_texture(id)
+
+
+func can_overlap_trigger(cell: Vector2i) -> bool:
+	# RMXP over_trigger? checks passable?(x, y, 0), including tile events.
+	# Direction 0 ignores individual direction bits, but rejects fully solid tiles.
+	return _passable_at(cell, 0)
 
 
 func terrain_tag(x: int, y: int) -> int:
@@ -158,18 +186,25 @@ func can_stand(cell: Vector2i, through: bool = false, ignore_event_id: int = -1)
 	return false
 
 
+func can_move_diagonal(from: Vector2i, offset: Vector2i, through: bool = false, ignore_event_id: int = -1) -> bool:
+	if absi(offset.x) != 1 or absi(offset.y) != 1: return false
+	var horizontal := Vector2i(offset.x, 0)
+	var vertical := Vector2i(0, offset.y)
+	return (can_move(from, horizontal, through, ignore_event_id) and can_move(from + horizontal, vertical, through, ignore_event_id)) or (can_move(from, vertical, through, ignore_event_id) and can_move(from + vertical, horizontal, through, ignore_event_id))
+
+
 func _passable_at(tile: Vector2i, bit: int, ignore_event_id: int = -1) -> bool:
 	if not valid(tile.x, tile.y): return false
 	for event in _events_at.get(tile, []):
 		if event.event_id != ignore_event_id and not event.through and event.tile_id > 0:
-			if (_passage(event.tile_id) & bit) != 0: return false
+			if (_passage(event.tile_id) & bit) != 0 or (_passage(event.tile_id) & 15) == 15: return false
 			if tile_priority(event.tile_id) == 0: return true
 	var table: Dictionary = map_data.get("data", {})
 	var priorities: Dictionary = tileset.get("priorities", {})
 	for layer in range(int(table.get("z_size", 0)) - 1, -1, -1):
 		var tile_id := _table_value(table, tile.x, tile.y, layer)
 		if tile_id == 0: continue
-		if (_passage(tile_id) & bit) != 0:
+		if (_passage(tile_id) & bit) != 0 or (_passage(tile_id) & 15) == 15:
 			return false
 		if _table_value(priorities, tile_id, 0, 0) == 0:
 			return true
@@ -179,8 +214,8 @@ func _passable_at(tile: Vector2i, bit: int, ignore_event_id: int = -1) -> bool:
 func request_action(position: Vector2i, facing: Vector2i) -> bool:
 	if _emit_at(position, [0], false): return true
 	var target := position + facing
-	if _emit_at(target, [0], true): return true
-	if is_counter(target.x, target.y): return _emit_at(target + facing, [0], true)
+	if _emit_at(target, [0, 1, 2], true): return true
+	if is_counter(target.x, target.y): return _emit_at(target + facing, [0, 1, 2], true)
 	return false
 
 
@@ -189,8 +224,9 @@ func trigger_player_touch(position: Vector2i, blocked: bool = false) -> bool:
 
 
 func _emit_at(cell: Vector2i, triggers: Array, in_front: bool) -> bool:
+	if trigger_allowed.is_valid() and not trigger_allowed.call(): return false
 	for event in _events_at.get(cell, []):
-		if event.trigger in triggers and event.front_interaction() == in_front and event.is_idle() and not event.commands.is_empty():
+		if event.trigger in triggers and event.front_interaction() == in_front and event.is_idle() and event.commands.size() > 1:
 			event_requested.emit(event.commands, event.event_id)
 			return true
 	return false
@@ -214,6 +250,51 @@ func refresh_events() -> void:
 	_build_events()
 
 
+func event_contexts() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for event in _event_nodes:
+		result.append({"event_id": event.event_id, "page": event.page_index, "trigger": event.trigger, "commands": event.commands, "node": event})
+	return result
+
+
+func event_node(id: int) -> Node:
+	for event in _event_nodes:
+		if event.event_id == id: return event
+	return null
+
+
+func erase_event(id: int) -> Dictionary:
+	if not map_data.get("events", {}).has(str(id)): return {"ok": false, "message": "当前地图事件%d不存在。" % id}
+	_erased_events[id] = true
+	_dirty_event_ids[id] = true
+	flush_event_refresh()
+	return {"ok": true}
+
+
+func has_erased_events() -> bool:
+	return not _erased_events.is_empty()
+
+
+func flush_event_refresh() -> void:
+	if _dirty_event_ids.is_empty(): return
+	var changed := _dirty_event_ids.keys()
+	_dirty_event_ids.clear()
+	_build_events(changed)
+
+
+func request_event_touch(event: Node, target: Vector2i) -> bool:
+	if player_character == null or event.trigger != 2 or event.motion.jumping() or player_character.jumping(): return false
+	if target != player_character.tile_position: return false
+	if trigger_allowed.is_valid() and not trigger_allowed.call(): return false
+	if event.commands.size() <= 1: return false
+	event_requested.emit(event.commands, event.event_id)
+	return true
+
+
+func _mark_event_refresh(kind: String, key: String) -> void:
+	for id in _page_dependencies.get(kind + ":" + key, []): _dirty_event_ids[id] = true
+
+
 func animation_target(character_id: int, current_event_id: int = 0) -> CanvasItem:
 	if character_id == -1:
 		return player_character
@@ -224,8 +305,56 @@ func animation_target(character_id: int, current_event_id: int = 0) -> CanvasIte
 	return null
 
 
+func set_character_position(target_id: int, mode: int, x: int, y: int, direction: int, current_event_id: int = 0) -> Dictionary:
+	var target: Node2D = animation_target(target_id, current_event_id)
+	if target == null: return {"ok": false, "message": "位置目标人物%d不存在。" % target_id}
+	var destination := Vector2i(x, y)
+	var other: Node2D
+	if mode == 2:
+		other = animation_target(x, current_event_id)
+		if other == null: return {"ok": false, "message": "交换目标人物%d不存在，未修改位置。" % x}
+		destination = other.tile_position
+	if not valid(destination.x, destination.y): return {"ok": false, "message": "目标位置越出地图，未修改位置。"}
+	var original: Vector2i = target.tile_position
+	if other != null and not valid(original.x, original.y): return {"ok": false, "message": "交换原位置无效，未修改位置。"}
+	target.move_to(destination.x, destination.y)
+	if other != null: other.move_to(original.x, original.y)
+	if direction != 0: target.turn(direction)
+	return {"ok": true}
+
+
+func has_forced_routes() -> bool:
+	if player_character != null and player_character.routes.forcing: return true
+	for event in _event_nodes:
+		if event.routes.forcing: return true
+	return false
+
+
+func repeating_forced_routes() -> Array[int]:
+	var ids: Array[int] = []
+	if player_character != null and player_character.routes.repeat_forced(): ids.append(-1)
+	for event in _event_nodes:
+		if event.routes.repeat_forced(): ids.append(event.event_id)
+	return ids
+
+
+func character_save_reason() -> String:
+	# All current-map character/route state is persisted by EventPersistence.
+	return ""
+
+
+func cancel_character_routes() -> void:
+	if player_character != null: player_character.cancel_move_route(true)
+	for event in _event_nodes: event.cancel_move_route(true)
+
+
 func play_animation(animation_id: int, character_id: int = -1, current_event_id: int = 0, hit: bool = true) -> Dictionary:
-	var result := RmxpPlayer.play(self, animation_id, animation_target.bind(character_id, current_event_id), hit)
+	var target := animation_target(character_id, current_event_id)
+	var reference: WeakRef = weakref(target) if target != null else null
+	var provider := func() -> CanvasItem:
+		var node: CanvasItem = reference.get_ref() if reference != null else null
+		return node if node != null and node.is_inside_tree() and not node.is_queued_for_deletion() else null
+	var result := RmxpPlayer.play(self, animation_id, provider, hit)
 	if result.get("ok", false) and result.has("player"):
 		for index in range(_animations.size() - 1, -1, -1):
 			if not is_instance_valid(_animations[index]) or _animations[index].is_queued_for_deletion():
@@ -234,12 +363,15 @@ func play_animation(animation_id: int, character_id: int = -1, current_event_id:
 	return result
 
 
-func transfer(map_id: int, x: int, y: int) -> bool:
+func transfer(map_id: int, x: int, y: int, direction: int = 0) -> bool:
 	var candidate := RuntimeData.map(map_id)
 	if x < 0 or y < 0 or x >= int(candidate.get("width", 0)) or y >= int(candidate.get("height", 0)): return false
-	if not load_map(map_id):
-		return false
+	if direction not in [0, 2, 4, 6, 8]: return false
+	if map_id != _loaded_id:
+		if player_character != null: player_character.cancel_move_route()
+		if not load_map(map_id): return false
 	RuntimeState.player_motion.relocate(Vector2i(x, y))
+	if direction != 0: RuntimeState.player_motion.turn(direction)
 	if player_character != null: player_character._sync_position()
 	return true
 
@@ -295,6 +427,8 @@ func _load_textures() -> void:
 	_autotile_textures.resize(7)
 	var name := str(tileset.get("tileset_name", ""))
 	_tileset_texture = Cache.tileset(name)
+	_normal_layout=TilesetLayout.new(); _normal_layout.configure(tileset,Cache.tileset)
+	for error in _normal_layout.errors: RuntimeState.report_diagnostic("地图图块集："+error)
 	# Canvas draw commands keep texture RIDs, not Texture2D references. Keep the
 	# resources alive for the whole map; a local load() in _draw_autotile() can
 	# free them before the renderer consumes the commands, producing white tiles.
@@ -315,7 +449,7 @@ func _clear_events() -> void:
 	_events_at.clear()
 
 
-func _build_events() -> void:
+func _build_events(changed: Array = []) -> void:
 	var events: Variant = map_data.get("events", {})
 	if not (events is Dictionary):
 		return
@@ -323,10 +457,27 @@ func _build_events() -> void:
 	for node in _event_nodes:
 		previous[node.event_id] = node
 	_event_nodes.clear()
+	_page_dependencies.clear()
 	for key in events:
 		var event_data: Variant = events[key]
 		if not (event_data is Dictionary):
 			continue
+		var id := int(key)
+		for candidate in event_data.get("pages", []):
+			if not candidate is Dictionary: continue
+			var condition: Dictionary = candidate.get("condition", {})
+			for name_value in ["switch1", "switch2", "variable", "self_switch"]:
+				if not condition.get(name_value + "_valid", false): continue
+				var dependency: String
+				if name_value == "self_switch": dependency = "self:" + RuntimeState.self_switch_key(RuntimeState.map_id, id, str(condition.get("self_switch_ch", "A")))
+				else: dependency = ("switch" if name_value.begins_with("switch") else "variable") + ":" + str(int(condition.get(name_value + "_id", 0)))
+				if not _page_dependencies.has(dependency): _page_dependencies[dependency] = []
+				if id not in _page_dependencies[dependency]: _page_dependencies[dependency].append(id)
+		if not changed.is_empty() and id not in changed and previous.has(id):
+			_event_nodes.append(previous[id])
+			previous.erase(id)
+			continue
+		if _erased_events.has(id): continue
 		var page := _active_page(event_data, int(key))
 		if page.is_empty():
 			continue
@@ -338,9 +489,14 @@ func _build_events() -> void:
 			event_node.occupancy_changed.connect(_reindex_events)
 		previous.erase(int(key))
 		event_node.configure(event_data, page, int(key), _loaded_id)
+		if _dormant_events.has(id):
+			var saved_motion: Dictionary = _dormant_events[id].motion
+			event_node.move_to(int(saved_motion.cell[0]), int(saved_motion.cell[1]))
+			_dormant_events.erase(id)
 		event_node.page_index = event_data.get("pages", []).find(page) + 1
 		_event_nodes.append(event_node)
 	for removed in previous.values():
+		_dormant_events[removed.event_id] = removed.persistent_data()
 		removed.get_parent().remove_child(removed)
 		removed.queue_free()
 	# Equal foot depth uses child order. Keep the leader in front of a same-cell
@@ -348,6 +504,7 @@ func _build_events() -> void:
 	if is_instance_valid(player_character) and player_character.get_parent() == character_layer:
 		character_layer.move_child(player_character, -1)
 	_reindex_events()
+	events_changed.emit()
 
 
 func _reindex_events() -> void:
@@ -372,11 +529,11 @@ func _active_page(event_data: Dictionary, event_id: int) -> Dictionary:
 func _page_conditions_met(condition: Variant, event_id: int) -> bool:
 	if not (condition is Dictionary):
 		return true
-	if bool(condition.get("switch1_valid", false)) and not bool(RuntimeState.switches.get(str(condition.get("switch1_id", 0)), false)):
+	if bool(condition.get("switch1_valid", false)) and not bool(RuntimeState.switches.get(str(int(condition.get("switch1_id", 0))), false)):
 		return false
-	if bool(condition.get("switch2_valid", false)) and not bool(RuntimeState.switches.get(str(condition.get("switch2_id", 0)), false)):
+	if bool(condition.get("switch2_valid", false)) and not bool(RuntimeState.switches.get(str(int(condition.get("switch2_id", 0))), false)):
 		return false
-	if bool(condition.get("variable_valid", false)) and int(RuntimeState.variables.get(str(condition.get("variable_id", 0)), 0)) < int(condition.get("variable_value", 0)):
+	if bool(condition.get("variable_valid", false)) and int(RuntimeState.variables.get(str(int(condition.get("variable_id", 0))), 0)) < int(condition.get("variable_value", 0)):
 		return false
 	if bool(condition.get("self_switch_valid", false)):
 		var key := RuntimeState.self_switch_key(RuntimeState.map_id, event_id, str(condition.get("self_switch_ch", "A")))
@@ -483,6 +640,7 @@ func _animated_tile(id: int) -> bool:
 
 
 func _process(delta: float) -> void:
+	if RuntimeState.game() != null and RuntimeState.game().event_map() == self and RuntimeState.map_time_paused(): return
 	_autotile_seconds += delta
 	if _autotile_seconds < 0.25: return
 	_autotile_frame += int(_autotile_seconds / 0.25)
@@ -505,11 +663,10 @@ func set_background_visible(value: bool) -> void:
 
 func draw_tile(canvas: CanvasItem, id: int, destination: Vector2) -> void:
 	if id <= 0: return
-	if id >= 384 and _tileset_texture != null:
-		var index := id - 384
-		var source := Rect2((index % 8) * 32, int(index / 8) * 32, 32, 32)
-		if source.end.y <= _tileset_texture.get_height():
-			canvas.draw_texture_rect_region(_tileset_texture, Rect2(destination, Vector2(32, 32)), source)
+	if id >= 384:
+		if _normal_layout==null: return
+		var found: Dictionary=_normal_layout.locate(id)
+		if not found.is_empty(): canvas.draw_texture_rect_region(found.texture,Rect2(destination,Vector2(32,32)),found.region)
 	elif id < 384:
 		var slot := int(id / 48) - 1
 		if slot < 0 or slot >= _autotile_textures.size(): return

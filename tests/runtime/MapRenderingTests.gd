@@ -87,27 +87,24 @@ func run_suite() -> void:
 	expect(int(state.get("map_id")) == 585, "new game must enter the requested Map585")
 	if current_scene != null and current_scene.name == "Game":
 		var dialogue: Node = current_scene.get("_dialogue")
-		if dialogue.call("is_open"):
-			# Map585 event 2 plays BGM then uses command 116 (Erase Event),
-			# which ver0.1 explicitly rejects. Acknowledge the actual UI button;
-			# do not force input_enabled or silently bypass arbitrary commands.
-			var content: Node = dialogue.get("_content")
+		# Newly enabled parallels expose Ruby-dependent source stories. Assert
+		# their exact diagnostics and acknowledge actual controls before walking.
+		for attempt in 20:
+			if not dialogue.call("is_open"): break
 			var diagnostic := ""
 			var close_button: Button
-			for child in content.get_children():
-				if child is Label:
-					diagnostic += child.text + "\n"
-				if child is Button and child.text == "关闭":
-					close_button = child
-			var expected_diagnostic := diagnostic.contains("Map585 / 事件 2 / 第 1 页") and diagnostic.contains("指令 116")
-			expect(expected_diagnostic, "startup dialogue must be the explicitly expected unsupported command 116 diagnostic")
-			if expected_diagnostic and close_button != null:
-				print("EXPECTED STARTUP DIAGNOSTIC: Map585 event 2 command 116; acknowledged Close button")
-				if not capture_path.is_empty():
-					expect(root.get_texture().get_image().save_png(capture_path.get_basename() + "-diagnostic.png") == OK, "diagnostic screenshot must save")
-				close_button.emit_signal("pressed")
-				await process_frame
-				await RenderingServer.frame_post_draw
+			for child in dialogue.get("_content").get_children():
+				if child is Label: diagnostic += child.text + "\n"
+				if child is Button and child.text == "关闭": close_button = child
+			var recognized := diagnostic.contains("Map585") and (diagnostic.contains("指令 111") or diagnostic.contains("指令 122") or diagnostic.contains("指令 231") or diagnostic.contains("指令 355"))
+			expect(recognized and close_button != null and not diagnostic.contains("指令 116"), "only known excluded/unimplemented source story diagnostics may be acknowledged")
+			if not recognized or close_button == null: break
+			print("EXPECTED SOURCE DIAGNOSTIC: ", diagnostic)
+			close_button.pressed.emit()
+			await process_frame
+			await RenderingServer.frame_post_draw
+		expect(not dialogue.call("is_open"), "supported startup erase and all acknowledged source diagnostics release UI")
+		expect(current_scene.get("_map").event_node(2) == null and current_scene.get("_map").has_erased_events(), "Map585 startup command 116 actually erases event 2")
 		if not capture_path.is_empty():
 			var game_capture := capture_path.get_basename() + "-game.png"
 			expect(root.get_texture().get_image().save_png(game_capture) == OK, "actual game screenshot must save")

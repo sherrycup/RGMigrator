@@ -11,6 +11,8 @@ var final_level := 99
 var experience := 0
 var character_name := ""
 var character_hue := 0
+var battler_name := ""
+var battler_hue := 0
 var _parameter_plus: Dictionary = {}
 var last_mutation_result: Dictionary = {}
 var equipment: Array[int] = []
@@ -57,6 +59,8 @@ func configure(actor_id: int, definition: Dictionary, lookup: Callable) -> void:
 	actor_name = str(definition.get("name", ""))
 	character_name = str(definition.get("character_name", ""))
 	character_hue = int(definition.get("character_hue", 0))
+	battler_name = str(definition.get("battler_name", ""))
+	battler_hue = int(definition.get("battler_hue", 0))
 	_parameter_plus.clear()
 	for key in Parameters.KEYS:
 		_parameter_plus[key] = 0
@@ -80,9 +84,13 @@ func configure(actor_id: int, definition: Dictionary, lookup: Callable) -> void:
 		var increment := float(definition.get("exp_basis", 30)) * pow(float(next_level + 3), power) / pow(5.0, power)
 		_experience_curve[next_level] = _experience_curve[next_level - 1] + int(increment)
 	experience = _experience_curve[level]
-	var initial := snapshot()
+	# Native setup fills vitals before installing armor automatic states.
+	var initial := snapshot([equipment[0], 0, 0, 0, 0])
 	hp = initial.parameters.get("maxhp")
 	sp = initial.parameters.get("maxsp")
+	if hp != null and sp != null and not automatic_state_ids().is_empty():
+		var automatic := apply_equipment_states([])
+		if not automatic.ok: _report(automatic.message)
 	changed.emit()
 
 
@@ -116,33 +124,168 @@ func get_skill_ids() -> Array[int]:
 
 
 func add_state(state_id: int) -> Dictionary:
-	if state_id <= 0 or _record("States", state_id).is_empty():
-		return {"ok": false, "changed": false, "message": "Actors[%d] 引用不存在的 States[%d]。" % [id, state_id]}
-	if state_ids.has(state_id):
-		return {"ok": true, "changed": false, "message": "已经附加此普通状态。"}
-	state_ids.append(state_id)
-	state_ids.sort()
-	_state_list_changed()
-	return {"ok": true, "changed": true, "message": "已附加状态；本版不执行状态触发效果。"}
+	return _change_states([state_id], true, null, true)
 
+func add_state_native(state_id: int) -> Dictionary:
+	return _change_states([state_id], true)
 
 func remove_state(state_id: int) -> Dictionary:
-	if state_id <= 0 or _record("States", state_id).is_empty():
-		return {"ok": false, "changed": false, "message": "Actors[%d] 引用不存在的 States[%d]。" % [id, state_id]}
-	var existed := state_ids.has(state_id)
-	state_ids.erase(state_id)
-	if existed:
-		_state_list_changed()
-	return {"ok": true, "changed": existed, "message": "普通状态已解除；装备来源仍有效。" if has_state(state_id) else ("已解除状态。" if existed else "没有此普通状态，无需解除。")}
-
+	return _change_states([state_id], false)
 
 func clear_states() -> Dictionary:
-	var existed := not state_ids.is_empty()
-	state_ids.clear()
-	if existed:
-		_state_list_changed()
-	return {"ok": true, "changed": existed, "message": "已清空普通状态；不移除装备提供的状态。"}
+	return _change_states(state_ids.duplicate(), false)
 
+func _validate_state_graph(ids: Array) -> Dictionary:
+	var pending := ids.duplicate()
+	pending.append_array(get_state_ids())
+	var visited := {}
+	while not pending.is_empty():
+		var raw: Variant = pending.pop_back()
+		if not Parameters.integer(raw, 1): return _result(false, false, "状态引用无效。")
+		var state_id := int(raw)
+		if visited.has(state_id): continue
+		visited[state_id] = true
+		if visited.size() > 10000: return _result(false, false, "状态关联过多。")
+		var definition := _record("States", state_id)
+		if definition.is_empty() or not definition.get("zero_hp", false) is bool: return _result(false, false, "状态或zero_hp定义无效。")
+		for field in ["plus_state_set", "minus_state_set"]:
+			var links: Variant = definition.get(field, [])
+			if not links is Array: return _result(false, false, "状态关联必须是ID列表。")
+			pending.append_array(links)
+	return {"ok": true}
+
+func automatic_state_ids() -> Array:
+	var result := []
+	for slot in range(1, equipment.size()):
+		var state_id := int(_record("Armors", equipment[slot], true).get("auto_state_id", 0))
+		if state_id > 0 and not result.has(state_id): result.append(state_id)
+	return result
+
+func _state_add(work: Dictionary, state_id: int) -> bool:
+	work.steps += 1
+	if work.steps > 1024: return false
+	var definition := _record("States", state_id)
+	var effective: Array = work.ids.duplicate(); effective.append_array(work.automatic)
+	for current in effective:
+		if _record("States", current).get("minus_state_set", []).any(func(raw: Variant) -> bool: return int(raw) == state_id) and not definition.get("minus_state_set", []).any(func(raw: Variant) -> bool: return int(raw) == int(current)): return true
+	if effective.has(state_id): return true
+	work.ids.append(state_id)
+	if definition.get("zero_hp", false): work.hp = 0
+	# RM applies links in database ID order, plus then minus for each ID.
+	var linked: Array = definition.get("plus_state_set", []).duplicate()
+	for raw in definition.get("minus_state_set", []):
+		if not linked.has(raw): linked.append(raw)
+	linked.sort()
+	for raw in linked:
+		var target := int(raw)
+		if definition.get("plus_state_set", []).has(raw) and not _state_add(work, target): return false
+		if definition.get("minus_state_set", []).has(raw) and not _state_remove(work, target): return false
+	return _clamp_state_work(work)
+
+func _state_remove(work: Dictionary, state_id: int) -> bool:
+	work.steps += 1
+	if work.steps > 1024: return false
+	if not work.ids.has(state_id): return true
+	work.ids.erase(state_id)
+	if work.hp == 0 and _record("States", state_id).get("zero_hp", false):
+		var effective: Array = work.ids.duplicate(); effective.append_array(work.automatic)
+		if not effective.any(func(raw: Variant) -> bool: return bool(_record("States", int(raw)).get("zero_hp", false))): work.hp = 1
+	return _clamp_state_work(work)
+
+func _clamp_state_work(work: Dictionary) -> bool:
+	# Native links clamp vitals after each add/remove, including nested links.
+	var previous := state_ids.duplicate()
+	state_ids.assign(work.ids)
+	var values: Dictionary = snapshot().parameters
+	state_ids.assign(previous)
+	if values.values().has(null): return false
+	work.hp = mini(int(work.hp), int(values.maxhp)); work.sp = mini(int(work.sp), int(values.maxsp))
+	return true
+
+func _change_states(ids: Array, adding: bool, forced_hp: Variant = null, keep_ordinary_source: bool = false) -> Dictionary:
+	var validation := _validate_state_graph(ids)
+	if not validation.ok: return validation
+	var work := {"ids": state_ids.duplicate(), "automatic": automatic_state_ids(), "hp": hp if forced_hp == null else forced_hp, "sp": sp, "steps": 0}
+	for raw in ids:
+		if adding and keep_ordinary_source and work.automatic.has(int(raw)) and not work.ids.has(int(raw)):
+			# The general API preserves an explicitly requested ordinary source;
+			# native 313 keeps RM's no-op when the state is already automatic.
+			work.ids.append(int(raw))
+		var accepted := _state_add(work, int(raw)) if adding else _state_remove(work, int(raw))
+		if not accepted: return _result(false, false, "状态关联循环超过预算；角色未修改。")
+	work.ids.sort()
+	var previous := state_ids.duplicate(); var previous_hp: Variant = hp; var previous_sp: Variant = sp
+	state_ids.assign(work.ids)
+	var view := snapshot()
+	if view.parameters.values().has(null):
+		state_ids.assign(previous)
+		return _result(false, false, "状态变更后的属性无法计算；未修改。")
+	hp = work.hp
+	sp = work.sp
+	var modified: bool = previous != state_ids or previous_hp != hp or previous_sp != sp
+	if modified: changed.emit()
+	return _result(true, modified, "状态已更新；保留装备来源，执行HP为0和状态关联，不执行回合制效果。")
+
+func change_hp_native(amount: int, allow_death: bool, zero_hp_ids: Array) -> Dictionary:
+	if hp == null: return _result(false, false, "当前HP无效。")
+	if hp <= 0: return _result(true, false, "原生HP增减跳过HP为0的角色。")
+	var cap: Variant = get_parameter("maxhp")
+	if cap == null: return _result(false, false, "HP上限无法计算。")
+	var target := clampi(int(hp) + amount, 0 if allow_death else 1, int(cap))
+	return _change_states(zero_hp_ids, target == 0, target)
+
+func apply_equipment_states(previous_auto: Array) -> Dictionary:
+	var current := automatic_state_ids()
+	var validation := _validate_state_graph(previous_auto + current)
+	if not validation.ok: return validation
+	var work := {"ids": state_ids.duplicate(), "automatic": [], "hp": hp, "sp": sp, "steps": 0}
+	for state_id in current:
+		if previous_auto.has(state_id): work.automatic.append(state_id)
+	for state_id in current:
+		if previous_auto.has(state_id): continue
+		var ordinary: bool = work.ids.has(state_id)
+		if not _state_add(work, state_id): return _result(false, false, "装备状态关联循环超过预算。")
+		if not ordinary: work.ids.erase(state_id)
+		work.automatic.append(state_id)
+	if work.hp == 0 and previous_auto.any(func(raw: Variant) -> bool: return bool(_record("States", int(raw)).get("zero_hp", false))):
+		var effective: Array = work.ids + current
+		if not effective.any(func(raw: Variant) -> bool: return bool(_record("States", int(raw)).get("zero_hp", false))): work.hp = 1
+	var previous := state_ids.duplicate()
+	state_ids.assign(work.ids)
+	if snapshot().parameters.values().has(null):
+		state_ids.assign(previous)
+		return _result(false, false, "装备状态关联后的属性无法计算。")
+	hp = work.hp; sp = work.sp
+	return {"ok": true}
+
+func recover_all() -> Dictionary:
+	var validation := _validate_state_graph(state_ids)
+	if not validation.ok: return validation
+	# RM fills using the current caps before removing ordinary states.
+	var previous_caps: Dictionary = snapshot().parameters
+	if previous_caps.values().has(null): return _result(false, false, "全回复前的属性无法计算；未修改。")
+	var previous := state_ids.duplicate()
+	state_ids.clear()
+	var view := snapshot()
+	if view.parameters.values().has(null):
+		state_ids.assign(previous)
+		return _result(false, false, "全回复后的属性无法计算；未修改。")
+	hp = mini(int(previous_caps.maxhp), int(view.parameters.maxhp)); sp = mini(int(previous_caps.maxsp), int(view.parameters.maxsp))
+	changed.emit()
+	return _result(true, true, "HP/SP全回复，清除普通状态，保留装备来源。")
+
+func detached_copy() -> Dictionary:
+	var instance: RefCounted = load("res://runtime/scripts/ActorState.gd").new()
+	instance.configure(id, _definition, _lookup)
+	var reason: String = instance.restore_persistent(persistent_data())
+	return {"ok": true, "actor": instance} if reason.is_empty() else _result(false, false, reason)
+
+func commit_event_state(prepared: RefCounted) -> void:
+	for field in ["actor_name", "class_id", "level", "experience", "character_name", "character_hue", "battler_name", "battler_hue"]: set(field, prepared.get(field))
+	equipment.assign(prepared.equipment); state_ids.assign(prepared.state_ids); _skill_ids.assign(prepared.get_skill_ids())
+	_parameter_plus = prepared._parameter_plus.duplicate()
+	hp = prepared.hp; sp = prepared.sp
+	changed.emit()
 
 func has_state(state_id: int) -> bool:
 	return state_id > 0 and get_state_ids().has(state_id)
@@ -173,7 +316,7 @@ func _state_list_changed() -> void:
 func persistent_data() -> Dictionary:
 	return {"id": id, "name": actor_name, "class_id": class_id, "level": level, "experience": experience,
 		"hp": hp, "sp": sp, "equipment": equipment.duplicate(), "skill_ids": get_skill_ids(), "state_ids": state_ids.duplicate(),
-		"parameter_plus": _parameter_plus.duplicate(), "character_name": character_name, "character_hue": character_hue}
+		"parameter_plus": _parameter_plus.duplicate(), "character_name": character_name, "character_hue": character_hue, "battler_name": battler_name, "battler_hue": battler_hue}
 
 
 func restore_persistent(saved: Dictionary) -> String:
@@ -191,6 +334,8 @@ func restore_persistent(saved: Dictionary) -> String:
 	_parameter_plus = saved.get("parameter_plus", _parameter_plus).duplicate()
 	character_name = saved.get("character_name", character_name)
 	character_hue = int(saved.get("character_hue", character_hue))
+	battler_name = saved.get("battler_name", battler_name)
+	battler_hue = int(saved.get("battler_hue", battler_hue))
 	var view := snapshot()
 	if view.parameters.maxhp == null or view.parameters.maxsp == null:
 		return "属性数据不完整，无法恢复 HP/SP。"
@@ -270,6 +415,7 @@ func parameter_sources(key: String) -> Dictionary:
 
 
 func get_parameter(key: String) -> Variant:
+	if key == "eva": return evasion()
 	return snapshot().parameters.get(key)
 
 
@@ -445,6 +591,13 @@ func set_graphic(value: Variant, hue: Variant = 0) -> Dictionary:
 	return _result(true, modified, "角色图已更新。")
 
 
+func set_event_graphic(character: String, hue: int, battler: String, battler_color: int) -> Dictionary:
+	if character.length() > 1024 or battler.length() > 1024 or hue < 0 or hue > 360 or battler_color < 0 or battler_color > 360: return _result(false, false, "角色图形名称或色相无效。")
+	character_name = character; character_hue = hue % 360
+	battler_name = battler; battler_hue = battler_color % 360
+	changed.emit()
+	return _result(true, true, "角色行走图已更新；战斗图仅保存数据。")
+
 func _clamp_vitals(values: Dictionary) -> void:
 	if hp != null and values.maxhp != null:
 		hp = clampi(int(hp), 0, int(values.maxhp))
@@ -503,3 +656,17 @@ func _record(database: String, record_id: int, allow_empty: bool = false) -> Dic
 func _report(message: String) -> void:
 	if not diagnostics.has(message):
 		diagnostics.append(message)
+
+
+func evasion() -> Variant:
+	var value := 0
+	for slot in range(1, equipment.size()):
+		if equipment[slot] == 0: continue
+		var armor := _record("Armors", equipment[slot])
+		if armor.is_empty() or not Parameters.integer(armor.get("eva", 0)): return null
+		value += int(armor.get("eva", 0))
+	for state_id in get_state_ids():
+		var state := _record("States", state_id)
+		if state.is_empty() or not Parameters.integer(state.get("eva", 0)): return null
+		value += int(state.get("eva", 0))
+	return value

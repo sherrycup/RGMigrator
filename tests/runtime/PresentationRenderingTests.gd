@@ -72,13 +72,13 @@ func run() -> void:
 		tool.camera.sync(0, true)
 		tool.choices.panorama.select(1); tool.choices.fog.select(1); tool._apply_effects()
 		tool.effects.configure({"fog_name": ""})
-		tool.effects.weather(0, 0)
+		tool.screen.weather(0, 0)
 		await frames()
 		var panorama_image := await capture("panorama-%dx%d" % [resolution.x, resolution.y], tool.viewport)
 		var panorama_pixel := panorama_image.get_pixel(int(anchor.x + 40), int(anchor.y + 30))
 		expect(panorama_pixel.b > 0.35 and panorama_pixel.r < 0.5, "panorama visible through empty cells, got " + str(panorama_pixel))
 		tool._apply_effects()
-		tool.effects.weather(2, 9)
+		tool.screen.weather(2, 9)
 		tool._timer_start()
 		await frames(10)
 		await capture("effects-%dx%d" % [resolution.x, resolution.y], tool.viewport)
@@ -127,7 +127,7 @@ func run() -> void:
 func measure(game: Node) -> void:
 	var state: Node = root.get_node("RuntimeState")
 	# Measure a real imported map, not the tiny tool preview. Include storm at max power.
-	state.map_effects.weather(2, 9)
+	state.screen.weather(2, 9)
 	var path: Array[Vector2i] = []
 	for y in game._map.map_height():
 		for x in game._map.map_width():

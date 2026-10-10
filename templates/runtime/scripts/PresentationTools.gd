@@ -10,6 +10,7 @@ const Countdown = preload("res://runtime/scripts/GameTimer.gd")
 const AudioService = preload("res://runtime/scripts/AudioRuntime.gd")
 var view: RefCounted = ViewModel.new()
 var effects: RefCounted = Effects.new()
+var screen: RefCounted = preload("res://runtime/scripts/ScreenState.gd").new()
 var timer: RefCounted = Countdown.new()
 var map: Node2D
 var avatar: Node2D
@@ -182,6 +183,7 @@ func _build_map() -> void:
 	renderer.map = map
 	renderer.camera = camera
 	renderer.model = effects
+	renderer.screen_model = screen
 	renderer.view_model = view
 	renderer.timer_model = timer
 	renderer.preview = true
@@ -258,7 +260,7 @@ func _effect_options() -> Dictionary:
 	for key in ["panorama_hue", "fog_hue", "fog_opacity", "fog_blend_type", "fog_zoom", "fog_sx", "fog_sy"]: result[key] = fields[key].value
 	return result
 func _apply_effects() -> void: _say(effects.configure(_effect_options()))
-func _weather(type: int) -> void: _say(effects.weather(type, fields.weather_power.value, 1))
+func _weather(type: int) -> void: _say(screen.weather(type, fields.weather_power.value, 1))
 func _fog_fade() -> void: _say(effects.fade_fog(0 if effects.data.fog_opacity > 64 else fields.fog_opacity.value, fields.seconds.value))
 func _fog_tone() -> void: _say(effects.tint_fog([-60, -20, 40, 80], fields.seconds.value))
 func _apply_real_effects() -> void:
@@ -267,7 +269,7 @@ func _apply_real_effects() -> void:
 		_message = "工具绘制对照素材仅供预览；请选择原素材后应用。"
 		return
 	var result: Dictionary = RuntimeState.configure_map_effects(options)
-	if result.ok: RuntimeState.map_effects.weather(int(effects.data.weather_type), fields.weather_power.value, 1)
+	if result.ok: RuntimeState.screen.weather(int(screen.weather_snapshot().weather_type), fields.weather_power.value, 1)
 	_say(result)
 func _fade(opacity: int) -> void: _say(transition.fade(opacity, fields.seconds.value))
 func _cancel_transition() -> void: transition.cancel()

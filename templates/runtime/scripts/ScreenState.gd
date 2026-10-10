@@ -1,6 +1,8 @@
 extends RefCounted
 ## Owns map pictures 1..50, not scene nodes. Native effect units: seconds/pixels/Hz.
 const Picture = preload("res://runtime/scripts/PictureState.gd")
+const Weather = preload("res://runtime/scripts/WeatherState.gd")
+var weather_state: RefCounted = Weather.new()
 var _pictures: Dictionary = {}
 const DEFAULTS := {"tone": [0.0, 0.0, 0.0, 0.0], "tone_target": [0.0, 0.0, 0.0, 0.0], "tone_remaining": 0.0,
 	"flash_color": [0.0, 0.0, 0.0, 0.0], "flash_remaining": 0.0,
@@ -76,6 +78,7 @@ func start_shake(power: Variant, speed: Variant, seconds: Variant) -> Dictionary
 
 func advance(delta: float) -> void:
 	if not is_finite(delta) or delta <= 0: return
+	weather_state.advance(delta)
 	for instance in _pictures.values(): instance.advance(delta)
 	if _data.tone_remaining > 0:
 		var fraction := minf(1, delta / float(_data.tone_remaining))
@@ -105,14 +108,23 @@ func effects_snapshot() -> Dictionary:
 
 func snapshot() -> Dictionary:
 	var result := effects_snapshot()
+	result.weather = weather_snapshot()
 	result.pictures = []
 	for id in picture_ids(): result.pictures.append(picture(id).snapshot())
 	return result
 
 
+func weather(type: int, power: Variant, seconds: Variant = 0.0) -> Dictionary:
+	return weather_state.weather(type, power, seconds)
+
+
+func weather_snapshot() -> Dictionary:
+	return weather_state.snapshot()
+
+
 static func decode(value: Variant) -> Dictionary:
 	if not value is Dictionary: return Picture.fail("屏幕状态必须为对象。")
-	if value.size() != DEFAULTS.size() + 1: return Picture.fail("屏幕字段数量无效。")
+	if value.size() != DEFAULTS.size() + (2 if value.has("weather") else 1): return Picture.fail("屏幕字段数量无效。")
 	if not Picture.vector_valid(value.get("tone")) or not Picture.vector_valid(value.get("tone_target")) or not Picture.vector_valid(value.get("flash_color"), false): return Picture.fail("屏幕色调/闪光无效。")
 	var bounds := {"tone_remaining": [0, 3600], "flash_remaining": [0, 3600], "shake_power": [0, 100], "shake_speed": [0, 60], "shake_remaining": [0, 3600], "shake_phase": [0, TAU], "shake": [-100, 100]}
 	for key in bounds:
@@ -120,6 +132,9 @@ static func decode(value: Variant) -> Dictionary:
 	if (value.flash_remaining == 0 and value.flash_color[3] != 0) or (value.shake_remaining == 0 and value.shake != 0): return Picture.fail("已结束的闪光/震动不能留下残值。")
 	if not value.get("pictures") is Array or value.pictures.size() > 50: return Picture.fail("图片列表无效。")
 	var instance: RefCounted = load("res://runtime/scripts/ScreenState.gd").new()
+	var weather_result := Weather.decode(value.get("weather", Weather.new().snapshot()))
+	if not weather_result.ok: return weather_result
+	instance.weather_state = weather_result.value
 	for key in instance._data: instance._data[key] = value[key].duplicate() if value[key] is Array else float(value[key])
 	for entry in value.pictures:
 		var parsed := Picture.decode(entry)

@@ -8,6 +8,10 @@ var scroll_target := Vector2.ZERO
 var scroll_remaining := 0.0
 var initialized := false
 var revision := 0
+var native_follow := false
+var native_velocity := Vector2.ZERO
+var _last_focus := Vector2.ZERO
+var _focus_ready := false
 
 static func valid_options(value: Variant) -> bool:
 	if not value is Dictionary or value.size() != 3 or not value.get("follow_enabled") is bool: return false
@@ -56,11 +60,21 @@ func bounded(point: Vector2, extent: Vector2, window_size: Vector2) -> Vector2:
 func advance(delta: float, focus: Vector2, extent: Vector2, window_size: Vector2, snap: bool = false) -> void:
 	if not is_finite(delta) or delta < 0: return
 	if scroll_remaining > 0 and not snap:
-		display = display.lerp(bounded(scroll_target, extent, window_size), minf(1, delta / scroll_remaining))
+		if native_follow: display += native_velocity * minf(delta, scroll_remaining)
+		else: display = display.lerp(scroll_target, minf(1, delta / scroll_remaining))
 		scroll_remaining = maxf(0, scroll_remaining - delta)
+		if scroll_remaining < 0.00000001: scroll_remaining = 0.0
 	elif options.follow_enabled or not initialized or snap:
 		var target := bounded(focus - follow_center(window_size), extent, window_size)
 		display = target if snap or not initialized else display.lerp(target, 1 - exp(-8 * delta))
+	if native_follow and _focus_ready and not snap:
+		var movement := focus - _last_focus
+		var center := follow_center(window_size)
+		for axis in 2:
+			var screen_position := focus[axis] - display[axis]
+			if (movement[axis] > 0 and screen_position > center[axis]) or (movement[axis] < 0 and screen_position < center[axis]): display[axis] += movement[axis]
+	_last_focus = focus
+	_focus_ready = true
 	display = bounded(display, extent, window_size)
 	initialized = true
 
@@ -68,20 +82,35 @@ func scroll(direction: int, tiles: Variant, seconds: Variant, extent: Vector2, w
 	if direction not in [2, 4, 6, 8] or not P.numeric(tiles, 0, 100000) or not P.numeric(seconds, 0, 3600): return P.fail("滚图方向/格数/秒数无效。")
 	if scroll_remaining > 0: return P.fail("镜头正在滚动，请等待完成或显式取消。")
 	options.follow_enabled = false
-	scroll_target = bounded(display + {2: Vector2.DOWN, 4: Vector2.LEFT, 6: Vector2.RIGHT, 8: Vector2.UP}[direction] * float(tiles) * 32, extent, window_size)
+	scroll_target = display + {2: Vector2.DOWN, 4: Vector2.LEFT, 6: Vector2.RIGHT, 8: Vector2.UP}[direction] * float(tiles) * 32
 	scroll_remaining = float(seconds)
-	if seconds == 0: display = scroll_target
+	native_follow = false
+	native_velocity = Vector2.ZERO
+	if seconds == 0: display = bounded(scroll_target, extent, window_size)
 	return {"ok": true}
+
+func scroll_native(direction: int, tiles: int, speed: int, extent: Vector2, window_size: Vector2) -> Dictionary:
+	if speed < 1 or speed > 6: return P.fail("原生滚图速度须为1..6。")
+	var result := scroll(direction, tiles, float(tiles) * 32 / (10 * pow(2, speed)), extent, window_size)
+	if result.ok:
+		native_follow = true
+		native_velocity = {2: Vector2.DOWN, 4: Vector2.LEFT, 6: Vector2.RIGHT, 8: Vector2.UP}[direction] * (10 * pow(2, speed))
+	return result
 
 func resume_follow() -> void:
 	scroll_remaining = 0
+	native_follow = false
+	native_velocity = Vector2.ZERO
 	options.follow_enabled = true
 
 func snapshot() -> Dictionary:
-	return {"options": options.duplicate(true), "display": [display.x, display.y], "scroll_target": [scroll_target.x, scroll_target.y], "scroll_remaining": scroll_remaining, "initialized": initialized}
+	return {"options": options.duplicate(true), "display": [display.x, display.y], "scroll_target": [scroll_target.x, scroll_target.y], "scroll_remaining": scroll_remaining, "initialized": initialized, "native_follow": native_follow, "native_velocity": [native_velocity.x, native_velocity.y]}
 
 static func decode(value: Variant) -> Dictionary:
-	if not value is Dictionary or value.size() != 5 or not valid_options(value.get("options")) or not value.get("initialized") is bool or not P.numeric(value.get("scroll_remaining"), 0, 3600): return P.fail("镜头存档无效。")
+	if not value is Dictionary or value.size() not in [5, 6, 7] or not value.get("native_follow", false) is bool or (value.size() >= 6 and not value.has("native_follow")) or not valid_options(value.get("options")) or not value.get("initialized") is bool or not P.numeric(value.get("scroll_remaining"), 0, 3600): return P.fail("镜头存档无效。")
+	var velocity: Variant = value.get("native_velocity", [0, 0])
+	if not velocity is Array or velocity.size() != 2 or not P.numeric(velocity[0], -640, 640) or not P.numeric(velocity[1], -640, 640) or (velocity[0] != 0 and velocity[1] != 0): return P.fail("镜头原生滚动速度无效。")
+	if value.size() == 7 and not value.has("native_velocity"): return P.fail("镜头原生速度字段缺失。")
 	for key in ["display", "scroll_target"]:
 		if not value.get(key) is Array or value[key].size() != 2: return P.fail("镜头坐标无效。")
 		for number in value[key]:
@@ -92,4 +121,6 @@ static func decode(value: Variant) -> Dictionary:
 	instance.scroll_target = Vector2(value.scroll_target[0], value.scroll_target[1])
 	instance.scroll_remaining = value.scroll_remaining
 	instance.initialized = value.initialized
+	instance.native_follow = value.get("native_follow", false)
+	instance.native_velocity = Vector2(velocity[0], velocity[1])
 	return {"ok": true, "value": instance}

@@ -5,6 +5,7 @@ static var _shaders: Dictionary = {}
 var model: RefCounted
 var view_model: RefCounted
 var timer_model: RefCounted
+var screen_model: RefCounted
 var preview := false
 var map: Node2D
 var camera: Camera2D
@@ -122,9 +123,10 @@ func _apply(rect: ColorRect, role: String, area: Rect2) -> void:
 
 func sync(delta: float) -> void:
 	if model == null or view_model == null: return
-	if preview or (RuntimeState.playing and not get_tree().paused):
+	if preview or (RuntimeState.playing and not RuntimeState.map_time_paused()):
 		model.advance(delta)
 		if timer_model != null: timer_model.advance(delta)
+		if preview and screen_model != null: screen_model.advance(delta)
 	var window_size := get_viewport().get_visible_rect().size
 	var area: Rect2 = view_model.view_rect(window_size)
 	_apply(panorama, "panorama", area)
@@ -133,12 +135,13 @@ func sync(delta: float) -> void:
 	_weather_clip.position = area.position
 	_weather_clip.size = area.size
 	weather.area = area.size
-	weather.type = int(model.data.weather_type)
-	weather.power = float(model.data.weather_power)
-	weather.density = float(model.data.weather_density)
+	var weather_value: Dictionary = screen_model.weather_snapshot() if screen_model != null else preload("res://runtime/scripts/WeatherState.gd").DEFAULTS
+	weather.type = int(weather_value.weather_type)
+	weather.power = float(weather_value.weather_power)
+	weather.density = float(weather_value.weather_density)
 	weather.display = view_model.display
 	if camera != null: weather.display += camera.offset
-	weather.advance(delta if preview or not get_tree().paused else 0.0)
+	weather.advance(delta if preview or not RuntimeState.map_time_paused() else 0.0)
 	var bounds := [Rect2(0, 0, window_size.x, area.position.y), Rect2(0, area.end.y, window_size.x, window_size.y - area.end.y), Rect2(0, area.position.y, area.position.x, area.size.y), Rect2(area.end.x, area.position.y, window_size.x - area.end.x, area.size.y)]
 	for index in 4:
 		_borders[index].position = bounds[index].position

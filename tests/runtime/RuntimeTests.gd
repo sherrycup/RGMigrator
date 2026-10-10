@@ -43,9 +43,12 @@ func run_suite() -> void:
 	expect(map.call("_passable_at", Vector2i.ZERO, 2), "directional passages must allow other directions")
 	map.set("map_data", saved_map)
 	map.set("tileset", saved_tileset)
+	current_scene.reset_event_execution()
 	for map_name in data.manifest().get("maps", []):
 		var id := str(map_name).trim_prefix("Map").to_int()
 		expect(map.call("load_map", id), "map must load: " + str(map_name))
+		# Map changes start/stop audio; let the deferred playback lifecycle run.
+		await process_frame
 	# Interpreter uses independent state; source event arrays must remain immutable.
 	state.call("begin_new_game", data.system())
 	var interpreter: RefCounted = event_script.new()
@@ -103,6 +106,12 @@ func expect(condition: bool, message: String) -> void:
 
 
 func finish() -> void:
+	# Stop asynchronous audio and let deferred scene/playback deletion settle.
+	root.get_node("RuntimeState").audio.stop_all()
+	if is_instance_valid(current_scene):
+		current_scene.queue_free()
+		current_scene = null
+	await create_timer(0.15).timeout
 	for failure in failures:
 		printerr("FAIL: ", failure)
 	print("RUNTIME TESTS: ", "PASSED" if failures.is_empty() else "FAILED")

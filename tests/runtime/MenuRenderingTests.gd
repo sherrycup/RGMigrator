@@ -59,6 +59,10 @@ func run_suite() -> void:
 	for resolution in [Vector2i(640, 480), Vector2i(800, 480), Vector2i(768, 768)]:
 		# Each size checks a fresh supplied inventory, not leftovers from the prior size.
 		root.get_node("RuntimeState").begin_new_game(system)
+		# Reusing Game for a new inventory fixture must also create a fresh map:
+		# native 116 now erases its source event, and erased scenes cannot be saved.
+		expect(game._map.load_map(root.get_node("RuntimeState").map_id), "fresh source map for each independent menu fixture")
+		game.reset_event_execution()
 		root.size = resolution
 		root.content_scale_size = resolution
 		await render_frames(3)

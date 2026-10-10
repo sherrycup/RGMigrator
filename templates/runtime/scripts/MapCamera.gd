@@ -16,6 +16,7 @@ func sync(delta: float = 0.0, snap: bool = false) -> void:
 	var changed := _map_id != int(map.get("_loaded_id"))
 	# A restored model keeps its manual scroll. A real map change recenters.
 	if changed and _map_id != -999:
+		if model.native_follow: model.resume_follow()
 		model.scroll_remaining = 0
 		model.initialized = false
 	model.advance(delta, focus, extent, get_viewport_rect().size, snap or (changed and not model.initialized))
@@ -31,7 +32,8 @@ func sync(delta: float = 0.0, snap: bool = false) -> void:
 	limit_bottom = int(maxf(extent.y, rect.size.y + limit_top))
 	force_update_scroll()
 
-func _process(delta: float) -> void: sync(delta)
+func _process(delta: float) -> void:
+	sync(0.0 if model == RuntimeState.map_view and RuntimeState.map_time_paused() else delta)
 
 func scroll(direction: int, tiles: Variant, seconds: Variant) -> Dictionary:
 	return model.scroll(direction, tiles, seconds, Vector2(map.map_width(), map.map_height()) * 32, get_viewport_rect().size)
