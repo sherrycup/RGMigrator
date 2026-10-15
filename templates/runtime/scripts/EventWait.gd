@@ -15,6 +15,7 @@ func clear() -> void:
 	remaining = 0.0
 
 func advance(delta: float) -> void:
+	if kind=="script_retry": clear(); return
 	if kind != "time": return
 	remaining = maxf(0.0, remaining - delta)
 	if remaining <= 0.0000001: clear()

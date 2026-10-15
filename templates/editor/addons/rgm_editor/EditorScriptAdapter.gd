@@ -6,7 +6,7 @@ static func adapt_map(source: Dictionary) -> Dictionary:
 	for key in result.get("events", {}):
 		for page in result.events[key].get("pages", []):
 			page.list = _adapt_list(page.get("list", []))
-			if _has_script(page.get("move_route", {})):
+			if _has_script(page.get("move_route", {})) and not _has_binding_or_runtime(page.move_route):
 				var original: Dictionary = page.move_route.duplicate(true)
 				page.move_route = _adapt_route(original)
 				page.list.push_front(_note("自主移动路线中的Ruby暂未转换；原代码已保留。",0,[original]))
@@ -26,6 +26,11 @@ static func _adapt_list(source: Array) -> Array:
 		var code = int(c.get("code",0))
 		var indent = int(c.get("indent",0))
 		var p: Array = c.get("parameters",[])
+		if code==355 and c.has("_script_binding"):
+			var count := int(c._script_binding.command_count)
+			for offset in count: result.append(source[i+offset].duplicate(true))
+			i += count
+			continue
 		if code in [355,655]:
 			var originals: Array = [c.duplicate(true)]
 			var text = "[Ruby暂未转换]\n" + str(p[0] if not p.is_empty() else "")
@@ -36,7 +41,7 @@ static func _adapt_list(source: Array) -> Array:
 				i += 1
 			result.append(_note(text,indent,originals))
 			continue
-		if code == 111 and not p.is_empty() and int(p[0]) == 12:
+		if code == 111 and not p.is_empty() and int(p[0]) == 12 and not c.has("_script_binding"):
 			var originals: Array = [c.duplicate(true)]
 			i += 1
 			while i < source.size():
@@ -46,16 +51,19 @@ static func _adapt_list(source: Array) -> Array:
 				if closing: break
 			result.append(_note("[Ruby条件暂未转换；整个条件分支保留，等待转换后恢复]\n" + str(p[1] if p.size()>1 else ""),indent,originals))
 			continue
-		if code == 209 and p.size() == 2 and _has_script(p[1]):
+		if code == 209 and p.size() == 2 and _has_script(p[1]) and not _has_binding_or_runtime(p[1]):
 			var original: Dictionary = p[1].duplicate(true)
 			result.append(_note("[移动路线Ruby暂未转换] 原路线已保留。",indent,[c.duplicate(true)]))
 			c.parameters[1] = _adapt_route(original)
-		if code == 509 and p.size() == 1 and int(p[0].get("code",0)) == 45:
+		if code == 509 and p.size() == 1 and int(p[0].get("code",0)) == 45 and not source.any(func(record: Variant) -> bool: return int(record.get("code",0))==209 and record.get("parameters",[]).size()==2 and _has_binding_or_runtime(record.parameters[1])):
 			i += 1
 			continue
 		result.append(c)
 		i += 1
 	return result
+
+static func _has_binding_or_runtime(route: Dictionary) -> bool:
+	return route.get("_script_runtime_route",false)
 
 static func _has_script(route: Variant) -> bool:
 	if not route is Dictionary: return false

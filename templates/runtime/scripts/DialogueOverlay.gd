@@ -7,6 +7,7 @@ signal choice_selected(index: int)
 signal number_confirmed(value: int)
 signal closed
 signal event_response(request_id: int, kind: String, value: Variant)
+signal event_failed(request_id: int,message: String)
 var _panel: PanelContainer
 var _content: VBoxContainer
 var _open := false
@@ -19,6 +20,8 @@ var _key_frame := 0
 var _number: SpinBox
 var _skin_visual: Control
 var _gold: PanelContainer
+var _flash_view: Control
+var _flash_request_id=-1
 
 func _ready() -> void:
 	layer = 20
@@ -34,9 +37,13 @@ func _ready() -> void:
 	add_child(_gold)
 	get_viewport().size_changed.connect(_layout)
 	RuntimeState.system_settings_changed.connect(_refresh_skin)
+	if RuntimeState.flash_messages!=null:
+		_flash_view=load("res://runtime/scripts/FlashMessageOverlay.gd").new(); add_child(_flash_view)
+		RuntimeState.flash_messages.responded.connect(_flash_respond)
+		RuntimeState.flash_messages.rejected.connect(func(request_id: int,message: String):event_failed.emit(request_id,message))
 
 func is_open() -> bool:
-	return _open
+	return _open or RuntimeState.flash_messages!=null and RuntimeState.flash_messages.message_window_showing()
 
 func show_message(lines: Array, request_id: int = -1, options: Dictionary = {}) -> void:
 	var packet := options.duplicate()
@@ -59,6 +66,13 @@ func show_button(variable_id: int, request_id: int = -1, options: Dictionary = {
 	show_event(packet, request_id)
 
 func show_event(payload: Dictionary, request_id: int = -1) -> void:
+	if _flash_view!=null and payload.get("kind") in ["message","choice","number"]:
+		_flash_request_id=request_id
+		var result=RuntimeState.flash_messages.present(payload,request_id,int(payload.get("event_id",0)))
+		if result.ok: return
+		RuntimeState.report_diagnostic(result.message)
+		event_failed.emit(request_id,result.message)
+		show_diagnostic(result.message,-1); return
 	_packet = payload.duplicate(true)
 	_request_id = request_id
 	_key_frame = Engine.get_process_frames()
@@ -98,7 +112,15 @@ func show_diagnostic(message: String, request_id: int = -1) -> void:
 	show_event({"kind": "diagnostic", "lines": ["不支持的 RMXP 事件", message, "详情请查看 migration_report.md。"], "position": 1, "frame": 0}, request_id)
 
 func dismiss() -> void:
+	if RuntimeState.flash_messages!=null: RuntimeState.flash_messages.cancel_request(_flash_request_id)
 	_hide()
+
+func _flash_respond(request_id: int,kind: String,value: Variant) -> void:
+	match kind:
+		"message": message_confirmed.emit()
+		"choice": choice_selected.emit(int(value))
+		"number": number_confirmed.emit(int(value))
+	event_response.emit(request_id,kind,value)
 
 func _render_page() -> void:
 	_ui_revision += 1

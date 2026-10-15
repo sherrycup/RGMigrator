@@ -5,7 +5,12 @@ func _initialize() -> void:
 
 func run() -> void:
 	var failed := false
-	for name in ["EventPersistence", "CommonEventUse", "CharacterRoute", "EventExecutionContext", "EventWait", "EventCommandCatalog", "EventScheduler", "EventUIBroker", "EventFixture", "EventTestHUD", "EventInput", "EventMessage", "EventValueResolver"]:
+	for filename in DirAccess.get_files_at("res://runtime/scripts"):
+		if not filename.ends_with(".gd"): continue
+		var production: Script=load("res://runtime/scripts/"+filename)
+		if production==null or production.reload(true)!=OK or not production.can_instantiate():
+			printerr("FAIL: runtime compile ",filename); failed=true
+	for name in ["ScriptSemantics", "ScriptStateBridge", "ScriptRuntime", "EventPersistence", "CommonEventUse", "CharacterRoute", "EventExecutionContext", "EventWait", "EventCommandCatalog", "EventScheduler", "EventUIBroker", "EventFixture", "EventTestHUD", "EventInput", "EventMessage", "EventValueResolver"]:
 		var extra: Script = load("res://runtime/scripts/%s.gd" % name)
 		if extra == null or not extra.can_instantiate(): failed = true
 	for name in ["SystemSettings", "WeatherState", "MapViewState", "MapEffectsState", "GameTimer", "AudioRuntime", "MapCamera", "WeatherRenderer", "MapEffectsRenderer", "TransitionRenderer", "PresentationTools"]:

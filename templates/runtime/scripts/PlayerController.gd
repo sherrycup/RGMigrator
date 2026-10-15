@@ -20,10 +20,14 @@ func configure(runtime: Node) -> void:
 	if not RuntimeState.state_changed.is_connected(_refresh_graphic): RuntimeState.state_changed.connect(_refresh_graphic)
 	_refresh_graphic()
 	_sync_position()
+	if RuntimeState.flash_followers!=null: RuntimeState.flash_followers.bind(self,runtime)
 
 
 func _refresh_graphic() -> void:
 	var actor: RefCounted = RuntimeState.actor(int(RuntimeState.party[0])) if not RuntimeState.party.is_empty() else null
+	if actor!=null and actor.has_method("equip_project"):
+		var ids: Array=RuntimeState.custom_data.gameplay().role_actor_ids()
+		actor=RuntimeState.actor(int(ids[0])) if ids[0]>0 else null
 	var name_value: String = "" if actor == null else actor.character_name
 	var hue: int = 0 if actor == null else actor.character_hue
 	var signature := "%s:%d" % [name_value, hue]
@@ -40,6 +44,7 @@ func configure_motion(value: Dictionary) -> Dictionary:
 
 func _process(delta: float) -> void:
 	if RuntimeState.map_time_paused(): return
+	if RuntimeState.flash_followers!=null: RuntimeState.flash_followers.advance(delta)
 	var was_forcing: bool = routes.forcing
 	advance_motion(delta)
 	_move_cooldown = maxf(0, _move_cooldown - delta)
@@ -61,18 +66,36 @@ func _process(delta: float) -> void:
 
 func move_straight(direction: int, turn_on_failure: bool = true) -> bool:
 	var started := super.move_straight(direction, turn_on_failure)
-	if started: _count_walk = not routes.forcing
+	if started:
+		_count_walk = not routes.forcing
+		if RuntimeState.flash_followers!=null: RuntimeState.flash_followers.accept_action(direction,[turn_on_failure])
 	return started
 
 
 func move_diagonal(offset: Vector2i) -> bool:
 	var started := super.move_diagonal(offset)
-	if started: _count_walk = not routes.forcing
+	if started:
+		_count_walk = not routes.forcing
+		if RuntimeState.flash_followers!=null: RuntimeState.flash_followers.accept_action({Vector2i(-1,1):1,Vector2i(1,1):3,Vector2i(-1,-1):7,Vector2i(1,-1):9}[offset])
 	return started
+
+func jump(x: int,y: int) -> bool:
+	var started=super.jump(x,y)
+	if started and RuntimeState.flash_followers!=null: RuntimeState.flash_followers.accept_action(5,[x,y])
+	return started
+
+func move_to(x: int,y: int) -> bool:
+	var moved=super.move_to(x,y)
+	if moved and RuntimeState.flash_followers!=null: RuntimeState.flash_followers.moveto_party_actors(x,y)
+	return moved
 
 
 func _on_arrived(kind: String) -> void:
-	if kind == "walk" and _count_walk: RuntimeState.record_step()
+	if kind == "walk" and _count_walk:
+		RuntimeState.record_step()
+		if RuntimeState.custom_data.manifest.get("profile")=="flash" and FileAccess.file_exists("res://data/flash_gameplay.json"):
+			var result: Dictionary=preload("FlashActions.gd").after_step(RuntimeState)
+			if not result.ok: RuntimeState.report_diagnostic("地图步行效果未提交："+str(result.get("message","")))
 	_count_walk = false
 	if map_runtime != null: map_runtime.trigger_player_touch(motion.cell)
 

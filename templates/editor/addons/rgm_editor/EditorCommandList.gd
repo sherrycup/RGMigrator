@@ -16,6 +16,7 @@ var _commands_clipboard: Array=[]
 var _rows: Array[TreeItem]=[]
 var _blocks: Array[Vector2i]=[]
 var _selected_block=Vector2i(-1,-1)
+var _structures: Array[Dictionary]=[]
 
 func configure(list: Array, documents: RefCounted, characters: Dictionary = {}) -> void:
 	if _documents!=null and _documents.changed.is_connected(_refresh_labels): _documents.changed.disconnect(_refresh_labels)
@@ -50,7 +51,7 @@ func _refresh_labels() -> void:
 
 func _refresh_commands(selected: int = -1, emit_change: bool = true) -> void:
 	if emit_change: changed.emit(draft())
-	_rows.clear(); _blocks.clear(); _selected_block=Vector2i(-1,-1)
+	_rows.clear(); _blocks.clear(); _structures.clear(); _selected_block=Vector2i(-1,-1)
 	_command_list.clear(); var root =_command_list.create_item()
 	var list: Array=_list
 	# Visual blocks group continuation records, not the bodies of conditions/loops.
@@ -58,9 +59,18 @@ func _refresh_commands(selected: int = -1, emit_change: bool = true) -> void:
 	while start<list.size():
 		var c: Dictionary=list[start]; var end=start+1
 		var next_code: int={101:401,108:408,209:509,302:605,355:655}.get(int(c.get("code",0)),-1)
-		while next_code>=0 and end<list.size() and int(list[end].get("code",0))==next_code and int(list[end].get("indent",0))==int(c.get("indent",0)): end+=1
+		if int(c.get("code",0))==355 and c.has("_script_binding"):
+			end=Commands.span(list,start).y
+		else:
+			while next_code>=0 and end<list.size() and int(list[end].get("code",0))==next_code and int(list[end].get("indent",0))==int(c.get("indent",0)): end+=1
 		for i in range(start,end): _blocks.append(Vector2i(start,end))
 		start=end
+	# Structural guides belong to complete branches/loops. Command bars belong
+	# to the current indentation level and only span their continuation records.
+	for i in list.size():
+		if int(list[i].get("code",0)) not in [102,111,112]: continue
+		var span=Commands.span(list,i)
+		if span.x>=0: _structures.append({"start":span.x,"end":span.y,"indent":clampi(int(list[i].get("indent",0)),0,20)})
 	var gutter=Image.create(12,1,false,Image.FORMAT_RGBA8); gutter.fill(Color.TRANSPARENT)
 	var gutter_texture=ImageTexture.create_from_image(gutter)
 	var continuation=-1; var block_indent=-1; var prefix=""
@@ -68,14 +78,20 @@ func _refresh_commands(selected: int = -1, emit_change: bool = true) -> void:
 		var c: Dictionary=list[i]; var code =int(c.get("code",0))
 		var item =_command_list.create_item(root); item.set_metadata(0,i); _rows.append(item)
 		var summary=Commands.summary(c,_documents,_characters)
-		var indent="│  ".repeat(clampi(int(c.get("indent",0)),0,20))
+		var indent="    ".repeat(clampi(int(c.get("indent",0)),0,20))
 		item.set_cell_mode(0,TreeItem.CELL_MODE_CUSTOM)
 		item.set_text(0,indent+summary.left(180)); item.set_icon(0,gutter_texture)
 		item.set_custom_draw_callback(0,_draw_command.bind("",""))
 		item.set_tooltip_text(0,summary+"\n原编号 %d / 第%d条\n原参数：%s" % [code,i+1,JSON.stringify(c.get("parameters",[]))])
 		var reason =Commands.Catalog.reason(code,c.get("parameters",[]))
-		if code in [101,108] and reason.is_empty() and not c.has("_editor_original"):
-			continuation=401 if code==101 else 408; block_indent=int(c.get("indent",0))
+		if code in [355,655] and _blocks[i].x<i and int(list[_blocks[i].x].get("code",0))==355 and reason.is_empty() and not c.has("_editor_original"):
+			# Bound source groups may contain adjacent355 records as well as655.
+			# Both are source lines of the same visible script block.
+			var text=str(c.parameters[0]).replace("\n"," ↵ ")
+			item.set_text(0,indent); item.set_description(0,indent+text)
+			item.set_custom_draw_callback(0,_draw_command.bind(indent+"脚本：",text.left(180)))
+		elif code in [101,108,355] and reason.is_empty() and not c.has("_editor_original"):
+			continuation={101:401,108:408,355:655}[code]; block_indent=int(c.get("indent",0))
 			prefix=Commands.summary(Commands.command(code,0,[""]),_documents,_characters)
 		elif code==continuation and int(c.get("indent",0))==block_indent and reason.is_empty() and not c.has("_editor_original"):
 			# Native text keeps branch guides in place; the body starts after the
@@ -98,14 +114,19 @@ func _draw_command(item: TreeItem, rect: Rect2, prefix: String, text: String) ->
 	# margins so adjacent continuation segments meet at the row boundary.
 	var top=rect.position.y-_command_list.get_theme_constant("inner_item_margin_top")+(4 if index==block.x else 0)
 	var bottom=rect.end.y+_command_list.get_theme_constant("inner_item_margin_bottom")-(4 if index==block.y-1 else 0)
-	RenderingServer.canvas_item_add_line(canvas,Vector2(rect.position.x+6,top),Vector2(rect.position.x+6,bottom),color,2)
 	var font=_command_list.get_theme_font("font"); var font_size=_command_list.get_theme_font_size("font_size")
 	var gutter=12+_command_list.get_theme_constant("icon_h_separation")
-	var branch_width=font.get_string_size("│  ",HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
-	var bar_width=font.get_string_size("│",HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
-	for level in clampi(int(_list[index].get("indent",0)),0,20):
-		var x=rect.position.x+gutter+branch_width*level+bar_width/2
-		RenderingServer.canvas_item_add_line(canvas,Vector2(x,top),Vector2(x,bottom),color,1)
+	var branch_width=font.get_string_size("    ",HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
+	var command_x=rect.position.x+6+branch_width*clampi(int(_list[index].get("indent",0)),0,20)
+	RenderingServer.canvas_item_add_line(canvas,Vector2(command_x,top),Vector2(command_x,bottom),color,2)
+	for structure in _structures:
+		if index<structure.start or index>=structure.end: continue
+		var x=rect.position.x+6+branch_width*structure.indent
+		var structure_top=rect.position.y-_command_list.get_theme_constant("inner_item_margin_top")+(4 if index==structure.start else 0)
+		var structure_bottom=rect.end.y+_command_list.get_theme_constant("inner_item_margin_bottom")-(4 if index==structure.end-1 else 0)
+		var guide_color=_rows[structure.start].get_meta("category_color")
+		if item.is_selected(0): guide_color=Color.WHITE
+		RenderingServer.canvas_item_add_line(canvas,Vector2(x,structure_top),Vector2(x,structure_bottom),guide_color,1)
 	var offset=gutter+font.get_string_size(prefix,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
 	if text.is_empty() or rect.size.x<=offset: return
 	var line=TextLine.new(); line.add_string(text,font,font_size)
@@ -176,7 +197,7 @@ func _edit_command() -> void:
 	if code in Commands.MARKERS: return
 	var p: Array=c.parameters.duplicate(true)
 	var span =_operation_span(_command_index)
-	if code in [101,108]:
+	if code in [101,108,355]:
 		for i in range(_command_index+1,span.y): p[0]+="\n"+str(list[i].parameters[0])
 	if code==302:
 		p=[p]
@@ -193,6 +214,11 @@ func _insertion(list: Array,index: int) -> Vector2i:
 func _accept_command(code: int,p: Array) -> void:
 	var list: Array=_list
 	var index =_command_index; var indent =int(list[index].get("indent",0))
+	var bound_script=not _adding_command and code==355 and list[index].has("_script_binding")
+	if bound_script:
+		var span=_operation_span(index); var original_source=str(list[index].parameters[0])
+		for position in range(index+1,span.y): original_source+="\n"+str(list[position].parameters[0])
+		if p==[original_source]: _refresh_commands(index); return
 	var replacement: Array=[]
 	if code==302:
 		for i in p.size(): replacement.append(Commands.command(302 if i==0 else 605,indent,p[i]))
@@ -219,9 +245,13 @@ func _accept_command(code: int,p: Array) -> void:
 			replacement.append(Commands.command(404,indent))
 		for key in list[index]:
 			if key not in ["code","parameters","indent"]: replacement[0][key]=list[index][key]
+		if code==355 and replacement[0].has("_script_binding"):
+			replacement[0]._script_binding=replacement[0]._script_binding.duplicate(true)
+			replacement[0]._script_binding.command_count=replacement.size()
 		for i in range(span.y-span.x): list.remove_at(index)
 	for i in replacement.size(): list.insert(index+i,replacement[i])
 	_refresh_commands(index)
+	if bound_script: _status.text="脚本修改已应用到草稿；保存后在F8工作区重新编译，旧绑定暂不能执行。"
 
 func _copy_command() -> void:
 	var list: Array=_list; var index =_selected_command()

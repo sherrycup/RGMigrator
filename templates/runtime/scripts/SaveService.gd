@@ -7,8 +7,11 @@ const SLOT_COUNT := 4
 const FORMAT := "rgmigrator-save"
 const SCHEMA := 1
 const MAX_BYTES := 8 * 1024 * 1024
+const INFO_CACHE_LIMIT := 16
 static var directory_override := "" # Disposable test directories only; production uses user://.
 static var _fingerprint := ""
+static var _info_cache: Dictionary = {}
+static var _info_order: Array[String] = []
 
 
 static func project_id() -> String:
@@ -16,17 +19,34 @@ static func project_id() -> String:
 
 
 static func directory() -> String:
-	return directory_override if not directory_override.is_empty() else "user://rgmigrator_saves/" + project_id().sha256_text().left(24)
+	var test_directory=str(ProjectSettings.get_setting("rgmigrator/test_save_directory",""))
+	return directory_override if not directory_override.is_empty() else test_directory if not test_directory.is_empty() else "user://rgmigrator_saves/" + project_id().sha256_text().left(24)
 
 
 static func slot_path(slot: int) -> String:
 	return directory().path_join("slot%d.json" % slot)
+
+static func maximum_slots() -> int:
+	return 4096 if Data.read_json("res://data/custom_data.json",{}).get("profile")=="flash" else SLOT_COUNT
+static func existing_slots() -> Array:
+	if maximum_slots()==SLOT_COUNT: return range(1,SLOT_COUNT+1)
+	var result: Array=[]
+	if not DirAccess.dir_exists_absolute(directory()): return result
+	var matcher=RegEx.new(); matcher.compile("^slot([0-9]+)\\.json(?:\\.bak)?$")
+	for name in DirAccess.get_files_at(directory()):
+		var found=matcher.search(name)
+		if found==null: continue
+		var id=int(found.get_string(1))
+		if id>=1 and id<=maximum_slots() and not id in result: result.append(id)
+	result.sort(); return result
 
 
 static func fingerprint() -> String:
 	if not _fingerprint.is_empty():
 		return _fingerprint
 	var files: Array[String] = ["res://data/system.json", "res://data/manifest.json", "res://data/map_infos.json"]
+	for file in ["res://data/custom_data.json","res://data/custom_units.json","res://data/flash_gameplay.json"]:
+		if FileAccess.file_exists(file): files.append(file)
 	for name in Data.manifest().get("database", []):
 		files.append("res://data/database/%s.json" % name)
 	for name in Data.manifest().get("maps", []):
@@ -41,17 +61,20 @@ static func fingerprint() -> String:
 
 static func save_slot(slot: int, state: Node) -> Dictionary:
 	var game: Node = state.game()
-	if slot < 1 or slot > SLOT_COUNT or (state.save_disabled and (game == null or not game.event_save_override())) or not state.playing:
+	if slot < 1 or slot > maximum_slots() or (state.save_disabled and (game == null or not game.event_save_override())) or not state.playing:
 		return fail("槽位无效或当前禁止存档。")
 	if not state.player_motion.is_idle(): return fail("人物正在行走或跳跃，请等待到达完整格后存档。")
 	if game != null and not game.event_save_reason().is_empty(): return fail(game.event_save_reason())
+	if state.get("flash_history")!=null: state.flash_history.flush_pending()
 	var snapshot := Codec.capture(state)
 	if state.save_count >= Codec.MAX_INTEGER: return fail("存档次数超出可保存范围。")
 	snapshot.save_count = state.save_count + 1
 	var prepared := Codec.prepare(snapshot)
 	if not prepared.ok:
 		return prepared
-	var payload := JSON.stringify(snapshot, "", true)
+	var encoded=preload("SaveGraph.gd").encode(snapshot) if state.custom_data.manifest.get("profile")=="flash" else {"ok":true,"value":snapshot}
+	if not encoded.ok: return fail(encoded.message)
+	var payload := JSON.stringify(encoded.value, "", true)
 	var envelope := {"format": FORMAT, "schema_version": SCHEMA, "runtime_version": Version.VERSION, "project_id": project_id(),
 		"data_fingerprint": fingerprint(), "saved_at": Time.get_datetime_string_from_system(false, true), "payload": payload, "sha256": payload.sha256_text()}
 	var content := JSON.stringify(envelope, "\t", true)
@@ -91,12 +114,13 @@ static func save_slot(slot: int, state: Node) -> Dictionary:
 	if DirAccess.rename_absolute(temporary, path) != OK:
 		return fail("替换存档失败；原件或备份仍可恢复。")
 	state.save_count = snapshot.save_count
+	_cache_info(slot, _info_stamp(slot), _summarize(verified))
 	state.state_changed.emit()
 	return {"ok": true, "message": "已保存至存档 %d。" % slot, "path": ProjectSettings.globalize_path(path)}
 
 
 static func read_slot(slot: int) -> Dictionary:
-	if slot < 1 or slot > SLOT_COUNT:
+	if slot < 1 or slot > maximum_slots():
 		return fail("无效槽位。")
 	var path := slot_path(slot)
 	var primary := read_path(path)
@@ -148,21 +172,52 @@ static func load_slot(slot: int, state: Node) -> Dictionary:
 
 
 static func slot_info(slot: int) -> Dictionary:
+	var key := ProjectSettings.globalize_path(slot_path(slot))
+	var stamp := _info_stamp(slot)
+	if _info_cache.has(key) and _info_cache[key].stamp == stamp:
+		_info_order.erase(key); _info_order.append(key)
+		return _info_cache[key].value.duplicate(true)
 	var result := read_slot(slot)
+	var info := _summarize(result)
+	_cache_info(slot, stamp, info)
+	return info.duplicate(true)
+
+
+static func _summarize(result: Dictionary) -> Dictionary:
 	if not result.ok:
 		return {"ok": false, "exists": result.get("exists", false), "message": result.message}
 	var names: Array[String] = []
 	for id in result.prepared.state.party:
 		names.append(result.prepared.actors[int(id)].actor_name)
 	return {"ok": true, "exists": true, "saved_at": result.saved_at, "party": "、".join(names),
-		"play_seconds": result.prepared.state.play_seconds, "map_id": result.prepared.state.map_id, "recovered": result.recovered}
+		"play_seconds": result.prepared.state.play_seconds, "map_id": result.prepared.state.map_id, "recovered": result.get("recovered", false),"archive":result.prepared.state.get("flash_archive",{})}
 
 
 static func has_valid_save() -> bool:
-	for slot in range(1, SLOT_COUNT + 1):
-		if read_slot(slot).ok:
+	for slot in existing_slots():
+		if slot_info(slot).ok:
 			return true
 	return false
+
+
+static func _info_stamp(slot: int) -> String:
+	# Hash bytes, not just second-resolution mtime: equal-size external edits and
+	# backup replacements must invalidate summaries. Actual loading never uses them.
+	var stamp := project_id() + ":" + fingerprint()
+	for path in [slot_path(slot), slot_path(slot) + ".bak"]:
+		if not FileAccess.file_exists(path): stamp += ":missing"; continue
+		var file := FileAccess.open(path, FileAccess.READ)
+		if file == null: stamp += ":unreadable"; continue
+		var length := file.get_length(); file.close()
+		stamp += ":" + (FileAccess.get_sha256(path) if length <= MAX_BYTES else "oversize-%d" % length)
+	return stamp
+
+
+static func _cache_info(slot: int, stamp: String, info: Dictionary) -> void:
+	var key := ProjectSettings.globalize_path(slot_path(slot))
+	_info_cache[key] = {"stamp": stamp, "value": info.duplicate(true)}
+	_info_order.erase(key); _info_order.append(key)
+	while _info_order.size() > INFO_CACHE_LIMIT: _info_cache.erase(_info_order.pop_front())
 
 
 static func write_text(path: String, content: String) -> Error:

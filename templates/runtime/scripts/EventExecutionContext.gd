@@ -12,8 +12,12 @@ var branches: Dictionary = {}
 var loops: Dictionary = {}
 var waiting_indent := 0
 var shop_command_index := 0
+var script_fields: Dictionary = {}
+var script_map_id := 0
 
 func setup(list: Array, id: int, map_id: int, page_number: int) -> void:
+	script_fields = {}
+	script_map_id = map_id
 	commands = list
 	index = 0
 	event_id = id

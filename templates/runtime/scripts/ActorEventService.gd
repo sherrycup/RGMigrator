@@ -30,15 +30,15 @@ static func execute(state: Node, code: int, p: Array) -> Dictionary:
 			if not copy.ok: return copy
 			staged = copy.actor
 		else:
-			staged = Actor.new(); staged.configure(id, definition, Data.record)
+			staged = state.create_actor(id, definition, Data.record)
 			var initial: Dictionary = staged.apply_equipment_states(staged.automatic_state_ids())
 			if not initial.ok: return initial
-		if staged.snapshot().parameters.values().has(null) or staged.hp == null or staged.sp == null: return fail("Actors[%d]的属性无法计算。" % id)
+		if (not staged.has_method("attach_project_fields") and staged.snapshot().parameters.values().has(null)) or staged.hp == null or staged.sp == null: return fail("Actors[%d]的属性无法计算。" % id)
 		var result := {"ok": true}
 		match code:
 			129:
 				if int(p[1]) == 0:
-					if not membership.has(id) and membership.size() < 4: membership.append(id)
+					if not membership.has(id) and (staged.has_method("attach_project_fields") or membership.size() < 4): membership.append(id)
 				else: membership.erase(id)
 			311: result = staged.change_hp_native(amount, p[4], _zero_hp_ids())
 			312: result = staged.add_vital("sp", amount)
@@ -69,6 +69,8 @@ static func execute(state: Node, code: int, p: Array) -> Dictionary:
 		else:
 			state.actors[id] = prepared[id]
 			prepared[id].changed.connect(func() -> void: state.state_changed.emit())
+		if state.actors[id].has_method("attach_project_fields"):
+			state.custom_data.values.actors[str(id)]=state.actors[id].project_fields
 	state.state_changed.emit()
 	var all_dead := false
 	if code == 311 and not state.party.is_empty():
@@ -86,6 +88,7 @@ static func _zero_hp_ids() -> Array:
 	return result
 
 static func _equip(actor: RefCounted, stock: Dictionary, slot: int, id: int) -> Dictionary:
+	if actor.has_method("equip_project"): return actor.equip_project(slot,id)
 	var old := int(actor.equipment[slot])
 	var kind := "weapon" if slot == 0 else "armor"
 	var database := "Weapons" if slot == 0 else "Armors"
@@ -112,6 +115,7 @@ static func _equip(actor: RefCounted, stock: Dictionary, slot: int, id: int) -> 
 	return {"ok": true}
 
 static func _profession(actor: RefCounted, stock: Dictionary, id: int) -> Dictionary:
+	if actor.has_method("set_project_class"): return actor.set_project_class(id)
 	var profession := Data.record("Classes", id)
 	if profession.is_empty(): return fail("目标职业不存在。")
 	for slot in 5:

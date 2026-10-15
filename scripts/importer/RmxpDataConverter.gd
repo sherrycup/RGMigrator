@@ -2,6 +2,7 @@ class_name RmxpDataConverter
 extends RefCounted
 
 const EditorScripts = preload("res://templates/editor/addons/rgm_editor/EditorScriptAdapter.gd")
+const ScriptInventory = preload("res://scripts/importer/ScriptMigrationInventory.gd")
 
 const RmxpMarshalReader = preload("res://scripts/importer/RmxpMarshalReader.gd")
 const RmxpTableDecoder = preload("res://scripts/importer/RmxpTableDecoder.gd")
@@ -18,6 +19,8 @@ var unsupported_commands: Array[Dictionary] = []
 var converted_files := 0
 var converted_maps := 0
 var exported_scripts := 0
+var script_sources: Array[Dictionary] = []
+var script_inventory: RefCounted
 
 
 func _init(text_codec: RmxpTextCodec) -> void:
@@ -36,12 +39,17 @@ func convert(source_root: String, output_root: String, progress: Callable = Call
 	converted_files = 0
 	converted_maps = 0
 	exported_scripts = 0
+	script_sources.clear()
+	script_inventory = ScriptInventory.new()
 	var data_root := source_root.path_join("Data")
 	var output_data := output_root.path_join("data")
 	DirAccess.make_dir_recursive_absolute(output_data.path_join("database"))
 	DirAccess.make_dir_recursive_absolute(output_data.path_join("maps"))
 	DirAccess.make_dir_recursive_absolute(output_root.path_join("legacy/ruby_scripts"))
 	var files := _list_rxdata(data_root)
+	# Read ordered scripts first so raw event grouping can respect the source
+	# Interpreter's known contiguous355 override before editor adaptation.
+	if files.has("Scripts.rxdata"): files.erase("Scripts.rxdata"); files.push_front("Scripts.rxdata")
 	var manifest := {
 		"format": "rgmigrator-rmxp-v1",
 		"encoding": _codec.label(),
@@ -58,8 +66,10 @@ func convert(source_root: String, output_root: String, progress: Callable = Call
 			errors.append("无法解析 Data/%s：%s" % [filename, reader.error_message])
 			continue
 		if filename == "Scripts.rxdata":
-			if export_scripts_from_data:
-				_export_scripts(raw, output_root.path_join("legacy/ruby_scripts"))
+			var destination := output_root.path_join("legacy/ruby_scripts" if export_scripts_from_data else "legacy/ordered_scripts")
+			DirAccess.make_dir_recursive_absolute(destination)
+			_export_scripts(raw, destination)
+			script_inventory.configure_scripts(script_sources)
 			continue
 		var converted: Variant = _convert_value(raw)
 		_audit_asset_references(converted)
@@ -67,6 +77,7 @@ func convert(source_root: String, output_root: String, progress: Callable = Call
 			_write_json(output_data.path_join("map_infos.json"), converted)
 			manifest["map_infos"] = "map_infos.json"
 		elif filename.begins_with("Map"):
+			script_inventory.collect_map(converted, filename.get_basename())
 			converted = EditorScripts.adapt_map(converted)
 			var map_name := filename.get_basename()
 			_write_json(output_data.path_join("maps").path_join("%s.json" % map_name), converted)
@@ -79,7 +90,9 @@ func convert(source_root: String, output_root: String, progress: Callable = Call
 				_write_json(output_data.path_join("system.json"), converted)
 				manifest["system"] = "system.json"
 			else:
-				if output_name in ["CommonEvents", "CommonEvent"] and converted is Array: converted = EditorScripts.adapt_common(converted)
+				if output_name in ["CommonEvents", "CommonEvent"] and converted is Array:
+					script_inventory.collect_common(converted,output_name)
+					converted = EditorScripts.adapt_common(converted)
 				_write_json(output_data.path_join("database").path_join("%s.json" % output_name), converted)
 				manifest["database"].append(output_name)
 				if output_name in ["CommonEvents", "CommonEvent"] and converted is Array:
@@ -213,7 +226,8 @@ func _export_scripts(raw: Variant, destination: String) -> void:
 			warnings.append("脚本 %d（%s）缺少压缩源码。" % [index, title])
 			continue
 		var source_bytes := packed.decompress_dynamic(128 * 1024 * 1024, FileAccess.COMPRESSION_DEFLATE)
-		if source_bytes.is_empty() and not packed.is_empty():
+		# A valid zlib stream can contain an empty separator script.
+		if source_bytes.is_empty() and packed != PackedByteArray([120,156,3,0,0,0,0,1]) and packed != PackedByteArray([120,218,3,0,0,0,0,1]) and packed != PackedByteArray([120,1,3,0,0,0,0,1]):
 			warnings.append("脚本 %d（%s）无法用 zlib 解压。" % [index, title])
 			continue
 		var safe_title := _safe_filename(title)
@@ -222,8 +236,10 @@ func _export_scripts(raw: Variant, destination: String) -> void:
 		if file == null:
 			warnings.append("无法写出脚本：%s" % path)
 			continue
-		file.store_string(_codec.decode(source_bytes))
+		var source := _codec.decode(source_bytes)
+		file.store_string(source)
 		file.close()
+		script_sources.append({"unit_id": "script_%04d" % (index+1), "source": source, "source_path": "legacy/%s/%s" % [destination.get_file(),path.get_file()], "origin": {"kind": "script", "source_file": "Data/Scripts.rxdata", "load_order": index+1, "script_id": _convert_value(entry[0]), "name": title}})
 		exported_scripts += 1
 
 

@@ -36,9 +36,16 @@ func run() -> void:
 			if category=="CommonEvents":
 				common_count+=1
 				expect(_dialog._form._hint(["trigger"]).options.size()==3,"common trigger has its own three modes")
+				var remaining=0
 				for c in value.list:
 					if c.has("_editor_original"): notes+=1
-					expect(int(c.code) not in [355,655],"common script commands stay annotations")
+					var valid=int(c.code) not in [355,655]
+					if int(c.code)==355 and c.has("_script_binding"):
+						var unit: Dictionary=source.read("data/script_units.json").get("units",{}).get(c._script_binding.unit_id,{})
+						valid=unit.get("status")=="generated" and unit.get("source_sha256")==c._script_binding.source_sha256
+						remaining=int(c._script_binding.command_count)-1
+					elif int(c.code) in [355,655]: valid=remaining>0; remaining-=1
+					expect(valid,"common Ruby is retained as a verified generated binding or an unsupported placeholder")
 			if i%100==0: await process_frame
 	print("DATABASE OPENED: ",count," records / ",common_count," common events / ",notes," script notes")
 	expect(source.dirty_paths().is_empty(),"opening original database never writes or dirties valid source definitions")
@@ -193,6 +200,9 @@ func _run_saved_runtime(docs: RefCounted, ids: Array) -> void:
 	var data=load("res://runtime/scripts/RuntimeData.gd")
 	for name in ["Actors","Classes","Items","CommonEvents","Tilesets"]: data._cache["res://data/database/"+name+".json"]=docs.records(name)
 	data._cache["res://data/system.json"]=docs.read("data/system.json")
+	# Native growth is the subject of this isolated authoring fixture; Flash's
+	# custom actor parameters use their own source-flow regression.
+	data._cache["res://data/custom_data.json"]={"profile":"native"}
 	var state=root.get_node("RuntimeState"); state.begin_new_game(data.system(),{"enabled":false})
 	var actor=state.actor(1,true)
 	expect(actor!=null and int(actor.parameter_sources("maxhp").database)==1234,"new game reads edited actor growth")

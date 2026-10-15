@@ -8,12 +8,17 @@ const Cache = preload("res://runtime/scripts/RmxpCache.gd")
 
 var _menu: VBoxContainer
 var _slots: Control
+var _flash: Control
 
 
 func _ready() -> void:
 	RuntimeState.playing = false
 	RuntimeState.audio.stop_all()
 	get_tree().paused = false
+	if RuntimeState.custom_data.manifest.get("profile")=="flash":
+		_flash=preload("FlashTitleScreen.gd").new()
+		_flash.new_game_requested.connect(_on_flash_new_game); _flash.load_requested.connect(_load_game)
+		add_child(_flash); _play_title_bgm(); return
 	_build_background()
 	_build_menu()
 	_play_title_bgm()
@@ -100,6 +105,12 @@ func _on_new_game() -> void:
 	RuntimeState.begin_new_game(RuntimeData.system())
 	get_tree().change_scene_to_file("res://scenes/Game.tscn")
 
+func _on_flash_new_game(difficulty: int) -> void:
+	RuntimeState.begin_new_game(RuntimeData.system())
+	var variable_id=int(RuntimeState.custom_data.gameplay().rules.constants.get("DIFFCULTY_MODE",141))
+	RuntimeState.set_event_variable(variable_id,difficulty)
+	get_tree().change_scene_to_file("res://scenes/Game.tscn")
+
 
 func _focus_new_game(button: Button) -> void:
 	if is_inside_tree() and is_instance_valid(button) and button.is_inside_tree():
@@ -130,8 +141,8 @@ func _close_slots() -> void:
 func _load_game(slot: int) -> void:
 	var result := Saves.load_slot(slot, RuntimeState)
 	if not result.ok:
-		_slots.message = result.message
-		_slots.refresh()
+		var slots: Control=_flash.child if _flash!=null else _slots
+		if slots!=null: slots.message = result.message; slots.refresh()
 		return
 	get_tree().change_scene_to_file("res://scenes/Game.tscn")
 
@@ -140,6 +151,8 @@ func _input(event: InputEvent) -> void:
 	if not event is InputEventKey or not event.pressed or event.echo:
 		return
 	var key: int = event.keycode if event.keycode != 0 else event.physical_keycode
+	if _flash!=null:
+		get_viewport().set_input_as_handled(); _flash.handle_key(key); return
 	if _slots != null:
 		get_viewport().set_input_as_handled()
 		if key in [KEY_UP, KEY_LEFT]:

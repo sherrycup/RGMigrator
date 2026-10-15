@@ -4,6 +4,7 @@ const RuntimeData = preload("res://runtime/scripts/RuntimeData.gd")
 static var _textures: Dictionary = {}
 static var _regions: Dictionary = {}
 static var _font: SystemFont
+static var _font_profile=""
 
 
 static func texture(name: String) -> Texture2D:
@@ -77,9 +78,12 @@ static func region(name: String, rectangle: Rect2) -> Texture2D:
 
 
 static func font() -> SystemFont:
-	if _font == null:
+	var custom: RefCounted=RuntimeData._custom_state.get_ref() if RuntimeData._custom_state!=null else null
+	var profile=str(custom.manifest.get("profile","")) if custom!=null else ""
+	if _font == null or _font_profile!=profile:
 		_font = SystemFont.new()
-		_font.font_names = PackedStringArray(["Microsoft YaHei", "SimSun", "Arial"])
+		_font_profile=profile
+		_font.font_names = PackedStringArray(["黑体","新細明體","宋体","標楷體","Arial"] if profile=="flash" else ["Microsoft YaHei", "SimSun", "Arial"])
 		_font.allow_system_fallback = true
 	return _font
 
@@ -110,6 +114,8 @@ static func play_sound(parent: Node, key: String) -> void:
 		RuntimeState.report_diagnostic("无法读取界面音效：%s" % name)
 		return
 	var player := AudioStreamPlayer.new()
+	if RuntimeState.flash_preferences!=null:
+		player.bus=preload("FlashPreferences.gd").EFFECT_BUS
 	player.process_mode = Node.PROCESS_MODE_ALWAYS
 	player.stream = stream
 	player.volume_db = linear_to_db(clampf(float(audio.get("volume", 100)) / 100.0, 0.0, 1.0))

@@ -1,0 +1,27 @@
+extends SceneTree
+const Validator = preload("res://scripts/importer/RmxpValidator.gd")
+const Pipeline = preload("res://scripts/importer/MigrationPipeline.gd")
+const Version = preload("res://scripts/Version.gd")
+
+func _init() -> void:
+	var workspace := ProjectSettings.globalize_path("res://").trim_suffix("/").get_base_dir()
+	var source_root := workspace.path_join("rm_template")
+	var output_root := workspace.path_join("output/0.41/final")
+	if DirAccess.dir_exists_absolute(output_root):
+		printerr("Refusing to overwrite an existing acceptance directory: ",output_root); quit(1); return
+	if DirAccess.make_dir_recursive_absolute(output_root) != OK: quit(1); return
+	var summary := {"version":Version.VERSION,"output_root":output_root,"projects":[],"ok":true}
+	for source in ["魔塔样板7630·改","小蛋挞(读1号存档即可)"]:
+		print("ACCEPTANCE SOURCE: ",source)
+		var preflight := Validator.new().preflight(source_root.path_join(source),output_root,936)
+		if not preflight.get("ok",false): printerr(JSON.stringify(preflight)); summary.ok=false; break
+		var result := Pipeline.new().run(preflight)
+		var report: Dictionary = result.get("report",{})
+		summary.projects.append({"source_path":source_root.path_join(source),"output_path":result.get("output_path",""),"ok":result.ok,"maps":report.get("maps",0),"assets":report.get("assets",0),"script_migration":report.get("script_migration",{}),"errors":report.get("errors",[])})
+		print("ACCEPTANCE EXPORTED: ",result.get("output_path","")," / ok=",result.ok)
+		if not result.ok: summary.ok=false; break
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://.godot/test-logs"))
+	var file := FileAccess.open("res://.godot/test-logs/v041-final-export.json",FileAccess.WRITE)
+	file.store_string(JSON.stringify(summary,"\t")); file.close()
+	print("ACCEPTANCE EXPORT: ","PASSED" if summary.ok else "FAILED")
+	quit(0 if summary.ok else 1)

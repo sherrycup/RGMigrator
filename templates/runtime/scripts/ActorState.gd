@@ -22,34 +22,45 @@ var diagnostics: Array[String] = []
 var hp: Variant = null:
 	set(value):
 		if value != null:
-			if not Parameters.integer(value):
+			if not _vital_number(value):
 				_report("HP 必须是有效整数；未修改。")
 				return
 			var cap: Variant = get_parameter("maxhp")
 			if cap == null:
 				_report("HP 上限无法计算；未修改。")
 				return
-			value = clampi(int(value), 0, int(cap))
+			value = _bound_vital(value,cap)
 		if hp != value:
 			hp = value
+			_after_hp_assignment()
 			changed.emit()
+		else: _after_hp_assignment()
 var sp: Variant = null:
 	set(value):
 		if value != null:
-			if not Parameters.integer(value):
+			if not _vital_number(value):
 				_report("SP 必须是有效整数；未修改。")
 				return
 			var cap: Variant = get_parameter("maxsp")
 			if cap == null:
 				_report("SP 上限无法计算；未修改。")
 				return
-			value = clampi(int(value), 0, int(cap))
+			value = _bound_vital(value,cap)
 		if sp != value:
 			sp = value
 			changed.emit()
 var _definition: Dictionary
 var _lookup: Callable
 var _experience_curve: PackedInt64Array
+
+func _after_hp_assignment() -> void:
+	pass
+
+func _vital_number(value: Variant) -> bool:
+	return Parameters.integer(value)
+
+func _bound_vital(value: Variant,cap: Variant) -> Variant:
+	return clampi(int(value),0,int(cap))
 
 
 func configure(actor_id: int, definition: Dictionary, lookup: Callable) -> void:

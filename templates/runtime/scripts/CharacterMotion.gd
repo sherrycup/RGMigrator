@@ -2,6 +2,7 @@ extends RefCounted
 ## Grid decisions and time-based visual motion; no event interpreter or renderer.
 const DIRECTIONS := {2: Vector2i.DOWN, 4: Vector2i.LEFT, 6: Vector2i.RIGHT, 8: Vector2i.UP}
 const DEFAULTS := {"move_speed": 4, "walk_anime": true, "step_anime": false, "direction_fix": false, "through": false, "transparent": false, "opacity": 255, "blend_type": 0, "idle_pattern": 0}
+const Data=preload("RuntimeData.gd")
 var cell := Vector2i.ZERO
 var target := Vector2i.ZERO
 var visual_cell := Vector2.ZERO
@@ -15,6 +16,13 @@ var _duration := 0.0
 var _elapsed := 0.0
 var _animation := 0.0
 var _idle_seconds := 0.0
+
+func _init() -> void:
+	if _flash(): options.move_speed=5 # Final source 0093 constructor.
+
+static func _flash() -> bool:
+	var custom: RefCounted=Data._custom_state.get_ref() if Data._custom_state!=null else null
+	return custom!=null and custom.manifest.get("profile")=="flash"
 
 
 static func validate(value: Variant, complete: bool = false) -> bool:
@@ -40,6 +48,7 @@ func configure(value: Dictionary) -> Dictionary:
 
 func reset() -> void:
 	options = DEFAULTS.duplicate()
+	if _flash(): options.move_speed=5
 	direction = 2
 	pattern = 0
 	_animation = 0
@@ -77,7 +86,7 @@ func turn(value: int, force: bool = false) -> bool:
 
 
 func pixels_per_second() -> float:
-	return pow(2.0, int(options.move_speed)) * 10.0
+	return pow(2.0, int(options.move_speed)) * (15.0 if _flash() else 10.0)
 
 
 func begin_move(value: int) -> bool:
@@ -119,6 +128,7 @@ func begin_jump(offset: Vector2i) -> bool:
 	_start = visual_cell
 	target = cell + offset
 	_duration = maxf(0.24, Vector2(offset).length() * 32.0 / pixels_per_second())
+	if _flash(): _duration=2.0*(10+int(round(Vector2(offset).length()))-int(options.move_speed))/60
 	_elapsed = 0
 	_idle_seconds = 0
 	_kind = "jump"
@@ -133,7 +143,7 @@ func advance(delta: float) -> String:
 		_elapsed = minf(_duration, _elapsed + delta)
 		var t := _elapsed / _duration
 		visual_cell = _start.lerp(Vector2(target), t)
-		jump_height = 4.0 * (24.0 + minf(64.0, _start.distance_to(Vector2(target)) * 4.0)) * t * (1 - t) if jumping() else 0.0
+		jump_height = _jump_height(t) if jumping() else 0.0
 		if _duration - _elapsed <= 0.000000001:
 			cell = target
 			visual_cell = Vector2(cell)
@@ -145,13 +155,15 @@ func advance(delta: float) -> String:
 		_idle_seconds = 0
 		_animation += delta
 		var interval := maxf(0.06, (18.0 - int(options.move_speed) * 2.0) / (60.0 if was_walking else 40.0))
+		if _flash(): interval=(floor((18.0-int(options.move_speed)*2)/(1.5 if was_walking and options.walk_anime else 1.0))+1)/60
 		var frames := int(_animation / interval)
 		if frames > 0:
 			pattern = (pattern + frames) % 4
 			_animation = fmod(_animation, interval)
 	elif is_idle():
 		_idle_seconds += delta
-		if _idle_seconds >= 0.12:
+		var idle_delay=0.12 if not _flash() else (floor((18.0-int(options.move_speed)*2)/1.5)+1)/60
+		if _idle_seconds >= idle_delay:
 			pattern = int(options.idle_pattern)
 			_animation = 0
 	return finished
@@ -190,5 +202,11 @@ static func decode(value: Variant, width: int, height: int) -> Dictionary:
 	result._animation = float(value.animation); result._idle_seconds = float(value.idle_seconds)
 	var t: float = result._elapsed / result._duration if value.kind != "" else 1.0
 	result.visual_cell = result._start.lerp(Vector2(result.target), t) if value.kind != "" else Vector2(result.cell)
-	result.jump_height = 4.0 * (24.0 + minf(64.0, result._start.distance_to(Vector2(result.target)) * 4.0)) * t * (1 - t) if value.kind == "jump" else 0.0
+	result.jump_height = result._jump_height(t) if value.kind == "jump" else 0.0
 	return {"ok": true, "value": result}
+
+func _jump_height(t: float) -> float:
+	if _flash():
+		var peak=_duration*60/2
+		return 2*peak*peak*t*(1-t)
+	return 4.0*(24.0+minf(64.0,_start.distance_to(Vector2(target))*4.0))*t*(1-t)

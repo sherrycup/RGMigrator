@@ -3,7 +3,7 @@ extends VBoxContainer
 ## Native move-route authoring: actions, their parameters and route flags.
 const Commands = preload("EditorCommands.gd")
 const ValueForm = preload("EditorValueForm.gd")
-const _PARAMETER_LABELS := {14:["横向格数","纵向格数"],15:["等待（1/20秒）"],27:["开关ID"],28:["开关ID"],29:["速度"],30:["频度"],41:["行走图","色相","朝向","图案帧"],42:["不透明度"],43:["混合方式"],44:["SE"]}
+const _PARAMETER_LABELS := {14:["横向格数","纵向格数"],15:["等待（1/20秒）"],27:["开关ID"],28:["开关ID"],29:["速度"],30:["频度"],41:["行走图","色相","朝向","图案帧"],42:["不透明度"],43:["混合方式"],44:["SE"],45:["原Ruby脚本（修改后需重新编译）"]}
 var _route: Dictionary = {}
 var _documents: RefCounted
 var _read_only = false
@@ -34,6 +34,7 @@ func configure(route: Dictionary, documents: RefCounted = null, read_only: bool 
 	_repeat.disabled = read_only; _skip.disabled = read_only
 	_message.text = "点击动作按钮插入；双击左侧动作编辑参数。末尾结束标记自动保留。"
 	if _route.has("_editor_original_route"): _message.text += " 原Ruby脚本已保留，暂不执行。"
+	elif _route.get("_script_runtime_route",false): _message.text += " 迁移脚本按绑定执行；修改源码后需重新编译。"
 	_refresh()
 
 func draft() -> Dictionary:
@@ -58,7 +59,7 @@ func _build() -> void:
 	_list = Tree.new(); _list.hide_root = true; _list.size_flags_vertical = Control.SIZE_EXPAND_FILL; left.add_child(_list)
 	_list.item_activated.connect(_edit_selected); _list.item_selected.connect(_update_buttons)
 	var tabs = TabContainer.new(); tabs.custom_minimum_size.x = 500; tabs.size_flags_horizontal = Control.SIZE_EXPAND_FILL; body.add_child(tabs)
-	for group in [["移动",1,15],["朝向",16,26],["属性与音效",27,44]]:
+	for group in [["移动",1,15],["朝向",16,26],["属性与音效",27,45]]:
 		var grid = GridContainer.new(); grid.name = group[0]; grid.columns = 4; tabs.add_child(grid)
 		for code in range(int(group[1]),int(group[2])+1):
 			var button = _button(grid,Commands.ROUTE_NAMES[code],_insert.bind(code)); button.custom_minimum_size.x = 118
@@ -97,7 +98,7 @@ func _selected() -> int:
 
 func _editable(index: int) -> bool:
 	var commands: Array = _route.get("list", [])
-	return not _read_only and index >= 0 and index < commands.size() and int(commands[index].get("code",0)) in range(1,45)
+	return not _read_only and index >= 0 and index < commands.size() and int(commands[index].get("code",0)) in range(1,46)
 
 func _update_buttons() -> void:
 	var index = _selected(); var editable = _editable(index)
@@ -110,6 +111,7 @@ func _insert(code: int) -> void:
 	if _read_only: return
 	var index = _selected()
 	_route.list.insert(index,Commands.route_command(code))
+	if code==45: _route["_script_runtime_route"]=true; _message.text="保存事件后在F8工作区重新转换路线脚本；转换成功才可执行。"
 	_refresh(index+1)
 	if not _route.list[index].parameters.is_empty(): _open_parameters(index)
 

@@ -114,10 +114,10 @@ func test_validation() -> void:
 		owner.start([c(entry[0], entry[1]), c(122, [8199, 8199, 0, 0, 1]), c(0)], 7, 2)
 		expect(not owner.running and JSON.stringify([state.variables, state.switches, state.inventory, state.gold]) == before, "invalid command is atomic %s" % [entry])
 		expect(errors.back().contains("事件 7") and errors.back().contains("第 1 条"), "invalid command retains source")
-	expect(not catalog.supported(111, [5, 0, 0]) and not catalog.supported(122, [1, 1, 0, 5, 0, 0]) and not catalog.supported(111, [12, "Ruby"]), "battle operands and scripts remain excluded")
+	expect(not catalog.supported(111, [5, 0, 0]) and not catalog.supported(122, [1, 1, 0, 5, 0, 0]) and catalog.supported(111, [12, "Ruby"]), "battle operands excluded; script condition structure accepted for binding validation")
 	state.gold = 9999998
 	owner.start([c(125, [0, 0, 5]), c(0)], 1)
-	expect(state.gold == 9999999, "gold upper cap")
+	expect(state.gold == (9999999 if str(state.custom_data.currency_maximum())=="9999999" else 10000003), "gold obeys the actual project cap")
 	owner.start([c(125, [1, 0, 99999999]), c(0)], 1)
 	expect(state.gold == 0, "gold lower cap")
 	var item := int(data.test_config().stock[0].id)

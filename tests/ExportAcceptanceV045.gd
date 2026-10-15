@@ -1,0 +1,32 @@
+extends SceneTree
+const Validator = preload("res://scripts/importer/RmxpValidator.gd")
+const Pipeline = preload("res://scripts/importer/MigrationPipeline.gd")
+const Version = preload("res://scripts/Version.gd")
+
+func _init() -> void:
+	# Keep ephemeral codepage tables within the test workspace.
+	ProjectSettings.set_setting("rgmigrator/codec_temp_directory",ProjectSettings.globalize_path("res://.godot/codec"))
+	var workspace := ProjectSettings.globalize_path("res://").trim_suffix("/").get_base_dir()
+	var source := workspace.path_join("rm_template/魔塔样板7630·改")
+	var output_root := workspace.path_join("output/0.45/delivery")
+	if DirAccess.dir_exists_absolute(output_root):
+		printerr("Refusing to overwrite an existing acceptance directory: ",output_root); quit(1); return
+	if DirAccess.make_dir_recursive_absolute(output_root) != OK: quit(1); return
+	print("ACCEPTANCE SOURCE: ",source)
+	var preflight := Validator.new().preflight(source,output_root,936)
+	if not preflight.get("ok",false): printerr(JSON.stringify(preflight)); quit(1); return
+	var result := Pipeline.new().run(preflight)
+	var report: Dictionary = result.get("report",{})
+	var output: String=result.get("output_path","")
+	var summary := {"version":Version.VERSION,"source":source,"output_root":output_root,"output_path":output,"ok":result.ok,"maps":report.get("maps",0),"assets":report.get("assets",0),"script_migration":report.get("script_migration",{}),"flash_gameplay":report.get("flash_gameplay",{}),"errors":report.get("errors",[])}
+	if result.ok:
+		var config=ConfigFile.new()
+		summary.ok=config.load(output.path_join("project.godot"))==OK and config.get_value("rendering","renderer/rendering_method","")=="gl_compatibility"
+		for path in ["addons/rgm_editor/plugin.cfg","runtime/generated/flash_skill_catalog.gd","data/source_corrections.json","migration_docs/SCRIPT_MIGRATION_v0.45.md"]:
+			if not FileAccess.file_exists(output.path_join(path)): summary.ok=false; summary.errors.append("正式输出缺少："+path)
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://.godot/test-logs"))
+	var file := FileAccess.open("res://.godot/test-logs/v045-release-export.json",FileAccess.WRITE)
+	file.store_string(JSON.stringify(summary,"\t")); file.close()
+	print("ACCEPTANCE EXPORTED: ",output," / ok=",summary.ok)
+	print("ACCEPTANCE EXPORT: ","PASSED" if summary.ok else "FAILED")
+	quit(0 if summary.ok else 1)

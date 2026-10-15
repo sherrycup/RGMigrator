@@ -102,6 +102,14 @@ static func _collect_hints(value: Variant, path: Array, result: Dictionary) -> v
 
 static func normalize(category: String, record: Dictionary, before: Dictionary = {}) -> Dictionary:
 	var value=record.duplicate(true)
+	if category=="CustomData" and value.get("floors",{}).get("maps") is Dictionary:
+		var lookup: Dictionary={}
+		for map_id in value.floors.maps:
+			var indices: Array=value.floors.maps[map_id].get("I",[])
+			if indices.size()==2: lookup["%d:%d" % [int(indices[0]),int(indices[1])]]=int(map_id)
+		value.floors.lookup=lookup
+	if value.has("_custom_data") and value.get("name") is String and value.name!=before.get("name"):
+		value._custom_data.tags=preload("res://runtime/scripts/CustomDataTags.gd").parse(value.name)
 	if category=="Animations":
 		var frames: Array=value.get("frames",[])
 		if frames.size()!=before.get("frames",[]).size(): value.frame_max=frames.size()
@@ -113,6 +121,23 @@ static func normalize(category: String, record: Dictionary, before: Dictionary =
 	return value
 
 static func reason(category: String, value: Dictionary, before: Dictionary, documents: RefCounted) -> String:
+	if category=="CustomData":
+		var decimal=preload("res://runtime/scripts/DecimalInteger.gd")
+		if not value.get("currencies") is Array: return "货币定义须为数组。"
+		var keys={}
+		for currency in value.currencies:
+			if not currency is Dictionary or not currency.get("key") is String or keys.has(currency.key) or not currency.get("label") is String or decimal.normalize(currency.get("maximum")).is_empty() or decimal.compare(currency.maximum,0)<0: return "货币标识、名称或上限无效。"
+			keys[currency.key]=true
+		if keys.keys()!=before.get("currencies",[]).map(func(c: Dictionary) -> String: return c.key): return "货币标识由脚本接口引用，不允许增删或改名。"
+		var seen: Dictionary={}
+		for map_id in value.get("floors",{}).get("maps",{}):
+			var indices: Variant=value.floors.maps[map_id].get("I")
+			if not indices is Array or indices.size()!=2 or not _integer(indices[0]) or not _integer(indices[1]): return "区域/楼层编号须为两个整数。"
+			var signature="%d:%d" % [int(indices[0]),int(indices[1])]
+			if seen.has(signature): return "区域和楼层组合重复："+signature
+			seen[signature]=true
+		return preload("res://runtime/scripts/CustomDataState.gd").plain_reason(value)
+
 	var error=_shape_reason(value,before,[])
 	if not error.is_empty(): return error
 	if category=="CommonEvents":
@@ -179,7 +204,7 @@ static func _shape_reason(value: Variant, before: Variant, path: Array) -> Strin
 		for i in value.size():
 			var error=_shape_reason(value[i],before[i] if before is Array and i<before.size() else null,path+[i])
 			if not error.is_empty(): return error
-	elif value is float and not is_finite(value): return "数值不能为无穷或NaN："+str(path)
+	elif (value is int or value is float) and (not is_finite(float(value)) or abs(float(value))>9007199254740991): return "数值超出JSON精确范围；大整数货币上限请使用十进制文本："+str(path)
 	return ""
 
 static func _reference_reason(value: Variant, before: Variant, path: Array, documents: RefCounted) -> String:

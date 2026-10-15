@@ -119,7 +119,7 @@ func ensure_ready() -> bool:
 		return true
 	# Build the Windows codepage lookup once, not one process per database string.
 	# All source text stays local; only a codepage number is passed to PowerShell.
-	var temp_root := OS.get_user_data_dir().path_join("codec")
+	var temp_root := str(ProjectSettings.get_setting("rgmigrator/codec_temp_directory",OS.get_user_data_dir().path_join("codec")))
 	if DirAccess.make_dir_recursive_absolute(temp_root) != OK:
 		error_message = "无法创建编码临时目录：%s" % temp_root
 		return false

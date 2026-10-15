@@ -1,0 +1,155 @@
+{
+  "date": "2026-10-15",
+  "version": "ver0.48",
+  "delivery": "D:\\Dev\\Godot_Trans\\output\\0.48\\fix-event-hotpath\\黎之闪翼（开发中）_Godot",
+  "source_scripts_sha256": "22763e029aa1b52a96ac24355909e3daf4a5c9c23940ae1c36cfbff2fe6233cf",
+  "formal_export": {
+    "ok": true,
+    "maps": 36,
+    "assets": 4097
+  },
+  "fidelity_checks": 11348,
+  "regression_groups": 19,
+  "regression_checks": 899,
+  "documentation": {
+    "checks": 1407,
+    "scripts": 232,
+    "public_methods": 1459
+  },
+  "delivery_checks": [
+    {
+      "name": "RuntimeCompileTests",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "RUNTIME COMPILE: PASSED"
+      ]
+    },
+    {
+      "name": "EditorCompileTests",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "EDITOR COMPILE: PASSED"
+      ]
+    },
+    {
+      "name": "FlashQueryTests",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "FLASH QUERY: PASSED / 15 checks"
+      ]
+    },
+    {
+      "name": "FlashEventBudgetTests",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "FLASH EVENT BUDGET: PASSED / 41 checks"
+      ]
+    },
+    {
+      "name": "FlashPerformanceRegressionTests",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "FLASH PERFORMANCE REGRESSION: PASSED / 26 checks"
+      ]
+    },
+    {
+      "name": "FlashPersistenceFlowTests",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "FLASH PERSISTENCE FLOW: PASSED / 18 checks"
+      ]
+    },
+    {
+      "name": "FlashAudioTests",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "FLASH AUDIO: PASSED / 21 checks"
+      ]
+    }
+  ],
+  "gpu": {
+    "driver": "NVIDIA GeForce GTX 1660 Ti",
+    "game_ready_ms": 13323.132,
+    "idle_p95_ms": 26.273,
+    "samples": [
+      {
+        "event": 22,
+        "start_ms": 25.885,
+        "max_frame_ms": 229.305,
+        "p95_frame_ms": 91.231,
+        "elapsed_ms": 1065.372,
+        "complete": true,
+        "erased": true
+      },
+      {
+        "event": 9,
+        "start_ms": 39.521,
+        "max_frame_ms": 67.417,
+        "p95_frame_ms": 64.426,
+        "elapsed_ms": 838.925,
+        "complete": true,
+        "erased": true
+      },
+      {
+        "event": 10,
+        "start_ms": 19.984,
+        "max_frame_ms": 77.556,
+        "p95_frame_ms": 60.403,
+        "elapsed_ms": 828.155,
+        "complete": true,
+        "erased": true
+      },
+      {
+        "event": 70,
+        "start_ms": 50.802,
+        "max_frame_ms": 130.237,
+        "p95_frame_ms": 56.358,
+        "elapsed_ms": 2263.266,
+        "complete": true,
+        "erased": true
+      },
+      {
+        "event": 23,
+        "start_ms": 13.85,
+        "max_frame_ms": 50.346,
+        "p95_frame_ms": 50.346,
+        "elapsed_ms": 530.602,
+        "complete": true,
+        "erased": true
+      },
+      {
+        "event": 6,
+        "start_ms": 27.625,
+        "max_frame_ms": 51.282,
+        "p95_frame_ms": 40.394,
+        "elapsed_ms": 880.221,
+        "complete": true,
+        "erased": true
+      },
+      {
+        "event": 11,
+        "start_ms": 17.087,
+        "max_frame_ms": 69.345,
+        "p95_frame_ms": 57.841,
+        "elapsed_ms": 833.018,
+        "complete": true,
+        "erased": true
+      }
+    ],
+    "outcome_graph_equal": true,
+    "hud_pixels_equal": true,
+    "diagnostics": []
+  },
+  "limitations": [
+    "First entry precompiles generated programs.",
+    "Cold resources, capture and individual atomic transactions can still exceed 16.7 ms.",
+    "Seven sampled original event chains do not establish stable 60 FPS on every map."
+  ]
+}

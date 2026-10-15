@@ -10,6 +10,15 @@ var _serial := 0
 func bind_interpreter(owner: RefCounted) -> void:
 	var reference: WeakRef = weakref(owner)
 	owner.message_requested.connect(func(lines: Array) -> void: _queue(reference, "message", [lines, _options()]))
+	owner.unblocking_message_requested.connect(func(lines: Array,event_id: int) -> void:
+		var result=preload("ScriptRuntime.gd").call_transaction(RuntimeState,{"source":"0161 Interpreter.command_101","operation":"parallel_hint"},func(env):
+			var ids: Variant=env._custom.temp_fields.get("event_id",[0,0])
+			if not ids is Array or ids.size()!=2: return env.fail("消息事件ID绑定需要两项。")
+			ids[1]=event_id
+			env._custom.temp_fields.event_id=ids; env._custom.temp_fields.unblocking_text="\n".join(lines); return true)
+		if not result.ok:
+			var current: RefCounted=reference.get_ref()
+			if current!=null: current.reject_dialogue(result.message))
 	owner.choices_requested.connect(func(choices: Array, cancel: int) -> void: _queue(reference, "choice", [choices, cancel, _options()]))
 	owner.number_requested.connect(func(id: int, digits: int) -> void: _queue(reference, "number", [id, digits, _options()]))
 	owner.dialogue_requested.connect(func(payload: Dictionary) -> void: _queue(reference, payload.kind, [payload.duplicate(true)]))
@@ -72,6 +81,7 @@ func reject(request_id: int, message: String) -> void:
 	if _valid(request):
 		if request.kind == "shop": request.owner.get_ref().reject_shop(message)
 		elif request.kind in ["name", "menu", "save"]: request.owner.get_ref().reject_scene_ui(request.kind, message)
+		elif request.kind in ["message","choice","number"]: request.owner.get_ref().reject_dialogue(message)
 
 func cancel_all() -> void:
 	_pending.clear()
@@ -83,6 +93,8 @@ func cancel_all() -> void:
 func _queue(reference: WeakRef, kind: String, payload: Array) -> void:
 	var owner: RefCounted = reference.get_ref()
 	if owner == null: return
+	if RuntimeState.custom_data.manifest.get("profile")=="flash" and not payload.is_empty() and payload[-1] is Dictionary:
+		payload[-1]["event_id"]=owner.context.event_id
 	_serial += 1
 	_pending.append({"owner": reference, "kind": kind, "payload": payload, "id": _serial, "token": owner.wait_token(), "wait": owner.wait_kind()})
 

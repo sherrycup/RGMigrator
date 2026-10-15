@@ -41,6 +41,9 @@ func _commit_play(kind: String, prepared: Dictionary) -> void:
 		if kind != "SE": stop(kind)
 		return
 	var player := AudioStreamPlayer.new()
+	if RuntimeState.flash_preferences!=null:
+		player.bus=preload("FlashPreferences.gd").EFFECT_BUS if kind=="SE" else preload("FlashPreferences.gd").MUSIC_BUS
+		if kind=="BGM": RuntimeState.flash_preferences.unlock_music(audio.name)
 	player.process_mode = Node.PROCESS_MODE_ALWAYS
 	player.stream = prepared.stream
 	player.volume_db = linear_to_db(maxf(0.00001, audio.volume / 100))

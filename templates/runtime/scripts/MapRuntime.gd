@@ -11,6 +11,7 @@ const TilesetLayout = preload("res://runtime/scripts/TilesetLayout.gd")
 signal event_requested(commands: Array, event_id: int)
 signal map_changed(map_id: int)
 signal events_changed
+var player_trigger_request=false
 
 const TILE_SIZE := 32
 const AUTOTILE_PARTS := [
@@ -62,7 +63,7 @@ func _ready() -> void:
 func load_map(map_id: int) -> bool:
 	var definition := RuntimeData.map(map_id)
 	if definition.is_empty() or int(definition.get("width", 0)) <= 0 or int(definition.get("height", 0)) <= 0: return false
-	map_data = definition
+	map_data = definition.duplicate(true)
 	_loaded_id = map_id
 	RuntimeState.map_id = map_id
 	_load_tileset()
@@ -99,9 +100,23 @@ func _finish_load() -> void:
 	_animations.clear()
 	ensure_character_layer()
 	_clear_events()
+	if RuntimeState.custom_data.manifest.get("profile")=="flash" and FileAccess.file_exists("res://data/flash_gameplay.json"):
+		apply_flash_tiles(RuntimeState.custom_data.values.system.get("map_data",{}).get(str(_loaded_id),{}),false)
 	_build_tile_rows()
 	_build_events()
 	queue_redraw()
+
+func apply_flash_tiles(changes: Dictionary,rebuild: bool=true) -> void:
+	var table: Dictionary=map_data.get("data",{})
+	for key in changes:
+		var coords: PackedStringArray=str(key).split(":")
+		if coords.size()!=3: continue
+		var x=int(coords[0]); var y=int(coords[1]); var z=int(coords[2])
+		if not valid(x,y) or z<0 or z>=int(table.get("z_size",0)): continue
+		var offset=x+y*int(table.x_size)+z*int(table.x_size)*int(table.y_size)
+		table.values[offset]=int(changes[key])
+	if rebuild:
+		_build_tile_rows(); queue_redraw()
 
 
 func map_width() -> int:
@@ -227,7 +242,9 @@ func _emit_at(cell: Vector2i, triggers: Array, in_front: bool) -> bool:
 	if trigger_allowed.is_valid() and not trigger_allowed.call(): return false
 	for event in _events_at.get(cell, []):
 		if event.trigger in triggers and event.front_interaction() == in_front and event.is_idle() and event.commands.size() > 1:
+			player_trigger_request=true
 			event_requested.emit(event.commands, event.event_id)
+			player_trigger_request=false
 			return true
 	return false
 
@@ -367,13 +384,21 @@ func transfer(map_id: int, x: int, y: int, direction: int = 0) -> bool:
 	var candidate := RuntimeData.map(map_id)
 	if x < 0 or y < 0 or x >= int(candidate.get("width", 0)) or y >= int(candidate.get("height", 0)): return false
 	if direction not in [0, 2, 4, 6, 8]: return false
+	var map_system: RefCounted=RuntimeState.custom_data.map_system() if _flash_map_enabled() else null
+	var previous: Dictionary=map_system.capture_location() if map_system!=null else {}
 	if map_id != _loaded_id:
 		if player_character != null: player_character.cancel_move_route()
 		if not load_map(map_id): return false
 	RuntimeState.player_motion.relocate(Vector2i(x, y))
 	if direction != 0: RuntimeState.player_motion.turn(direction)
 	if player_character != null: player_character._sync_position()
+	if RuntimeState.flash_followers!=null: RuntimeState.flash_followers.moveto_party_actors(x,y)
+	if map_system!=null and not previous.is_empty(): map_system.record_transfer(previous,map_system.capture_location())
 	return true
+
+
+func _flash_map_enabled() -> bool:
+	return RuntimeState.custom_data.manifest.get("profile")=="flash" and FileAccess.file_exists("res://data/flash_gameplay.json") and _loaded_id>0
 
 
 func show_picture(parameters: Array) -> void:
@@ -478,6 +503,7 @@ func _build_events(changed: Array = []) -> void:
 			previous.erase(id)
 			continue
 		if _erased_events.has(id): continue
+		if RuntimeState.custom_data.manifest.get("profile")=="flash" and FileAccess.file_exists("res://data/flash_gameplay.json") and preload("FlashMapBridge.gd").is_dead(RuntimeState.custom_data,RuntimeState.map_id,id): continue
 		var page := _active_page(event_data, int(key))
 		if page.is_empty():
 			continue
@@ -489,6 +515,9 @@ func _build_events(changed: Array = []) -> void:
 			event_node.occupancy_changed.connect(_reindex_events)
 		previous.erase(int(key))
 		event_node.configure(event_data, page, int(key), _loaded_id)
+		if RuntimeState.custom_data.manifest.get("profile")=="flash":
+			var overrides: Dictionary=RuntimeState.custom_data.values.system.get("event_page",{}).get(str(_loaded_id),{}).get(str(id),{})
+			if overrides.get("list") is Array: event_node.commands=overrides.list.duplicate(true)
 		if _dormant_events.has(id):
 			var saved_motion: Dictionary = _dormant_events[id].motion
 			event_node.move_to(int(saved_motion.cell[0]), int(saved_motion.cell[1]))
@@ -533,8 +562,11 @@ func _page_conditions_met(condition: Variant, event_id: int) -> bool:
 		return false
 	if bool(condition.get("switch2_valid", false)) and not bool(RuntimeState.switches.get(str(int(condition.get("switch2_id", 0))), false)):
 		return false
-	if bool(condition.get("variable_valid", false)) and int(RuntimeState.variables.get(str(int(condition.get("variable_id", 0))), 0)) < int(condition.get("variable_value", 0)):
-		return false
+	if bool(condition.get("variable_valid",false)):
+		var value: Variant=RuntimeState.variables.get(str(int(condition.get("variable_id",0))),0)
+		if not preload("res://runtime/scripts/EventValueResolver.gd").numeric_variable(value):
+			RuntimeState.report_diagnostic("Map%03d 事件页数值条件引用了自定义集合变量%d。" % [_loaded_id,int(condition.get("variable_id",0))]); return false
+		if int(value)<int(condition.get("variable_value",0)): return false
 	if bool(condition.get("self_switch_valid", false)):
 		var key := RuntimeState.self_switch_key(RuntimeState.map_id, event_id, str(condition.get("self_switch_ch", "A")))
 		if not bool(RuntimeState.self_switches.get(key, false)):
@@ -642,9 +674,10 @@ func _animated_tile(id: int) -> bool:
 func _process(delta: float) -> void:
 	if RuntimeState.game() != null and RuntimeState.game().event_map() == self and RuntimeState.map_time_paused(): return
 	_autotile_seconds += delta
-	if _autotile_seconds < 0.25: return
-	_autotile_frame += int(_autotile_seconds / 0.25)
-	_autotile_seconds = fmod(_autotile_seconds, 0.25)
+	var period: float=preload("FlashTilemap.gd").ANIMATION_SECONDS if _flash_map_enabled() else 0.25
+	if _autotile_seconds < period: return
+	_autotile_frame += int(_autotile_seconds / period)
+	_autotile_seconds = fmod(_autotile_seconds, period)
 	if _animated_ground: queue_redraw()
 	for row in _tile_rows:
 		if row.animated: row.queue_redraw()
@@ -678,7 +711,8 @@ func draw_tile(canvas: CanvasItem, id: int, destination: Vector2) -> void:
 			return
 		var variant := id % 48
 		var frame := _autotile_frame % maxi(1, int(texture.get_width() / 96))
+		var parts: Array=preload("FlashTilemap.gd").parts(variant) if _flash_map_enabled() else AUTOTILE_PARTS[variant]
 		for quadrant in 4:
-			var part := int(AUTOTILE_PARTS[variant][quadrant]) - 1
+			var part := int(parts[quadrant]) - 1
 			var source := Rect2(frame * 96 + (part % 6) * 16, int(part / 6) * 16, 16, 16)
 			canvas.draw_texture_rect_region(texture, Rect2(destination + Vector2((quadrant % 2) * 16, int(quadrant / 2) * 16), Vector2(16, 16)), source)

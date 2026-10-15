@@ -69,6 +69,7 @@ var _undo: Button
 var _redo: Button
 var _built = false
 var _database: ConfirmationDialog
+var _scripts: Window
 
 func _ready() -> void:
 	setup()
@@ -92,6 +93,9 @@ func setup(documents: RefCounted = null) -> void:
 	_database=preload("EditorDatabaseDialog.gd").new(); add_child(_database)
 	_database.confirmed.connect(func() -> void: _load_map(_map_id)); _database.canceled.connect(func() -> void: _load_map(_map_id))
 	_button(toolbar,"数据库 / 公共事件 F9",func() -> void: _database.open(_documents))
+	_scripts=preload("EditorScriptDialog.gd").new(); add_child(_scripts)
+	_scripts.published.connect(func() -> void: _database._before={}; _load_maps(_map_id))
+	_button(toolbar,"脚本工作区 F8",func() -> void: _scripts.open(_documents))
 	# Hidden selection models keep one source of truth for button and keyboard actions.
 	_layer = OptionButton.new(); _layer.hide(); add_child(_layer)
 	_layer.item_selected.connect(_choose_layer)
@@ -600,6 +604,7 @@ func _duplicate_map() -> void:
 func save_changes() -> bool:
 	if _stroke: _finish_stroke()
 	if _database!=null and not _database.apply_current(): return false
+	if _scripts!=null and not _scripts.apply_current(): return false
 	var result: Dictionary=_documents.save_all()
 	_status.text=("已保存%d个文件。" % int(result.get("count",0))) if result.ok else str(result.message)
 	if result.ok and int(result.get("count",0))>0 and Engine.is_editor_hint() and not EditorInterface.get_resource_filesystem().is_scanning(): EditorInterface.get_resource_filesystem().scan()
@@ -608,6 +613,7 @@ func save_changes() -> bool:
 func unsaved_status() -> String:
 	var count =_documents.dirty_paths().size() if _documents!=null else 0
 	var pending=_database.pending_status() if _database!=null else ""
+	if _scripts!=null: pending+=_scripts.pending_status()
 	return ("魔塔编辑器有%d个未保存的数据文件。" % count if count>0 else "")+pending
 
 func _undo_action() -> void:
@@ -624,6 +630,7 @@ func _ask_reload() -> void:
 
 func _reload_all() -> void:
 	_documents.reload(); _database._before={}; _database._reload_record(); _load_maps(_map_id)
+	if _scripts!=null: _scripts.reload()
 
 func _update_status() -> void:
 	if _status==null: return
@@ -637,7 +644,9 @@ func _update_status() -> void:
 
 func _shortcut_input(event: InputEvent) -> void:
 	if not is_visible_in_tree() or not event is InputEventKey or not event.pressed or event.echo: return
-	if _event_dialog.visible or _map_dialog.visible or _database.visible or _reload_dialog.visible: return
+	if _event_dialog.visible or _map_dialog.visible or _database.visible or _reload_dialog.visible or _scripts.visible: return
+	if event.keycode==KEY_F8:
+		_scripts.open(_documents); get_viewport().set_input_as_handled(); return
 	if event.keycode==KEY_F9:
 		_database.open(_documents); get_viewport().set_input_as_handled(); return
 	var focus =get_viewport().gui_get_focus_owner()

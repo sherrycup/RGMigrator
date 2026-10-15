@@ -1,0 +1,2582 @@
+{
+  "format": "rgm-flash-legacy-audit-v1",
+  "version_scope": "0.45",
+  "state": "audited_compatibility_verified",
+  "source_policy": "原Scripts.rxdata加载顺序的0.44只读展开副本；原Ruby不执行；仅闪翼，排除274—308特殊BOSS。",
+  "source_rxdata_sha256": "22763e029aa1b52a96ac24355909e3daf4a5c9c23940ae1c36cfbff2fe6233cf",
+  "counts": {
+    "script_slots": 339,
+    "executable_slots": 241,
+    "event_fragments": 144,
+    "source_data_documents": 49,
+    "native_117_commands": 213,
+    "incoming_native_36": 0,
+    "item_skill_refs_36": 0,
+    "active_include_extend_skill": 0,
+    "method_and_attribute_entries": 112
+  },
+  "native_117_targets": {
+    "2": 4,
+    "5": 5,
+    "6": 1,
+    "7": 15,
+    "11": 4,
+    "12": 2,
+    "13": 3,
+    "14": 2,
+    "17": 1,
+    "21": 1,
+    "23": 175
+  },
+  "source_data_documents": [
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/database/Actors.json",
+      "sha256": "14580c4a4b33fc97aa8aa099f476ec03fb614a852ff63f5fc7f9acbc1ecfa0b8"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/database/Animations.json",
+      "sha256": "94a55ca15b8c99c3bfcd8ca94b2f5dd5408fff644af39796827513b3416658c9"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/database/Armors.json",
+      "sha256": "bbf163b172634e7547f35bd0fdf4466093a1e3f26e662e5de60f871d34ab2332"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/database/Classes.json",
+      "sha256": "064b49cf273c7c7b3eb85a55cf27bf789fbd4e03782335382e05bba1d5ba27da"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/database/CommonEvents.json",
+      "sha256": "fa9a2e65dd310b293537e62b82ece487bd7890ec0d4a12f871b3a766febbec86"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/database/Enemies.json",
+      "sha256": "a27f3a8aa14e7064035710b3420256d32f1c2b614c93b0a875760e6d76ea6607"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/database/Items.json",
+      "sha256": "c0a9e7e48e99acbad9e5247e97661c101b9b1f2fc85fb086b559446755b15d10"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/database/Ornaments.json",
+      "sha256": "7743a0e246a8c3e58434c9a6fa6da459ca5767065b88c5d716397a4ca8e89c7e"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/database/Skills.json",
+      "sha256": "95c478cefeb33808aec0b4d725321947420af8a637b8db906854247815315414"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/database/States.json",
+      "sha256": "c1d699eccf11fcef3de2821d39579ac8ac8fabee26fa598a0485f2551375b4b2"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/database/Tilesets.json",
+      "sha256": "15425a79b778a8850ee49bc6ddc22f60fe4199da6b7f523c9095684e5f67ec93"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/database/Troops.json",
+      "sha256": "08443ee82b1420650b7ae1ba732f06b81c5135a80ccd1006787e458ddfcf91b5"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/database/Weapons.json",
+      "sha256": "3dc7b6a5c10403d1db32738d1ca98adde89c62ccca3f30d615860e9e438a7493"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map001.json",
+      "sha256": "6ecb9f4c1e423cc5bc28cd4b5b4520e30c505fa103544761064afb1466e130da"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map002.json",
+      "sha256": "b13f33599273fbc2ffa6fbc02f9d15fba6558c579579c4a87de017ff33dccaf4"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map003.json",
+      "sha256": "8607c585d524f3c08039284ad07a457a90f912913f0cfd21ed8436978dd2038f"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map004.json",
+      "sha256": "18f5d468a3eb6eceee3b6ba000b416d41ffe462fbe0cc50f0d499babec937fde"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map005.json",
+      "sha256": "18f5d468a3eb6eceee3b6ba000b416d41ffe462fbe0cc50f0d499babec937fde"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map006.json",
+      "sha256": "5c644226ae2a031b3af03f20eb58d76da9f3775141777cbe87bca0ce0c1de59a"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map007.json",
+      "sha256": "18f5d468a3eb6eceee3b6ba000b416d41ffe462fbe0cc50f0d499babec937fde"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map008.json",
+      "sha256": "b6796f6daafa03a6e797f19247d50b748d8e2e29f94669c0141903a4b15cf1df"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map009.json",
+      "sha256": "b5050c1508b26cf7a9a42bd0bada72551ba2b792fa83d83f7f0bd8f338f63637"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map010.json",
+      "sha256": "b2153281c7cedac55cd4f3c509a2b0dada39ed0f923dea60421d4002b47813af"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map011.json",
+      "sha256": "21fb52bc79aa806174759aa203c7fa0fc8fd441d8edd73bf12f5668384047cb3"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map012.json",
+      "sha256": "034f9ebb2f3b9e119647ace3f3958df3a092173eae328c4f95951cd27b170dd1"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map013.json",
+      "sha256": "c1a52286032a98d112c7cb94c5b922bd6ec098d6590067ade82b5c8055644cce"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map014.json",
+      "sha256": "a3b158da1bf8ef86ecb05bbaf80fb15c1bcbc9f3346aee4b7d23db605950d247"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map015.json",
+      "sha256": "e3ee5ec6a25955baee210a4370eea1b7f05ae2d25eeb8bad3027b9d166fff5ab"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map016.json",
+      "sha256": "74d9a629d8e376fb58d5941e04b4ae985b175257c0e0f05946384cab2e113cb5"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map017.json",
+      "sha256": "af4837f8db89e54104656f8cf70d168a454daf04b57f5107237324c406f2f528"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map018.json",
+      "sha256": "18f5d468a3eb6eceee3b6ba000b416d41ffe462fbe0cc50f0d499babec937fde"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map019.json",
+      "sha256": "18f5d468a3eb6eceee3b6ba000b416d41ffe462fbe0cc50f0d499babec937fde"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map020.json",
+      "sha256": "8738321630c4bebc6fd1d84edbfaa4fbd2080ec7e5c975324bc81a8d2977e28d"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map021.json",
+      "sha256": "b4fc87db153d97cd7077420a245bda8ad8c2c47f4339f076e4c98bfa1d48c0a3"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map022.json",
+      "sha256": "f2ee2621fc6de619bf7c412f2f4897f7fa2ae0d8da5a9aeacc5160f230e22241"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map023.json",
+      "sha256": "5928736138192aa76e30f0f656040d10df4b717bef8d38a76a3cb464865f5aa9"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map024.json",
+      "sha256": "de81c2521845602f07c9a0cc245874aa5cdda3dc8c11c4d351e1179753363ea2"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map025.json",
+      "sha256": "c681eedc3e866ab20bfd08662f6d7e6cbe8b3df03aba4037d683f5d46afa5343"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map026.json",
+      "sha256": "6ef7d7e73a0e3709d230b636e639e5825153cd6dc53f41aa798fc723b988ebf7"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map027.json",
+      "sha256": "89d61741f5666eec742b6aed2cb8ba29da875a1350a7e79fb639a47150aa87a3"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map028.json",
+      "sha256": "e1f1d0637a9c130cc85a45a3689d95a823ac0aa0e8dea621486de8e9e0ab674c"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map029.json",
+      "sha256": "e137f13aa9dea4e6244baeec3fd24e5f9fd0609392770105a99dfe2cd4469349"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map030.json",
+      "sha256": "2cb4cf1405e508b32b52d46e6125940dd9db31c9fc555e8c3bea0b91ad00a4aa"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map033.json",
+      "sha256": "40fba5ec4a02f47756e874822ecba874736051a7a448a48f9b30f391415fb6fe"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map034.json",
+      "sha256": "d09418a2439c392fedf702b0669e9194e0e4fa7695a63cf3b52a1e117b675655"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map035.json",
+      "sha256": "d09418a2439c392fedf702b0669e9194e0e4fa7695a63cf3b52a1e117b675655"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map036.json",
+      "sha256": "9d36c853c321be2320736da432cfaac8b31c6a5ad519c62843044119e17cea0a"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map037.json",
+      "sha256": "747e0f2448296652ee47f5a7e6f4095b57f23e4c4a82a50b7cb2a503461ea157"
+    },
+    {
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/data/maps/Map038.json",
+      "sha256": "dc8d3fe3c075488eb7329d80da2ef6db4d6a2cd3df16583863ccc517cc2522d4"
+    }
+  ],
+  "historical_active_references": [
+    {
+      "load_order": 62,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+      "line": 9,
+      "source": "def load_proc(id)"
+    },
+    {
+      "load_order": 62,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+      "line": 38,
+      "source": "def Skill.Load_StaticProc(id)"
+    },
+    {
+      "load_order": 64,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0064_Skill 3.rb",
+      "line": 4,
+      "source": "def real_time_readdition(key)"
+    },
+    {
+      "load_order": 72,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0072_BattleSystem.rb",
+      "line": 1964,
+      "source": "if @battle_data"
+    },
+    {
+      "load_order": 72,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0072_BattleSystem.rb",
+      "line": 1965,
+      "source": "remove_instance_variable(:@battle_data)"
+    },
+    {
+      "load_order": 75,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+      "line": 3,
+      "source": "class Battle_Data"
+    },
+    {
+      "load_order": 76,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+      "line": 2,
+      "source": "class Delay_Ctrl"
+    }
+  ],
+  "reflective_candidates": [
+    {
+      "load_order": 19,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0019_Array.rb",
+      "line": 40,
+      "source": "rlt << eval(code)"
+    },
+    {
+      "load_order": 33,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0033_WindowScaler.rb",
+      "line": 53,
+      "source": "value = Graphics.send(:__HWND)"
+    },
+    {
+      "load_order": 52,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0052_-_Sotrage.rb",
+      "line": 310,
+      "source": "eval(\"_main_actor.#{attr}=_main_actor.#{attr}.plus(#{value})\")"
+    },
+    {
+      "load_order": 53,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0053_Game_Object.rb",
+      "line": 66,
+      "source": "@setting[scode[0]] = eval(\"[\" + scode[1] + \"]\")"
+    },
+    {
+      "load_order": 53,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0053_Game_Object.rb",
+      "line": 68,
+      "source": "@setting[scode[0]] = eval(scode[1])"
+    },
+    {
+      "load_order": 62,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+      "line": 12,
+      "source": "return method(:rest)"
+    },
+    {
+      "load_order": 62,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+      "line": 14,
+      "source": "return method(:pattack)"
+    },
+    {
+      "load_order": 62,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+      "line": 16,
+      "source": "return method(:magic_attack)"
+    },
+    {
+      "load_order": 62,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+      "line": 19,
+      "source": "return method(:crazy_scratch)"
+    },
+    {
+      "load_order": 62,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+      "line": 21,
+      "source": "return method(:double_hand)"
+    },
+    {
+      "load_order": 62,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+      "line": 23,
+      "source": "return method(:repeat_slash)"
+    },
+    {
+      "load_order": 62,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+      "line": 25,
+      "source": "return method(:insight_counter)"
+    },
+    {
+      "load_order": 62,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+      "line": 28,
+      "source": "return method(:magic_box)"
+    },
+    {
+      "load_order": 62,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+      "line": 30,
+      "source": "return method(:straight_hit)"
+    },
+    {
+      "load_order": 62,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+      "line": 33,
+      "source": "return method(:excitement)"
+    },
+    {
+      "load_order": 70,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0070_Game_Enemy 1.rb",
+      "line": 53,
+      "source": "@setting[scode[0]] = eval(\"[\" + scode[1] + \"]\")"
+    },
+    {
+      "load_order": 70,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0070_Game_Enemy 1.rb",
+      "line": 55,
+      "source": "@setting[scode[0]] = eval(scode[1])"
+    },
+    {
+      "load_order": 72,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0072_BattleSystem.rb",
+      "line": 93,
+      "source": "value = state.__send__(key) rescue nil"
+    },
+    {
+      "load_order": 72,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0072_BattleSystem.rb",
+      "line": 99,
+      "source": "state.__send__((key.to_s + \"=\"), value) rescue nil"
+    },
+    {
+      "load_order": 72,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0072_BattleSystem.rb",
+      "line": 697,
+      "source": "skill.__send__(key.to_s + \"=\", value)"
+    },
+    {
+      "load_order": 72,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0072_BattleSystem.rb",
+      "line": 1444,
+      "source": "current = watched.__send__(counter_name) / threshold"
+    },
+    {
+      "load_order": 72,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0072_BattleSystem.rb",
+      "line": 1965,
+      "source": "remove_instance_variable(:@battle_data)"
+    },
+    {
+      "load_order": 78,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0078_▲Game_Party.rb",
+      "line": 153,
+      "source": "eval \"gain_\" + currency[type] + \"(n)\""
+    },
+    {
+      "load_order": 86,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0086_Game_Equipment.rb",
+      "line": 26,
+      "source": "@data[type][id] = eval(\"Game_#{str[type]}.new(id)\")"
+    },
+    {
+      "load_order": 94,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0094_Game_Character 2.rb",
+      "line": 338,
+      "source": "result = eval(command.parameters[0], __UBIND)"
+    },
+    {
+      "load_order": 96,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0096_Game_Event.rb",
+      "line": 148,
+      "source": "eval(\"@#{key}=#{value}\", __UBIND)"
+    },
+    {
+      "load_order": 98,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0098_Game_Player 2.rb",
+      "line": 101,
+      "source": "eval(\"_events[emsg[0]].move_#{dir[1]}\", __UBIND)"
+    },
+    {
+      "load_order": 108,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0108_Game_Floor.rb",
+      "line": 35,
+      "source": "@links[[event.x, event.y]] = [$1.to_i, $2.to_id, eval($3.to_s)]"
+    },
+    {
+      "load_order": 161,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0161_Interpreter 3.rb",
+      "line": 308,
+      "source": "result = eval(@parameters[1], __UBIND)"
+    },
+    {
+      "load_order": 165,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0165_Interpreter 7.rb",
+      "line": 272,
+      "source": "result = eval(script, __UBIND)"
+    },
+    {
+      "load_order": 169,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0169_Game_FileData.rb",
+      "line": 109,
+      "source": "eval \"@player_#{id} = temp\""
+    },
+    {
+      "load_order": 306,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0306_Battle_Manager.rb",
+      "line": 85,
+      "source": "eval \"@#{team}.push(data)\""
+    },
+    {
+      "load_order": 306,
+      "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0306_Battle_Manager.rb",
+      "line": 95,
+      "source": "eval \"@#{team}.push(data)\""
+    }
+  ],
+  "dynamic_event_calls": [
+    {
+      "origin": {
+        "command_code": 355,
+        "command_index": 12,
+        "common_event_id": 23,
+        "database": "CommonEvents",
+        "event_name": "事件名驱动",
+        "kind": "common_event",
+        "page": 0,
+        "source_command_indices": [
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "source_line_commands": [
+          12,
+          13,
+          14,
+          15,
+          16
+        ]
+      },
+      "source": "if _this.event.name[/^怪物(\\d+)/]\n$game_temp.enemy_id = $1.to_i\n@parameters = [1]\ncommand_117\nend",
+      "unit_id": "event_000084"
+    },
+    {
+      "origin": {
+        "command_code": 355,
+        "command_index": 28,
+        "common_event_id": 23,
+        "database": "CommonEvents",
+        "event_name": "事件名驱动",
+        "kind": "common_event",
+        "page": 0,
+        "source_command_indices": [
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43
+        ],
+        "source_line_commands": [
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43
+        ]
+      },
+      "source": "if _this.event.name[/^宝石(.+)/]\nparam = $1.to_s ; p param\nif param[/^(\\d+)$/] # 宝石编号\n$game_temp.gem_id = $1.to_i\nelsif param[/^<(.+)>$/] # 写入能力\ncodes = $1.to_s\ncodes = codes.split(/;/)\ncodes.each do |code|\ncode = code.split(/:/)\n$game_temp.attr_addtion[code[0]]=\\\neval(code[1])\nend\nend\n@parameters = [3]\ncommand_117\nend",
+      "unit_id": "event_000087"
+    },
+    {
+      "origin": {
+        "command_code": 355,
+        "command_index": 45,
+        "common_event_id": 23,
+        "database": "CommonEvents",
+        "event_name": "事件名驱动",
+        "kind": "common_event",
+        "page": 0,
+        "source_command_indices": [
+          45,
+          46,
+          47,
+          48,
+          49
+        ],
+        "source_line_commands": [
+          45,
+          46,
+          47,
+          48,
+          49
+        ]
+      },
+      "source": "if _this.event.name[/^门(\\d+)/]\n$game_temp.door_id = $1.to_i\n@parameters = [4]\ncommand_117\nend",
+      "unit_id": "event_000088"
+    }
+  ],
+  "historical_event_references": [
+    {
+      "origin": {
+        "command_code": 355,
+        "command_index": 1,
+        "common_event_id": 36,
+        "database": "CommonEvents",
+        "event_name": "战斗(以前的版本)",
+        "kind": "common_event",
+        "page": 0,
+        "source_command_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "source_line_commands": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "source": "# 记录主战角色伤害\n$game_temp.hp_addition = \\\n              -_this.enemy.got_damage\n$game_temp.actor_id = _v[1]\n\n# 记录敌人受伤\n$game_temp.enemy_hp_addition = \\\n            -_this.enemy.battle_data.damage\nav = $game_actors[_v[1]].battle_animation\n#根据角色装备的武器决定动画\n$game_map.events[@event_id].opacity=255\n$game_map.events[@event_id].animation_id=av",
+      "unit_id": "event_000099"
+    }
+  ],
+  "incoming_native_36": [],
+  "item_skill_refs_36": [],
+  "inactive_call_sources": [
+    {
+      "load_order": 74,
+      "block_start": 163,
+      "block_end": 377,
+      "calls": [
+        "Battle_Data.new",
+        "Delay_Ctrl.new",
+        "load_proc",
+        "real_time_readdition"
+      ]
+    },
+    {
+      "load_order": 234,
+      "block_start": 1,
+      "block_end": 207,
+      "calls": [
+        "enemy.battle_data"
+      ]
+    }
+  ],
+  "common_event_36": {
+    "id": 36,
+    "name": "战斗(以前的版本)",
+    "trigger": 0,
+    "source_commands": [
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "# 记录主战角色伤害"
+        ],
+        "indent": 0,
+        "code": 355
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "$game_temp.hp_addition = \\"
+        ],
+        "indent": 0,
+        "code": 655
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "              -_this.enemy.got_damage"
+        ],
+        "indent": 0,
+        "code": 655
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "$game_temp.actor_id = _v[1]"
+        ],
+        "indent": 0,
+        "code": 655
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          ""
+        ],
+        "indent": 0,
+        "code": 655
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "# 记录敌人受伤"
+        ],
+        "indent": 0,
+        "code": 655
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "$game_temp.enemy_hp_addition = \\"
+        ],
+        "indent": 0,
+        "code": 655
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "            -_this.enemy.battle_data.damage"
+        ],
+        "indent": 0,
+        "code": 655
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "av = $game_actors[_v[1]].battle_animation"
+        ],
+        "indent": 0,
+        "code": 355
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "#根据角色装备的武器决定动画"
+        ],
+        "indent": 0,
+        "code": 655
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "$game_map.events[@event_id].opacity=255"
+        ],
+        "indent": 0,
+        "code": 655
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "$game_map.events[@event_id].animation_id=av"
+        ],
+        "indent": 0,
+        "code": 655
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          5
+        ],
+        "indent": 0,
+        "code": 117
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          2
+        ],
+        "indent": 0,
+        "code": 117
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          12,
+          "_this.enemy.hp > 0 "
+        ],
+        "indent": 0,
+        "code": 111
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "表示怪物还活着"
+        ],
+        "indent": 1,
+        "code": 108
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "$game_temp.event_erase = false"
+        ],
+        "indent": 1,
+        "code": 355
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "_this.enemy.eva=[_this.enemy.eva - 1,0].max"
+        ],
+        "indent": 1,
+        "code": 355
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [],
+        "indent": 1,
+        "code": 0
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [],
+        "indent": 0,
+        "code": 411
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "ex=_this.enemy.exp"
+        ],
+        "indent": 1,
+        "code": 355
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "$game_party.gain_exp(ex)"
+        ],
+        "indent": 1,
+        "code": 655
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "gold=_this.enemy.gold"
+        ],
+        "indent": 1,
+        "code": 655
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          "$game_party.gain_gold(gold)"
+        ],
+        "indent": 1,
+        "code": 655
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [],
+        "indent": 1,
+        "code": 0
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [],
+        "indent": 0,
+        "code": 412
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [
+          14
+        ],
+        "indent": 0,
+        "code": 117
+      },
+      {
+        "_class": "RPG::EventCommand",
+        "parameters": [],
+        "indent": 0,
+        "code": 0
+      }
+    ],
+    "legacy_fragment": "event_000099",
+    "source_gap": "0072移除@battle_data且无battle_data getter，CE36 command8却仍读取它；_v[1]也仍使用旧角色位置。",
+    "compatibility_plan": "仅修复字段读为battle_result.enemy_damage和旧角色位置为_attack_actor.id；由原CE2一次扣除双方HP，保持CE36耐心/奖励/CE14流程；不得调用begin/finish造成二次扣血。",
+    "validation": "full_original_event_flow_passed",
+    "checks": [
+      "original_native_36_5_2_14_chain",
+      "main_hp_deducted_once",
+      "enemy_hp_deducted_once",
+      "no_pending_begin_finish",
+      "legacy_patience_minus_one",
+      "rewards_once",
+      "generated_original_level_up",
+      "old_role_variable_zero_uses_current_role"
+    ]
+  },
+  "editor_entry": {
+    "path": "templates/editor/addons/rgm_editor/EditorCommandDialog.gd",
+    "line": 27,
+    "behavior": "流程控制保留117；公共事件数据库包含36，用户可新增117调用36。脚本原文变更会令绑定过期，必须重编译；不能假定修改后的动态ID仍等于原数据。"
+  },
+  "scripts": [
+    {
+      "load_order": 60,
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+      "sha256": "cb78d0565e99c5245a6f07a13560cf694c8f0b3e75bff9163c5ed29596cf6d6a"
+    },
+    {
+      "load_order": 61,
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0061_-_Storage(技能文本).rb",
+      "sha256": "54ef0af82e68ee47a12ce348d5acc4d7b6af571e343478a696480eed3dcb2ba5"
+    },
+    {
+      "load_order": 62,
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+      "sha256": "3ee53a1afbea171ac538af5d19e2297eee15e9af39d8106d30356686f56fe376"
+    },
+    {
+      "load_order": 64,
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0064_Skill 3.rb",
+      "sha256": "32475fbcdc8ccbd7869f5d50a4cd284caaa1fc70925fbed577cab83541ef3bfb"
+    },
+    {
+      "load_order": 75,
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+      "sha256": "20ea438f9845b105c9e1338b69bd56427006015951407a2f119ff19f04dc297e"
+    },
+    {
+      "load_order": 76,
+      "path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+      "sha256": "05b028672a1ead7fa011cc6defc0a63b5024c99bcdb7d284e475c986c1811ee0"
+    }
+  ],
+  "methods": [
+    {
+      "owner": "Storage",
+      "name": "sucking_in",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 11,
+        "source": "attr_accessor :sucking_in                       # 吸血是否增加自身生命 <原52号开关>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "sucking_in=",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 11,
+        "source": "attr_accessor :sucking_in                       # 吸血是否增加自身生命 <原52号开关>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "sucking_ratio",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 12,
+        "source": "attr_accessor :sucking_ratio                    # 吸血属性效果 <原53号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "sucking_ratio=",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 12,
+        "source": "attr_accessor :sucking_ratio                    # 吸血属性效果 <原53号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "firmness",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 13,
+        "source": "attr_accessor :firmness                         # 坚固属性效果 <原54号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "firmness=",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 13,
+        "source": "attr_accessor :firmness                         # 坚固属性效果 <原54号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "offensive",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 14,
+        "source": "attr_accessor :offensive                        # 先攻属性效果 <原55号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "offensive=",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 14,
+        "source": "attr_accessor :offensive                        # 先攻属性效果 <原55号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "penetration",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 15,
+        "source": "attr_accessor :penetration                      # 魔攻属性效果 <原57号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "penetration=",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 15,
+        "source": "attr_accessor :penetration                      # 魔攻属性效果 <原57号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "critical",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 16,
+        "source": "attr_accessor :critical                         # 破甲属性效果 <原58号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "critical=",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 16,
+        "source": "attr_accessor :critical                         # 破甲属性效果 <原58号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "mirror",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 17,
+        "source": "attr_accessor :mirror                           # 模仿属性效果 <原60号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "mirror=",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 17,
+        "source": "attr_accessor :mirror                           # 模仿属性效果 <原60号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "resilience",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 18,
+        "source": "attr_accessor :resilience                       # 反弹属性效果 <原70号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "resilience=",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 18,
+        "source": "attr_accessor :resilience                       # 反弹属性效果 <原70号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "purge",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 19,
+        "source": "attr_accessor :purge                            # 净化属性效果 <原104号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "purge=",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 19,
+        "source": "attr_accessor :purge                            # 净化属性效果 <原104号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "delta_hatred",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 20,
+        "source": "attr_accessor :delta_hatred                     # 仇恨增量 <原110号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "delta_hatred=",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 20,
+        "source": "attr_accessor :delta_hatred                     # 仇恨增量 <原110号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "reduction",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 21,
+        "source": "attr_accessor :reduction                        # 退化属性效果 <原107、108号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "reduction=",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 21,
+        "source": "attr_accessor :reduction                        # 退化属性效果 <原107、108号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "stealing_ratio",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 22,
+        "source": "attr_accessor :stealing_ratio                   # 神偷属性效果 <原112号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "stealing_ratio=",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 22,
+        "source": "attr_accessor :stealing_ratio                   # 神偷属性效果 <原112号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "forgetting_ratio",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 23,
+        "source": "attr_accessor :forgetting_ratio                 # 遗忘属性效果 <原113号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "forgetting_ratio=",
+      "kind": "attribute",
+      "status": "legacy_preset_attribute",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 23,
+        "source": "attr_accessor :forgetting_ratio                 # 遗忘属性效果 <原113号变量>"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "actor_exp_next",
+      "kind": "method",
+      "status": "data_adapted",
+      "target": "scripts/importer/FlashGameplayImporter.gd -> data/flash_gameplay.json.storage",
+      "detail": "返回表/实例变量预设作为原值提取；delta_hetred与delta_hatred不静默混同。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 31,
+        "source": "def actor_exp_next"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "actor_init_exp",
+      "kind": "method",
+      "status": "data_adapted",
+      "target": "scripts/importer/FlashGameplayImporter.gd -> data/flash_gameplay.json.storage",
+      "detail": "返回表/实例变量预设作为原值提取；delta_hetred与delta_hatred不静默混同。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 40,
+        "source": "def actor_init_exp"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "actor_init_animation",
+      "kind": "method",
+      "status": "data_adapted",
+      "target": "scripts/importer/FlashGameplayImporter.gd -> data/flash_gameplay.json.storage",
+      "detail": "返回表/实例变量预设作为原值提取；delta_hetred与delta_hatred不静默混同。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 46,
+        "source": "def actor_init_animation"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "install_skill_parameters",
+      "kind": "method",
+      "status": "data_adapted",
+      "target": "scripts/importer/FlashGameplayImporter.gd -> data/flash_gameplay.json.storage",
+      "detail": "返回表/实例变量预设作为原值提取；delta_hetred与delta_hatred不静默混同。",
+      "source": {
+        "load_order": 60,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0060_-_Sotrage.rb",
+        "line": 53,
+        "source": "def install_skill_parameters"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "skill_description",
+      "kind": "method",
+      "status": "data_adapted_runtime_verified",
+      "target": "scripts/importer/FlashGameplayImporter.gd -> data/flash_gameplay.json.storage",
+      "detail": "原7条完整描述和1条简述提取；FlashLegacyFlowTests逐条检查精确字词与转义。",
+      "source": {
+        "load_order": 61,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0061_-_Storage(技能文本).rb",
+        "line": 20,
+        "source": "def skill_description"
+      }
+    },
+    {
+      "owner": "Storage",
+      "name": "skill_easy_description",
+      "kind": "method",
+      "status": "data_adapted_runtime_verified",
+      "target": "scripts/importer/FlashGameplayImporter.gd -> data/flash_gameplay.json.storage",
+      "detail": "原7条完整描述和1条简述提取；FlashLegacyFlowTests逐条检查精确字词与转义。",
+      "source": {
+        "load_order": 61,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0061_-_Storage(技能文本).rb",
+        "line": 36,
+        "source": "def skill_easy_description"
+      }
+    },
+    {
+      "owner": "Skill",
+      "name": "load_proc",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 62,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+        "line": 9,
+        "source": "def load_proc(id)"
+      }
+    },
+    {
+      "owner": "Skill",
+      "name": "Skill.Load_StaticProc",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 62,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+        "line": 38,
+        "source": "def Skill.Load_StaticProc(id)"
+      }
+    },
+    {
+      "owner": "Skill",
+      "name": "update_state",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 62,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+        "line": 44,
+        "source": "def update_state"
+      }
+    },
+    {
+      "owner": "Skill",
+      "name": "end_turn",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 62,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+        "line": 52,
+        "source": "def end_turn"
+      }
+    },
+    {
+      "owner": "Skill",
+      "name": "rest",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 62,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+        "line": 72,
+        "source": "def rest"
+      }
+    },
+    {
+      "owner": "Skill",
+      "name": "pattack",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 62,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+        "line": 85,
+        "source": "def pattack"
+      }
+    },
+    {
+      "owner": "Skill",
+      "name": "crazy_scratch",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 62,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+        "line": 116,
+        "source": "def crazy_scratch"
+      }
+    },
+    {
+      "owner": "Skill",
+      "name": "double_hand",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 62,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+        "line": 133,
+        "source": "def double_hand"
+      }
+    },
+    {
+      "owner": "Skill",
+      "name": "repeat_slash",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 62,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+        "line": 159,
+        "source": "def repeat_slash"
+      }
+    },
+    {
+      "owner": "Skill",
+      "name": "insight_counter",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 62,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+        "line": 200,
+        "source": "def insight_counter"
+      }
+    },
+    {
+      "owner": "Skill",
+      "name": "magic_box",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 62,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+        "line": 233,
+        "source": "def magic_box"
+      }
+    },
+    {
+      "owner": "Skill",
+      "name": "straight_hit",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 62,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+        "line": 250,
+        "source": "def straight_hit"
+      }
+    },
+    {
+      "owner": "Skill",
+      "name": "excitement",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 62,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+        "line": 285,
+        "source": "def excitement"
+      }
+    },
+    {
+      "owner": "Skill",
+      "name": "magic_attack",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 62,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0062_Skill 1.rb",
+        "line": 340,
+        "source": "def magic_attack(*args)"
+      }
+    },
+    {
+      "owner": "Skill",
+      "name": "real_time_readdition",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 64,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0064_Skill 3.rb",
+        "line": 4,
+        "source": "def real_time_readdition(key)"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "base",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 11,
+        "source": "attr_reader   :base"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "maxhp",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 12,
+        "source": "attr_reader   :maxhp"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "hp",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 13,
+        "source": "attr_reader   :hp"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "atk",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 14,
+        "source": "attr_reader   :atk"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "pdef",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 15,
+        "source": "attr_reader   :pdef"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "int",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 16,
+        "source": "attr_reader   :int"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "mdef",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 17,
+        "source": "attr_reader   :mdef"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "agi",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 18,
+        "source": "attr_reader   :agi"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "eva",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 19,
+        "source": "attr_reader   :eva"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "attack_times",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 21,
+        "source": "attr_accessor :attack_times"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "attack_times=",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 21,
+        "source": "attr_accessor :attack_times"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "attacked_times",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 22,
+        "source": "attr_accessor :attacked_times"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "attacked_times=",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 22,
+        "source": "attr_accessor :attacked_times"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "text",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 24,
+        "source": "attr_reader   :text"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "turn",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 25,
+        "source": "attr_accessor :turn"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "turn=",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 25,
+        "source": "attr_accessor :turn"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "damage",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 26,
+        "source": "attr_accessor :damage"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "damage=",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 26,
+        "source": "attr_accessor :damage"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "delay",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 27,
+        "source": "attr_accessor :delay"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "delay=",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 27,
+        "source": "attr_accessor :delay"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "buff",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 28,
+        "source": "attr_accessor :buff"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "buff=",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 28,
+        "source": "attr_accessor :buff"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "passive",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 29,
+        "source": "attr_accessor :passive  # 被动区BUFF"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "passive=",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 29,
+        "source": "attr_accessor :passive  # 被动区BUFF"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "battle_tag",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 30,
+        "source": "attr_accessor :battle_tag"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "battle_tag=",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 30,
+        "source": "attr_accessor :battle_tag"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "action_list",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 31,
+        "source": "attr_accessor :action_list"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "action_list=",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 31,
+        "source": "attr_accessor :action_list"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "t_damage",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 32,
+        "source": "attr_accessor :t_damage"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "t_damage=",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 32,
+        "source": "attr_accessor :t_damage"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "s_status",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 34,
+        "source": "attr_reader :s_status"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "s_readdition",
+      "kind": "attribute",
+      "status": "historical_definition_retained_not_current_battle",
+      "detail": "单独列出原attr生成接口；不冒充新模拟器的同名实现。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 35,
+        "source": "attr_reader :s_readdition"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "initialize",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 39,
+        "source": "def initialize(base,text)"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "temp_hp",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 141,
+        "source": "def temp_hp"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "atk",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 145,
+        "source": "def atk"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "pdef",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 149,
+        "source": "def pdef"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "int",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 153,
+        "source": "def int"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "mdef",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 157,
+        "source": "def mdef"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "agi",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 161,
+        "source": "def agi"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "a_damage",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 165,
+        "source": "def a_damage(damage)"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "d_damage",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 170,
+        "source": "def d_damage(damage)"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "dead?",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 174,
+        "source": "def dead?"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "damage=",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 179,
+        "source": "def damage=(damage)"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "gain_buff",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 192,
+        "source": "def gain_buff(txt,turn,plus,multi)"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "cost_buff",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 230,
+        "source": "def cost_buff"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "clear",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 246,
+        "source": "def clear"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "reload",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 334,
+        "source": "def reload(id)"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "init_data",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 340,
+        "source": "def init_data"
+      }
+    },
+    {
+      "owner": "Battle_Data",
+      "name": "to_s",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 75,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0075_Battle_Data.rb",
+        "line": 399,
+        "source": "def to_s"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "initialize",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 3,
+        "source": "def initialize"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "monitor_push_back",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 13,
+        "source": "def monitor_push_back(data)"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "monitor_get_battlers",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 19,
+        "source": "def monitor_get_battlers"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "monitor_get_battler",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 23,
+        "source": "def monitor_get_battler(str)"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "monitor_next_battler",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 32,
+        "source": "def monitor_next_battler(data)"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "monitor_find_opposite",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 39,
+        "source": "def monitor_find_opposite(data)"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "monitor_find_us",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 48,
+        "source": "def monitor_find_us(data)"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "get_battler",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 59,
+        "source": "def get_battler(str)"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "get_battlers",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 67,
+        "source": "def get_battlers"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "push_back",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 71,
+        "source": "def push_back(data)"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "find_opposite",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 76,
+        "source": "def find_opposite(data)"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "find_us",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 85,
+        "source": "def find_us(data)"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "next_battler",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 95,
+        "source": "def next_battler"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "next_skill",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 110,
+        "source": "def next_skill"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "have_enemies?",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 146,
+        "source": "def have_enemies?"
+      }
+    },
+    {
+      "owner": "Delay_Ctrl",
+      "name": "end?",
+      "kind": "method",
+      "status": "historical_definition_retained_not_current_battle",
+      "target": null,
+      "detail": "原方法定义保留；不计为已经完成等价GDScript迁移。",
+      "source": {
+        "load_order": 76,
+        "source_path": "D:/Dev/Godot_Trans/output/0.44/release/黎之闪翼（开发中）_Godot/legacy/ordered_scripts/0076_Delay_Ctrl.rb",
+        "line": 154,
+        "source": "def end?"
+      }
+    }
+  ],
+  "helper_review": [
+    {
+      "source": "0018 Object",
+      "methods": [
+        "in?",
+        "to_param"
+      ],
+      "status": "native_adapter",
+      "target": "ScriptSemantics.invoke",
+      "limits": "in?按Ruby身份/数值相等检查；to_param供旧Win32调用的API本身仍属系统插件后续范围。"
+    },
+    {
+      "source": "0019 Array",
+      "methods": [
+        "[]",
+        "old_val",
+        "bwise",
+        "plus",
+        "-@",
+        "minus",
+        "-",
+        "prod",
+        "*",
+        "random_element"
+      ],
+      "status": "bounded_native_adapter",
+      "target": "ScriptSemantics.index_get/indexes_get/unary/binary/invoke; FlashValueExtensions.vector/bwise",
+      "limits": "bwise仅原有限算术/两种clamp模式；任意新Ruby表达式明确失败。动态精确范围外数值不伪造。"
+    },
+    {
+      "source": "0021 Numeric",
+      "methods": [
+        "plus",
+        "minus",
+        "prod",
+        "to_opc",
+        "_in",
+        "==="
+      ],
+      "status": "native_adapter",
+      "target": "ScriptSemantics.binary/invoke",
+      "limits": "最后L49无参数to_opc覆盖L29有参数版本；===对Array逐项匹配。alias _in本身不代表额外公开玩法已走通。"
+    },
+    {
+      "source": "0024 Hash",
+      "methods": [
+        "[]",
+        "old_val"
+      ],
+      "status": "native_adapter",
+      "target": "ScriptSemantics.index_get/indexes_get/invoke",
+      "limits": "多键返回数组；普通树形Hash与Ruby键类型采用明确标签。"
+    },
+    {
+      "source": "0037 DataBase",
+      "methods": [
+        "maptree",
+        "get_floor_type"
+      ],
+      "status": "native_adapter",
+      "target": "CustomDataImporter._floor_tree; CustomDataState floor_tree/floor_tree_entries/floor_tree_map",
+      "limits": "原maptree混合[region,floor]与map_id键已接通，模板I/P等字段保持原平铺格式；根代理FlashBusinessTests验证混合索引和has_key?。原读取接口已适配，0108/0109整体地图行为仍归0.46。"
+    },
+    {
+      "source": "0037 DataBase",
+      "methods": [
+        "initialize",
+        "cre_maptree"
+      ],
+      "status": "migration_time_data_with_later_runtime_refresh",
+      "target": "DataConverter; CustomDataImporter._floor_tree; FlashGameplayImporter._sync_database；0.46系统/地图刷新",
+      "limits": "初始数据库转换、地图树提取、0072 L1855覆盖的技能同步已执行；运行时重新初始化/重建树回调随0.46系统与半成品地图接入，不能把0037整文件勾为已移植。"
+    },
+    {
+      "source": "0315 Utils",
+      "methods": [
+        "Unit",
+        "h_to_i",
+        "Check_Area",
+        "MHT_Distance",
+        "Find_Event"
+      ],
+      "status": "native_adapter",
+      "target": "FlashUtils.invoke/integer_text",
+      "limits": "Unit原空方法保持nil；MHT_Distance参数顺序x1,x2,y1,y2；Find_Event正则重叠允许重复ID，Check_Area含边界、死亡过滤和玩家。"
+    },
+    {
+      "source": "0315 Utils",
+      "methods": [
+        "AdaptText",
+        "Get_Pic",
+        "Update_Mask",
+        "Sprite_Unravel"
+      ],
+      "status": "later_drawing_text_scope",
+      "target": "0.46页面/文本与0.47插件收尾",
+      "limits": "0157/0179/0207/0227/0232、0310实际调用；不因当前菜单尚未接入就登记为无调用。"
+    },
+    {
+      "source": "0315 Utils",
+      "methods": [
+        "DeepClone"
+      ],
+      "status": "later_object_graph_scope",
+      "target": "0.46菜单实际树形数据复制；0.47共享/循环对象关系",
+      "limits": "0157/0182/0183/0216/0221实际调用；当前普通duplicate(true)或copy_value树形复制不证明Marshal对象图语义完全实现。"
+    }
+  ],
+  "runtime_validation": {
+    "test_path": "tests/runtime/FlashLegacyFlowTests.gd",
+    "marker": "FLASH LEGACY FLOW: PASSED / 33 checks",
+    "engine": "Godot 4.7.2 standard headless",
+    "log_path": "D:/Dev/Godot_Trans/RGMigrator/.godot/v045_legacy_flow_1791815418520069400/flash-legacy-flow.log",
+    "scope": "当前模板与根代理从原RM新生成的绑定/数据，独立私有夹具；原完整公共事件命令，两分支合成数值输入；不是全剧情或正式输出。"
+  },
+  "source_defects": [
+    {
+      "source": "0062 L38—39",
+      "detail": "Skill.Load_StaticProc读取Static_Hash，全部执行源码没有Static_Hash定义；不补造注册表。"
+    },
+    {
+      "source": "0062 L72—80",
+      "detail": "rest闭包没有初始化attacker，并误用attack；只在被注释掉旧循环被分派。"
+    },
+    {
+      "source": "0062 L116—128",
+      "detail": "crazy_scratch原闭包无伤害/动作；不得用注释补写新公式。"
+    },
+    {
+      "source": "0062 L325—329",
+      "detail": "excitement百分比分支arracker拼写；其余多种kind分支为空；本轮当前13预设没有280—329注册。"
+    },
+    {
+      "source": "0062 L340—345",
+      "detail": "magic_attack以Array作为damage并误用recevier，且不同于旧load_proc期待的Proc返回形式。"
+    },
+    {
+      "source": "0075 L203",
+      "detail": "gain_buff用mu字符串作乘法/比较，而不是@buff[mu]，原旧算法本身含错误。"
+    },
+    {
+      "source": "0076 L125—143",
+      "detail": "next_skill重写前面scope=0并有未实现的多目标分支；不能把新TargetResolver冒充此旧方法逐句迁移。"
+    }
+  ],
+  "decision": "新普通战斗保留0072/0073作为核心。0062/0064、0075/0076原定义与全部方法位置作为历史源码证据保留；不迁移RM旧Marshal存档，且不假称旧接口已等价实现。CE36保留编辑器可调用性并修复最小已坏引用，完整原流程验证通过。",
+  "release_judgement": {
+    "45-04": "原经验/动画/技能参数预设和7+1文本数据已适配；0062/0064当前普通流程没有有效include/extend或旧分派调用，原方法历史保留，不能宣称全部旧闭包已转成GDScript。当前13预设由0072/0073的迁移与测试负责。",
+    "45-14": "339槽/144片段/完整当前数据调用证据完成；唯一保留可调用CE36的已坏引用已修复，完整原公共事件链两分支33项检查通过。本项审计与最小兼容没有已知阻断；后续新代码显式使用旧类仍需明确迁移，不能凭历史分类静默运行。",
+    "45-01_boundary": "DataBase读取混合键已适配；initialize/cre_maptree运行时刷新、RPG绘图/文本页面与Utils图/循环对象复制按0.46/0.47接入。未知新bwise/eval表达式必须明确诊断；当前有限模式的适配不等于通用Ruby动态执行。",
+    "version": "仅对分配的审计范围给结论，不代替全部0.45清单、正式原RM导出或用户脚本整体验收。"
+  },
+  "limits": "原源码与144原片段、现有数据库/地图的有限静态证据；已列出反射候选并人工核对目标。不证明任意用户新写动态Ruby或未来编辑器数据不可调用旧类。代码生成/数据化/审计不是运行验证。"
+}

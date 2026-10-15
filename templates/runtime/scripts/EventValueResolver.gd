@@ -1,6 +1,7 @@
 extends RefCounted
 const Data = preload("res://runtime/scripts/RuntimeData.gd")
 const InputButtons = preload("res://runtime/scripts/EventInput.gd")
+const Decimal = preload("res://runtime/scripts/DecimalInteger.gd")
 const PARAMETER_KEYS := ["maxhp", "maxsp", "str", "dex", "agi", "int", "atk", "pdef", "mdef", "eva"]
 
 static func character(map: Node, event_id: int, id: int) -> Node:
@@ -20,6 +21,7 @@ static func condition(p: Array, map: Node, event_id: int) -> Dictionary:
 	match int(p[0]):
 		0: result = bool(RuntimeState.switches.get(str(int(p[1])), false)) == (int(p[2]) == 0)
 		1:
+			if not numeric_variable(RuntimeState.variables.get(str(int(p[1])),0)) or int(p[2])!=0 and not numeric_variable(RuntimeState.variables.get(str(int(p[3])),0)): return _fail("数值条件引用了自定义集合或非整数变量。")
 			var left := int(RuntimeState.variables.get(str(int(p[1])), 0))
 			var right := int(p[3]) if int(p[2]) == 0 else int(RuntimeState.variables.get(str(int(p[3])), 0))
 			result = [left == right, left >= right, left <= right, left > right, left < right, left != right][int(p[4])]
@@ -42,7 +44,9 @@ static func condition(p: Array, map: Node, event_id: int) -> Dictionary:
 		6:
 			var node := character(map, event_id, int(p[1]))
 			result = node != null and node.motion.direction == int(p[2])
-		7: result = RuntimeState.gold >= int(p[1]) if int(p[2]) == 0 else RuntimeState.gold <= int(p[1])
+		7:
+			if not RuntimeState.custom_data.valid_currency(RuntimeState.gold): return _fail("金币状态无效。")
+			result = Decimal.compare(RuntimeState.gold,int(p[1]))>=0 if int(p[2])==0 else Decimal.compare(RuntimeState.gold,int(p[1]))<=0
 		8, 9, 10: result = int(RuntimeState.inventory.get("%s:%d" % [["item", "weapon", "armor"][int(p[0]) - 8], int(p[1])], 0)) > 0
 		11: result = InputButtons.pressed(int(p[1]))
 	return {"ok": true, "value": result}
@@ -51,7 +55,7 @@ static func operand(p: Array, map: Node, event_id: int) -> Dictionary:
 	var value: Variant = null
 	match int(p[3]):
 		0: value = int(p[4])
-		1: value = int(RuntimeState.variables.get(str(int(p[4])), 0))
+		1: value = RuntimeState.variables.get(str(int(p[4])), 0)
 		2: value = randi_range(int(p[4]), int(p[5]))
 		3:
 			if Data.record("Items", int(p[4])).is_empty(): return _fail("变量引用的物品不存在。")
@@ -84,7 +88,12 @@ static func operand(p: Array, map: Node, event_id: int) -> Dictionary:
 		7:
 			value = [RuntimeState.map_id, RuntimeState.party.size(), RuntimeState.gold, RuntimeState.steps, int(RuntimeState.play_seconds), int(RuntimeState.timer.remaining), RuntimeState.save_count][int(p[4])]
 	if value == null: return _fail("变量操作数数据缺失，无法计算；未修改变量。")
+	if value is String: return _fail("金币超出原生事件变量精确整数范围；请使用迁移脚本货币接口。")
+	if not numeric_variable(value): return _fail("数值操作数引用了自定义集合或非整数变量。")
 	return {"ok": true, "value": int(value)}
+
+static func numeric_variable(value: Variant) -> bool:
+	return (value is int or value is float) and is_finite(float(value)) and floor(float(value))==float(value) and abs(float(value))<=9007199254740991
 
 static func calculate(current: int, operation: int, operand_value: int) -> int:
 	var value := current

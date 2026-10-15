@@ -12,6 +12,7 @@ var _tileset_layers_only=false
 var _database_authoring_only=false
 var _feedback_only=false
 var _final_ui_only=false
+var _structure_only=false
 func expect(ok: bool,message: String) -> void:
 	_checks+=1
 	if not ok: _failures.append(message)
@@ -27,6 +28,7 @@ func run(plugin: EditorPlugin,panel: Control) -> void:
 		if arg=="--database-authoring-only": _database_authoring_only=true
 		if arg=="--feedback-only": _feedback_only=true
 		if arg=="--final-ui-only": _final_ui_only=true
+		if arg=="--structure-only": _structure_only=true
 		if arg.begins_with("--captures="): _captures=arg.trim_prefix("--captures=")
 		if arg.begins_with("--resolution="):
 			var size =arg.trim_prefix("--resolution=").split("x")
@@ -61,6 +63,10 @@ func run(plugin: EditorPlugin,panel: Control) -> void:
 		expect(not image.is_empty(),"native editor image "+suffix)
 		expect(image.save_png(_captures.path_join("map-"+suffix+".png"))==OK,"capture actual main screen")
 		images.append("map-"+suffix+".png")
+		if _structure_only:
+			var scenario=load("res://.godot/EditorStructureGuideScenario.gd").new(); panel.hide()
+			await scenario.run(panel.get_parent(),panel._documents,func(window: Window, name: String) -> void: await _capture(tree,window,name,resolution,images))
+			_checks+=scenario.checks; _failures.append_array(scenario.failures); panel.show(); continue
 		if _final_ui_only:
 			var scenario=load("res://.godot/EditorFinalUiScenario.gd").new(); panel.hide()
 			await scenario.run(panel.get_parent(),panel._documents,func(fixture: Window, name: String) -> void:

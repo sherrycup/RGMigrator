@@ -4,11 +4,13 @@ const Interpreter = preload("res://runtime/scripts/EventInterpreter.gd")
 const Data = preload("res://runtime/scripts/RuntimeData.gd")
 signal interpreter_created(interpreter: RefCounted)
 signal main_completed
+signal main_aborted
 var map_runtime: Node
 var main: RefCounted
 var parallels: Dictionary = {}
 var common_events: Array = []
 var frame_budget := 2048
+var frame_time_budget_usec := 4000
 var _faults: Dictionary = {}
 var _main_key := ""
 var _locked: WeakRef
@@ -21,9 +23,11 @@ func configure(map: Node, common_override: Variant = null) -> void:
 	if not source is Array: source = Data.database("CommonEvent")
 	common_events = source if source is Array else []
 	main = Interpreter.new()
+	main.time_budget_usec=frame_time_budget_usec
 	main.map_runtime = map
 	main.common_events = common_events
 	main.completed.connect(_main_finished)
+	main.failed.connect(_main_aborted)
 	main.diagnostic_requested.connect(_main_failed)
 	_generation = map.generation
 	map.map_changed.connect(_map_changed)
@@ -69,13 +73,23 @@ func advance(delta: float, allow_autorun: bool = true) -> void:
 				main.context.common_id = int(event.id)
 				break
 	var budget := maxi(1, frame_budget)
-	budget -= main.advance(delta, mini(256, budget))
-	if RuntimeState.map_time_paused(): return
 	var keys := parallels.keys()
-	if keys.is_empty(): return
-	var quota := maxi(1, int(budget / keys.size()))
-	for index in keys.size():
-		var key: String = keys[(index + _offset) % keys.size()]
+	if keys.is_empty():
+		main.advance(delta, mini(256,budget))
+		return
+	# Rotate the first owner of the shared time budget. A foreground command
+	# can exceed the target, but cannot consume every future frame ahead of a
+	# parallel owner. Each owner's waits still advance once per scheduler tick.
+	var slots=keys.size()+1
+	var main_quota=mini(256,maxi(1,int(budget/slots))) if main.running else 0
+	var quota := maxi(1, int((budget-main_quota) / keys.size()))
+	for index in slots:
+		var slot=(index+_offset)%slots
+		if slot==0:
+			budget-=main.advance(delta,mini(main_quota,maxi(0,budget)))
+			if RuntimeState.map_time_paused(): return
+			continue
+		var key: String = keys[slot-1]
 		if not parallels.has(key): continue
 		var entry: Dictionary = parallels[key]
 		var owner: RefCounted = entry.owner
@@ -84,7 +98,7 @@ func advance(delta: float, allow_autorun: bool = true) -> void:
 			owner.context.common_id = entry.common_id
 		budget -= owner.advance(delta, mini(quota, maxi(0, budget)))
 		if RuntimeState.map_time_paused(): return
-	_offset = (_offset + 1) % keys.size()
+	_offset = (_offset + 1) % slots
 	map_runtime.flush_event_refresh()
 	_reconcile()
 
@@ -149,7 +163,9 @@ func _reconcile() -> void:
 	for key in wanted:
 		if parallels.has(key): continue
 		var owner := Interpreter.new()
+		owner.time_budget_usec=frame_time_budget_usec
 		owner.managed = true
+		owner.parallel = true
 		owner.map_runtime = map_runtime
 		owner.common_events = common_events
 		owner.diagnostic_requested.connect(_parallel_failed.bind(key))
@@ -175,6 +191,12 @@ func _main_finished() -> void:
 	main.managed = false
 	_main_key = ""
 	main_completed.emit()
+
+func _main_aborted() -> void:
+	_unlock()
+	main.managed = false
+	_main_key = ""
+	main_aborted.emit()
 
 func _unlock() -> void:
 	if _locked == null: return

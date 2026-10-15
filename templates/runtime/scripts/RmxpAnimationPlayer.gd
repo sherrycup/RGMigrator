@@ -168,6 +168,8 @@ func _play_timing(timing: Dictionary) -> void:
 			RuntimeState.report_diagnostic("Animations[%d] 第 %d 帧音效缺失：%s" % [_data.id, frame_index + 1, name])
 		else:
 			var player := AudioStreamPlayer.new()
+			if RuntimeState.flash_preferences!=null:
+				player.bus=preload("FlashPreferences.gd").EFFECT_BUS
 			player.stream = stream
 			player.volume_db = linear_to_db(clampf(float(se.get("volume", 100)) / 100.0, 0.0001, 1))
 			player.pitch_scale = clampf(float(se.get("pitch", 100)) / 100.0, 0.01, 4)

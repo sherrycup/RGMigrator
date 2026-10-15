@@ -10,7 +10,8 @@ param(
     [switch]$TilesetLayersOnly,
     [switch]$DatabaseAuthoringOnly,
     [switch]$FeedbackOnly,
-    [switch]$FinalUiOnly
+    [switch]$FinalUiOnly,
+    [switch]$StructureOnly
 )
 $ErrorActionPreference = 'Stop'
 $taskEngine = (Get-Item -LiteralPath $GodotPath).FullName
@@ -27,6 +28,7 @@ Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorTilesetLayersScena
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorDatabaseAuthoringScenario.gd') -Destination (Join-Path $taskProject '.godot/EditorDatabaseAuthoringScenario.gd')
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorFeedbackScenario.gd') -Destination (Join-Path $taskProject '.godot/EditorFeedbackScenario.gd')
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorFinalUiScenario.gd') -Destination (Join-Path $taskProject '.godot/EditorFinalUiScenario.gd')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorStructureGuideScenario.gd') -Destination (Join-Path $taskProject '.godot/EditorStructureGuideScenario.gd')
 $taskLog = Join-Path $taskCaptures 'render.log'
 $taskArguments = @('--editor', '--path', ('"{0}"' -f $taskProject), '--rendering-method', 'gl_compatibility', '--rendering-driver', 'opengl3',
     '--audio-driver', 'Dummy', '--position', '-10000,-10000', '--disable-vsync', '--log-file', ('"{0}"' -f $taskLog),
@@ -40,6 +42,7 @@ if ($TilesetLayersOnly) { $taskArguments += '--tileset-layers-only' }
 if ($DatabaseAuthoringOnly) { $taskArguments += '--database-authoring-only' }
 if ($FeedbackOnly) { $taskArguments += '--feedback-only' }
 if ($FinalUiOnly) { $taskArguments += '--final-ui-only' }
+if ($StructureOnly) { $taskArguments += '--structure-only' }
 if ($FeedbackOnly) { $taskArguments = $taskArguments | Where-Object { $_ -notin @('--audio-driver','Dummy') } }
 $taskProcess = Start-Process -FilePath $taskEngine -ArgumentList $taskArguments -WindowStyle Hidden -PassThru
 # The final UI scenario opens several pages and captures both zoom levels; allow

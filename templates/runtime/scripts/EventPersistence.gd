@@ -5,17 +5,22 @@ const Route = preload("res://runtime/scripts/CharacterRoute.gd")
 const Numbers = preload("res://runtime/scripts/ActorParameters.gd")
 const Cache = preload("res://runtime/scripts/RmxpCache.gd")
 const Data = preload("res://runtime/scripts/RuntimeData.gd")
-const CONTEXT_FIELDS := ["commands", "index", "event_id", "source_event_id", "source_map_id", "page", "common_id", "stack", "branches", "loops", "waiting_indent", "shop_command_index"]
+const CONTEXT_FIELDS := ["commands", "index", "event_id", "source_event_id", "source_map_id", "page", "common_id", "stack", "branches", "loops", "waiting_indent", "shop_command_index","script_fields","script_map_id"]
 const LOCAL_FIELDS := ["_choice_count", "_choice_cancel", "_number_digits", "_name_actor_id", "_name_maximum", "_route_wait_warned"]
-const WAITS := ["", "time", "routes", "scroll_ready", "message", "choice", "shop", "name", "menu", "save"]
+const WAITS := ["", "time", "script_retry", "routes", "scroll_ready", "message", "choice", "shop", "name", "menu", "save", "flash_effect", "flash_message", "flash_scene"]
 
-static func capture(game: Node) -> Dictionary:
+static func capture(game: Node,detached_nodes: Array=[]) -> Dictionary:
 	var map: Node = game.event_map()
 	map.flush_event_refresh()
 	var events := {}
 	for key in map.map_data.get("events", {}):
 		var node: Node = map.event_node(int(key))
 		var character: Variant = node.persistent_data() if node != null else map._dormant_events.get(int(key))
+		# Active native characters just constructed these containers. Options are
+		# scalar-only and routes already detach their trees. Keep the cell alias
+		# shared with entry.position when the outer save graph reuses this copy.
+		if node!=null and Motion.validate(character.motion.options,true):
+			detached_nodes.append([character,character]); detached_nodes.append([character.motion.cell,character.motion.cell])
 		var definition: Dictionary = map.map_data.events[key]
 		events[str(key)] = {"page": node.page_index if node != null else 0,
 			"position": character.motion.cell if character != null else [int(definition.get("x", 0)), int(definition.get("y", 0))], "character": character,
@@ -42,13 +47,14 @@ static func capture(game: Node) -> Dictionary:
 		var owner: RefCounted = request.owner.get_ref()
 		if owner == consumed and request == ui.active: continue
 		for key in owners:
-			if owners[key] == owner: requests.append({"kind": request.kind, "payload": request.payload.duplicate(true), "owner": key})
+			if owners[key] == owner: requests.append({"kind": request.kind, "payload": request.payload.duplicate(true), "owner": key,"id":request.id})
 	var locked: Node = scheduler._locked.get_ref() if scheduler._locked != null else null
 	return _canonical({"map_id": RuntimeState.map_id, "events": events, "erased": erased, "player": game._player.persistent_data(),
 		"executions": executions, "requests": requests, "main_key": scheduler._main_key, "locked_id": locked.event_id if is_instance_valid(locked) else 0,
 		"faults": scheduler._faults.duplicate(), "offset": scheduler._offset})
 
 static func _canonical(value: Variant) -> Variant:
+	if Data.read_json("res://data/custom_data.json",{}).get("profile")=="flash": return value
 	if value is float and is_finite(value) and floor(value) == value and absf(value) <= 9007199254740991.0: return int(value)
 	if value is Array:
 		var result: Array = []
@@ -62,10 +68,13 @@ static func _canonical(value: Variant) -> Variant:
 
 static func _interpreter(owner: RefCounted, consume_ui: bool) -> Variant:
 	if not owner.running: return null
+	for frame in [owner.context]+owner.context.stack:
+		var fields: Variant = frame.get("script_fields",{}) if frame is Dictionary else frame.script_fields
+		if not _script_fields_valid(fields): return {"script_error":"事件脚本字段含自定义对象、共享引用或循环；其完整存档按0.47接入。"}
 	var context := {}
 	for field in CONTEXT_FIELDS:
 		var value: Variant = owner.context.get(field)
-		context[field] = value.duplicate(true) if value is Array or value is Dictionary else value
+		context[field] = value
 	var locals := {}
 	for field in LOCAL_FIELDS: locals[field] = owner.get(field)
 	return {"context": context, "locals": locals, "wait": {"kind": "" if consume_ui else owner.wait_kind(), "remaining": 0.0 if consume_ui else owner.wait_state.remaining}}
@@ -100,6 +109,7 @@ static func decode(value: Variant, map: Dictionary, lookup: Callable = Callable(
 			var entry: Dictionary = value.events[key.get_slice(":", 1)]
 			if entry.page <= 0 or int(map.events[key.get_slice(":", 1)].pages[int(entry.page) - 1].get("trigger", 0)) != 4: return _fail("并行实例不是并行事件页。")
 		var execution: Variant = value.executions[key]
+		if execution is Dictionary and execution.has("script_error"): return _fail(execution.script_error)
 		if execution != null and not _execution_valid(execution): return _fail("事件指针、调用栈或等待状态无效。")
 		if execution != null:
 			var context: Dictionary = execution.context
@@ -124,7 +134,7 @@ static func decode(value: Variant, map: Dictionary, lookup: Callable = Callable(
 	if not value.get("main_key") is String or value.main_key.length() > 256 or not Numbers.integer(value.get("locked_id"), 0) or (value.locked_id != 0 and not value.events.has(str(int(value.locked_id)))) or not value.get("faults") is Dictionary or value.faults.size() > 10000 or not Numbers.integer(value.get("offset"), 0, 10000): return _fail("事件调度状态无效。")
 	for key in value.faults:
 		if not key is String or key.length() > 256 or not value.faults[key] is bool: return _fail("事件故障记录无效。")
-	return {"ok": true, "value": value.duplicate(true)}
+	return {"ok": true, "value": value}
 
 static func _common_missing(id: int, lookup: Callable) -> bool:
 	return (lookup.call("CommonEvents", id) if lookup.is_valid() else Data.record("CommonEvents", id)).is_empty()
@@ -148,11 +158,32 @@ static func _frame_valid(frame: Variant) -> bool:
 	if not frame is Dictionary or not frame.get("commands") is Array or frame.commands.size() > 100000 or not Numbers.integer(frame.get("index"), 0, frame.commands.size()) or not Numbers.integer(frame.get("event_id"), 0) or not Numbers.integer(frame.get("common_id"), 0): return false
 	for command in frame.commands:
 		if not command is Dictionary or not Numbers.integer(command.get("code"), 0, 9999) or not Numbers.integer(command.get("indent", 0), 0, 999) or not command.get("parameters", []) is Array: return false
+	if not frame.get("script_fields",{}) is Dictionary or not _script_fields_valid(frame.get("script_fields",{})): return false
+	if frame.has("script_map_id") and not Numbers.integer(frame.script_map_id,0): return false
 	for field in ["branches", "loops"]:
 		if not frame.get(field) is Dictionary or frame[field].size() > 1000: return false
 		for key in frame[field]:
 			if not str(key).is_valid_int() or int(str(key)) < 0 or int(str(key)) > 999 or not Numbers.integer(frame[field][key], -1 if field == "branches" else 0, 4 if field == "branches" else frame.commands.size()): return false
 	return true
+
+static func _script_fields_valid(value: Variant, depth: int = 0, seen: Array = []) -> bool:
+	if Data.read_json("res://data/custom_data.json",{}).get("profile")=="flash": return preload("SaveGraph.gd").reason(value).is_empty()
+	if depth>32: return false
+	if value==null or value is bool: return true
+	if value is int or value is float: return is_finite(float(value)) and abs(float(value))<=2147483647
+	if value is String: return value.length()<=8192
+	if value is Array or value is Dictionary:
+		for previous in seen:
+			if is_same(previous,value): return false
+		seen.append(value)
+	if value is Array:
+		return value.size()<=1000 and value.all(func(entry: Variant) -> bool: return _script_fields_valid(entry,depth+1,seen))
+	if value is Dictionary:
+		if value.size()>1000: return false
+		for key in value:
+			if not key is String or key.begins_with("__") or not _script_fields_valid(value[key],depth+1,seen): return false
+		return true
+	return false
 
 static func _execution_valid(value: Variant) -> bool:
 	if not value is Dictionary or not _frame_valid(value.get("context")) or not value.get("wait") is Dictionary or not value.get("locals") is Dictionary: return false
@@ -163,14 +194,14 @@ static func _execution_valid(value: Variant) -> bool:
 	for frame in context.stack:
 		if not _frame_valid(frame): return false
 	var kind: Variant = value.wait.get("kind")
-	if not kind is String or (kind not in WAITS and not ((kind.begins_with("number:") or kind.begins_with("button:")) and kind.get_slice(":", 1).is_valid_int() and int(kind.get_slice(":", 1)) > 0)): return false
+	if not kind is String or (kind not in WAITS and not ((kind.begins_with("number:") or kind.begins_with("button:") or kind.begins_with("flash_effect:")) and kind.get_slice(":", 1).is_valid_int() and int(kind.get_slice(":", 1)) > 0)): return false
 	var remaining: Variant = value.wait.get("remaining")
-	if not (remaining is int or remaining is float) or not is_finite(float(remaining)) or remaining < 0 or remaining > 1000000000 or (kind != "time" and remaining != 0): return false
+	if not (remaining is int or remaining is float) or not is_finite(float(remaining)) or remaining < 0 or remaining > 1000000000 or (kind != "time" and not kind.begins_with("flash_effect:") and remaining != 0): return false
 	for field in LOCAL_FIELDS:
 		if field == "_route_wait_warned":
 			if not value.locals.get(field) is bool: return false
 		elif not Numbers.integer(value.locals.get(field), 0, 1000000): return false
-	return value.locals._choice_count <= 4 and value.locals._choice_cancel <= 5 and Numbers.integer(value.locals._number_digits, 1, 8) and Numbers.integer(value.locals._name_maximum, 1, 99)
+	return value.locals._choice_count <= 8 and value.locals._choice_cancel <= 5 and Numbers.integer(value.locals._number_digits, 1, 8) and Numbers.integer(value.locals._name_maximum, 1, 99)
 
 static func _payload_valid(request: Dictionary) -> bool:
 	var p: Array = request.payload
@@ -218,9 +249,13 @@ static func restore(game: Node, value: Dictionary) -> void:
 	var locked: Node = map.event_node(int(value.locked_id))
 	scheduler._locked = weakref(locked) if locked != null else null
 	var ui: RefCounted = game._event_ui
+	var request_ids={}
 	for request in value.requests:
 		if request.kind == "diagnostic": ui.report(request.payload[0])
-		elif owners.has(request.owner): ui._queue(weakref(owners[request.owner]), request.kind, request.payload.duplicate(true))
+		elif owners.has(request.owner):
+			ui._queue(weakref(owners[request.owner]), request.kind, request.payload.duplicate(true))
+			if request.has("id"): request_ids[int(request.id)]=ui._serial
+	ui.set_meta("restored_request_ids",request_ids)
 	game._events_enabled = true
 	game._player.resume_after_menu()
 	game._sync_event_input()
@@ -230,8 +265,8 @@ static func _restore_interpreter(owner: RefCounted, value: Variant) -> void:
 	if value == null: return
 	owner.managed = true
 	for field in CONTEXT_FIELDS:
-		var entry: Variant = value.context[field]
-		owner.context.set(field, entry.duplicate(true) if entry is Array or entry is Dictionary else int(entry))
+		var entry: Variant = value.context.get(field,{}) if field=="script_fields" else value.context.get(field,value.context.source_map_id) if field=="script_map_id" else value.context[field]
+		owner.context.set(field, entry if entry is Array or entry is Dictionary else int(entry))
 	_normalize_frame(owner.context)
 	for frame in owner.context.stack: _normalize_frame(frame)
 	for field in LOCAL_FIELDS: owner.set(field, value.locals[field] if field == "_route_wait_warned" else int(value.locals[field]))
@@ -239,6 +274,7 @@ static func _restore_interpreter(owner: RefCounted, value: Variant) -> void:
 	owner.running = true
 
 static func _normalize_frame(frame: Variant) -> void:
+	frame.script_fields = _canonical(frame.get("script_fields",{}) if frame is Dictionary else frame.script_fields)
 	for field in ["branches", "loops"]:
 		var normalized := {}
 		for key in frame[field]: normalized[int(str(key))] = int(frame[field][key])

@@ -35,6 +35,17 @@ func _markdown(details: Dictionary) -> String:
 	lines.append("- 迁移数据文件：%d" % int(details.get("data_files", 0)))
 	lines.append("- 复制非 RTP 素材：%d" % int(details.get("assets", 0)))
 	lines.append("- 保留 Ruby 脚本：%d" % int(details.get("scripts", 0)))
+	if details.has("custom_data"):
+		var custom: Dictionary=details.custom_data.get("summary",{})
+		lines.append("- 自定义数据：%d个源文件、%d个赋值字段、%d个生成表达式、%d组原注释；%d项诊断保留。" % [custom.get("sources",0),custom.get("record_fields",0),custom.get("expressions",0),custom.get("comment_tags",0),custom.get("diagnostics",0)])
+		lines.append("- 自定义字段来源和适配方法：`custom_data_inventory.md`、`data/custom_data.json`；编辑入口为数据库中的扩展属性、项目自定义数据、自定义饰品。战斗公式/标签效果按0.45，立绘显示按0.46，完整对象关系存档按0.47。")
+	if details.has("script_migration"):
+		var summary: Dictionary = details.script_migration.get("summary", {})
+		lines.append("- 脚本盘点：%d个有序脚本 / %d个事件片段 / %d个生成单元；事件入口绑定%d个（不表示全部依赖已可运行）。" % [summary.get("scripts",0),summary.get("fragments",0),summary.get("generated_units",0),summary.get("event_integrated_units",0)])
+		lines.append("- 盘点与定位：`script_inventory.md`、`data/script_inventory.json`；转换状态与诊断：`data/script_units.json`；AST：`data/script_ast/`；源码映射与作用域：`data/script_source_map.json`、`data/script_semantics.json`。生成单元不代表完整脚本玩法已迁移。")
+	if details.get("flash_gameplay",{}).get("applied",false):
+		lines.append("- 0.48脚本工作区：魔塔编辑器F8查看原文、编辑工作副本、定位诊断并重新转换；覆盖与归属见`script_coverage.md`、`data/script_coverage.json`。原Ruby与手工GDScript保留独立归属，用户修改不自动标为行为已验证。")
+		lines.append("- 闪翼玩法、页面、消息、地图半成品、演出和跟随对应 `runtime/scripts/Flash*.gd`；实际普通技能定义见 `runtime/generated/flash_skill_catalog.gd`。原Ruby到GDScript的开发入口见 `migration_docs/FLASH_UI_GDSCRIPT_v0.46.md`；阶段范围见 `migration_docs/SCRIPT_MIGRATION_v0.46.md`。完整对象关系/撤回和插件见0.47说明；工作区见0.48说明，特殊BOSS战按用户要求排除，整体验收尚未进行。")
 	lines.append("")
 	lines.append("## 错误")
 	var errors: Array = details.get("errors", [])
@@ -67,7 +78,7 @@ func _markdown(details: Dictionary) -> String:
 	lines.append("## %s 标准功能与限制" % RGMigratorVersion.VERSION)
 	lines.append("已提供 Godot 标准主菜单、队伍摘要、角色状态及返回标题/退出。地图空闲时按 Esc/X 打开，保留窗口皮肤与界面用语；属性标签统一为标准力量/灵巧/速度/魔力/攻击力/物理防御/魔法防御，不沿用 Ruby 自定义属性映射。皮肤缺失时使用简易样式并报告。")
 	lines.append("生成工程内置%s地图、事件、数据库与公共事件编辑器。Godot的“魔塔编辑器”按F9打开数据库；引用显示名称＋编号并支持搜索，事件和路线使用中文摘要。角色成长、装备许可、图块标记和动画单元可用表格/集合制作，公共事件提供无/自动/并行及共享非脚本指令编辑。草稿通过显式保存写入data，保留原ID和Ruby注释数据。原生Troops只保留查看，扩展数据库文件仍迁移保留。" % RGMigratorVersion.VERSION)
-	lines.append("这是标准功能替代，不是自定义脚本迁移。角色数值使用标准数据库、等级曲线和初始装备规则，不读取 Ruby 定义的额外属性、货币或魔塔公式。")
+	lines.append("通用页面使用标准运行时；已识别项目的自定义属性、货币与玩法由上述项目适配提供。具体覆盖以方法对应和行为验证为准。")
 	lines.append("人物支持原生平滑四方向移动、四帧/色相、速度与方向固定/穿透/步行动画/踏步、合法落点跳跃。保留双向通行与人物占位，补齐地形/草丛/柜台查询和隔柜台确认；按数据库图块优先级和人物脚点排序，自动图块按时间更新，摄像机限制在地图范围。移动完成才提交格坐标与步数；行走中按菜单会等待本格完成，存档拒绝半格运动。参数接入 schema 1，旧原生存档缺字段用默认值；不读取 RM 旧存档。")
 	lines.append("ver0.21 接通确认、玩家接触、事件接触、自动执行与独立并行，公共事件调用/自动/并行，以及等待106和暂时删除116。等待按秒推进，20个原生等待单位为1秒。开关/变量/独立开关刷新依赖事件页；并行界面请求排队，旧回调不能恢复新执行。自主移动/强制路线已在ver0.23接入。ver0.27已持久化执行现场、事件人物和本图暂时删除状态。默认回合制战斗不在迁移范围；魔塔公共事件与自定义结算后续单独接入。")
 	lines.append("支持背包查看、菜单可用的确定性单体/全体存活队友 HP/SP 恢复、装备更换/卸下及数值预览。职业资格、槽位类型、固定槽位和数量会先校验；失败不消费、不交换。公共事件物品已接通使用预约；复活、状态、永久属性、随机/命中/防御/属性修正的队友物品仍不会部分执行。")

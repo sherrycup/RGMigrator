@@ -39,7 +39,12 @@ var _audio_browser: VBoxContainer
 
 func open(documents: RefCounted) -> void:
 	_documents=documents
-	if _form==null: _build()
+	if _form==null:
+		_build()
+		for extra in ["Ornaments","Deputies","CustomData"]:
+			var path="data/custom_data.json" if extra=="CustomData" else "data/database/"+extra+".json"
+			if FileAccess.file_exists("res://"+path):
+				_categories.add_item({"Ornaments":"自定义饰品","Deputies":"援护数据","CustomData":"项目自定义数据"}[extra]); _categories.set_item_metadata(_categories.item_count-1,extra)
 	if _category.is_empty(): _select_category(0)
 	else: _reload_record()
 	popup_centered(Vector2i(1120,720))
@@ -53,7 +58,7 @@ func apply_current() -> bool:
 	if not reason.is_empty(): _status.text=reason; return false
 	var path=_path()
 	var data: Variant=_documents.read(path)
-	if _category=="System": data=value
+	if _category in ["System","CustomData"]: data=value
 	else: data[_id]=value
 	var result: Dictionary
 	if _category=="Tilesets":
@@ -124,7 +129,7 @@ func _button(parent: Node, text: String, action: Callable) -> Button:
 	var button=Button.new(); button.text=text; button.pressed.connect(action); parent.add_child(button); return button
 
 func _path() -> String:
-	return "data/system.json" if _category=="System" else "data/database/%s.json" % _category
+	return "data/custom_data.json" if _category=="CustomData" else "data/system.json" if _category=="System" else "data/database/%s.json" % _category
 
 func _read_only() -> bool:
 	return _category in ["Troops","Audio"]
@@ -141,11 +146,11 @@ func _select_category(index: int) -> void:
 		return
 	_remember_page()
 	_category=str(_categories.get_item_metadata(index)); _search.text=""; _id=0; _before={}; _offset=0
-	_pages.visible=_category not in ["System","Audio"]
-	_capacity_button.disabled=_category in ["System","Audio","Troops"]
-	_search.visible=_category not in ["System","Audio"]
+	_pages.visible=_category not in ["System","CustomData","Audio"]
+	_capacity_button.disabled=_category in ["System","CustomData","Audio","Troops"]
+	_search.visible=_category not in ["System","CustomData","Audio"]
 	_audio_browser.visible=_category=="Audio"
-	_form._tabs.tabs_visible=_category!="System"
+	_form._tabs.tabs_visible=_category not in ["System","CustomData"]
 	if _category=="Audio":
 		_before={}; _new_button.disabled=true; _copy_button.disabled=true; _clear_button.disabled=true
 		_form.hide(); _tileset_editor.hide(); _commands.hide(); _preview.hide()
@@ -156,11 +161,11 @@ func _select_category(index: int) -> void:
 			var adapted=Scripts.adapt_common(data)
 			if adapted!=data: _documents.apply(_path(),adapted,"公共事件脚本注释占位")
 	_refresh_records()
-	_new_button.disabled=_category=="System" or _read_only(); _copy_button.disabled=_new_button.disabled; _clear_button.disabled=_new_button.disabled
+	_new_button.disabled=_category in ["System","CustomData"] or _read_only(); _copy_button.disabled=_new_button.disabled; _clear_button.disabled=_new_button.disabled
 	_tileset_editor.visible=_category=="Tilesets"
 	_form.visible=_category!="Tilesets"
 	var values: Variant=_documents.read(_path())
-	if _category=="System": _load_record(0)
+	if _category in ["System","CustomData"]: _load_record(0)
 	elif values is Array:
 		for i in range(1,values.size()):
 			if values[i] is Dictionary: _load_record(i); return
@@ -178,7 +183,7 @@ func _refresh_records(preferred: int = -1) -> void:
 	if _category=="Audio":
 		for kind in ["BGM","BGS","ME","SE"]: _records.add_item(kind); _records.set_item_metadata(_records.item_count-1,kind)
 		_records.select(0); _building=false; return
-	if _category=="System":
+	if _category in ["System","CustomData"]:
 		for index in _form._tabs.get_tab_count(): _records.add_item(_form._tabs.get_tab_title(index)); _records.set_item_metadata(index,index)
 		preferred=_form._tabs.current_tab
 	elif data is Array:
@@ -204,7 +209,7 @@ func _select_record(index: int) -> void:
 	if _building: return
 	if _category=="Audio":
 		var kind=str(_records.get_item_metadata(index)); _audio_browser.configure(_documents,kind); _heading.text="音频素材 / "+kind; _status.text="素材来自当前工程Audio目录；双击文件试听。音量和声调只影响试听，不改写原文件。"; return
-	if _category=="System": _form._tabs.current_tab=index; return
+	if _category in ["System","CustomData"]: _form._tabs.current_tab=index; return
 	var id=int(_records.get_item_metadata(index))
 	if not apply_current(): _refresh_records(_id); return
 	_load_record(id)
@@ -214,14 +219,14 @@ func _load_record(id: int) -> void:
 	_id=id
 	_form.size_flags_vertical=Control.SIZE_FILL if _category=="CommonEvents" else Control.SIZE_EXPAND_FILL
 	_form.custom_minimum_size.y=130 if _category=="CommonEvents" else 260
-	_form._tabs.tabs_visible=_category not in ["System","CommonEvents"]
+	_form._tabs.tabs_visible=_category not in ["System","CustomData","CommonEvents"]
 	if _reserved(id):
 		_clear_button.disabled=true; _copy_button.disabled=true
 		_before={}; _form.configure({},Schema.LABELS,_documents,{},true); _commands.hide(); _tileset_editor.hide()
 		_heading.text="[%04d] 测试保留编号" % id; _status.text="此编号由测试定义使用，请选择其它空槽位。"; return
-	_clear_button.disabled=_category=="System" or _read_only(); _copy_button.disabled=_clear_button.disabled
+	_clear_button.disabled=_category in ["System","CustomData"] or _read_only(); _copy_button.disabled=_clear_button.disabled
 	var data: Variant=_data
-	_before=data.duplicate(true) if _category=="System" and data is Dictionary else data[id].duplicate(true) if data is Array and id<data.size() and data[id] is Dictionary else Schema.new_record(_category,id,_documents)
+	_before=data.duplicate(true) if _category in ["System","CustomData"] and data is Dictionary else data[id].duplicate(true) if data is Array and id<data.size() and data[id] is Dictionary else Schema.new_record(_category,id,_documents)
 	var value=_before.duplicate(true)
 	_commands.visible=_category=="CommonEvents"
 	if _category=="CommonEvents":
@@ -233,11 +238,12 @@ func _load_record(id: int) -> void:
 		_tileset_editor.configure(value,_documents)
 	else: _form.configure(value,Schema.LABELS,_documents,Schema.hints(_category,value),_read_only())
 	_restore_page()
-	if _category=="System": _refresh_records()
+	if _category in ["System","CustomData"]: _refresh_records()
 	_heading.text="%s / %04d   %s" % [Schema.CATEGORIES.get(_category,_category),_id,_path()]
-	_status.text="原生敌群与战斗页仅保留查看；自定义$game_troop数据不删除，Ruby转换暂缓。" if _read_only() else "在画布上点格或拖动修改属性，右侧精确设置；切换属性复用同一张图块画布。" if _category=="Tilesets" else "从左侧选择系统设置页；起点在地图上点选，音乐与音效可试听。Ctrl+S保存文件。" if _category=="System" else "按用途切换页签；名称、数值和选项直接编辑，双击图片更换素材。Ctrl+S保存文件。"
+	_status.text="原生敌群与战斗页仅保留查看；自定义$game_troop数据不删除，Ruby转换暂缓。" if _read_only() else "在画布上点格或拖动修改属性，右侧精确设置；切换属性复用同一张图块画布。" if _category=="Tilesets" else "从左侧选择系统设置页；起点在地图上点选，音乐与音效可试听。Ctrl+S保存文件。" if _category in ["System","CustomData"] else "按用途切换页签；名称、数值和选项直接编辑，双击图片更换素材。Ctrl+S保存文件。"
+	if _category=="CustomData": _heading.text="项目自定义数据"; _status.text="从左侧选择货币、系统初始值、角色预设或楼层关系；修改应用到草稿，Ctrl+S保存。"
 	for i in _records.item_count:
-		if _category!="System" and int(_records.get_item_metadata(i))==id: _records.select(i); break
+		if _category not in ["System","CustomData"] and int(_records.get_item_metadata(i))==id: _records.select(i); break
 	_update_preview()
 
 func _update_preview() -> void:
@@ -249,7 +255,7 @@ func _reload_record() -> void:
 	if _category=="Audio": _audio_browser.stop(); return
 	_refresh_records(_id)
 	var data: Variant=_documents.read(_path())
-	if _category=="System": _load_record(0)
+	if _category in ["System","CustomData"]: _load_record(0)
 	elif data is Array and _id>0 and _id<data.size(): _load_record(_id)
 	else: _before={}; _select_category(_categories.selected)
 

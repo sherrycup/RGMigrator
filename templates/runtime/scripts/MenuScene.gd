@@ -40,6 +40,7 @@ var _end_commands: Control
 var _commerce: Control
 var _dirty := true
 var content_rebuilds := 0
+var _data_details: AcceptDialog
 
 
 func _ready() -> void:
@@ -49,7 +50,7 @@ func _ready() -> void:
 	RuntimeState.diagnostic_added.connect(func(_message: String) -> void: _mark_dirty())
 	resized.connect(_layout)
 	_views = RuntimeState.party_snapshots()
-	_view_signature = JSON.stringify([_views, RuntimeState.inventory, RuntimeState.save_disabled])
+	_view_signature = JSON.stringify([_views, RuntimeState.inventory, RuntimeState.save_disabled, RuntimeState.custom_data.values.records])
 	_layout()
 
 
@@ -62,7 +63,7 @@ func _process(_delta: float) -> void:
 		return
 	_dirty = false
 	var views := RuntimeState.party_snapshots()
-	var signature := JSON.stringify([views, RuntimeState.inventory, RuntimeState.save_disabled])
+	var signature := JSON.stringify([views, RuntimeState.inventory, RuntimeState.save_disabled, RuntimeState.custom_data.values.records])
 	if signature != _view_signature:
 		_view_signature = signature
 		_views = views
@@ -158,6 +159,10 @@ func _build_menu() -> void:
 	gold_window.label(Resources.word("gold", "金币"), Rect2(88, 0, 40, 32), Color("c0e0ff"), 16)
 	_gold = gold_window.label("", Rect2(0, 0, 84, 32), Color.WHITE, 18)
 	_gold.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_gold.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+	_gold.mouse_filter=Control.MOUSE_FILTER_STOP; _gold.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
+	_gold.gui_input.connect(func(event: InputEvent) -> void:
+		if event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT and event.pressed: show_currency_details())
 	_party = _window(WindowSelectable, Rect2(left, 0, size.x - left, size.y - hint_height))
 	_party.row_height = 104.0
 	_party.item_count = _views.size()
@@ -246,6 +251,9 @@ func _build_status() -> void:
 		window.content.add_child(icon)
 		window.label(str(item.name), Rect2(right + 116, y, width - right - 116, 28), Color.WHITE, 18)
 	var message := "Esc / X：返回角色选择"
+	if not view.get("custom_attributes",{}).is_empty():
+		var details=Button.new(); details.text="扩展属性…"; details.position=Vector2(right,386); details.size=Vector2(150,30); window.content.add_child(details)
+		details.pressed.connect(func() -> void: _show_data_details("角色扩展属性","\n".join(_attribute_lines(view.custom_attributes))))
 	if not view.diagnostics.is_empty():
 		message = str(view.diagnostics[0])
 	var footer: Label = window.label(message, Rect2(0, size.y - 76, width, 40), Color("ffe9a8"), 15)
@@ -366,8 +374,29 @@ func _update_counters() -> void:
 		_clock.text = "%02d:%02d:%02d" % [int(seconds / 3600), int(seconds / 60) % 60, seconds % 60]
 	if _gold != null:
 		_gold.text = str(RuntimeState.gold)
+		_gold.tooltip_text="点击查看全部货币\n"+"\n".join(RuntimeState.custom_data.currency_rows().map(func(row: Dictionary) -> String: return row.label+"："+str(row.value)))
 	if _steps != null:
 		_steps.text = str(RuntimeState.steps)
+
+func show_currency_details() -> void:
+	var lines: Array[String]=[]
+	for row in RuntimeState.custom_data.currency_rows(): lines.append(row.label+"："+str(row.value))
+	_show_data_details("货币","\n".join(lines))
+
+func _show_data_details(title_text: String,value: String) -> void:
+	if _data_details==null:
+		_data_details=AcceptDialog.new(); _data_details.min_size=Vector2i(360,260); add_child(_data_details)
+		var text=TextEdit.new(); text.name="Data"; text.editable=false; text.custom_minimum_size=Vector2(360,260); _data_details.add_child(text)
+	_data_details.title=title_text; _data_details.get_node("Data").text=value; _data_details.popup_centered(Vector2i(500,320))
+
+func _attribute_lines(value: Dictionary,prefix: String="") -> Array[String]:
+	var lines: Array[String]=[]
+	var labels={"tp_plus":"永久属性修正","maxhp":"最大HP","maxsp":"最大SP","patk":"物攻","pdef":"物防","matk":"魔攻","mdef":"魔防","agi":"速度","int":"个性","hprate":"HP比例","sprate":"SP比例","equip_id":"扩展装备","resist_plus":"抗性修正","skill_parameters":"特技参数","delay_const":"延迟常数"}
+	for key in value:
+		var label=prefix+str(labels.get(key,key))
+		if value[key] is Dictionary: lines.append_array(_attribute_lines(value[key],label+" · "))
+		else: lines.append(label+"："+str(value[key]))
+	return lines
 
 
 func _update_hint() -> void:

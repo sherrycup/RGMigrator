@@ -13,6 +13,8 @@ const MapEffects = preload("res://runtime/scripts/MapEffectsState.gd")
 const Settings = preload("res://runtime/scripts/SystemSettings.gd")
 const Countdown = preload("res://runtime/scripts/GameTimer.gd")
 const AudioService = preload("res://runtime/scripts/AudioRuntime.gd")
+const CustomData = preload("res://runtime/scripts/CustomDataState.gd")
+const Decimal = preload("res://runtime/scripts/DecimalInteger.gd")
 signal system_settings_changed
 signal state_changed
 signal event_state_changed(kind: String, key: String)
@@ -23,7 +25,8 @@ var switches: Dictionary = {}
 var variables: Dictionary = {}
 var self_switches: Dictionary = {}
 var inventory: Dictionary = {}
-var gold := 0
+var gold: Variant = 0
+var custom_data: RefCounted=CustomData.new(self)
 var save_count := 0
 var message_position := 2
 var message_frame := 0
@@ -43,10 +46,12 @@ var player_direction: int:
 var resume_from_save := false
 var pending_event_state: Dictionary = {}
 var common_event_reservation: Dictionary = {}
+var flash_temp_fields: Dictionary=CustomData.native_value(RuntimeData.read_json("res://data/flash_gameplay.json",{}).get("temp_defaults",{}))
 var save_disabled := false
 var menu_disabled := false
 var actors: Dictionary = {}
 var diagnostics: Array[String] = []
+var script_session: RefCounted
 var steps := 0
 var play_seconds := 0.0
 var playing := false
@@ -59,14 +64,54 @@ var map_view: RefCounted = MapView.new()
 var map_effects: RefCounted = MapEffects.new()
 var timer: RefCounted = Countdown.new()
 var audio: Node
+var flash_preferences: RefCounted
+var flash_messages: RefCounted
+var flash_followers: RefCounted
+var flash_effects: RefCounted
+var flash_keyboard: RefCounted
+var flash_archive_snapshot: Image
+var pending_flash_presentation: Dictionary={}
+var flash_history: RefCounted
 var _game_ref: WeakRef
+var _event_budget_frame=-1
+var _event_budget_deadline=0
+var _script_error_logger: Logger
+var _fatal_script_message=""
+var _fatal_script_dialog: AcceptDialog
+
+func event_frame_deadline(budget_usec: int) -> int:
+	var frame=Engine.get_process_frames()
+	if frame!=_event_budget_frame:
+		_event_budget_frame=frame; _event_budget_deadline=Time.get_ticks_usec()+maxi(1,budget_usec)
+	return _event_budget_deadline
 
 
 func _ready() -> void:
+	if custom_data.manifest.get("profile")=="flash":
+		_script_error_logger=preload("ScriptErrorLogger.gd").new(self)
+		OS.add_logger(_script_error_logger)
+	RuntimeData.bind_custom_data(custom_data)
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	if custom_data.manifest.get("profile")=="flash": flash_preferences=preload("FlashPreferences.gd").new(self)
+	if custom_data.manifest.get("profile")=="flash":
+		flash_messages=load("res://runtime/scripts/FlashMessageController.gd").new(self)
+		execution_reset.connect(flash_messages.reset)
+		flash_followers=load("res://runtime/scripts/FlashFollowers.gd").new(self)
+		execution_reset.connect(flash_followers.reset)
+		flash_effects=load("res://runtime/scripts/FlashScreenEffects.gd").new(self)
+		execution_reset.connect(flash_effects.reset)
+		flash_keyboard=load("res://runtime/scripts/FlashKeyboard.gd").new()
+		flash_history=load("res://runtime/scripts/FlashHistory.gd").new(self)
+		execution_reset.connect(flash_keyboard.reset)
+		execution_reset.connect(func(): flash_archive_snapshot=null)
 	audio = AudioService.new()
 	add_child(audio)
 	get_tree().auto_accept_quit = false
+
+func _exit_tree() -> void:
+	if _script_error_logger!=null: OS.remove_logger(_script_error_logger)
+	if flash_history!=null: flash_history.flush_pending()
+	preload("FlashBattleCache.gd").clear_conditions()
 
 
 func _notification(what: int) -> void:
@@ -88,6 +133,8 @@ func request_quit() -> void:
 
 
 func _process(delta: float) -> void:
+	if not _fatal_script_message.is_empty(): return
+	if flash_history!=null: flash_history.poll()
 	if playing:
 		play_seconds += delta
 		if int(play_seconds) != _clock_second:
@@ -105,10 +152,11 @@ func set_event_switch(id: int, value: bool) -> bool:
 	return true
 
 
-func set_event_variable(id: int, value: int) -> bool:
+func set_event_variable(id: int, value: Variant) -> bool:
 	if id <= 0: return false
+	if not CustomData.plain_reason(value).is_empty(): return false
 	var key := str(id)
-	if int(variables.get(key, 0)) == value: return true
+	if CustomData.same_value(variables.get(key,0),value): return true
 	variables[key] = value
 	event_state_changed.emit("variable", key)
 	state_changed.emit()
@@ -126,9 +174,15 @@ func set_event_self_switch(map: int, event: int, letter: String, value: bool) ->
 
 
 func begin_new_game(system: Dictionary, testing_override: Dictionary = {}) -> void:
+	if flash_history!=null: flash_history.reset()
+	script_session = null
+	custom_data=CustomData.new(self)
+	RuntimeData.bind_custom_data(custom_data)
 	execution_reset.emit()
 	pending_event_state.clear()
+	pending_flash_presentation={}
 	common_event_reservation.clear()
+	flash_temp_fields=CustomData.native_value(RuntimeData.read_json("res://data/flash_gameplay.json",{}).get("temp_defaults",{})).duplicate(true)
 	system_settings = Settings.new()
 	system_settings_changed.emit()
 	screen = ScreenState.new()
@@ -172,6 +226,7 @@ func begin_new_game(system: Dictionary, testing_override: Dictionary = {}) -> vo
 	menu_disabled = false
 	for actor_id in party:
 		actor(int(actor_id))
+	if custom_data.manifest.get("profile")=="flash" and FileAccess.file_exists("res://data/flash_gameplay.json"): custom_data.gameplay().role_ids(true,true)
 	if testing_enabled:
 		_prepare_testing(setup)
 	state_changed.emit()
@@ -413,6 +468,12 @@ func _prepare_testing(setup: Dictionary) -> void:
 			instance.sp = int(int(view.parameters.maxsp) * clampf(float(sp_ratio), 0, 1))
 
 
+func create_actor(actor_id: int, definition: Dictionary, lookup: Callable) -> RefCounted:
+	var actor_type: Script=preload("res://runtime/scripts/FlashActorState.gd") if custom_data.manifest.get("profile")=="flash" and FileAccess.file_exists("res://data/flash_gameplay.json") else ActorState
+	var instance: RefCounted=actor_type.new()
+	instance.configure(actor_id,definition,lookup)
+	return instance
+
 func actor(actor_id: int, reset: bool = false) -> RefCounted:
 	if actors.has(actor_id) and not reset:
 		return actors[actor_id]
@@ -420,8 +481,10 @@ func actor(actor_id: int, reset: bool = false) -> RefCounted:
 	if definition.is_empty():
 		report_diagnostic("队伍引用了不存在的 Actors[%d]。" % actor_id)
 		return null
-	var instance := ActorState.new()
-	instance.configure(actor_id, definition, RuntimeData.record)
+	var instance := create_actor(actor_id,definition,RuntimeData.record)
+	if instance.has_method("attach_project_fields"):
+		if reset: custom_data.values.actors.erase(str(actor_id))
+		instance.attach_project_fields(custom_data.actor_attributes(actor_id))
 	instance.changed.connect(func() -> void: state_changed.emit())
 	actors[actor_id] = instance
 	for message in instance.diagnostics:
@@ -435,6 +498,7 @@ func party_snapshots() -> Array[Dictionary]:
 		var instance := actor(int(actor_id))
 		if instance != null:
 			var view: Dictionary = instance.snapshot()
+			view["custom_attributes"]=custom_actor_attributes(int(actor_id))
 			result.append(view)
 			for message in view.diagnostics:
 				report_diagnostic(message)
@@ -514,6 +578,34 @@ func report_diagnostic(message: String) -> void:
 		push_warning(message)
 	diagnostic_added.emit(message)
 
+func fatal_script_error(message: String) -> void:
+	if not _fatal_script_message.is_empty(): return
+	if script_session!=null and not script_session.execution_context.is_empty():
+		var context: Dictionary=script_session.execution_context
+		message="Map%03d / 事件%d / 公共事件%d / 第%d条\n%s" % [context.get("map_id",map_id),context.get("event_id",0),context.get("common_id",0),int(context.get("index",0))+1,message]
+	_fatal_script_message=message
+	get_tree().paused=true
+	call_deferred("_show_fatal_script_error")
+
+func _script_engine_error(message: String) -> void:
+	if script_session!=null and script_session.failure.is_empty():
+		script_session.failure={"ok":false,"message":message,"origin":script_session.origin,"span":script_session.span}
+	fatal_script_error(message)
+
+func _show_fatal_script_error() -> void:
+	printerr("FATAL SCRIPT ERROR: ",_fatal_script_message)
+	if DisplayServer.get_name()=="headless": get_tree().quit(1); return
+	_fatal_script_dialog=AcceptDialog.new()
+	_fatal_script_dialog.title="脚本错误：游戏已停止"
+	_fatal_script_dialog.dialog_text="脚本执行出错，游戏将关闭。\n\n"+_fatal_script_message
+	_fatal_script_dialog.ok_button_text="关闭游戏"
+	_fatal_script_dialog.process_mode=Node.PROCESS_MODE_ALWAYS
+	_fatal_script_dialog.exclusive=true
+	_fatal_script_dialog.confirmed.connect(func(): get_tree().quit(1))
+	_fatal_script_dialog.canceled.connect(func(): get_tree().quit(1))
+	add_child(_fatal_script_dialog)
+	_fatal_script_dialog.popup_centered_clamped(Vector2i(760,480),0.85)
+
 func register_game(instance: Node) -> void: _game_ref = weakref(instance)
 
 func game() -> Node:
@@ -522,7 +614,7 @@ func game() -> Node:
 	return instance
 
 func map_time_paused() -> bool:
-	return get_tree().paused or (game() != null and (game().event_screen_transition_active() or game().event_scene_transition_active()))
+	return get_tree().paused or (flash_effects!=null and flash_effects.busy()) or (game() != null and (not game()._event_checkpoint.is_empty() or game().event_screen_transition_active() or game().event_scene_transition_active()))
 
 func windowskin_name() -> String: return system_settings.windowskin_name()
 
@@ -581,8 +673,20 @@ func self_switch_key(map_value: int, event_id: int, letter: String) -> String:
 
 
 func restore_prepared(prepared: Dictionary, preserve_audio: bool = false) -> void:
+	script_session = null
+	custom_data=CustomData.new(self)
+	RuntimeData.bind_custom_data(custom_data)
+	custom_data.restore(prepared.state.get("custom_data",custom_data.snapshot()))
+	if prepared.state.has("script_data"):
+		script_session=preload("res://runtime/scripts/ScriptSemantics.gd").new(self)
+		script_session.globals=prepared.state.script_data.globals
+		script_session.constants=prepared.state.script_data.constants
+		for field in ["classes","methods","loaded_units"]:
+			if prepared.state.script_data.has(field): script_session.set(field,prepared.state.script_data[field])
+		script_session._regex_data=prepared.state.script_data.get("regex")
 	execution_reset.emit()
 	screen = prepared.screen
+	pending_flash_presentation=prepared.get("flash_presentation",{})
 	map_view = prepared.map_view
 	map_effects = prepared.map_effects
 	timer = prepared.timer
@@ -590,7 +694,8 @@ func restore_prepared(prepared: Dictionary, preserve_audio: bool = false) -> voi
 	if audio != null and not preserve_audio: audio.restore_prepared(prepared.audio)
 	# SaveCodec has validated every field and built detached actors before commit.
 	var saved: Dictionary = prepared.state
-	pending_event_state = saved.get("event_state", {}).duplicate(true)
+	pending_event_state = saved.get("event_state", {})
+	flash_temp_fields=saved.get("flash_temp_fields",CustomData.native_value(RuntimeData.read_json("res://data/flash_gameplay.json",{}).get("temp_defaults",{})))
 	common_event_reservation = saved.get("common_event_reservation", {}).duplicate(true)
 	player_motion.reset()
 	player_motion.configure(saved.player_options)
@@ -598,10 +703,14 @@ func restore_prepared(prepared: Dictionary, preserve_audio: bool = false) -> voi
 	testing_enabled = saved.testing.enabled
 	actors = prepared.actors
 	for instance in actors.values():
+		if instance.has_method("attach_project_fields"):
+			instance._lookup=custom_record
+			instance.attach_project_fields(custom_data.actor_attributes(instance.id))
 		instance.changed.connect(func() -> void: state_changed.emit())
 	for field in ["switches", "variables", "self_switches", "inventory", "party"]:
-		set(field, saved[field].duplicate(true))
-	for field in ["gold", "map_id", "player_x", "player_y", "player_direction", "steps", "save_count", "message_position", "message_frame"]:
+		set(field, saved[field])
+	gold=Decimal.compact(saved.gold)
+	for field in ["map_id", "player_x", "player_y", "player_direction", "steps", "save_count", "message_position", "message_frame"]:
 		set(field, int(saved[field]))
 	play_seconds = float(saved.play_seconds)
 	_clock_second = int(play_seconds)
@@ -613,3 +722,55 @@ func restore_prepared(prepared: Dictionary, preserve_audio: bool = false) -> voi
 	system_settings_changed.emit()
 	state_changed.emit()
 	if not preserve_audio and game() != null and not pending_event_state.is_empty(): game().restore_event_state()
+
+func gain_currency(key: String,amount: Variant) -> Dictionary:
+	var result=custom_data.gain_currency(key,amount)
+	if result.ok: state_changed.emit()
+	return result
+
+func commit_script_data(writes: Dictionary,draft: RefCounted) -> void:
+	# All script validation is complete. Publish notifications after every write.
+	if draft!=null:
+		if not draft.preference_data.is_empty() and flash_preferences!=null:
+			flash_preferences.vars=draft.preference_data.vars; flash_preferences.music_lock=draft.preference_data.music_lock; flash_preferences.apply_audio(); flash_preferences.apply_window()
+		if draft.script_variables!=null: variables=draft.script_variables
+		flash_temp_fields=draft.temp_fields
+		party=draft.party_ids
+		inventory=draft.inventory_items
+		custom_data.install(draft)
+		for actor_id in actors:
+			if actors[actor_id].has_method("attach_project_fields"): actors[actor_id].attach_project_fields(custom_data.actor_attributes(actor_id))
+		for actor_id in draft.actor_edits:
+			if actors.has(actor_id):
+				actors[actor_id].set_block_signals(true)
+				actors[actor_id].commit_event_state(draft.actor_edits[actor_id])
+				actors[actor_id].set_block_signals(false)
+			else:
+				actors[actor_id]=draft.actor_edits[actor_id]
+				# A newly staged actor must not retain the expiring transaction lookup.
+				actors[actor_id]._lookup=custom_record
+				actors[actor_id].attach_project_fields(custom_data.actor_attributes(actor_id))
+				actors[actor_id].changed.connect(func() -> void: state_changed.emit())
+	for key in writes:
+		var parts: PackedStringArray=str(key).split(":")
+		if parts[0]=="variable": variables[parts[1]]=writes[key]
+		elif parts[0]=="self": self_switches[str(key).trim_prefix("self:")]=writes[key]
+		else: switches[parts[1]]=writes[key]
+	if draft!=null:
+		for key in draft.pending_effects:
+			if key=="common_event": common_event_reservation=draft.pending_effects[key]
+			else: flash_temp_fields[key]=draft.pending_effects[key]
+		preload("FlashCharacterBridge.gd").commit(draft.character_edits)
+		if flash_effects!=null: flash_effects.install(draft.screen_edits)
+		if flash_keyboard!=null and not draft.keyboard_draft.is_empty(): flash_keyboard.install(draft.keyboard_draft)
+	for key in writes:
+		var parts: PackedStringArray=str(key).split(":")
+		event_state_changed.emit(parts[0],str(key).trim_prefix(parts[0]+":"))
+	state_changed.emit()
+
+func custom_record(database: String,id: int) -> Dictionary: return custom_data.record(database,id)
+
+func custom_actor_attributes(id: int) -> Dictionary: return custom_data.actor_attributes(id).duplicate(true)
+
+func evaluate_custom_expression(id: String) -> Dictionary:
+	return preload("res://runtime/scripts/ScriptRuntime.gd").evaluate_data_expression(id,self)

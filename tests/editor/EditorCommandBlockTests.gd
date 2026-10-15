@@ -77,10 +77,27 @@ func run() -> void:
 		var list=[commands.command(entry[0],0,entry[2]),commands.command(entry[1],0,entry[3]),commands.command(0)]
 		editor.configure(list,docs); editor._select_block(1)
 		expect(selected_rows(editor)==[0,1] and editor._selected_command()==0,"other native continuation kinds belong to their head command")
+		if entry[1]==509: expect(editor._rows[1].get_text(0)=="向下移动","event list displays the route action rather than a continuation label")
+		if entry[1]==655: expect(editor._rows[1].get_description(0)=="continued Ruby","script continuation renders its source directly")
 	var mismatched=[commands.command(108,0,["首行"]),commands.command(408,1,["原始异常缩进"]),commands.command(0)]
 	editor.configure(mismatched,docs); editor._select_block(0); editor._copy_command()
 	expect(editor._commands_clipboard==mismatched.slice(0,1),"copy does not include an unrelated continuation with mismatched indent")
 	editor._delete_command(); expect(editor.draft()==mismatched.slice(1),"delete preserves the mismatched original record outside the selected block")
+	var bound=[commands.command(355,0,["reward()"]),commands.command(355,0,["# adjacent source record"]),commands.command(655,0,[""]),commands.command(355,0,["false"]),commands.command(0)]
+	bound[0]["_script_binding"]={"unit_id":"event_group","source_sha256":"original-group","command_count":4}
+	bound[3]["_script_binding"]={"unit_id":"event_group_retry","source_sha256":"original-tail","command_count":1}
+	editor.configure(bound,docs)
+	expect(editor._rows[1].get_description(0)=="# adjacent source record" and editor._rows[2].get_description(0)=="" and editor._rows[3].get_description(0)=="false","bound adjacent355 source rows and empty655 lines share the source-only continuation display")
+	await click_row(editor,3)
+	expect(selected_rows(editor)==[0,1,2,3] and editor._selected_command()==0,"a bound adjacent355 group selects all source records including its retry tail")
+	editor._edit_command(); editor._accept_command(355,editor._command_dialog._form.draft()); editor._command_dialog.hide()
+	expect(editor.draft()==bound,"confirming an unchanged bound script preserves every continuation and retry binding")
+	editor._accept_command(355,["changed_reward()"])
+	var modified: Array=editor.draft()
+	expect(modified.size()==2 and modified[0].parameters==["changed_reward()"] and modified[0]._script_binding.unit_id==bound[0]._script_binding.unit_id and int(modified[0]._script_binding.command_count)==1 and editor._status.text.contains("重新编译"),"editing a bound group retains identity and marks its stale binding for recompilation")
+	editor._copy_command(); expect(editor._commands_clipboard==modified.slice(0,1),"bound script copy preserves the complete edited source group")
+	editor._delete_command(); expect(editor.draft()==[commands.command(0)],"bound script delete removes one complete group")
+	editor._paste_command(); expect(editor.draft()==modified,"bound script paste preserves edited source records and binding identity")
 	for failure in failures: printerr("FAIL: ",failure)
 	print("COMMAND BLOCK TESTS: ","PASSED" if failures.is_empty() else "FAILED"," / ",checks," checks")
 	editor.queue_free(); await process_frame

@@ -33,9 +33,14 @@ func run() -> void:
 			for page in event.get("pages",[]):
 				page_count+=1
 				expect(page.get("list",[]) is Array and page.get("condition",{}) is Dictionary,"original event page opens")
-				for c in page.list:
+				var bound_until = -1
+				for command_index in page.list.size():
+					var c: Dictionary = page.list[command_index]
 					if c.has("_editor_original"): note_count+=1
-					expect(int(c.get("code",0)) not in [355,655] and not (int(c.get("code",0))==111 and not c.parameters.is_empty() and int(c.parameters[0])==12),"map Ruby execution replaced by preserved authoring note")
+					if int(c.get("code",0))==355 and c.has("_script_binding"):
+						bound_until=maxi(bound_until,command_index+int(c._script_binding.command_count))
+					if int(c.get("code",0))==355 or int(c.get("code",0))==111 and not c.parameters.is_empty() and int(c.parameters[0])==12:
+						expect(c.has("_script_binding") or int(c.code)==355 and command_index<bound_until,"restored script or condition belongs to a migration binding")
 	print("OPENED: ",manifest.maps.size()," maps / ",event_count," events / ",page_count," pages / ",note_count," script notes")
 	# Open the actual original events in the same window used by the plugin.
 	var source_panel: Control=load("res://addons/rgm_editor/EditorPanel.gd").new()
@@ -195,6 +200,9 @@ func _test_transactions() -> void:
 
 func _test_runtime() -> void:
 	var state: Node=root.get_node("RuntimeState")
+	# This authored fixture checks standard RM message/choice behavior. Flash's
+	# project-specific message modes are exercised by FlashCommonFlowTests.
+	load("res://runtime/scripts/RuntimeData.gd")._cache["res://data/custom_data.json"]={"profile":"native"}
 	var interpreter: RefCounted=load("res://runtime/scripts/EventInterpreter.gd").new()
 	var errors: Array=[]; interpreter.diagnostic_requested.connect(func(m: String) -> void: errors.append(m))
 	state.begin_new_game(load("res://runtime/scripts/RuntimeData.gd").system())

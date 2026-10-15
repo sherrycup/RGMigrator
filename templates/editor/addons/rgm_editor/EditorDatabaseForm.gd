@@ -2,6 +2,8 @@
 extends "EditorValueForm.gd"
 ## Named controls replace the generic tree; unknown extension fields stay detached.
 const GROUPS = {
+	"Ornaments":[["基础",["name","description","price","class_set"]],["能力",["hp_plus","patk","pdef","matk","mdef","agi_plus","int_plus","resist_table"]]],
+	"Deputies":[["基础",["name","description","price"]]],
 	"Actors":[["基础",["name","class_id","initial_level","final_level","exp_basis","exp_inflation","character_hue","battler_hue"]],["初始装备",["weapon_id","weapon_fix","armor1_id","armor1_fix","armor2_id","armor2_fix","armor3_id","armor3_fix","armor4_id","armor4_fix"]],["成长",["parameters"]]],
 	"Classes":[["基础",["name","position"]],["装备与有效度",["weapon_set","armor_set","element_ranks","state_ranks"]]],
 	"Items":[["基础与使用",["name","description","price","consumable","scope","occasion","common_event_id","menu_se"]],["恢复与效果",["recover_hp_rate","recover_hp","recover_sp_rate","recover_sp","parameter_type","parameter_points","hit","pdef_f","mdef_f","variance"]],["属性与状态",["animation1_id","animation2_id","element_set","plus_state_set","minus_state_set"]]],
@@ -15,6 +17,7 @@ const GROUPS = {
 	"System":[["基础与图像",["party_members","battler_hue"]],["界面用语",["words"]],["音乐与音效",["title_bgm","battle_bgm","battle_end_me","gameover_me","cursor_se","decision_se","cancel_se","buzzer_se","equip_se","shop_se","save_se","load_se","battle_start_se","escape_se","actor_collapse_se","enemy_collapse_se"]]]
 }
 const WORD_LABELS = {"gold":"货币","level":"等级","hp":"HP","sp":"SP","str":"力量","dex":"灵巧","agi":"速度","int":"魔力","atk":"攻击力","pdef":"物理防御","mdef":"魔法防御","weapon":"武器","armor1":"盾","armor2":"头部防具","armor3":"身体防具","armor4":"饰品","attack":"攻击","skill":"特技","guard":"防御","item":"物品","equip":"装备"}
+const CUSTOM_LABELS={"currencies":"货币列表","system_defaults":"系统初始值","actor_presets":"角色初始预设","floors":"楼层关系","globals":"初始全局数据","attributes":"扩展属性","tp_plus":"永久属性修正","patk":"物理攻击","matk":"魔法攻击","resist_plus":"抗性修正","skill_parameters":"特技参数","delay_const":"延迟常数","equip_id":"扩展装备","hprate":"HP比例","sprate":"SP比例","key":"货币标识","maximum":"上限","label":"显示名称","show_playerdata":"显示角色信息","show_greenkeys":"显示绿钥匙","show_mapname":"显示地图名","mdef_available":"启用魔法防御","speed_available":"启用速度","main_actor_index":"主战队列位置（从0开始）","potion_itemization":"血瓶道具化","gem_itemization":"宝石道具化","shotcut_enabled":"启用快捷入口","game_rank":"游戏难度","visual_restriction":"视野限制","map_center":"地图中心","map_range":"地图范围","map_signature":"地图定位标识","class_set":"可用职业","hp":"HP","sp":"SP","resist":"抗性","floor":"楼层","region":"区域"}
 var _tabs: TabContainer
 var _controls: Dictionary={}
 var _known: Dictionary={}
@@ -47,6 +50,7 @@ func _refresh() -> void:
 	var signature=category+str(_value.keys() if _value is Dictionary else [])+str(_value.get("words",{}).keys() if _value is Dictionary and _value.get("words") is Dictionary else [])
 	if signature!=_signature: _signature=signature; _rebuild(category)
 	_tabs.show()
+	if category=="CustomData": _asset_scroll.hide()
 	_syncing=true
 	for entry in _controls.values():
 		var value: Variant=_read_at(entry.path); var control: Control=entry.control
@@ -108,13 +112,69 @@ func _rebuild(category: String) -> void:
 			editor.changed.connect(func(names: Array) -> void: _put([key],names))
 		for key in ["edit_map_id","magic_number","test_troop_id","test_battlers","battle_transition"]: _known[key]=true
 	if category=="Enemies": _known.actions=true
+	if _value.get("_custom_data") is Dictionary:
+		_known._custom_data=true
+		var metadata: Dictionary=_value._custom_data
+		if metadata.get("attributes") is Dictionary:
+			var box=_make_page("扩展属性")
+			_field(box,["_custom_data","attributes"])
+		var source_box=_make_page("自定义数据来源")
+		var source_text=TextEdit.new(); source_text.editable=false; source_text.size_flags_vertical=Control.SIZE_EXPAND_FILL; source_text.custom_minimum_size.y=220; source_text.text=JSON.stringify(metadata.merged({"attributes":null},true),"\t",false); source_box.add_child(source_text)
+	if category=="CustomData":
+		for key in _value: _known[key]=true
+		var empty_page=base.get_parent(); _asset_scroll.reparent(self); _asset_scroll.hide(); _tabs.remove_child(empty_page); empty_page.queue_free()
+		_build_project_pages()
+		var notes=_make_page("来源与诊断"); var text=TextEdit.new(); text.editable=false; text.size_flags_vertical=Control.SIZE_EXPAND_FILL; text.custom_minimum_size.y=220; text.text=JSON.stringify({"adapters":_value.get("adapters",[]),"diagnostics":_value.get("diagnostics",[]),"sources":_value.get("sources",[])},"\t",false); notes.add_child(text)
+		_tabs.current_tab=0
+		return
 	_tabs.current_tab=0
 
+func _build_project_pages() -> void:
+	var currency_page=_make_page("货币设置")
+	var currencies: Array=_value.get("currencies",[])
+	for i in currencies.size():
+		var heading=Label.new(); heading.text="%s · 标识 %s" % [str(currencies[i].get("label","")),str(currencies[i].get("key",""))]; currency_page.add_child(heading)
+		for key in ["label","maximum"]:
+			if currencies[i].has(key): _field(currency_page,["currencies",i,key])
+	var system_page=_make_page("闪翼系统初始值")
+	for key in _value.get("system_defaults",{}):
+		var value: Variant=_value.system_defaults[key]
+		if value is bool or value is int or value is float:
+			if key not in ["interpretering"]: _field(system_page,["system_defaults",key])
+	var actor_page=_make_page("角色初始预设")
+	for actor_id in _value.get("actor_presets",{}):
+		var title=Label.new(); title.text=_documents.reference_label("Actors",int(actor_id)); actor_page.add_child(title)
+		for variant in _value.actor_presets[actor_id]:
+			var variant_label=Label.new(); variant_label.text="预设 "+str(variant); actor_page.add_child(variant_label)
+			for key in _value.actor_presets[actor_id][variant]: _field(actor_page,["actor_presets",actor_id,variant,key])
+	var floor_page=_make_page("楼层与地图关系")
+	var hint=Label.new(); hint.text="保留原地图编号与区域/楼层索引，修改同步更新查询表。"; hint.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; floor_page.add_child(hint)
+	for map_id in _value.get("floors",{}).get("maps",{}):
+		var record: Dictionary=_value.floors.maps[map_id]
+		var label=Label.new(); label.text=_documents.reference_label("Maps",int(map_id)); floor_page.add_child(label)
+		if record.get("I") is Array and record.I.size()==2:
+			for index in 2:
+				_field(floor_page,["floors","maps",map_id,"I",index])
+		for key in record.get("templates",{}): _field(floor_page,["floors","maps",map_id,"templates",key])
+	var global_page=_make_page("初始全局数据")
+	if _value.get("globals") is Dictionary: _field(global_page,["globals"])
+
 func _caption_for(path: Array) -> String:
-	var key=str(path[-1]); return str(WORD_LABELS.get(key,key)) if path.size()>1 and path[0]=="words" else str(preload("EditorDatabaseSchema.gd").LABELS.get(key,LABELS.get(key,key)))
+	if path.size()>=2 and str(path[-2])=="I": return "区域编号" if int(path[-1])==0 else "楼层编号"
+	if path.size()>1 and str(path[-2])=="__ruby_hash":
+		var hash: Variant=_read_at(path.slice(0,path.size()-2))
+		return str(hash.get("__keys",{}).get(path[-1],path[-1]))
+	var key=str(path[-1])
+	if (_hints.get("",{}).get("database_category") in ["CustomData","Ornaments","Deputies"] or path[0]=="_custom_data") and CUSTOM_LABELS.has(key): return CUSTOM_LABELS[key]
+	return str(WORD_LABELS.get(key,key)) if path.size()>1 and path[0]=="words" else str(preload("EditorDatabaseSchema.gd").LABELS.get(key,LABELS.get(key,key)))
 
 func _field(parent: Node, path: Array) -> void:
 	var value: Variant=_read_at(path); var hint=_hint(path)
+	if value is Dictionary and value.has("__ruby_hash"):
+		var box=VBoxContainer.new(); box.size_flags_horizontal=Control.SIZE_EXPAND_FILL; parent.add_child(box)
+		var heading=Label.new(); heading.text=_caption_for(path); box.add_child(heading)
+		for key in value.__ruby_hash: _field(box,path+["__ruby_hash",key])
+		return
 	if value is Dictionary and not _is_table(value) and _audio_info(path).is_empty():
 		var box=VBoxContainer.new(); box.size_flags_horizontal=Control.SIZE_EXPAND_FILL; parent.add_child(box)
 		var heading=Label.new(); heading.text=_caption_for(path); box.add_child(heading)
@@ -149,6 +209,7 @@ func _summary(value: Variant, path: Array) -> String:
 	if not _audio_info(path).is_empty(): return "%s · 音量%d%% · 声调%d%%" % ["无音频" if str(value.get("name","")).is_empty() else str(value.name),int(value.get("volume",100)),int(value.get("pitch",100))]
 	if _is_table(value): return "编辑 %s…" % ("99级 × 6项能力" if path[-1]=="parameters" else "具名有效度 A…F" if path[-1] in ["element_ranks","state_ranks"] else "表格")
 	if value is Array:
+		if not _hint(path).has("set"): return "%d项 · 编辑集合…" % value.size()
 		var names: Array=[]
 		for id in value.slice(0,3): names.append(_documents.reference_label(str(_hint(path).get("set","")),int(id)))
 		return "%d项 · %s%s" % [value.size(),"、".join(names),"…" if value.size()>3 else ""]

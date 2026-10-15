@@ -1,10 +1,10 @@
 extends RefCounted
 ## Copied to the generated runtime; importer and execution share capability rules.
-const SUPPORTED := [0, 101, 401, 102, 103, 104, 105, 106, 108, 408, 111, 112, 113, 115, 116, 117, 118, 119, 121, 122, 123, 124, 125, 126, 127, 128, 129, 134, 135, 131, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 509, 221, 222, 223, 224, 225, 231, 232, 233, 234, 235, 236, 241, 242, 245, 246, 247, 248, 249, 250, 251, 302, 303, 351, 352, 353, 354, 605, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 402, 403, 404, 411, 412, 413]
+const SUPPORTED := [355,655,0, 101, 401, 102, 103, 104, 105, 106, 108, 408, 111, 112, 113, 115, 116, 117, 118, 119, 121, 122, 123, 124, 125, 126, 127, 128, 129, 134, 135, 131, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 509, 221, 222, 223, 224, 225, 231, 232, 233, 234, 235, 236, 241, 242, 245, 246, 247, 248, 249, 250, 251, 302, 303, 351, 352, 353, 354, 605, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 402, 403, 404, 411, 412, 413]
 const BATTLE := [132, 133, 136, 301, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 601, 602, 603, 604]
 
 static func reason(code: int, parameters: Array = []) -> String:
-	if code in [355, 655]: return "Ruby 脚本不执行"
+	if code in [355,655] and (parameters.size()!=1 or not parameters[0] is String): return "脚本指令须包含原文字符串和迁移绑定。"
 	if code in BATTLE: return "原生回合制战斗事件不在迁移范围；魔塔结算后续通过公共事件接入"
 	if code in [221, 222, 223, 224, 225, 231, 232, 233, 234, 235, 236]: return _screen_reason(code, parameters)
 	if code in [131, 203, 204, 205, 206, 241, 242, 245, 246, 247, 248, 249, 250, 251]: return _presentation_reason(code, parameters)
@@ -25,7 +25,10 @@ static func reason(code: int, parameters: Array = []) -> String:
 	if code == 121 and (parameters.size() != 3 or not _range(parameters) or not _integer(parameters[2], 0, 1)): return "开关范围或操作无效"
 	if code == 122: return _variable_reason(parameters)
 	if code == 123 and (parameters.size() != 2 or parameters[0] not in ["A", "B", "C", "D"] or not _integer(parameters[1], 0, 1)): return "独立开关参数无效"
-	if code == 124 and (parameters.size() != 2 or not _integer(parameters[0], 0, 1) or not _integer(parameters[1], 0, 359999)): return "计时器须指定开始/停止和有效秒数"
+	if code == 124:
+		if parameters.size() not in [1,2] or not _integer(parameters[0],0,1): return "计时器须指定开始/停止"
+		if int(parameters[0])==0 and parameters.size()!=2: return "开始计时器须指定有效秒数"
+		if parameters.size()==2 and not _integer(parameters[1],0,359999): return "计时器秒数无效"
 	if code == 125 and not _amount(parameters): return "金钱增减参数无效"
 	if code in [126, 127, 128] and (parameters.size() != 4 or not _id(parameters[0]) or not _amount(parameters.slice(1))): return "物品增减参数无效"
 	if code == 201:
@@ -132,7 +135,7 @@ static func _numeric(value: Variant, minimum: float, maximum: float) -> bool:
 	return (value is int or value is float) and is_finite(float(value)) and value >= minimum and value <= maximum
 
 static func route_reason(code: int, parameters: Array = []) -> String:
-	if code == 45: return "移动路线脚本不执行"
+	if code == 45: return "" if parameters.size()==1 and parameters[0] is String else "路线脚本须为字符串。"
 	if code < 0 or code > 44: return "未知移动路线指令"
 	match code:
 		14: if parameters.size() != 2 or not _integer(parameters[0], -1000000, 1000000) or not _integer(parameters[1], -1000000, 1000000): return "跳跃须指定整数偏移"
@@ -186,7 +189,7 @@ static func _amount(p: Array) -> bool:
 static func _condition_reason(p: Array) -> String:
 	if p.is_empty() or not _integer(p[0], 0, 12): return "条件类型无效"
 	var type := int(p[0])
-	if type == 12: return "Ruby 脚本条件不执行"
+	if type == 12: return "" if p.size()==2 and p[1] is String else "脚本条件须为字符串。"
 	if type == 5: return "敌人条件属于原生回合制战斗，不在迁移范围"
 	var valid := false
 	match type:

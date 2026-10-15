@@ -1,0 +1,929 @@
+{
+  "version": "ver0.5",
+  "date": "2026-10-16",
+  "status": "passed",
+  "delivery": "D:\\Dev\\Godot_Trans\\output\\0.5\\final\\黎之闪翼（开发中）_Godot",
+  "source_scripts_sha256": "22763e029aa1b52a96ac24355909e3daf4a5c9c23940ae1c36cfbff2fe6233cf",
+  "runtime": {
+    "groups": 49,
+    "checks": 1249,
+    "cases": [
+      {
+        "name": "RuntimeCompileTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.49,
+        "markers": [
+          "RUNTIME COMPILE: PASSED"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "ScriptSemanticsRuntimeTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 5.68,
+        "markers": [
+          "SCRIPT SEMANTICS RUNTIME: PASSED / 174 checks / generated=166"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "ScriptEventSourceTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.46,
+        "markers": [
+          "SCRIPT EVENT SOURCE: PASSED / 4 checks / [\"event_000106\"]"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashArchiveTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 9.56,
+        "markers": [
+          "FLASH ARCHIVE/KEYBOARD: PASSED / 20 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashAudioTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.44,
+        "markers": [
+          "FLASH AUDIO: PASSED / 21 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashBattleCatalogTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.16,
+        "markers": [
+          "FLASH BATTLE CATALOG: PASSED / 18 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashBattleColdCatalogTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 1.97,
+        "markers": [
+          "FLASH BATTLE COLD CATALOG: PASSED / 7 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashBattleCoreTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 1.88,
+        "markers": [
+          "FLASH BATTLE CORE: PASSED / 64 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashBattleDatabaseTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.06,
+        "markers": [
+          "FLASH BATTLE DATABASE: PASSED / 31 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashBattlerTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.53,
+        "markers": [
+          "FLASH BATTLER: PASSED / 40 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashBusinessTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.91,
+        "markers": [
+          "FLASH BUSINESS: PASSED / 25 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashCommonFlowTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 10.11,
+        "markers": [
+          "FLASH COMMON FLOWS: PASSED / 18 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashConfigPageTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 9.63,
+        "markers": [
+          "FLASH CONFIG PAGES: PASSED / 30 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashDirectExecutionTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 1.97,
+        "markers": [
+          "FLASH DIRECT EXECUTION: PASSED / 16 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashEventBudgetTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 11.43,
+        "markers": [
+          "FLASH EVENT BUDGET: PASSED / 46 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashFloorRegionTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 1.98,
+        "markers": [
+          "FLASH FLOOR/REGION: PASSED / 14 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashFollowerTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 10.33,
+        "markers": [
+          "FLASH FOLLOWERS: PASSED / 17 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashGameplayRuntimeTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 3.38,
+        "markers": [
+          "FLASH GAMEPLAY RUNTIME: PASSED / 45 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashGiantKeyFlowTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 9.51,
+        "markers": [
+          "FLASH GIANT KEY FLOW: PASSED / 8 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashIntegrationV049Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 14.61,
+        "markers": [
+          "FLASH V049 INTEGRATION: PASSED / 49 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashItemPageTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 9.59,
+        "markers": [
+          "FLASH ITEM PAGE: PASSED / 19 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashLegacyFlowTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 3.28,
+        "markers": [
+          "FLASH LEGACY FLOW: PASSED / 33 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashMapDamageTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.34,
+        "markers": [
+          "FLASH MAP DAMAGE: PASSED / 9 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashMapFlowTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 15.97,
+        "markers": [
+          "FLASH MAP FLOW: PASSED / 17 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashMapItemTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.66,
+        "markers": [
+          "FLASH MAP ITEMS: PASSED / 12 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashMapLabelTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.29,
+        "markers": [
+          "FLASH MAP LABELS: PASSED / 20 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashMapSystemTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.14,
+        "markers": [
+          "FLASH MAP SYSTEM: PASSED / 30 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashMenuNavigationTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 5.65,
+        "markers": [
+          "FLASH MENU NAVIGATION: PASSED / 25 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashMessageBoxStateTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.09,
+        "markers": [
+          "FLASH MESSAGE BOX STATE: PASSED / 18 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashMessageControllerTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.93,
+        "markers": [
+          "FLASH MESSAGE CONTROLLER: PASSED / 31 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashMessageTextTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.0,
+        "markers": [
+          "FLASH MESSAGE TEXT: PASSED / 24 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashMotionTimingTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.18,
+        "markers": [
+          "FLASH MOTION TIMING: PASSED / 18 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashObjectTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 1.98,
+        "markers": [
+          "FLASH OBJECTS: PASSED / 21 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashPerformanceRegressionTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 11.68,
+        "markers": [
+          "FLASH PERFORMANCE REGRESSION: PASSED / 26 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashPersistenceFlowTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 12.34,
+        "markers": [
+          "FLASH PERSISTENCE FLOW: PASSED / 18 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashPersistenceTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 10.9,
+        "markers": [
+          "FLASH PERSISTENCE TESTS: PASSED / 25 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashPluginTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.94,
+        "markers": [
+          "FLASH PLUGIN TESTS: PASSED / 16 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashPresentationTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 13.82,
+        "markers": [
+          "FLASH PRESENTATION: PASSED / 34 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashQueryTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 9.15,
+        "markers": [
+          "FLASH QUERY: PASSED / 15 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashSceneShopBusinessTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.74,
+        "markers": [
+          "FLASH SCENE/SHOP BUSINESS: PASSED / 25 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashScreenEffectsTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 10.24,
+        "markers": [
+          "FLASH SCREEN EFFECTS: PASSED / 33 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashSightTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.4,
+        "markers": [
+          "FLASH SIGHT: PASSED / 24 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashSnapshotV050Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.36,
+        "markers": [
+          "FLASH V050 SNAPSHOTS: PASSED / 14 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashSourceEventTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 3.96,
+        "markers": [
+          "FLASH SOURCE EVENTS: PASSED / 23 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashStandaloneTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.67,
+        "markers": [
+          "FLASH STANDALONE: PASSED / 18 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashStorageDispatchTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.57,
+        "markers": [
+          "FLASH STORAGE DISPATCH: PASSED / 19 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashTextRowEventTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.45,
+        "markers": [
+          "FLASH TEXT ROW EVENT: PASSED / 3 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashTextStreamTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 3.17,
+        "markers": [
+          "FLASH TEXT STREAM: PASSED / 7 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashTitleNoteTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.73,
+        "markers": [
+          "FLASH TITLE/NOTE: PASSED / 25 checks"
+        ],
+        "evidence": {}
+      }
+    ]
+  },
+  "editor": {
+    "groups": 3,
+    "checks": 389,
+    "cases": [
+      {
+        "name": "EditorCompileTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 7.08,
+        "markers": [
+          "EDITOR COMPILE: PASSED"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "EditorScriptWorkspaceTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 7.1,
+        "markers": [
+          "EDITOR SCRIPT WORKSPACE: PASSED / 41 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "EditorScriptSourceFlowTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 107.98,
+        "markers": [
+          "EDITOR SCRIPT SOURCE FLOW: PASSED / 348 checks"
+        ],
+        "evidence": {}
+      }
+    ]
+  },
+  "restart": {
+    "checks": 9,
+    "cases": [
+      {
+        "name": "FlashSaveRestartTests-write",
+        "ok": true,
+        "exit": 0,
+        "seconds": 14.99,
+        "markers": [
+          "FLASH SAVE RESTART: PASSED / write / 3 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FlashSaveRestartTests-read",
+        "ok": true,
+        "exit": 0,
+        "seconds": 18.07,
+        "markers": [
+          "FLASH SAVE RESTART: PASSED / read / 6 checks"
+        ],
+        "evidence": {}
+      }
+    ]
+  },
+  "fatal_processes": {
+    "cases": 27,
+    "all_expected_exit_1": true,
+    "worker_failure_message": "地图显伤计算失败：闪翼普通战斗技能注册表未加载（缺少 0073 的普攻）。"
+  },
+  "documentation": {
+    "checks": 1419,
+    "production_scripts": 234,
+    "public_methods": 1466
+  },
+  "save_preparation_generator_parity": true,
+  "fidelity": {
+    "project": "D:\\Dev\\Godot_Trans\\output\\0.5\\final\\黎之闪翼（开发中）_Godot",
+    "checks": 11351,
+    "failures": [],
+    "maps": 36,
+    "assets": 4097,
+    "corrections": 61,
+    "summary": {
+      "scripts": 339,
+      "fragments": 144,
+      "generated_units": 166,
+      "parsed_units": 457,
+      "event_integrated_units": 144,
+      "retry_units": 0,
+      "definitions": 2976,
+      "dependency_candidates": 8075
+    }
+  },
+  "formal_fixture": {
+    "files": 919,
+    "different": []
+  },
+  "gpu": [
+    {
+      "name": "FlashDamageOrderV050Probe",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "FLASH V050 DAMAGE ORDER: PASSED / 6 checks"
+      ]
+    },
+    {
+      "name": "baseline",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "ENCOUNTER PERFORMANCE: PASSED"
+      ]
+    },
+    {
+      "name": "candidate",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "ENCOUNTER PERFORMANCE: PASSED"
+      ]
+    },
+    {
+      "name": "FlashMenuNavigationTests",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "FLASH MENU NAVIGATION: PASSED / 27 checks"
+      ]
+    },
+    {
+      "name": "FlashStartupV049Probe",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "FLASH V049 STARTUP: PASSED / {\"diagnostics\":[],\"difficulty_page\":true,\"fatal\":\"\",\"map\":23,\"ok\":true,\"party\":[1],\"playing\":true,\"wait\":\"completed\"}"
+      ]
+    }
+  ],
+  "encounter_comparison": [
+    {
+      "event": 22,
+      "name": "22/物品1",
+      "checkpoint_ms": [
+        0.116,
+        0.261
+      ],
+      "full_event_ms": [
+        202.864,
+        213.544
+      ],
+      "frame_max_ms": [
+        60.045,
+        46.483
+      ],
+      "complete": true,
+      "erased": true
+    },
+    {
+      "event": 56,
+      "name": "56/门1",
+      "checkpoint_ms": [
+        135.875,
+        86.16
+      ],
+      "full_event_ms": [
+        733.235,
+        616.798
+      ],
+      "frame_max_ms": [
+        28.722,
+        22.289
+      ],
+      "complete": true,
+      "erased": true
+    },
+    {
+      "event": 57,
+      "name": "57/门2",
+      "checkpoint_ms": [
+        135.217,
+        68.218
+      ],
+      "full_event_ms": [
+        716.631,
+        583.284
+      ],
+      "frame_max_ms": [
+        26.212,
+        19.333
+      ],
+      "complete": true,
+      "erased": true
+    },
+    {
+      "event": 58,
+      "name": "58/门3",
+      "checkpoint_ms": [
+        135.538,
+        68.208
+      ],
+      "full_event_ms": [
+        700.034,
+        616.633
+      ],
+      "frame_max_ms": [
+        23.902,
+        17.905
+      ],
+      "complete": true,
+      "erased": true
+    },
+    {
+      "event": 70,
+      "name": "70/怪物2",
+      "checkpoint_ms": [
+        118.011,
+        67.514
+      ],
+      "full_event_ms": [
+        574.705,
+        516.688
+      ],
+      "frame_max_ms": [
+        41.416,
+        32.097
+      ],
+      "complete": true,
+      "erased": true
+    }
+  ],
+  "gameplay_parity": {
+    "actors": true,
+    "variables": true,
+    "inventory": true,
+    "gold": true,
+    "monster70_battle_fields": true
+  },
+  "damage_order": {
+    "checks": 6,
+    "dying_frames": 24,
+    "wrong_label_frames": 0,
+    "undo": {
+      "ok": true,
+      "recovered": false,
+      "serial": 0
+    }
+  },
+  "soak": {
+    "checks": 58,
+    "cycles": 12,
+    "elapsed_seconds": 125.867907,
+    "failures": [],
+    "frame_max_ms": 59.161,
+    "frame_median_ms": 16.647,
+    "frame_p95_ms": 22.922,
+    "interactive_frames": 6808,
+    "note": "Explicit save/load and undo handlers are reported separately; this finite run is not a whole-game or hours-long stability claim.",
+    "ok": true,
+    "resources": [
+      {
+        "cycle": 0,
+        "nodes": 224,
+        "objects": 2563.0,
+        "resources": 350.0,
+        "static_bytes": 219077299.0
+      },
+      {
+        "cycle": 1,
+        "nodes": 205,
+        "objects": 2541.0,
+        "resources": 348.0,
+        "static_bytes": 219041792.0
+      },
+      {
+        "cycle": 2,
+        "nodes": 224,
+        "objects": 2567.0,
+        "resources": 350.0,
+        "static_bytes": 219137507.0
+      },
+      {
+        "cycle": 3,
+        "nodes": 205,
+        "objects": 2539.0,
+        "resources": 348.0,
+        "static_bytes": 219062776.0
+      },
+      {
+        "cycle": 4,
+        "nodes": 224,
+        "objects": 2567.0,
+        "resources": 350.0,
+        "static_bytes": 219170331.0
+      },
+      {
+        "cycle": 5,
+        "nodes": 205,
+        "objects": 2541.0,
+        "resources": 348.0,
+        "static_bytes": 219096104.0
+      },
+      {
+        "cycle": 6,
+        "nodes": 224,
+        "objects": 2563.0,
+        "resources": 350.0,
+        "static_bytes": 219210115.0
+      },
+      {
+        "cycle": 7,
+        "nodes": 205,
+        "objects": 2541.0,
+        "resources": 348.0,
+        "static_bytes": 219142688.0
+      },
+      {
+        "cycle": 8,
+        "nodes": 224,
+        "objects": 2567.0,
+        "resources": 350.0,
+        "static_bytes": 219219291.0
+      },
+      {
+        "cycle": 9,
+        "nodes": 205,
+        "objects": 2539.0,
+        "resources": 348.0,
+        "static_bytes": 219208536.0
+      },
+      {
+        "cycle": 10,
+        "nodes": 224,
+        "objects": 2567.0,
+        "resources": 350.0,
+        "static_bytes": 219287243.0
+      },
+      {
+        "cycle": 11,
+        "nodes": 205,
+        "objects": 2541.0,
+        "resources": 348.0,
+        "static_bytes": 219213016.0
+      }
+    ],
+    "stages": [
+      {
+        "cycle": 0,
+        "event": 70,
+        "event_ms": 1118.954,
+        "load_ms": 308.003,
+        "save_ms": 429.744
+      },
+      {
+        "cycle": 1,
+        "event": 56,
+        "event_ms": 997.587
+      },
+      {
+        "cycle": 2,
+        "event": 70,
+        "event_ms": 999.178
+      },
+      {
+        "cycle": 3,
+        "event": 56,
+        "event_ms": 1016.077,
+        "load_ms": 235.979,
+        "save_ms": 572.686
+      },
+      {
+        "cycle": 4,
+        "event": 70,
+        "event_ms": 1098.437
+      },
+      {
+        "cycle": 5,
+        "event": 56,
+        "event_ms": 1089.633
+      },
+      {
+        "cycle": 6,
+        "event": 70,
+        "event_ms": 2370.811,
+        "load_ms": 392.533,
+        "save_ms": 1094.323
+      },
+      {
+        "cycle": 7,
+        "event": 56,
+        "event_ms": 1203.045
+      },
+      {
+        "cycle": 8,
+        "event": 70,
+        "event_ms": 1043.935
+      },
+      {
+        "cycle": 9,
+        "event": 56,
+        "event_ms": 1123.888,
+        "load_ms": 305.163,
+        "save_ms": 655.946
+      },
+      {
+        "cycle": 10,
+        "event": 70,
+        "event_ms": 1219.934
+      },
+      {
+        "cycle": 11,
+        "event": 56,
+        "event_ms": 1430.075
+      }
+    ],
+    "steps": 1297
+  },
+  "limitations": [
+    "Original event waits/route timings remain.",
+    "Snapshot capture, schema/resource checks and authoritative single-enemy battle calculation still have main-thread cost.",
+    "Soak ran with independent regression/export processes; frame statistics exclude full synchronous input/save/load/undo handlers.",
+    "Full story manual playthrough and all-map stability are not proven.",
+    "Original graphical UI restoration and native GDScript event authoring remain pending."
+  ],
+  "setup_issues_resolved": [
+    "Initial private fixture omitted legacy/extras; MapFlow/TextStream passed after restoring complete source auxiliary files.",
+    "Initial editor fixture omitted legacy/ordered_scripts, legacy/ruby_scripts and migration_docs; complete fresh-output fixture passed all three groups.",
+    "Initial output/0.5/release omitted migration-only MP2 converter configuration and failed audio fidelity audit. It is preserved; output/0.5/final was re-exported from the original RM with configured converter and passed."
+  ]
+}

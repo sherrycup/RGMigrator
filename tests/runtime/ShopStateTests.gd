@@ -41,7 +41,7 @@ func run() -> void:
 	expect(not state.shop_sell("item", 2, 1).ok, "zero-price goods cannot be sold")
 	state.gold = 100
 	expect(service.quote_buy(state, goods, "item", 1).maximum == 1 and not state.shop_buy(goods, "item", 1, 2).ok, "99-item cap enforced before commit")
-	state.gold = service.MAX_GOLD
+	state.gold = state.custom_data.currency_maximum()
 	expect(not state.shop_sell("item", 1, 1).ok, "gold cap refuses sale without losing item")
 	state.gold = 100
 	var quote: Dictionary = service.quote_buy(state, goods, "weapon", 1)

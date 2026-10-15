@@ -40,6 +40,7 @@ static func summary(code: int, p: Array, name: String, documents: RefCounted = n
 		0: return "事件结束"
 		101,401: return ("显示文章：" if code==101 else "")+str(p[0]).replace("\n"," ↵ ")
 		108,408: return ("注释：" if code==108 else "")+str(p[0]).replace("\n"," ↵ ")
+		355,655: return ("脚本：" if code==355 else "")+str(p[0]).replace("\n"," ↵ ")
 		102:
 			var choices: Array=p[0]
 			var cancel="禁止取消" if int(p[1])==0 else "取消进入独立分支" if int(p[1])==5 else "取消选择第%d项" % int(p[1])
@@ -115,7 +116,6 @@ static func summary(code: int, p: Array, name: String, documents: RefCounted = n
 		411: return "否则"
 		412: return "条件结束"
 		413: return "循环结束（返回循环开始）"
-		509: return "移动路线续行（随路线保留）"
 	return name+"（原始参数保留）"
 
 static func route_summary(code: int, p: Array, name: String, documents: RefCounted = null) -> String:
@@ -128,6 +128,7 @@ static func route_summary(code: int, p: Array, name: String, documents: RefCount
 		42: return "不透明度 → %d" % int(p[0])
 		43: return "混合方式 → %s" % _enum(_BLENDS,p[0])
 		44: return "演奏SE：%s" % _audio(p[0])
+		45: return "脚本："+str(p[0]).replace("\n"," ↵ ")
 	return name.replace("ON","开启").replace("OFF","关闭")
 
 static func _condition(p: Array, documents: RefCounted, characters: Dictionary) -> String:
@@ -149,6 +150,7 @@ static func _condition(p: Array, documents: RefCounted, characters: Dictionary) 
 		7: return "金钱 %s %d" % ["大于等于" if int(p[2])==0 else "小于等于",int(p[1])]
 		8,9,10: return "持有 %s" % ref.call({8:"Items",9:"Weapons",10:"Armors"}[int(p[0])],p[1])
 		11: return "按住按键 %s" % _enum(_KEYS,p[1])
+		12: return "脚本条件：%s" % str(p[1])
 	return "未支持的条件（保留）"
 
 static func _operand(p: Array, documents: RefCounted, characters: Dictionary) -> String:
@@ -217,7 +219,7 @@ static func parameter_hints(code: int, p: Array, characters: Dictionary = {}) ->
 		103,105: db.call(0,"variables")
 		104: opts.call(0,{"0":"上","1":"中","2":"下"}); opts.call(1,{"0":"普通窗口","1":"透明背景"})
 		111:
-			opts.call(0,{"0":"开关","1":"变量","2":"独立开关","3":"计时器","4":"角色","6":"人物朝向","7":"金钱","8":"物品","9":"武器","10":"防具","11":"按键"})
+			opts.call(0,{"0":"开关","1":"变量","2":"独立开关","3":"计时器","4":"角色","6":"人物朝向","7":"金钱","8":"物品","9":"武器","10":"防具","11":"按键","12":"脚本条件"})
 			match int(p[0]):
 				0: db.call(1,"switches"); opts.call(2,state)
 				1: db.call(1,"variables"); opts.call(2,source); opts.call(4,{"0":"等于","1":"大于等于","2":"小于等于","3":"大于","4":"小于","5":"不等于"})

@@ -8,6 +8,9 @@ const ProjectGenerator = preload("res://scripts/importer/ProjectGenerator.gd")
 const MigrationReportWriter = preload("res://scripts/importer/MigrationReportWriter.gd")
 const RGMigratorVersion = preload("res://scripts/Version.gd")
 const TestSetupGenerator = preload("res://scripts/importer/TestSetupGenerator.gd")
+const CustomDataImporter = preload("res://scripts/importer/CustomDataImporter.gd")
+const FlashGameplayImporter = preload("res://scripts/importer/FlashGameplayImporter.gd")
+const ScriptWorkspaceExporter = preload("res://scripts/importer/ScriptWorkspaceExporter.gd")
 
 
 func run(preflight: Dictionary, progress: Callable = Callable()) -> Dictionary:
@@ -36,9 +39,22 @@ func run(preflight: Dictionary, progress: Callable = Callable()) -> Dictionary:
 	var generator := ProjectGenerator.new()
 	var generator_result := generator.generate(output_path, str(preflight["project_title"]), preflight.get("ini", {}), func(message: String) -> void: _emit(progress, messages, message), source_path)
 	var test_setup := TestSetupGenerator.new().generate(output_path, bool(preflight.get("test_mode", true)))
+	_emit(progress,messages,"迁移项目自定义数据、属性、货币和楼层定义。")
+	var custom_data: Dictionary=CustomDataImporter.new().generate(source_path,output_path,converter.script_sources,converter.script_inventory.raw_maps,codec,converter.script_inventory.raw_common)
+	var flash_gameplay: Dictionary=FlashGameplayImporter.new().generate(output_path,converter.script_sources)
+	_emit(progress, messages, "盘点脚本加载顺序、事件片段与依赖，解析并生成已支持的GDScript单元。")
+	var script_migration: Dictionary = converter.script_inventory.generate(output_path, converter.script_sources)
+	generator.write_flash_source_guide(output_path)
+	var workspace_result=ScriptWorkspaceExporter.new().generate(output_path)
 
 	var warnings: Array = []
+	var mirror_differences: Array = script_migration.get("mirror_audit", {}).get("differences", [])
+	if not mirror_differences.is_empty(): warnings.append("Scripts镜像与Scripts.rxdata有%d处内容不同；两份均保留，加载順序及差异见script_inventory.md，本版未静默合并。" % mirror_differences.size())
 	var errors: Array = data_result.get("errors", []).duplicate()
+	errors.append_array(script_migration.get("errors", []))
+	errors.append_array(custom_data.get("errors",[]))
+	errors.append_array(flash_gameplay.get("errors",[]))
+	errors.append_array(workspace_result.get("errors",[]))
 	if not test_setup.get("ok", false):
 		errors.append(test_setup.get("message", "测试配置生成失败"))
 	errors.append_array(asset_result.get("errors", []))
@@ -65,6 +81,10 @@ func run(preflight: Dictionary, progress: Callable = Callable()) -> Dictionary:
 		"scripts": scripts_mirror.get("count", 0) if scripts_mirror.get("copied", false) else data_result.get("exported_scripts", 0),
 		"window": {"width": generator_result.get("width", 640), "height": generator_result.get("height", 480)},
 		"test_setup": test_setup,
+		"script_migration": script_migration,
+		"script_workspace":workspace_result,
+		"custom_data":custom_data,
+		"flash_gameplay":flash_gameplay,
 		"warnings": warnings,
 		"errors": errors,
 		"ok": errors.is_empty(),

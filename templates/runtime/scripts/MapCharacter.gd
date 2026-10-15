@@ -254,7 +254,7 @@ func _sync_position() -> void:
 	var options: Dictionary = motion.options
 	visible = not options.transparent
 	modulate.a = float(options.opacity) / 255.0
-	_sprite.visible = _texture != null
+	_sprite.visible = _texture != null and not bool(_sprite.get_meta("flash_unravel_hidden",false))
 	if _texture == null:
 		material = null
 		_visual_material = null

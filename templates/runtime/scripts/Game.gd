@@ -25,6 +25,8 @@ var _event_ui: RefCounted
 var _events_enabled := true
 var _event_lab_backup: Dictionary = {}
 var _event_lab_hud: CanvasLayer
+var _flash_hud: CanvasLayer
+var _flash_movie: CanvasLayer
 var _transfer_serial := 0
 var _transfer_active := 0
 var _transfer_results: Dictionary = {}
@@ -36,10 +38,17 @@ var _screen_active := 0
 var _screen_results: Dictionary = {}
 var _screen_revealing := false
 var _screen_frozen_request := 0
+var _event_checkpoint: Dictionary={}
+var _checkpoint_serial=0
 
 
 func _ready() -> void:
+	if RuntimeState.custom_data.manifest.get("profile")=="flash":
+		var warmed=preload("ScriptRuntime.gd").prewarm()
+		preload("RmxpAnimationData.gd").prewarm()
+		if not warmed.ok: RuntimeState.report_diagnostic("生成脚本预加载失败："+str(warmed.failures))
 	RuntimeState.register_game(self)
+	if RuntimeState.flash_history!=null: RuntimeState.flash_history.checkpoint_prepared.connect(_checkpoint_prepared)
 	_map = MapRuntime.new()
 	add_child(_map)
 	_player = PlayerController.new()
@@ -75,10 +84,12 @@ func _ready() -> void:
 	_event_ui.bind_interpreter(_interpreter)
 	_scheduler.interpreter_created.connect(_event_ui.bind_interpreter)
 	_scheduler.main_completed.connect(_on_event_completed)
+	_scheduler.main_aborted.connect(_on_event_completed)
 	_event_ui.terminal_requested.connect(request_event_scene)
 	_event_ui.requested.connect(_present_event_ui)
 	_event_ui.dismissed.connect(_dismiss_event_ui)
 	_dialogue.event_response.connect(_event_response)
+	_dialogue.event_failed.connect(_event_ui.reject)
 	_dialogue.closed.connect(_sync_event_input)
 	_map.event_requested.connect(_start_event)
 	_map.map_changed.connect(_map_loaded)
@@ -87,6 +98,11 @@ func _ready() -> void:
 	_menus = MenuCoordinator.new()
 	_menus.game = self
 	add_child(_menus)
+	if RuntimeState.custom_data.manifest.get("profile")=="flash":
+		_flash_movie=load("res://runtime/scripts/FlashMoviePlayer.gd").new(); add_child(_flash_movie)
+		_flash_hud=preload("FlashMapHUD.gd").new(); add_child(_flash_hud)
+		var effects_view=load("res://runtime/scripts/FlashEffectView.gd").new(); effects_view.model=RuntimeState.flash_effects; effects_view.game=self; add_child(effects_view)
+		var enemy_labels=load("res://runtime/scripts/FlashEnemyMapLabels.gd").new(); enemy_labels.game=self; add_child(enemy_labels)
 	if RuntimeState.testing_enabled:
 		var badge := CanvasLayer.new()
 		badge.layer = 10
@@ -100,6 +116,8 @@ func _ready() -> void:
 	if not _map.load_map(RuntimeState.map_id):
 		_show_diagnostic("无法载入起始地图 Map%03d。" % RuntimeState.map_id)
 		return
+	# Hash the frozen project during startup instead of the first touched event.
+	preload("SaveService.gd").fingerprint()
 	if RuntimeState.resume_from_save:
 		if RuntimeState.pending_event_state.is_empty(): _scheduler.suppress_loaded_autoruns()
 		else: restore_event_state()
@@ -110,14 +128,34 @@ func _ready() -> void:
 
 
 func can_save() -> bool:
-	return _player.is_idle() and (not RuntimeState.save_disabled or event_save_override()) and event_save_reason().is_empty() and not _dialogue.is_open() and _menus.shop == null and _menus.menu != null and _menus.menu.page == "save"
+	if RuntimeState.flash_effects!=null and not RuntimeState.flash_effects.transient_save_reason().is_empty(): return false
+	if _menus.menu!=null and _menus.menu.get("mode")=="load": return false
+	var save_page: bool=_menus.menu!=null and (_menus.menu.page=="save" or _menus.menu.page=="flash_menu" and _menus.menu.active_command==1 and _menus.menu.child!=null and _menus.menu.child.mode=="save")
+	return _player.is_idle() and (not RuntimeState.save_disabled or event_save_override()) and event_save_reason().is_empty() and not _dialogue.is_open() and _menus.shop == null and save_page
+
+func play_flash_effect(name: String,args: Array=[]) -> Dictionary:
+	return preload("ScriptRuntime.gd").call_transaction(RuntimeState,{"source":"GameEngine::Screen."+name},func(env): return load("res://runtime/scripts/FlashScreenEffects.gd").stage(env._custom,name,args))
+func unravel_picture(number: int,args: Array=[]) -> Dictionary:
+	return play_flash_effect("picture_unravel",[number,args])
+func unravel_character(event_id: int=-1,args: Array=[]) -> Dictionary:
+	return play_flash_effect("character_unravel",[event_id,args])
+func show_flash_scene(source_name: String,args: Array=[]) -> Dictionary:
+	return _menus.open_flash_scene(source_name,args)
 
 func event_save_override() -> bool:
 	return not _event_ui.active.is_empty() and _event_ui.active.kind == "save" and _event_ui._valid(_event_ui.active)
 
-func capture_event_state() -> Dictionary:
+func capture_event_state(detached_nodes: Array=[]) -> Dictionary:
 	if _map == null or _map.map_data.is_empty() or _map._loaded_id != RuntimeState.map_id: return {}
-	return preload("res://runtime/scripts/EventPersistence.gd").capture(self)
+	return preload("res://runtime/scripts/EventPersistence.gd").capture(self,detached_nodes)
+
+func script_field_roots() -> Array:
+	var roots=[]
+	if _scheduler==null: return roots
+	for owner in [_scheduler.main]+_scheduler.parallels.values().map(func(entry):return entry.owner):
+		roots.append(owner.context.script_fields)
+		for frame in owner.context.stack: roots.append(frame.get("script_fields",{}))
+	return roots
 
 func restore_event_state() -> void:
 	if RuntimeState.pending_event_state.is_empty(): return
@@ -125,7 +163,10 @@ func restore_event_state() -> void:
 		_show_diagnostic("无法恢复存档地图。")
 		return
 	preload("res://runtime/scripts/EventPersistence.gd").restore(self, RuntimeState.pending_event_state)
-	RuntimeState.pending_event_state.clear()
+	if not RuntimeState.pending_flash_presentation.is_empty():
+		preload("FlashPresentationState.gd").restore(RuntimeState,RuntimeState.pending_flash_presentation,self,_event_ui.get_meta("restored_request_ids",{}))
+		RuntimeState.pending_flash_presentation={}
+	RuntimeState.pending_event_state={}
 	RuntimeState.resume_from_save = false
 
 func _process(delta: float) -> void:
@@ -146,13 +187,17 @@ func _process(delta: float) -> void:
 		_effects.screen_model = RuntimeState.screen
 		RuntimeState.map_effects.setup_map(RuntimeState.map_id, _map.tileset)
 		_camera.sync(0)
-	if _events_enabled and not event_screen_transition_active():
+	if _events_enabled and not event_screen_transition_active() and not (RuntimeState.flash_effects!=null and RuntimeState.flash_effects.busy()):
 		_scheduler.advance(delta, not _event_ui.busy() and _menus.menu == null and _menus.shop == null and not _dialogue.is_open())
 	_event_ui.pump(event_ui_available())
 	_sync_event_input()
 
 
-func event_save_reason() -> String:
+func event_save_reason(ignore_checkpoint: bool=false) -> String:
+	if not ignore_checkpoint and not _event_checkpoint.is_empty(): return "事件前记录尚未完成。"
+	if _flash_movie!=null and _flash_movie.request_id>0: return "视频尚未结束，请停止播放后保存。"
+	if _menus!=null and _menus._flash_scene_done.is_valid(): return "脚本打开的独立页面尚未返回，请返回地图后存档。"
+	if RuntimeState.flash_effects!=null and not RuntimeState.flash_effects.transient_save_reason().is_empty(): return RuntimeState.flash_effects.transient_save_reason()
 	if _scene_pending: return "场景切换尚未结束。"
 	if not _event_lab_backup.is_empty(): return "事件验收地图不写入正式存档；请先退出验收地图。"
 	if _map._loaded_id != RuntimeState.map_id: return "脱离数据库的测试地图不能写入正式存档。"
@@ -173,6 +218,8 @@ func event_transfer_ready() -> bool:
 
 func event_ui_available() -> bool:
 	if _scene_pending or _menus == null or _menus.menu != null or _menus.shop != null or _menus.name_input != null or RuntimeState.map_time_paused(): return false
+	if _dialogue._open: return false
+	if _event_ui.next_kind() in ["menu","name","shop","save"] and _dialogue.is_open(): return false
 	# RM messages can appear during motion; scene pages wait for its completion.
 	return _player.is_idle() or _event_ui.next_kind() not in ["menu", "name", "shop", "save"]
 
@@ -335,6 +382,9 @@ func _perform_event_transfer(id: int, map_id: int, x: int, y: int, direction: in
 
 
 func reset_event_execution() -> void:
+	if not _event_checkpoint.is_empty() and RuntimeState.flash_history!=null: RuntimeState.flash_history.cancel_preparation()
+	_checkpoint_serial+=1; _event_checkpoint.clear()
+	if _flash_movie!=null: _flash_movie.stop()
 	_scene_serial += 1
 	_scene_pending = false
 	_events_enabled = false
@@ -344,6 +394,7 @@ func reset_event_execution() -> void:
 	if _player != null: _player.reset_route_state()
 	if _scheduler != null: _scheduler.cancel_all()
 	if _event_ui != null: _event_ui.cancel_all()
+	if RuntimeState.flash_messages!=null: RuntimeState.flash_messages.reset()
 
 
 func enter_event_test_map() -> Dictionary:
@@ -382,6 +433,7 @@ func enter_event_test_map() -> Dictionary:
 	_scheduler.interpreter_created.connect(_event_ui.bind_interpreter)
 	_scheduler.main_completed.connect(_on_event_completed)
 	RuntimeState.configure_map_effects({"panorama_name": "", "fog_name": ""})
+	_scheduler.main_aborted.connect(_on_event_completed)
 	var size := get_viewport_rect().size
 	RuntimeState.configure_map_view({"view_rect": [0, 156, size.x, size.y - 156], "follow_center": [], "follow_enabled": true})
 	_update_camera_limits()
@@ -453,8 +505,26 @@ func _start_autorun() -> void:
 
 
 func _start_event(commands: Array, event_id: int) -> void:
-	if commands.is_empty() or _scene_pending or _dialogue.is_open() or _interpreter.running or _menus.menu != null or _menus.shop != null or _menus.name_input != null:
+	if commands.is_empty() or not _event_checkpoint.is_empty() or _scene_pending or _dialogue.is_open() or _interpreter.running or _menus.menu != null or _menus.shop != null or _menus.name_input != null:
 		return
+	if RuntimeState.flash_history!=null and _map.player_trigger_request:
+		var name=str(_map.map_data.get("events",{}).get(str(event_id),{}).get("name",""))
+		if RuntimeState.flash_history.eligible(name):
+			_checkpoint_serial+=1
+			_event_checkpoint={"request":_checkpoint_serial,"commands":commands,"event_id":event_id,"generation":_map.generation}
+			_player.input_enabled=false
+			RuntimeState.flash_history.prepare_record(_checkpoint_serial)
+			return
+	_run_event(commands,event_id)
+
+func _checkpoint_prepared(request_id: int,result: Dictionary) -> void:
+	if _event_checkpoint.is_empty() or _event_checkpoint.request!=request_id: return
+	var pending=_event_checkpoint; _event_checkpoint={}
+	if result.get("cancelled",false) or pending.generation!=_map.generation: _sync_event_input(); return
+	if not result.ok and not RuntimeState.save_disabled: RuntimeState.report_diagnostic("事件前记录失败："+result.message)
+	_run_event(pending.commands,pending.event_id)
+
+func _run_event(commands: Array,event_id: int) -> void:
 	_player.input_enabled = false
 	_scheduler.start_main(commands, event_id, _map.event_page(event_id))
 	_event_ui.pump(event_ui_available())
@@ -473,12 +543,16 @@ func _on_event_completed() -> void:
 
 
 func _can_trigger_event() -> bool:
+	if not _event_checkpoint.is_empty(): return false
+	if RuntimeState.flash_effects!=null and RuntimeState.flash_effects.busy(): return false
 	return _events_enabled and _transfer_active == 0 and _screen_active == 0 and not _interpreter.running and not _event_ui.busy() and not _dialogue.is_open() and _menus.menu == null and _menus.shop == null and _menus.name_input == null and _player.is_idle()
 
 
 func _sync_event_input() -> void:
 	if _menus == null: return
 	var enabled: bool = _transfer_active == 0 and _screen_active == 0 and not _interpreter.running and not _event_ui.busy() and not _dialogue.is_open() and _menus.menu == null and _menus.shop == null and _menus.name_input == null and not _scene_pending
+	if not _event_checkpoint.is_empty(): enabled=false
+	if RuntimeState.flash_effects!=null and RuntimeState.flash_effects.busy(): enabled=false
 	if enabled and not _player.input_enabled: _player.resume_after_menu()
 	_player.input_enabled = enabled
 

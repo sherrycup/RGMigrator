@@ -7,6 +7,7 @@ var copied_assets := 0
 var copied_legacy_files := 0
 var _output_root := ""
 var _probe_index := 0
+var _conversions: Array[Dictionary] = []
 
 
 func copy(source_root: String, output_root: String, progress: Callable = Callable()) -> Dictionary:
@@ -16,6 +17,7 @@ func copy(source_root: String, output_root: String, progress: Callable = Callabl
 	copied_legacy_files = 0
 	_output_root = output_root
 	_probe_index = 0
+	_conversions.clear()
 	var index := {}
 	var legacy_root := output_root.path_join("legacy")
 	DirAccess.make_dir_recursive_absolute(legacy_root)
@@ -46,6 +48,12 @@ func copy(source_root: String, output_root: String, progress: Callable = Callabl
 	else:
 		output.store_string(JSON.stringify(index, "\t", true) + "\n")
 		output.close()
+	var conversions_file := FileAccess.open(output_root.path_join("data/asset_conversions.json"), FileAccess.WRITE)
+	if conversions_file == null:
+		errors.append("无法写入音频转换来源记录。")
+	else:
+		conversions_file.store_string(JSON.stringify({"format":"rgm-asset-conversions-v1","entries":_conversions}, "\t")+"\n")
+		conversions_file.close()
 	return {
 		"warnings": warnings,
 		"errors": errors,
@@ -87,6 +95,10 @@ func _copy_tree(source: String, destination: String, source_root: String, asset_
 					var relative := input_path.replace("\\", "/").trim_prefix(source_root.replace("\\", "/").trim_suffix("/") + "/")
 					var output_root := destination.replace("\\", "/").get_slice("/assets/rmxp/", 0)
 					output_path = output_root.path_join("legacy/unsupported_assets").path_join(relative)
+					if input_path.get_extension().to_lower() == "mp2" and _convert_mp2(input_path, destination.path_join(entry), output_path, source_root, asset_index):
+						copied_assets += 1
+						entry = dir.get_next()
+						continue
 					warnings.append("素材格式不支持或未通过隔离解码检查，已原样保留至 legacy/unsupported_assets：%s" % relative)
 					if _copy_file(input_path, output_path):
 						copied_assets += 1
@@ -189,10 +201,51 @@ func _probe_audio(path: String) -> bool:
 	if not FileAccess.file_exists(result_path):
 		warnings.append("音频隔离检查异常退出，已保留原件：%s" % path)
 		return false
+	if OS.get_process_exit_code(process)!=0: return false
 	var result: Variant = JSON.parse_string(FileAccess.get_file_as_string(result_path))
 	var log_text := FileAccess.get_file_as_string(log_path) if FileAccess.file_exists(log_path) else ""
-	# Includes malformed ID3 tags: a partial stream isn't a clean import result.
-	return result is Dictionary and result.get("ok", false) and not "ERROR:" in log_text and not "Unicode parsing error" in log_text
+	return _clean_probe_result(result, log_text, FileAccess.get_sha256(path))
+
+
+static func _clean_probe_result(result: Variant, log_text: String, source_sha256: String) -> bool:
+	# Startup diagnostics (for example Windows TLS certificates) are unrelated
+	# to the decoder. Only accept a complete, clean decode of the exact input.
+	var begin := log_text.find("RGM_AUDIO_DECODE_BEGIN")
+	var end := log_text.find("RGM_AUDIO_DECODE_END", begin+1)
+	if begin<0 or end<0: return false
+	var decode_log := log_text.substr(begin, end-begin)
+	return result is Dictionary and result.get("ok",false) and result.get("sha256","")==source_sha256 and float(result.get("length",0))>0 and not "ERROR:" in decode_log and not "Unicode parsing error" in decode_log
+
+
+func _convert_mp2(source: String, destination: String, original: String, source_root: String, asset_index: Dictionary) -> bool:
+	# Optional migration-only converter. The exported game uses ordinary WAV
+	# resources and never launches or bundles an external executable.
+	var executable := str(ProjectSettings.get_setting("rgmigrator/audio_converter_executable",OS.get_environment("RGMIGRATOR_FFMPEG")))
+	if executable.is_empty():
+		warnings.append("MP2需要迁移时配置音频转换器；原件将保留：%s" % source.get_file())
+		return false
+	if DirAccess.make_dir_recursive_absolute(original.get_base_dir())!=OK: return false
+	var output := destination+".rgm_"+FileAccess.get_sha256(source).left(12)+".wav"
+	if FileAccess.file_exists(output):
+		errors.append("音频转换目标已存在，未覆盖：%s" % output)
+		return false
+	var process := OS.create_process(executable,PackedStringArray(["-nostdin","-hide_banner","-loglevel","error","-n","-i",source,"-map","0:a:0","-vn","-map_metadata","-1","-c:a","pcm_s16le","-fflags","+bitexact","-flags:a","+bitexact",output]))
+	if process<0: return false
+	var deadline := Time.get_ticks_msec()+30000
+	while OS.is_process_running(process) and Time.get_ticks_msec()<deadline: OS.delay_msec(20)
+	var timed_out := OS.is_process_running(process)
+	if timed_out: OS.kill(process)
+	if timed_out or OS.get_process_exit_code(process)!=0 or not FileAccess.file_exists(output) or not _probe_audio(output):
+		warnings.append("MP2转换未通过独立解码校验；原件将保留：%s" % source.get_file())
+		# A failed derivative must not enter the editor import scan.
+		if FileAccess.file_exists(output) and DirAccess.rename_absolute(output,original+".failed.wav")!=OK:
+			errors.append("无法隔离未通过校验的音频转换副本：%s" % output)
+		return false
+	if not _copy_file(source,original): return false
+	_add_asset_index(asset_index,source,source_root,output,source.get_extension())
+	_conversions.append({"source":source.replace("\\","/").trim_prefix(source_root.replace("\\","/").trim_suffix("/")+"/"),"source_sha256":FileAccess.get_sha256(source),"preserved_path":original.replace("\\","/").trim_prefix(_output_root.replace("\\","/").trim_suffix("/")+"/"),"output_path":output.replace("\\","/").trim_prefix(_output_root.replace("\\","/").trim_suffix("/")+"/"),"output_sha256":FileAccess.get_sha256(output),"conversion":"MPEG Layer II to PCM signed 16-bit WAV"})
+	warnings.append("MP2已转换为可播放WAV并保留原件及SHA256来源记录：%s" % source.get_file())
+	return true
 
 
 func _correct_image_extension(source: String, destination: String) -> String:

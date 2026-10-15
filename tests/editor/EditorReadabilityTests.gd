@@ -24,7 +24,7 @@ func _text(code: int, p: Array, characters: Dictionary = {}) -> String:
 
 func _has_safe_display(command: Dictionary, documents: RefCounted, characters: Dictionary = {}) -> bool:
 	# A genuine empty continuation is a visible blank row in a multiline block.
-	return not _commands.summary(command,documents,characters).is_empty() or int(command.get("code",0)) in [401,408] and command.get("parameters",[])==[""]
+	return not _commands.summary(command,documents,characters).is_empty() or int(command.get("code",0)) in [401,408,655] and command.get("parameters",[])==[""]
 
 func _row(form: Control, path: Array) -> TreeItem:
 	var items: Array=[form._tree.get_root()]
@@ -70,6 +70,17 @@ func run() -> void:
 	expect(_text(319,[1,0,0]).contains("更换为 [0000] 卸下"),"equipment zero means unequip")
 	expect(_text(106,[20]).contains("1秒"),"wait duration uses the existing 20Hz unit")
 	expect(_text(236,[1,5,40]).contains("雨；强度5；1秒"),"weather duration uses the existing 40Hz unit")
+	expect(_text(509,[{"code":12,"parameters":[]}])=="前进","route continuation shows its actual action")
+	expect(_text(209,[-1,{"repeat":false,"skippable":false,"list":[{"code":12,"parameters":[]},{"code":12,"parameters":[]},{"code":0,"parameters":[]}]}]).contains("前进2步"),"route heading previews repeated steps even when no redundant509 rows exist")
+	expect(_text(509,[{"code":14,"parameters":[2,-1]}]).contains("横向2格，纵向-1格"),"route continuation shows action parameters")
+	expect(_text(509,[{"code":27,"parameters":[1]}]).contains("开关 [0001] 剧情开始 打开"),"route continuation resolves switch names")
+	expect(_text(509,[{"code":45,"parameters":["$game_variables[1] += 2"]}])=="脚本：$game_variables[1] += 2","route script shows its source rather than a generic label")
+	expect(_text(655,["  reward += 2"])=="  reward += 2" and _text(655,[""])=="","script continuation preserves code indentation and blank lines")
+	var bound_script=_commands.command(355,0,["reward = 2"]); bound_script._script_binding={"unit_id":"source_id"}
+	expect(_commands.summary(bound_script,_docs)=="脚本：reward = 2","bound script display shows source without an array wrapper or registry ID")
+	expect(_commands.name_for(355)=="脚本" and _commands.ROUTE_NAMES[45]=="脚本","palette, dialog and route editor use the same script name")
+	var bound_condition=_commands.command(111,0,[12,"_this.enemy.hp > 0"]); bound_condition._script_binding={"unit_id":"condition_id"}
+	expect(_commands.summary(bound_condition,_docs)=="如果 脚本条件：_this.enemy.hp > 0","bound script conditions retain the actual branch meaning and source")
 	expect(_text(121,[]).contains("原始数据保留"),"malformed data has a safe fallback")
 	expect(_text(999,[1]).contains("999") and _text(999,[1]).contains("保留"),"unknown code remains identifiable")
 	expect(_commands.summary({"code":108,"parameters":["原Ruby"],"_editor_original":{"code":355}},_docs).contains("Ruby脚本占位"),"Ruby is visibly preserved rather than reported executable")
@@ -96,7 +107,7 @@ func run() -> void:
 	expect(form.draft()[0]==3 and _row(form,[0]).get_text(1)=="[0003] 大门已打开","choosing a name edits the ID, never the label")
 	var list: Control=load("res://addons/rgm_editor/EditorCommandList.gd").new(); root.add_child(list)
 	list.configure([_commands.command(121,0,[1,1,0]),_commands.command(111,0,[0,3,0]),_commands.command(106,1,[20]),_commands.command(411),_commands.command(412),_commands.command(0)],_docs)
-	expect(list._command_list.get_root().get_children()[2].get_text(0).begins_with("│  等待"),"nested command has a readable branch guide")
+	expect(list._command_list.get_root().get_children()[2].get_text(0).begins_with("    等待") and list._structures.size()==1,"nested command reserves space for a continuous structural guide")
 	var system: Dictionary=_docs.read("data/system.json"); system.switches[1]="剧情入口"
 	_docs.apply("data/system.json",system,"改名")
 	expect(list._command_list.get_root().get_children()[0].get_text(0).contains("剧情入口"),"command list refreshes on draft rename")

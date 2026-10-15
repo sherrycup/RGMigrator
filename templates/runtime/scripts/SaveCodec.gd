@@ -11,6 +11,9 @@ const Settings = preload("res://runtime/scripts/SystemSettings.gd")
 const Audio = preload("res://runtime/scripts/AudioRuntime.gd")
 const Cache = preload("res://runtime/scripts/RmxpCache.gd")
 const Events = preload("res://runtime/scripts/EventPersistence.gd")
+const Custom=preload("res://runtime/scripts/CustomDataState.gd")
+const Decimal=preload("res://runtime/scripts/DecimalInteger.gd")
+const Graph=preload("SaveGraph.gd")
 const MAX_INTEGER := 9007199254740991
 
 
@@ -19,33 +22,85 @@ static func integer(value: Variant, minimum: int = 0, maximum: int = MAX_INTEGER
 
 
 static func capture(state: Node) -> Dictionary:
+	var flash: bool=state.custom_data.manifest.get("profile")=="flash"
+	var script_reason := "" if flash else preload("res://runtime/scripts/ScriptRuntime.gd").save_reason(state)
+	if not script_reason.is_empty(): return {"script_error":script_reason}
 	var actors: Array = []
+	var detached_nodes: Array=[]
 	var ids: Array = state.actors.keys()
 	ids.sort()
 	for id in ids:
 		actors.append(state.actors[id].persistent_data())
-	return {"map_id": state.map_id, "player_x": state.player_x, "player_y": state.player_y, "player_direction": state.player_direction,
+	var snapshot={"map_id": state.map_id, "player_x": state.player_x, "player_y": state.player_y, "player_direction": state.player_direction,
 		"gold": state.gold, "steps": state.steps, "play_seconds": state.play_seconds, "party": state.party.duplicate(), "actors": actors,
 		"save_count": state.save_count, "message_position": state.message_position, "message_frame": state.message_frame,
-		"switches": state.switches.duplicate(true), "variables": state.variables.duplicate(true), "self_switches": state.self_switches.duplicate(true),
+		"switches": state.switches.duplicate(true), "variables": state.variables if state.custom_data.manifest.get("profile")=="flash" else state.variables.duplicate(true), "self_switches": state.self_switches.duplicate(true),
 		"inventory": state.inventory.duplicate(true), "save_disabled": state.save_disabled, "menu_disabled": state.menu_disabled,
 		"system_settings": state.system_settings.snapshot(), "audio": state.audio.persistent_snapshot(),
 		"testing": Data.testing_snapshot(), "screen": state.screen.snapshot(), "player_options": state.player_motion.options.duplicate(),
 		"map_view": state.map_view.snapshot(), "map_effects": state.map_effects.snapshot(), "timer": state.timer.snapshot(),
-		"event_state": state.game().capture_event_state() if state.game() != null else state.pending_event_state.duplicate(true),
-		"common_event_reservation": state.common_event_reservation.duplicate(true)}
+		"event_state": state.game().capture_event_state(detached_nodes) if state.game() != null else state.pending_event_state.duplicate(true),
+		"common_event_reservation": state.common_event_reservation.duplicate(true),"custom_data":state.custom_data.values if state.custom_data.manifest.get("profile")=="flash" else state.custom_data.snapshot(),"script_data":preload("res://runtime/scripts/ScriptRuntime.gd").script_data(state)}
+	if state.custom_data.manifest.get("profile")=="flash":
+		if state.flash_effects!=null:
+			snapshot.flash_presentation=preload("FlashPresentationState.gd").capture(state)
+			if snapshot.flash_presentation.has("script_error"): return snapshot.flash_presentation
+		snapshot.variables=state.variables
+		snapshot.custom_data=state.custom_data.values
+		snapshot.flash_temp_fields=state.flash_temp_fields
+		snapshot.flash_archive=load("res://runtime/scripts/FlashArchiveData.gd").from_state(state)
+		if state.flash_archive_snapshot!=null:
+			var png=state.flash_archive_snapshot.save_png_to_buffer()
+			if png.size()<=load("res://runtime/scripts/FlashArchiveData.gd").MAX_PNG_BYTES: snapshot.flash_archive.png=Marshalls.raw_to_base64(png)
+	if not flash: return snapshot
+	var detached=Graph.clone_checked(snapshot,detached_nodes)
+	return detached.value if detached.ok else {"script_error":detached.message}
 
 
-static func prepare(value: Variant) -> Dictionary:
+static func prepare(value: Variant,definitions: RefCounted=null,owned_snapshot: bool=false) -> Dictionary:
+	if value is Dictionary and value.get("format")==Graph.FORMAT:
+		var graph=Graph.decode(value)
+		if not graph.ok: return fail(graph.message)
+		value=graph.value
 	if not value is Dictionary:
 		return fail("进度必须是对象。")
-	var saved: Dictionary = value.duplicate(true)
+	if value.has("script_error"): return fail(str(value.script_error))
+	var graph_profile: bool=Data.read_json("res://data/custom_data.json",{}).get("profile")=="flash"
+	var captured_classes: Variant={"Object":{"parent":"","kind":"class"}}
+	if value.get("script_data") is Dictionary: captured_classes=value.script_data.get("classes",captured_classes)
+	if not captured_classes is Dictionary: captured_classes={}
+	if graph_profile:
+		# One bounded pass checks both graph data and object-class links. The
+		# class/method registry itself is still validated below before publication.
+		var graph_reason=Graph.reason(value,captured_classes)
+		if not graph_reason.is_empty(): return fail(graph_reason)
+	var saved: Dictionary = value if owned_snapshot else Graph.clone(value) if graph_profile else value.duplicate(true)
+	if saved.has("flash_archive"):
+		var archive_reason=preload("FlashArchiveData.gd").validate(saved.flash_archive)
+		if not archive_reason.is_empty(): return fail(archive_reason)
 	for field in ["save_count", "message_position", "message_frame"]:
 		var default_value := 2 if field == "message_position" else 0
 		var limit := MAX_INTEGER if field == "save_count" else (2 if field == "message_position" else 1)
 		if not integer(saved.get(field, default_value), 0, limit): return fail("%s 无效。" % field)
 		saved[field] = int(saved.get(field, default_value))
-	for field in ["map_id", "player_x", "player_y", "player_direction", "gold", "steps"]:
+	var custom=Custom.new(null,false) if definitions!=null else Custom.new()
+	if definitions!=null: custom.manifest=definitions.manifest; custom.reset()
+	if definitions!=null and custom.manifest.get("profile")=="flash": custom._gameplay=preload("FlashGameplay.gd").new(custom,definitions.gameplay())
+	var flash_actor: bool=custom.manifest.get("profile")=="flash" and FileAccess.file_exists("res://data/flash_gameplay.json")
+	if not custom.valid_currency(saved.get("gold")): return fail("gold 必须为工程货币上限内的精确整数。")
+	saved.gold=Decimal.compact(saved.gold)
+	var custom_result=custom._restore(saved.custom_data if saved.has("custom_data") else custom.snapshot(),graph_profile)
+	if not custom_result.ok: return fail(custom_result.message)
+	saved.custom_data=custom.values
+	var script_data: Variant=saved.script_data if saved.has("script_data") else {"globals":Custom.native_value(custom.manifest.get("globals",{})),"constants":Custom.native_value(custom.manifest.get("constants",{}))}
+	var script_reason="" if graph_profile else Custom.plain_reason(script_data)
+	if not script_reason.is_empty() or not script_data is Dictionary or not script_data.get("globals") is Dictionary or not script_data.get("constants") is Dictionary: return fail(script_reason if not script_reason.is_empty() else "脚本数据快照无效。")
+	saved.script_data=script_data
+	var definitions_reason=preload("ScriptRuntime.gd").validate_saved_data(script_data)
+	if not definitions_reason.is_empty(): return fail(definitions_reason)
+	var objects_reason="" if graph_profile and value.get("script_data") is Dictionary else preload("ScriptRuntime.gd").validate_saved_objects(saved,script_data.get("classes",{"Object":{"parent":"","kind":"class"}}))
+	if not objects_reason.is_empty(): return fail(objects_reason)
+	for field in ["map_id", "player_x", "player_y", "player_direction", "steps"]:
 		if not integer(saved.get(field)):
 			return fail("%s 必须为有效整数。" % field)
 		saved[field] = int(saved[field])
@@ -68,7 +123,13 @@ static func prepare(value: Variant) -> Dictionary:
 	if not overlay.ok:
 		return overlay
 	var records: Dictionary = overlay.records
-	var lookup := func(database: String, id: int) -> Dictionary: return records.get("%s:%d" % [database, id], Data.source_record(database, id))
+	var lookup := func(database: String, id: int) -> Dictionary:
+		var key="%s:%d" % [database,id]
+		var record: Dictionary=records.get(key,Data.source_record(database,id))
+		var record_overlay: Dictionary=custom.values.records.get(key,{})
+		# All consumers read definitions. In particular, checking that a common
+		# event exists must not deep-copy its entire command list and bindings.
+		return record if record_overlay.is_empty() else record.merged(record_overlay,true)
 	if not saved.get("actors") is Array or saved.actors.size() > 10000:
 		return fail("角色列表无效。")
 	var actors := {}
@@ -81,17 +142,22 @@ static func prepare(value: Variant) -> Dictionary:
 		if not entry.get("name") is String or entry.name.length() > 1024:
 			return fail("Actors[%d].name 无效。" % id)
 		for field in ["level", "experience", "hp", "sp"]:
+			if flash_actor and field in ["hp","sp"]:
+				if not preload("FlashActorFields.gd").number(entry.get(field)) or entry[field]<0: return fail("Actors[%d].%s 无效。" % [id,field])
+				continue
 			if not integer(entry.get(field)):
 				return fail("Actors[%d].%s 无效。" % [id, field])
-		if not entry.get("equipment") is Array or entry.equipment.size() != 5:
-			return fail("Actors[%d] 必须包含五个装备槽。" % id)
-		for slot in 5:
+		var slot_count=6 if flash_actor else 5
+		if not entry.get("equipment") is Array or entry.equipment.size() != slot_count:
+			return fail("Actors[%d] 必须包含%d个装备槽。" % [id,slot_count])
+		for slot in slot_count:
 			var equipment: Variant = entry.equipment[slot]
 			if not integer(equipment):
 				return fail("Actors[%d] 装备 ID 无效。" % id)
 			if equipment != 0:
-				var definition: Dictionary = lookup.call("Weapons" if slot == 0 else "Armors", int(equipment))
-				if definition.is_empty() or (slot > 0 and int(definition.get("kind", -1)) != slot - 1):
+				var database: String=["Weapons","Deputies","Armors","Armors","Ornaments","Ornaments"][slot] if flash_actor else "Weapons" if slot==0 else "Armors"
+				var definition: Dictionary = lookup.call(database, int(equipment))
+				if definition.is_empty() or (not flash_actor and slot > 0 and int(definition.get("kind", -1)) != slot - 1):
 					return fail("Actors[%d] 第 %d 槽装备引用无效。" % [id, slot + 1])
 		for field in ["skill_ids", "state_ids"]:
 			var reason := id_list(entry.get(field), "Skills" if field == "skill_ids" else "States", lookup)
@@ -113,9 +179,11 @@ static func prepare(value: Variant) -> Dictionary:
 				return fail("Actors[%d].%s 无效。" % [id, field])
 			if field in ["character_hue", "battler_hue"] and not integer(entry[field], 0, 360):
 				return fail("Actors[%d].%s 无效。" % [id, field])
-		var instance := Actor.new()
+		if flash_actor and not Custom.same_value(custom.values.actors.get(str(id)),entry.get("flash_actor_fields")): return fail("Actors[%d]的共享属性与角色快照不一致。" % id)
+		var instance: RefCounted = preload("FlashActorState.gd").new() if flash_actor else Actor.new()
+		if flash_actor: instance._rules_override=custom.gameplay().rules
 		instance.configure(id, Data.source_record("Actors", id), lookup)
-		var reason := instance.restore_persistent(entry)
+		var reason: String = instance.restore_persistent(entry)
 		if not reason.is_empty():
 			return fail("Actors[%d]：%s" % [id, reason])
 		actors[id] = instance
@@ -147,10 +215,9 @@ static func prepare(value: Variant) -> Dictionary:
 			else:
 				if not positive_key(key) or (field == "switches" and not entry is bool):
 					return fail("开关/变量无效：" + key)
-				if field == "variables" and not integer(entry, -MAX_INTEGER):
-					return fail("变量必须是有效整数：" + key)
+				if field == "variables" and not graph_profile and not Custom.plain_reason(entry).is_empty(): return fail("变量数据无效："+key)
 				if field == "variables":
-					saved.variables[key] = int(entry)
+					saved.variables[key] = entry if graph_profile else Custom.native_value(entry)
 	# Additive schema-1 field: old native saves default to an empty neutral screen.
 	var settings := Settings.decode(saved.get("system_settings", Settings.new().snapshot()))
 	if not settings.ok: return settings
@@ -191,8 +258,13 @@ static func prepare(value: Variant) -> Dictionary:
 		if not integer(reservation.get("id"), 1) or lookup.call("CommonEvents", int(reservation.id)).is_empty() or not reservation.get("source") is String or not integer(reservation.get("actor_id"), 0) or not integer(reservation.get("target_id"), 0): return fail("公共事件预约引用无效。")
 	saved.event_state = events.value
 	saved.common_event_reservation = reservation.duplicate(true)
+	var presentation={"ok":true,"value":{}}
+	if saved.has("flash_presentation"):
+		presentation=preload("FlashPresentationState.gd").prepare(saved.flash_presentation)
+		if not presentation.ok: return fail(presentation.message)
+	if saved.has("flash_temp_fields") and (not saved.flash_temp_fields is Dictionary or not graph_profile and not Graph.reason(saved.flash_temp_fields).is_empty()): return fail("临时字段快照无效。")
 	return {"ok": true, "state": saved, "actors": actors, "test_records": records, "screen": screen_result.screen,
-		"map_view": extensions.map_view, "map_effects": extensions.map_effects, "timer": extensions.timer, "system_settings": settings.value, "audio": audio}
+		"map_view": extensions.map_view, "map_effects": extensions.map_effects, "timer": extensions.timer, "system_settings": settings.value, "audio": audio,"flash_presentation":presentation.value}
 
 
 static func testing_records(value: Variant) -> Dictionary:

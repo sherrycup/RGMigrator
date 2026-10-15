@@ -265,6 +265,9 @@ func validate(path: String, value: Variant, before: Variant) -> String:
 	if path=="data/system.json":
 		if not value is Dictionary: return "系统数据须为对象。"
 		return DatabaseSchema.reason("System",value,before if before is Dictionary else {},self)
+	if path=="data/custom_data.json":
+		if not value is Dictionary: return "项目自定义数据须为对象。"
+		return DatabaseSchema.reason("CustomData",value,before if before is Dictionary else {},self)
 	if path.begins_with("data/database/"):
 		if not value is Array: return "数据库须为数组。"
 		if value.is_empty() or value[0]!=null: return "数据库编号0须保留空槽位。"

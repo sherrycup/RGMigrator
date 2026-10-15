@@ -31,7 +31,7 @@ func apply(view: Dictionary) -> bool:
 	if texture == null:
 		visible = false
 		return false
-	visible = true
+	visible = not bool(get_meta("flash_unravel_hidden",false))
 	centered = int(view.origin) == 1
 	position = Vector2(view.x, view.y)
 	scale = Vector2(view.zoom_x, view.zoom_y) / 100.0

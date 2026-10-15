@@ -27,6 +27,8 @@ static func item_reason(item_id: int) -> String:
 	var item := Data.record("Items", item_id)
 	if item.is_empty():
 		return "Items[%d] 不存在。" % item_id
+	if _flash_profile():
+		return "" if int(item.get("occasion",3)) in [0,2] else "此物品不可在地图菜单中使用。"
 	var common_id := int(item.get("common_event_id", 0))
 	if common_id != 0 and Data.record("CommonEvents", common_id).is_empty(): return "物品引用的公共事件不存在。"
 	if int(item.get("occasion", 3)) not in [0, 2]:
@@ -49,6 +51,14 @@ static func item_reason(item_id: int) -> String:
 
 
 static func use_item(state: Node, item_id: int, target_id: int) -> Dictionary:
+	if _flash_profile():
+		var item:=Data.record("Items",item_id)
+		var result: Dictionary=preload("FlashActions.gd").recover_item(state,item_id,target_id) if int(item.get("occasion",3))==0 else preload("FlashActions.gd").request_tool(state,item_id)
+		if result.ok:
+			result["message"]="使用了 %s。" % str(item.get("name",""))
+			result["targets"]=1 if int(item.get("occasion",3))==0 else 0
+			result["common_event"]=0 if int(item.get("occasion",3))==0 else 9
+		return result
 	var reason := item_reason(item_id)
 	if not reason.is_empty():
 		return failure(reason)
@@ -103,6 +113,12 @@ static func use_item(state: Node, item_id: int, target_id: int) -> Dictionary:
 
 
 static func equip_reason(state: Node, actor_id: int, slot: int, equipment_id: int) -> String:
+	var candidate: RefCounted=state.actor(actor_id) if state.party.has(actor_id) else null
+	if candidate!=null and candidate.has_method("equip_project"):
+		var detached: Dictionary=candidate.detached_copy()
+		if not detached.ok: return detached.message
+		var result: Dictionary=detached.actor.equip_project(slot,equipment_id)
+		return "" if result.ok else result.message
 	if slot < 0 or slot > 4 or not state.party.has(actor_id):
 		return "角色或装备槽无效。"
 	var actor: RefCounted = state.actor(actor_id)
@@ -159,6 +175,9 @@ static func equip_preview(state: Node, actor_id: int, slot: int, equipment_id: i
 
 
 static func equip(state: Node, actor_id: int, slot: int, equipment_id: int) -> Dictionary:
+	var candidate: RefCounted=state.actor(actor_id) if state.party.has(actor_id) else null
+	if candidate!=null and candidate.has_method("equip_project"):
+		return preload("FlashActions.gd").equip(state,actor_id,slot,equipment_id)
 	var preview := equip_preview(state, actor_id, slot, equipment_id)
 	if not preview.ok:
 		return preview
@@ -181,3 +200,8 @@ static func equip(state: Node, actor_id: int, slot: int, equipment_id: int) -> D
 
 static func failure(message: String) -> Dictionary:
 	return {"ok": false, "message": message}
+
+
+static func _flash_profile() -> bool:
+	var custom: RefCounted=Data._custom_state.get_ref() if Data._custom_state!=null else null
+	return custom!=null and custom.manifest.get("profile")=="flash" and FileAccess.file_exists("res://data/flash_gameplay.json")

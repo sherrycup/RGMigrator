@@ -3,6 +3,7 @@ extends RefCounted
 const Catalog = preload("res://runtime/scripts/EventCommandCatalog.gd")
 const Data = preload("res://runtime/scripts/RuntimeData.gd")
 const Cache = preload("res://runtime/scripts/RmxpCache.gd")
+const Scripts = preload("res://runtime/scripts/ScriptRuntime.gd")
 var move_type := 0
 var move_frequency := 3
 var forcing := false
@@ -15,6 +16,7 @@ var _source := ""
 var _original_source := ""
 var _on_error: Callable
 var _wait := 0.0
+var _flash_effect_request=0
 var _stop := 0.0
 var _faulted := false
 var _changed := false
@@ -23,12 +25,16 @@ func _init(character: Node) -> void:
 	_character = weakref(character)
 
 static func preflight(route: Variant) -> Dictionary:
+	if route is Dictionary and route.has("_editor_original_route"): return {"ok":false,"message":"路线含尚未恢复的Ruby脚本，不能执行删减后的部分路线。"}
 	var result := Catalog.route_validation(route)
 	if not result.ok: return result
 	for index in route.list.size():
 		var command: Dictionary = route.list[index]
 		var p: Array = command.get("parameters", [])
 		var message := ""
+		if int(command.code)==45:
+			var script_check := Scripts.validate_binding(command.get("_script_binding"),str(p[0]))
+			if not script_check.ok: message = Scripts.error_text(script_check)
 		if int(command.code) == 41 and not str(p[0]).is_empty() and Cache.character(str(p[0])) == null:
 			message = "Characters/%s 缺失，不补取RTP" % str(p[0])
 		elif int(command.code) == 44 and not str(p[0].get("name", "")).is_empty():
@@ -80,6 +86,8 @@ func force(route: Dictionary, source: String = "", on_error: Callable = Callable
 	return {"ok": true}
 
 func cancel() -> void:
+	if _flash_effect_request>0 and RuntimeState.flash_effects!=null: RuntimeState.flash_effects.cancel(_flash_effect_request)
+	_flash_effect_request=0
 	if forcing and not _original.is_empty():
 		_route = _original
 		_index = _original_index
@@ -134,6 +142,11 @@ func restore_persistent(value: Dictionary) -> void:
 
 func advance(delta: float) -> void:
 	if not is_finite(delta) or delta < 0 or _faulted: return
+	if _flash_effect_request>0:
+		var effect=RuntimeState.flash_effects.status(_flash_effect_request) if RuntimeState.flash_effects!=null else {"ok":false,"message":"剧情演出场景已关闭。"}
+		if effect.get("pending",false): return
+		_flash_effect_request=0
+		if not effect.ok: _faulted=true; RuntimeState.report_diagnostic(_source+" / "+str(effect.message)); return
 	var character: Node = _character.get_ref()
 	if character == null or not character.is_inside_tree() or character.is_queued_for_deletion() or character.map_runtime == null: return
 	if _wait > 0:
@@ -147,7 +160,9 @@ func advance(delta: float) -> void:
 		return
 	if character.route_locked(): return
 	_stop += delta
-	if _stop + 0.0000001 < (40.0 - move_frequency * 2) * (6 - move_frequency) / 40.0: return
+	var threshold=(40.0-move_frequency*2)*(6-move_frequency)
+	var seconds=(threshold+1)/60.0 if preload("CharacterMotion.gd")._flash() else threshold/40.0
+	if _stop + 0.0000001 < seconds: return
 	match move_type:
 		1:
 			var pick := randi_range(0, 5)
@@ -186,7 +201,7 @@ func _execute() -> void:
 			if moved: _stop = 0
 			return
 		if code == 15:
-			_wait = float(p[0]) / 20.0
+			_wait = float(p[0]) / (30.0 if preload("CharacterMotion.gd")._flash() else 20.0)
 			_index += 1
 			return
 		if code <= 26:
@@ -209,10 +224,15 @@ func _execute() -> void:
 			42: result = character.configure_motion({"opacity": int(p[0])})
 			43: result = character.configure_motion({"blend_type": int(p[0])})
 			44: result = RuntimeState.audio.play("SE", p[0])
+			45:
+				result = Scripts.execute_bound(command.get("_script_binding"),str(p[0]),RuntimeState,{"kind":"route","map_id":RuntimeState.map_id,"event_id":character.character_id,"index":_index,"character":character})
+				if not result.ok: result["message"] = Scripts.error_text(result)
+				else: _wait = float(result.get("wait_seconds",0)); _flash_effect_request=int(result.get("flash_effect_request",0))
 		if not result.ok:
 			_fail("移动路线第%d条（%d）：%s" % [_index + 1, code, result.message])
 			return
 		_index += 1
+		if _wait>0 or _flash_effect_request>0: return
 
 func _fail(message: String) -> void:
 	var handled := false

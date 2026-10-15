@@ -36,6 +36,14 @@ function Invoke-GodotCheck([string]$Name, [string]$Project, [string[]]$Extra, [s
 }
 
 Invoke-GodotCheck 'documentation-contract' $projectRoot @('--script', 'res://tests/DocumentationTests.gd') 'DOCUMENTATION TESTS: PASSED'
+Invoke-GodotCheck 'ruby-ast' $projectRoot @('--script', 'res://tests/RubyAstTests.gd') 'RUBY AST TESTS: PASSED'
+Invoke-GodotCheck 'ruby-semantic-model' $projectRoot @('--script', 'res://tests/RubySemanticModelTests.gd') 'RUBY SEMANTIC MODEL: PASSED'
+Invoke-GodotCheck 'ruby-compiler' $projectRoot @('--script', 'res://tests/RubyCompilerTests.gd') 'RUBY COMPILER TESTS: PASSED'
+Invoke-GodotCheck 'script-migration-subset' $projectRoot @('--script', 'res://tests/ScriptMigrationTests.gd') 'SCRIPT MIGRATION TESTS: PASSED'
+Invoke-GodotCheck 'script-event-importer' $projectRoot @('--script', 'res://tests/ScriptEventIntegrationTests.gd') 'SCRIPT EVENT IMPORTER: PASSED'
+$scriptEventFixture = Get-Content -LiteralPath (Join-Path $projectRoot '.godot/v043-fixture-path.txt') -Raw
+Invoke-GodotCheck 'script-event-fixture-import' $scriptEventFixture @('--import')
+Invoke-GodotCheck 'script-event-runtime' $scriptEventFixture @('--script', (Join-Path $PSScriptRoot 'runtime/ScriptEventRuntimeTests.gd')) 'SCRIPT EVENT RUNTIME: PASSED'
 if (-not $SkipMigration) {
     Invoke-GodotCheck 'importer-tests' $projectRoot @('--script', 'res://tests/TestRunner.gd', '--', '--full') 'RGMigrator tests passed.'
 } else {
@@ -61,6 +69,8 @@ foreach ($outputProject in $results.exports) {
 	Invoke-GodotCheck "sample-$index-event-authoring" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorEventAuthoringTests.gd')) 'EVENT AUTHORING TESTS: PASSED'
     Invoke-GodotCheck "sample-$index-editor" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorTests.gd')) 'EDITOR TESTS: PASSED'
     Invoke-GodotCheck "sample-$index-command-blocks" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorCommandBlockTests.gd')) 'COMMAND BLOCK TESTS: PASSED'
+    Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorStructureGuideScenario.gd') -Destination (Join-Path $outputProject '.godot/EditorStructureGuideScenario.gd')
+    Invoke-GodotCheck "sample-$index-structure-guides" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorStructureGuideTests.gd')) 'STRUCTURE GUIDE TESTS: PASSED'
     Invoke-GodotCheck "sample-$index-database-editor" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorDatabaseTests.gd')) 'DATABASE EDITOR TESTS: PASSED'
 	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorDatabaseAuthoringScenario.gd') -Destination (Join-Path $outputProject '.godot/EditorDatabaseAuthoringScenario.gd')
 	Invoke-GodotCheck "sample-$index-database-authoring" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorDatabaseAuthoringTests.gd')) 'DATABASE AUTHORING TESTS: PASSED'
@@ -94,6 +104,8 @@ foreach ($outputProject in $results.exports) {
     Invoke-GodotCheck "sample-$index-movement" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/MovementTests.gd')) 'MOVEMENT TESTS: PASSED'
     Invoke-GodotCheck "sample-$index-presentation" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/PresentationTests.gd')) 'PRESENTATION TESTS: PASSED'
     Invoke-GodotCheck "sample-$index-compile" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/RuntimeCompileTests.gd')) 'RUNTIME COMPILE: PASSED'
+    Invoke-GodotCheck "sample-$index-script-runtime" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/ScriptMigrationRuntimeTests.gd')) 'SCRIPT RUNTIME TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-script-semantics" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/ScriptSemanticsRuntimeTests.gd')) 'SCRIPT SEMANTICS RUNTIME: PASSED'
     Invoke-GodotCheck "sample-$index-save" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/SaveTests.gd')) 'SAVE TESTS: PASSED'
     $restartDirectory = (Join-Path $outputProject ('.godot/save_restart_' + [Guid]::NewGuid().ToString('N'))).Replace('\', '/')
     foreach ($phase in @('write', 'read')) {

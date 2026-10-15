@@ -5,8 +5,10 @@ const RuntimeData = preload("res://runtime/scripts/RuntimeData.gd")
 const RuntimeVersion = preload("res://runtime/scripts/RuntimeVersion.gd")
 const Values = preload("res://runtime/scripts/EventValueResolver.gd")
 const Catalog = preload("res://runtime/scripts/EventCommandCatalog.gd")
+const Scripts = preload("res://runtime/scripts/ScriptRuntime.gd")
 
 signal message_requested(lines: Array)
+signal unblocking_message_requested(lines: Array,event_id: int)
 signal choices_requested(choices: Array, cancel_type: int)
 signal number_requested(variable_id: int, digits: int)
 signal dialogue_requested(payload: Dictionary)
@@ -18,11 +20,14 @@ signal save_requested
 signal scene_requested(kind: String)
 signal diagnostic_requested(message: String)
 signal completed
+signal failed
 
 var map_runtime
 var context: RefCounted = preload("res://runtime/scripts/EventExecutionContext.gd").new()
 var wait_state: RefCounted = preload("res://runtime/scripts/EventWait.gd").new()
 var managed := false
+var time_budget_usec := 0
+var parallel := false
 var common_events: Variant = null
 var _executing := false
 var running := false
@@ -62,6 +67,9 @@ func resume_message(token: int = -1) -> void:
 		return
 	wait_state.clear()
 	if not managed: _run()
+
+func reject_dialogue(message: String) -> void:
+	if running: _command_error(102 if wait_kind()=="choice" else 103 if wait_kind().begins_with("number") else 101,message)
 
 
 func resume_choice(choice: int, token: int = -1) -> void:
@@ -109,6 +117,7 @@ func advance(delta: float, budget: int = 256) -> int:
 
 
 func cancel() -> void:
+	if wait_state.kind.begins_with("flash_effect:") and RuntimeState.flash_effects!=null: RuntimeState.flash_effects.cancel(int(wait_state.kind.get_slice(":",1)))
 	var screen_game: Node = _screen_game.get_ref() if _screen_game != null else null
 	if screen_game != null:
 		if _screen_request > 0: screen_game.cancel_event_screen_transition(_screen_request)
@@ -126,7 +135,20 @@ func cancel() -> void:
 
 
 func _advance_conditions() -> void:
-	if wait_state.kind in ["screen_ready", "screen_transition"]:
+	if wait_state.kind.begins_with("flash_movie:"):
+		var game: Node=RuntimeState.game()
+		var status=game._flash_movie.status(int(wait_state.kind.get_slice(":",1))) if game!=null and game._flash_movie!=null else {"ok":false,"message":"视频场景已关闭。"}
+		if status.get("pending",false): return
+		if not status.ok: _command_error(355,status.message)
+		else: wait_state.clear()
+		return
+	if wait_state.kind.begins_with("flash_effect:"):
+		var effect=RuntimeState.flash_effects.status(int(wait_state.kind.get_slice(":",1))) if RuntimeState.flash_effects!=null else {"ok":false,"message":"剧情演出场景已关闭。"}
+		if effect.get("pending",false): return
+		if not effect.ok: _command_error(355,str(effect.message))
+		elif wait_state.remaining>0: wait_state.begin("time",wait_state.remaining)
+		else: wait_state.clear()
+	elif wait_state.kind in ["screen_ready", "screen_transition"]:
 		var game: Node = _screen_game.get_ref() if _screen_game != null else null
 		if game == null:
 			_command_error(_screen_command, "画面过渡的场景已关闭。", _screen_command_index)
@@ -197,9 +219,11 @@ func _show_shop(parameters: Array) -> void:
 
 func _run(budget: int = 256) -> int:
 	if _executing or not running: return 0
+	var deadline=RuntimeState.event_frame_deadline(time_budget_usec) if time_budget_usec>0 else 0
 	_executing = true
 	var safety := 0
 	while running and wait_state.kind.is_empty() and safety < budget:
+		if deadline>0 and Time.get_ticks_usec()>=deadline: break
 		if context.source_map_id != RuntimeState.map_id: context.event_id = 0
 		if map_runtime != null: map_runtime.flush_event_refresh()
 		if not running: break
@@ -243,9 +267,17 @@ func _run(budget: int = 256) -> int:
 			106:
 				if float(parameters[0]) > 0: wait_state.begin("time", float(parameters[0]) / 20.0)
 			108, 408:
-				pass
+				if command.has("_editor_original"): _command_error(code,"保留的Ruby脚本尚未转换；不能跳过后继续事件。")
+				elif code==108:
+					var tag: String=str(parameters[0])
+					if RuntimeState.custom_data.manifest.get("profile")=="antinomy" and ["立绘显示","立绘消失","立绘变暗","立绘变亮"].any(func(prefix: String) -> bool: return tag.begins_with(prefix)): _command_error(108,"项目立绘注释的显示行为按0.46接入："+tag)
+			355:
+				_script_command(command)
+			655:
+				_command_error(code,"脚本续行没有有效的355入口。")
 			111:
-				if not _condition(parameters):
+				var passed := _condition(parameters,command)
+				if running and not passed:
 					_skip_to_else_or_end(indent)
 			112:
 				context.loops[indent] = context.index
@@ -275,8 +307,8 @@ func _run(budget: int = 256) -> int:
 				if int(parameters[0]) == 0: RuntimeState.timer.start(int(parameters[1]))
 				else: RuntimeState.timer.stop()
 			125:
-				RuntimeState.gold = clampi(RuntimeState.gold + _signed_amount(parameters), 0, 9999999)
-				RuntimeState.state_changed.emit()
+				var currency_result: Dictionary=RuntimeState.gain_currency("gold",_signed_amount(parameters))
+				if not currency_result.ok: _command_error(125,currency_result.message)
 			126, 127, 128:
 				_change_inventory(code, parameters)
 			129, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322:
@@ -336,7 +368,7 @@ func _run(budget: int = 256) -> int:
 				save_requested.emit()
 			353, 354:
 				_request_scene("gameover" if code == 353 else "title")
-			301, 355, 655:
+			301:
 				_diagnostic(code)
 			402:
 				_handle_choice_branch(parameters, indent)
@@ -450,23 +482,30 @@ func _screen_effect(code: int, p: Array) -> void:
 
 
 func _show_message(parameters: Array) -> void:
-	var lines: Array = [parameters[0]]
+	var flash=RuntimeState.custom_data.manifest.get("profile")=="flash"
+	if flash and parallel and RuntimeState.flash_temp_fields.get("unblocking_text")!=null:
+		context.index-=1; wait_state.begin("time",1.0/60); return
+	var append=flash and str(parameters[0]).ends_with("\\+")
+	var lines: Array = [str(parameters[0]).trim_suffix("\\+") if flash else parameters[0]]
 	while context.index < context.commands.size():
 		var next: Variant = context.commands[context.index]
-		if not next is Dictionary or int(next.get("code", 0)) != 401: break
+		if not next is Dictionary or not (int(next.get("code", 0))==401 or flash and append and int(next.get("code",0))==101): break
 		var raw: Variant = next.get("parameters", [])
 		var reason := Catalog.reason(401, raw) if raw is Array else "文章续行参数不是数组。"
 		if not reason.is_empty():
 			_command_error(401, reason, context.index + 1)
 			return
-		lines.append(raw[0])
+		append=flash and str(raw[0]).ends_with("\\+")
+		lines.append(str(raw[0]).trim_suffix("\\+") if flash else raw[0])
 		context.index += 1
+	if flash and parallel:
+		unblocking_message_requested.emit(lines,context.event_id); return
 	if context.index < context.commands.size() and context.commands[context.index] is Dictionary:
 		var next: Dictionary = context.commands[context.index]
 		var code := int(next.get("code", 0))
 		var p: Variant = next.get("parameters", [])
 		if code in [102, 103] and p is Array and Catalog.supported(code, p):
-			if (code == 102 and p[0].size() <= 4 - lines.size()) or (code == 103 and lines.size() < 4):
+			if (code == 102 and p[0].size() <= (8 if flash else 4) - lines.size()) or (code == 103 and lines.size() < 4):
 				context.index += 1
 				if code == 102: _show_choices(p, int(next.get("indent", 0)), lines)
 				else: _show_number(p, lines)
@@ -492,12 +531,80 @@ func _show_number(parameters: Array, lines: Array = []) -> void:
 	else: dialogue_requested.emit({"kind": "number", "lines": lines, "variable": variable_id, "digits": _number_digits, "position": RuntimeState.message_position, "frame": RuntimeState.message_frame})
 
 
-func _condition(parameters: Array) -> bool:
+func _condition(parameters: Array, command: Dictionary = {}) -> bool:
+	if int(parameters[0])==12:
+		var checked := Scripts.execute_bound(command.get("_script_binding"),str(parameters[1]),RuntimeState,_script_context())
+		if not checked.ok: _command_error(111,Scripts.error_text(checked)); return false
+		context.script_fields=checked.get("script_fields",context.script_fields)
+		_wait_for_script(checked)
+		return preload("res://runtime/scripts/ScriptSemantics.gd").truth(checked.value)
 	var result := Values.condition(parameters, map_runtime, context.event_id)
 	if not result.ok:
 		_command_error(111, result.message)
 		return false
 	return result.value
+
+func _script_context() -> Dictionary:
+	return {"kind":"event","map_id":context.script_map_id,"event_id":context.event_id,"source_map_id":context.source_map_id,"page":context.page,"common_id":context.common_id,"index":context.index-1,"fields":context.script_fields,"stack_depth":context.stack.size()}
+
+func _script_command(command: Dictionary) -> void:
+	var binding: Variant = command.get("_script_binding")
+	if not binding is Dictionary or not Catalog._integer(binding.get("command_count"),1,100000): _command_error(355,"脚本缺少有效迁移绑定。"); return
+	var start_index: int = context.index-1
+	var count := int(binding.command_count)
+	if start_index+count>context.commands.size(): _command_error(355,"脚本续行记录不完整。"); return
+	var lines: Array[String] = []
+	for offset in count:
+		var raw: Variant = context.commands[start_index+offset]
+		if not raw is Dictionary: _command_error(355,"脚本续行不是指令记录。"); return
+		var record: Dictionary = raw
+		if int(record.get("code",0)) not in [355,655] or not Catalog.reason(int(record.code),record.get("parameters",[])).is_empty(): _command_error(355,"脚本续行结构已改变。"); return
+		lines.append(record.parameters[0])
+	var result := Scripts.execute_bound(binding,"\n".join(lines),RuntimeState,_script_context())
+	if not result.ok: _command_error(355,Scripts.error_text(result)); return
+	context.index = start_index+count
+	if result.value is bool and not result.value and result.policy.get("false_result_waits",false):
+		# RM leaves its cursor at the final source record on a false result.
+		# A final 655 is consumed; a final 355 retries its own tail, never the block.
+		if int(context.commands[context.index-1].code)==355: context.index -= 1
+		wait_state.begin("script_retry")
+	_wait_for_script(result)
+	if int(result.get("common_event_id",0))>0: _call_common_event([int(result.common_event_id)])
+
+func _wait_for_script(result: Dictionary) -> void:
+	context.script_fields=result.get("script_fields",context.script_fields)
+	if not result.get("snapshot_requests",[]).is_empty():
+		var exported=Scripts.dispatch_snapshot_exports(result)
+		if not exported.ok: _command_error(355,exported.message); return
+	if not result.get("movie_request",{}).is_empty():
+		var game: Node=RuntimeState.game(); var request: Dictionary=result.movie_request
+		if game==null or game._flash_movie==null: _command_error(355,"视频场景已关闭。"); return
+		var args: Array=request.args.duplicate()
+		for i in range(3,args.size()):
+			if args[i]==null: args[i]=640 if i>=5 else 0
+		var played: Variant=game._flash_movie.callv(request.method,args)
+		if played is Dictionary:
+			if not played.ok: _command_error(355,played.message)
+			elif played.get("wait",false): wait_state.begin("flash_movie:%d" % played.request_id)
+		return
+	if not str(result.get("history_request","")).is_empty():
+		var history=RuntimeState.flash_history
+		var action=history.undo() if result.history_request=="undo" else history.record()
+		if not action.ok: _command_error(355,str(action.message))
+		return
+	var seconds=float(result.get("wait_seconds",0)); var effect_id=int(result.get("flash_effect_request",0))
+	var scene_request: Dictionary=result.get("flash_scene_request",{})
+	if not scene_request.is_empty():
+		var game: Node=RuntimeState.game()
+		if game==null: _command_error(355,"独立页面的地图已关闭。"); return
+		wait_state.begin("menu"); var token=wait_state.token; var owner=weakref(self)
+		var opened=game._menus.open_flash_scene(str(scene_request.database),scene_request.args,func():
+			var live: RefCounted=owner.get_ref()
+			if live!=null: live.resume_scene_ui("menu",null,token))
+		if not opened.ok: _command_error(355,str(opened.message))
+		return
+	if effect_id>0: wait_state.begin("flash_effect:%d" % effect_id,seconds)
+	elif seconds>0: wait_state.begin("time",seconds)
 
 
 func _change_switches(parameters: Array) -> void:
@@ -507,8 +614,15 @@ func _change_switches(parameters: Array) -> void:
 
 
 func _command_error(code: int, reason: String, command_index: int = -1) -> void:
+	if code in [355,655] or code==111 and context.index>0 and int(context.commands[context.index-1].get("parameters",[0])[0])==12:
+		RuntimeState.fatal_script_error("%s 第%d条指令 %d：%s" % [context.location(),context.index if command_index<0 else command_index,code,reason])
 	diagnostic_requested.emit("%s：%s 第 %d 条指令 %d：%s" % [context.location(), RuntimeVersion.VERSION, context.index if command_index < 0 else command_index, code, reason])
-	_complete()
+	running = false
+	wait_state.clear()
+	wait_state.kind = "failed"
+	context.commands = []
+	context.index = 0
+	failed.emit()
 
 
 func _change_variables(parameters: Array) -> void:
@@ -517,6 +631,10 @@ func _change_variables(parameters: Array) -> void:
 	if not operand.ok:
 		_command_error(122, operand.message)
 		return
+	for variable_id in range(int(parameters[0]),int(parameters[1])+1):
+		if not Values.numeric_variable(RuntimeState.variables.get(str(variable_id),0)):
+			_command_error(122,"数值操作目标包含自定义集合或非整数变量；整次未修改。")
+			return
 	for variable_id in range(int(parameters[0]), int(parameters[1]) + 1):
 		var current := int(RuntimeState.variables.get(str(variable_id), 0))
 		RuntimeState.set_event_variable(variable_id, Values.calculate(current, int(parameters[2]), operand.value))
@@ -530,6 +648,9 @@ func _change_self_switch(parameters: Array) -> void:
 func _signed_amount(parameters: Array) -> int:
 	var amount := int(_param(parameters, 2, _param(parameters, 1, 0)))
 	if int(_param(parameters, 1, 0)) == 1:
+		if not Values.numeric_variable(RuntimeState.variables.get(str(amount),0)):
+			_command_error(int(context.commands[context.index-1].code),"数量操作引用了自定义集合或非整数变量。")
+			return 0
 		amount = int(RuntimeState.variables.get(str(amount), 0))
 	return -amount if int(_param(parameters, 0, 0)) == 1 else amount
 
@@ -649,7 +770,9 @@ func _call_common_event(parameters: Array) -> void:
 	if context.stack.size() >= 32:
 		_diagnostic(117)
 		return
-	context.stack.append({"commands": context.commands, "index": context.index, "event_id": context.event_id, "branches": context.branches, "loops": context.loops, "common_id": context.common_id})
+	context.stack.append({"commands": context.commands, "index": context.index, "event_id": context.event_id, "branches": context.branches, "loops": context.loops, "common_id": context.common_id,"script_fields":context.script_fields,"script_map_id":context.script_map_id})
+	context.script_fields = {}
+	context.script_map_id = RuntimeState.map_id
 	context.commands = definitions[id].get("list", [])
 	context.index = 0
 	context.branches = {}
@@ -738,6 +861,8 @@ func _finish_list() -> void:
 	context.branches = frame["branches"]
 	context.loops = frame["loops"]
 	context.common_id = int(frame["common_id"])
+	context.script_fields = frame.get("script_fields",{})
+	context.script_map_id = int(frame.get("script_map_id",context.source_map_id))
 
 
 func _diagnostic(code: int) -> void:

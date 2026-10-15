@@ -4,6 +4,9 @@ extends RefCounted
 static var _cache: Dictionary = {}
 static var _test_records: Dictionary = {}
 static var testing_enabled := false
+static var _custom_state: WeakRef
+
+static func bind_custom_data(value: RefCounted) -> void: _custom_state=weakref(value)
 
 
 static func read_json(path: String, fallback: Variant = {}) -> Variant:
@@ -35,21 +38,59 @@ static func map(map_id: int) -> Dictionary:
 
 
 static func database(name: String) -> Variant:
-	return read_json("res://data/database/%s.json" % name, [])
+	var entries: Variant=read_json("res://data/database/%s.json" % name, [])
+	var registry: RefCounted=_flash_skill_registry() if name=="Skills" else null
+	if registry==null or not entries is Array: return entries
+	# A live Skills view must never mutate the original cached database array.
+	# source_record reads that raw array directly, so this does not recurse.
+	var result: Array=entries.duplicate(true)
+	for id in result.size():
+		if result[id] is Dictionary: result[id]=record("Skills",id).duplicate(true)
+	for key in registry.definitions:
+		if not str(key).is_valid_int() or int(key)<0: continue
+		var id=int(key)
+		if result.size()<=id: result.resize(id+1)
+		result[id]=record("Skills",id).duplicate(true)
+	return result
 
 
 static func record(name: String, id: int) -> Dictionary:
 	var key := "%s:%d" % [name, id]
 	if testing_enabled and _test_records.has(key):
 		return _test_records[key]
-	return source_record(name, id)
+	var source=source_record(name,id)
+	var custom: RefCounted=_custom_state.get_ref() if _custom_state!=null else null
+	var result: Dictionary=source
+	if custom!=null and custom.values.records.has(key):
+		result=source.duplicate(true).merged(custom.values.records[key],true)
+		if custom.values.records[key].has("name") and result.has("_custom_data"): result._custom_data.tags=preload("CustomDataTags.gd").parse(str(result.name))
+	if name=="Skills":
+		var registry: RefCounted=_flash_skill_registry()
+		if registry!=null and registry.includes(id):
+			if result.is_empty(): result={"_class":"RPG::Skill","occasion":1,"common_event_id":0,"hit":100,"variance":15,"menu_se":{"name":"","volume":80,"pitch":100}}
+			result=result.duplicate(true).merged(registry.database_fields(id),true)
+	return result
 
 
 static func source_record(name: String, id: int) -> Dictionary:
-	var entries: Variant = database(name)
-	if entries is Array and id > 0 and id < entries.size() and entries[id] is Dictionary:
+	# Source definitions remain raw even when Skills has a live registry view.
+	var entries: Variant = read_json("res://data/database/%s.json" % name, [])
+	if entries is Array and (id > 0 or id==0 and name=="Skills") and id < entries.size() and entries[id] is Dictionary:
 		return entries[id]
 	return {}
+
+
+static func _flash_skill_registry() -> RefCounted:
+	var custom: RefCounted=_custom_state.get_ref() if _custom_state!=null else null
+	if custom==null or custom.manifest.get("profile")!="flash": return null
+	var registry=preload("FlashBattleRegistry.gd").new()
+	# Skills can be read by initialization scripts before the first prediction.
+	# Install the actual generated GDScript catalog once on that cold path too.
+	if not registry.is_configured() and FileAccess.file_exists("res://data/flash_gameplay.json"):
+		var rules: Dictionary=read_json("res://data/flash_gameplay.json",{})
+		var installed: Dictionary=preload("FlashBattleCatalog.gd").install_catalog(registry,rules.get("skills",{}))
+		if not installed.ok: push_error(installed.message); return null
+	return registry
 
 
 static func test_config() -> Dictionary:

@@ -3,14 +3,22 @@ extends RefCounted
 ## Textures are shared, read-only resources; transforms/materials belong to instances.
 const Data = preload("res://runtime/scripts/RuntimeData.gd")
 const Resources = preload("res://runtime/scripts/UIResources.gd")
-const CATEGORIES := ["Animations", "Autotiles", "Battlers", "Characters", "Fogs", "Gameovers", "Icons", "Panoramas", "Pictures", "Tilesets", "Titles", "Transitions", "Windowskins"]
+const CATEGORIES := ["Animations", "Autotiles", "Battlers", "Characters", "Faces", "Fogs", "Gameovers", "Icons", "Panoramas", "Pictures", "Skills", "Tilesets", "Titles", "Transitions", "Windowskins"]
 const IMAGE_EXTENSIONS := ["png", "jpg", "jpeg", "bmp", "webp", "svg", "tga", "dds", "ktx", "exr", "hdr"]
 
 
 static func categories() -> Array[String]:
 	var result: Array[String] = []
 	result.assign(CATEGORIES)
+	var custom: RefCounted=Data._custom_state.get_ref() if Data._custom_state!=null else null
+	if custom==null or custom.manifest.get("profile")!="flash": result.erase("Skills"); result.erase("Faces")
 	return result
+
+static func skills(name: String) -> Texture2D:
+	return texture("Skills",name)
+
+static func face(name: String) -> Texture2D:
+	return texture("Faces",name)
 
 
 static func asset_key(category: String, name: String) -> String:
