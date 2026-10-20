@@ -1,4 +1,38 @@
-# RGMigrator ver0.5 — 开发代理与运行时接口契约
+# RGMigrator ver0.59 — 开发代理与运行时接口契约
+
+2026-10-20 用户授权执行0.59整合收尾：移除维护与交付脚本文件名Flash前缀，保留Editor_及历史来源/存档数据标识；原生事件正文、原公式与首错退出保持。原RM只读，碎屏缺失默认素材以标记来源的程序生成分区图补齐，原图优先，自定义缺图仍拒绝。先验证0.58旧档/分页现场及关键流程、实际GPU和持续运行，再从原RM另导出../output/0.59/release/。每版一ZIP及审计后清理规则继续执行，0.58验收工程在新交付完成前保留；新分辨率位置后置。正式已从原RM导出../output/0.59/release/；63组整合回归及最终14组复验、5组编辑器、34个错误边界、旧档/分页恢复、实际GPU/EditorPlugin及五分钟持续运行通过，用户验收待进行。2026-10-21归档清理复核完成：21版各一ZIP，当前release与ZIP逐文件一致，清理12目录且无遗留或错误，9,272个保留文件不变。压力场景交互帧中位65.89毫秒，不能宣称稳定60FPS。详见tests/VERIFICATION_v0.59.md和docs/INTEGRATION_v0.59.md。
+
+2026-10-19 用户继续修正0.58：读档约两秒冻结、读档后BGM缺失，以及物品页必须复用地图同一个物品栏。使用SaveLoadProgress后台预载只读资源、主线程规范分帧校验；校验前不安装状态。场景切换调用restore_prepared(prepared,false,false)，新Game才恢复事件，避免旧图重复恢复和提前清空现场。旧空音频允许地图自动播放，新增可选stopped字段保留新档有意停止；不改原存档或用户静音设置。唯一HUD.item_canvas绘制地图/物品页九格，不再创建presets区域。正式须原RM另导出../output/0.58/load-release/；旧ui-review先审计再按每版一ZIP规则替换清理，占用的空目录如实登记，不关闭用户Godot。归档与清理已核验完成：20版各一ZIP，当前load-release与ZIP逐文件一致，清理6目录且无遗留/错误，9,132个保留文件不变。正式新导出5组运行、2组编辑器、32项GPU/5画面及读档/备份/回标题流程通过；此前9组针对性回归与跨进程读档通过。首启资源准备仍需数秒，详见tests/VERIFICATION_v0.58_LOAD.md和docs/LOAD_FIXES_v0.58.md。
+
+2026-10-19 用户要求继续修正0.58：物品页右侧1—9物品栏去外层背景，新增F7临时援护UI预览查看整体效果。预览只属于HUD，默认关闭，原角色数据/预设用于显示，不注册正式角色或修改队伍、开关、战斗、存档；新游戏/读档/回标题清除，事件验收地图原F7退出保留。详情见docs/UI_FIXES_v0.58.md；正式须从原RM另导出../output/0.58/ui-review/，原final及ZIP核验后才替换清理。正式修正已从原RM导出，8组运行、2组编辑器及29项GPU/5画面通过，详见tests/VERIFICATION_v0.58_UI.md。
+
+2026-10-18 用户授权执行0.58并要求先自查、再人工验收。按既定计划核对339个原脚本槽、最终覆盖关系、Godot职责及真实入口，补齐0026上层遮挡连通区与派生缓存，更新当前审计和过时说明；运行状态/原公式/首错退出保持，窗口分辨率位置后续统一调整，Flash前缀暂留至0.59。0.57仅内部验证，不冒称用户已验收。0.58已从原RM全新导出../output/0.58/final/，60组运行、5组编辑器、34个错误边界、65画面及0.57旧档/分页恢复通过，见tests/VERIFICATION_v0.58.md；用户人工验收待进行。
+
+2026-10-18 用户明确0.56验收通过，指出新分辨率下部分窗口位置待后续UI统一调整，不阻止继续0.57。0.57正式已从原RM迁移../output/0.57/final/；28组运行、4组编辑器、37画面183项GPU、0.56旧档与消息分页恢复通过，见tests/VERIFICATION_v0.57.md。功能窗口图形恢复：核对正式最终来源，物品/技能配置/回路/笔记/灵视/地图系统及实际可用独立页；业务读写同一运行状态，保留原空分支与未完成边界。中文接口说明、Flash暂留、旧档兼容及每版最终ZIP保留规则继续执行。0.56归档不回写，当前可用工程在新交付核验前保持。
+
+2026-10-18 用户授权执行0.56，并明确标题、菜单、档案UI之后统一人工验收。按最终0111、0170—0173、0181、0186、0198、0200—0203恢复原错位菜单、独立光标、锁定、五色货币、原档案卡片/章节/人物摘要/截图及八帧进退。原菜单保留暂停地图，截图仅作存档预览；SaveService校验与同一运行状态保持，原空分支不新增。正式已从原RM迁移../output/0.56/delivery/；22组运行、4组编辑器、29画面147项GPU、九个键盘流程、0.55旧档与分页恢复通过，见tests/VERIFICATION_v0.56.md；校验后逐文件归档清理。功能页完整原图留0.57，Flash前缀继续暂留。
+
+2026-10-18 用户授权继续实施0.55原标题图形恢复；按正式Scripts.rxdata最终0139—0145恢复480帧背景、原命令轮播、四张难度卡和设置/音乐/成就附页。保持原未实现切曲/发奖边界，档案完整恢复留0.56，Flash前缀暂留。正式已从原RM重新迁移到../output/0.55/final/，20组运行、4组编辑器、74项GPU、六个键盘流程、0.54旧档与分页跨进程恢复通过，见tests/VERIFICATION_v0.55.md；逐文件校验后归档，人工验收按用户要求集中到后续版本。
+
+2026-10-17 用户授权继续实施0.54 Message恢复，用户人工验收集中在后续版本。核对正式Scripts.rxdata经修正的最终来源，不将展开Scripts镜像中另一套60Hz时钟替代实际AUTHORING_FRAME_RATE=40规则。恢复气泡安全边界/人物箭头、名字头像与分组校验、按像素高度暂停翻页、换行选项光标、逐位数字输入、并行提示和富文本历史；同一控制器推进，分页/数字光标随表现现场保存、旧字段缺省兼容。正式工程已从原RM重新迁移到../output/0.54/release/，18组运行、4组编辑器、63项GPU及0.53旧档/新分页跨进程恢复通过；证据见tests/VERIFICATION_v0.54.md。归档逐文件重读后清理旧展开、候选及可重建副本，用户修改另存；原公式、首错退出和Flash前缀保持。
+
+2026-10-17 用户已授权执行0.53：共用图形与文本基础，以及事件脚本方法名配色修复。新增UILayout、UITextLayout、UITextBlock、UITransition、UIInput复用现有资源、字体及运行现场；标题、菜单与Message接入共用度量，通用窗口修正实际内容滚动、光标裁切和resize重排；过渡由所属页面单一时钟推进并可替换/取消。必须核对原640×640画布与224像素地图HUD、字体度量及可用宽高分页，验证真实GPU、导航和旧档。Message气泡、标题菜单原图完整还原仍按0.54—0.57实施，Flash前缀继续暂留。正式输出已从原RM重新迁移到../output/0.53/final/；16组运行、4组编辑器、61项共用UI GPU、13项实际EditorPlugin及0.52旧档通过，完整记录见tests/VERIFICATION_v0.53.md。逐文件核对归档后清理候选及测试副本，保留用户修改。
+
+2026-10-17 用户追加反馈：事件脚本编辑框的方法名与背景颜色接近，看不清方法名；明确要求下个版本再改。0.52仅登记；现已在0.53实现并通过实际EditorPlugin的13项检查，0.52最终归档保持。实施时核对Editor_EventScript的CodeHighlighter与实际背景，以真实编辑器渲染验证Actor_Init.load及ctx.set_variable的方法名和选中状态可读，见docs/ROADMAP_v0.5.md的0.53追加修复。
+
+2026-10-17 用户指出0.52自动迁移事件仍暴露完整生成执行模板，明确要求修正：事件框只保留实际可编译执行的 GDScript 业务正文，不能仅美化显示或把原程序藏到按unit_id调用的文件。新增EventBodyEmitter按既有修正AST生成正文，NativeScriptSource内部包装入口并映射真实正文行号；Actor_Init.load(id,index)由Game_ActorInit承载原生初始化业务，详细接口注释归模块，事件不放完整文件头。其余游戏对象复用当前运行现场的API和必要语义适配，不另建状态或恢复事务。旧用户完整模块保留兼容，旧自动模板升级为内存草稿，保存才写回。正式修正输出另建../output/0.52/readable-events/，不得覆盖用户旧工程；验收覆盖全部145入口、初始化新旧逐项对照、编译错误正文行号、复制/保存/重开、普通战斗与开门及旧档。此前“完成”声明对事件可读性判断不足，以本次实际验证为准。
+
+2026-10-16 用户授权执行0.52：地图/公共事件355、111脚本条件、自主/强制路线45改为实际GDScript模块，源码直接保存在事件参数，绑定保留稳定身份、来源及SHA256。NativeEventContext提供同一运行状态、角色、变量/开关/背包和可取消等待；编译失败不发布，复制分配新身份、移动保留身份。原Ruby只读；0.52阻止F8旧转换API覆盖原生脚本。await期间及结果未接收时拒绝存档，ctx.retry的字段和等待可保存。仅自动升级且精确匹配前后字节的文件沿用旧指纹，用户编辑仍使旧定义不兼容；历史路径/生成文件头别名必须保留，目录索引新增文件用--refresh-index，不得改写历史兼容字面量。实现见[0.52事件GDScript](docs/EVENT_GDSCRIPT_v0.52.md)，验证见tests/VERIFICATION_v0.52.md。图形及Message继续按0.53—0.59规划，Flash前缀暂留。初版工程位于../output/0.52/final/，现由顶部可读性修正交付替代；每个版本仅留最终工程归档及当前可用工程；旧源、原RM与Git历史保留。
+
+2026-10-16 用户明确要求清理历史工作区：“每个版本只保留每个版本最终的工程归档，其余删除”。此要求覆盖下文历史阶段的“保留所有候选/历史输出”约束。每个版本验收完成后，保留最终工程 ZIP（含逐文件 SHA256 清单），校验归档后可删除该版本的候选、重复导出和可重建测试副本；当前开发中的最新可用工程继续保留。该轮整理时的工程为 ../output/0.51/api-docs/，最新工程以顶部版本记录为准。归档索引位于 ../output/archives/README.md 和 index.json。源码、Git 历史、原 RM 输入、开发工具及验收记录保留。0.28 仅保留现存验收副本，缺失的后续 fix-01 不宣称已归档。整理记录见 [工作区归档说明](docs/WORKSPACE_ARCHIVES.md)。
+
+2026-10-16 用户要求将单行中文职责扩展为实际可用的文件头：逐文件说明调用方式、公开接口签名、参数含义/类型/默认值、返回结果及对外信号；有异步等待和生命周期约定的入口说明实际调用方式。由tools/gdscript_interfaces.py提取真实顶层声明，tools/script_api_docs.json维护参数与重点接口约定，tools/sync_script_headers.py生成并检查，禁止把内部辅助方法混作公开入口。生成程序、技能定义、版本和附带编辑器转换器同样输出详细说明。ProgramDocumentation集中管理当前和历史固定生成文件头、来源行偏移及旧存档源码别名；正文与未登记注释仍完整核对。正式输出另建../output/0.51/api-docs/，保留之前交付；398个源码及454个导出脚本已覆盖，验证见[中文接口文件头验收](tests/VERIFICATION_v0.51_api_docs.md)。Flash仍按之前的用户要求暂留。
+
+2026-10-16 用户确认命名方向：迁移后的工程不需要用脚本名前的 `Flash` 区分闪翼来源，该前缀会影响文件排序。目前仍有图形UI、Message、原生GDScript事件编辑等待完成项，允许暂留；在既定范围的迁移缺口和已知问题解决、相关回归通过后，统一移除维护与交付脚本的 `Flash` 文件名前缀，按实际功能命名。列入0.59收尾要求，完成条件优先于版本号。同名冲突按职责整理；同步生成器、引用、场景、路径索引、测试和文档，并验证存档兼容。来源继续由注释及迁移记录说明；保留用于区分编辑器职责的 `Editor_` 前缀。当前不执行这批改名，原RM及历史输出保持。
+
+2026-10-16 用户追加要求：所有维护中的 `.gd` 文件首先添加中文职责说明；魔塔/事件编辑器脚本及其测试统一使用 `Editor_` 前缀，附带的编辑器转换器副本同样命名。说明目录为tools/script_descriptions.json，运行tools/sync_script_headers.py --check检查。历史导出不回写，本轮正式输出另建../output/0.51/script-comments-release/；前两份script-comments及script-comments-final分别发现转换器@tool的CRLF问题、数据表达式行号导致的旧存档指纹变化，保留为候选，不作交付。新增生成文件说明需同步代码生成器及来源映射；存档只归一化固定生成说明、已登记导入路径及经实际tick核对的数据表达式两行导航偏移，其他源码、注释和原始JSON字节继续参与完整校验。验证记录见[文件头与命名验收](tests/VERIFICATION_v0.51_headers.md)。
+
+2026-10-16 用户已授权执行0.50—0.51，合并交付ver0.51：运行脚本按Game对象优先及RM功能分组，编辑器分为独立插件子目录，场景和所有引用同步；代码排版验证AST/注释保持，菜单规则/页面构造/显示拆分，接口索引支持多行签名。实际开发入口见[脚本结构说明](docs/SCRIPT_STRUCTURE_v0.51.md)，验证状态见tests/VERIFICATION_v0.51.md。0.52—0.59仍按[系列规划](docs/ROADMAP_v0.5.md)待实施，现有ver0.5性能修复与历史输出保留为基线。
 
 2026-10-16 用户授权：本轮版本更名为0.5，修复战斗/开门等待与击杀显伤顺序，显伤改为线程处理，完成后提交并推送GitHub；此授权覆盖下文旧的禁止提交约束。原图形UI和GDScript事件直接编辑尚未完成，不因版本号变更标为完成。最新实现见docs/PERFORMANCE_v0.5.md，验收见tests/VERIFICATION_v0.5.md；正式原RM输出另建../output/0.5/final/，不得覆盖历史。
 
@@ -24,7 +58,7 @@
 
 2026-10-14用户反馈0.48/final脚本工作区点击无反应。EditorScriptDialog改为初始化隐藏、transient/exclusive附属窗口，并在打开时取得焦点。后续工作区检查必须包含实际EditorPlugin中的首次按钮点击、窗口归属、关闭重开与F8输入，不能只用SceneTree独立对话框可见性替代。原0.48/final保留，修复版从原RM重新导出至../output/0.48/fix-script-workspace/，以tests/VERIFICATION_v0.48.md的追加记录为准。
 
-2026-10-14用户追加移动/事件/ESC菜单卡顿反馈。性能修复及实际GPU证据见docs/PERFORMANCE_FIX_v0.48.md；最新正式输出另建../output/0.48/fix-performance/。普通无效果步行跳过空事务，真实地图能力仍完整提交；只读规则复用而可变状态独立，图分桶仍用is_same判定身份，HUD/菜单复用未变化内容。FlashHistory.record_async主线程捕获/校验，后台仅写脱离现场的数据；RuntimeState每帧poll，显式存档、新游戏和退出flush，待写入撤回及失败反馈必须保留。不得从后台访问游戏节点或把事件前快照改成事件后快照。0.49仍未完成。
+2026-10-14用户追加移动/事件/ESC菜单卡顿反馈。性能修复及实际GPU证据见docs/PERFORMANCE_FIX_v0.48.md；最新正式输出另建../output/0.48/fix-performance/。普通无效果步行跳过空事务，真实地图能力仍完整提交；只读规则复用而可变状态独立，图分桶仍用is_same判定身份，HUD/菜单复用未变化内容。History.record_async主线程捕获/校验，后台仅写脱离现场的数据；RuntimeState每帧poll，显式存档、新游戏和退出flush，待写入撤回及失败反馈必须保留。不得从后台访问游戏节点或把事件前快照改成事件后快照。0.49仍未完成。
 
 本文件是后续事件阶段的单一接入文档，按 ver0.49 实际源码整理。先读本文件即可定位现有类、调用入口、参数、等待条件、存档边界和测试；修改类内部实现时仍需阅读该类源码。不要凭 RGSS 同名类猜测已有方法。
 
@@ -60,13 +94,13 @@ ver0.21实现执行核心；ver0.22完成消息/输入、全部非战斗条件�
 
 2026-10-12用户已明确选择“修正明显错误，保留原公式”：迁移副本中修正阻断普通玩法的拼写、字段引用和调用错误，并登记原位置及GDScript修正；原RM工程仍只读。影响数值平衡的原公式不自行修改，例如0069的pdef取patk点数、mdef取matk点数及未累加装备抗性的原计算保持，不能借迁移重新平衡。
 
-0.45玩法阶段实现与方法对应关系见docs/SCRIPT_MIGRATION_v0.45.md；正式原RM导出检查见tests/VERIFICATION_v0.45.md。0.46/0.47继续原清单，不能将本阶段视为全部自定义脚本完成。FlashActorState持有原八项属性/六类槽位/技能配置，FlashBattleSimulator作脱离现场的普通战斗预估，FlashGameplay连接楼层怪物/队伍/结算，FlashActions提供共享脚本事务的GDScript业务入口，FlashBlastic管理两条回路链和背包交换。FlashObjectCatalog读取原外部设置/回退，不补造缺失的Game_Deputy。FlashMapBridge/FlashCharacterBridge连接当前地图人物，ScriptSemantics完成原事件捕获与command_117子调用。FlashSourceCorrections仅修改迁移副本并生成来源记录；原SHA256仍作绑定校验。0.45最终原RM输出为../output/0.45/delivery/，阶段方法与正式复核已完成；0.46页面和0.47关系持久化仍未完成。内部夹具不得替代正式输出。
+0.45玩法阶段实现与方法对应关系见docs/SCRIPT_MIGRATION_v0.45.md；正式原RM导出检查见tests/VERIFICATION_v0.45.md。0.46/0.47继续原清单，不能将本阶段视为全部自定义脚本完成。FlashActorState持有原八项属性/六类槽位/技能配置，FlashBattleSimulator作脱离现场的普通战斗预估，FlashGameplay连接楼层怪物/队伍/结算，FlashActions提供共享脚本事务的GDScript业务入口，FlashBlastic管理两条回路链和背包交换。FlashObjectCatalog读取原外部设置/回退，不补造缺失的Game_Deputy。MapBridge/FlashCharacterBridge连接当前地图人物，ScriptSemantics完成原事件捕获与command_117子调用。FlashSourceCorrections仅修改迁移副本并生成来源记录；原SHA256仍作绑定校验。0.45最终原RM输出为../output/0.45/delivery/，阶段方法与正式复核已完成；0.46页面和0.47关系持久化仍未完成。内部夹具不得替代正式输出。
 
 2026-10-13最新用户要求：后续只执行闪翼回归，不再执行二律回归。此前已完成的二律检查保留为历史证据，不作为后续版本必须重跑的检查，也不再新增二律验证或导出工作。继续0.46→0.47的闪翼既定范围，特殊BOSS仍排除。
 
 ## 2. 路径、加载和实际结构
 
-源模板为 templates/runtime/scripts/*.gd；生成工程内为 res://runtime/scripts/*.gd。模板中的 res://runtime 路径只在生成工程里成立，不能在迁移器主工程直接运行这些类。场景模板位于 templates/runtime/scenes/，生成到 res://scenes/。
+源模板为 templates/runtime/scripts/**/*.gd；生成工程内为 res://runtime/scripts/**/*.gd。分组见docs/SCRIPT_STRUCTURE_v0.51.md及templates/runtime/script_layout.json；目录编号用于浏览排序，实际加载顺序仍由注册信息决定。模板中的 res://runtime 路径只在生成工程里成立，不能在迁移器主工程直接运行这些类。场景模板位于 templates/runtime/scenes/，按同一分组生成到 res://scenes/。
 
 多数文件是 Script 资源，不声明 class_name；通过 preload/load 实例化，不假设存在 Game_Actor 等全局类。唯一游戏运行状态入口是生成工程的 Autoload RuntimeState，继承 Node；其子节点 audio 独立于地图场景。迁移器自身不注册这个 Autoload。
 
@@ -458,7 +492,7 @@ ScriptSemantics提供旧Ruby真值/数值/集合/方法分派等已支持语义�
 
 EventActorSceneTests与Run-EventActorSceneRender覆盖0.26原生参数、全体角色事务、状态/装备关联、姓名键盘、串行界面与实际场景切换。测试定位：RuntimeTests/EventInterpreter基础；MenuTests互斥与返回；InventoryTests物品装备；SkillAnimationTests学习及独立并发动画；ShopStateTests商店状态；ActorMutationTests成长；ScreenTests图片屏幕；GraphicsCacheTests分类；MovementTests人物碰撞；PresentationTests镜头/天气/雾/计时/音频；SaveTests及SaveRestartTests保存/跨进程；RuntimeCompileTests类加载。EventScreenTests覆盖ver0.24命令/天气迁移，Run-EventScreenRender检查真实像素和过渡协议；EventPresentationTests及Run-EventPresentationRender覆盖0.25系统、地图、音频、失败原子性及实际皮肤/全景/雾/滚图。Run-Render、Run-MenuRender、Run-MovementRender、Run-PresentationRender为实际画面；后者-Benchmark为768×768/60秒负载，不把历史性能数值当本版重测。
 
-DocumentationTests校验附录覆盖全部234个生产脚本、非下划线函数签名、带参数构造器、信号、继承声明、字段/常量清单与版本。附录包含内部UI辅助公共方法是为了完整索引，不意味着这些方法获准作为事件业务入口。公开字段清单也不表示可绕过业务方法任意赋值；初始化依赖字段和可写选项见各类说明。添加方法/类后先同步描述与附录，再测。
+DocumentationTests校验附录覆盖全部266个生产脚本、非下划线函数签名、带参数构造器、信号、继承声明、字段/常量清单与版本。附录包含内部UI辅助公共方法是为了完整索引，不意味着这些方法获准作为事件业务入口。公开字段清单也不表示可绕过业务方法任意赋值；初始化依赖字段和可写选项见各类说明。添加方法/类后先同步描述与附录，再测。
 
 ## 10. 按文件的全部接口索引
 
@@ -470,14 +504,14 @@ DocumentationTests校验附录覆盖全部234个生产脚本、非下划线函�
 
 常量（不含依赖脚本引用）：`KEYS`、`TABLE_KEYS`、`MAX_EXPERIENCE`。
 
-源文件：templates/runtime/scripts/ActorParameters.gd。纯计算服务；integer/minimum/maximum校验/上下限，calculate返回values/sources且不修改输入，apply_bonus按plus/倍率/限幅计算。不保存角色、不执行状态战斗效果。
+源文件：templates/runtime/scripts/00_Game/ActorParameters.gd。纯计算服务；integer/minimum/maximum校验/上下限，calculate返回values/sources且不修改输入，apply_bonus按plus/倍率/限幅计算。不保存角色、不执行状态战斗效果。
 
 ```gdscript
 extends RefCounted
-static func integer(value: Variant, minimum: int = -9007199254740991, maximum: int = 9007199254740991) -> bool
+static func integer( value: Variant, minimum: int = -9007199254740991, maximum: int = 9007199254740991 ) -> bool
 static func maximum(key: String) -> int
 static func minimum(key: String) -> int
-static func calculate(database: Dictionary, equipment: Array[Dictionary], states: Array[Dictionary], bonuses: Dictionary, invalid_equipment: bool) -> Dictionary
+static func calculate( database: Dictionary, equipment: Array[Dictionary], states: Array[Dictionary], bonuses: Dictionary, invalid_equipment: bool ) -> Dictionary
 static func apply_bonus(key: String, base: int, bonus: int, rates: Array) -> int
 ```
 
@@ -487,7 +521,7 @@ static func apply_bonus(key: String, base: int, bonus: int, rates: Array) -> int
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/ActorState.gd。角色唯一运行对象由RuntimeState.actor获取；changed通知。configure仅初始化/重置，查询与修改、State来源、成长和persistent_data/restore_persistent契约见第5节；snapshot覆盖参数只预览，职业/库存交换必须通过RuntimeState/InventoryService。
+源文件：templates/runtime/scripts/00_Game/ActorState.gd。角色唯一运行对象由RuntimeState.actor获取；changed通知。configure仅初始化/重置，查询与修改、State来源、成长和persistent_data/restore_persistent契约见第5节；snapshot覆盖参数只预览，职业/库存交换必须通过RuntimeState/InventoryService。
 
 ```gdscript
 extends RefCounted
@@ -512,7 +546,7 @@ func get_state_ids(include_equipment: bool = true) -> Array[int]
 func persistent_data() -> Dictionary
 func restore_persistent(saved: Dictionary) -> String
 func slot_fixed(slot: int) -> bool
-func snapshot(equipment_override: Array = [], level_override: int = -1, bonuses_override: Dictionary = {}) -> Dictionary
+func snapshot( equipment_override: Array = [], level_override: int = -1, bonuses_override: Dictionary = {} ) -> Dictionary
 func parameter_sources(key: String) -> Dictionary
 func get_parameter(key: String) -> Variant
 func get_base_parameter(key: String) -> Variant
@@ -532,7 +566,7 @@ func add_vital(key: String, amount: Variant) -> Dictionary
 func recover_vitals() -> Dictionary
 func rename(value: Variant) -> Dictionary
 func set_graphic(value: Variant, hue: Variant = 0) -> Dictionary
-func set_event_graphic(character: String, hue: int, battler: String, battler_color: int) -> Dictionary
+func set_event_graphic( character: String, hue: int, battler: String, battler_color: int ) -> Dictionary
 func evasion() -> Variant
 ```
 
@@ -542,7 +576,7 @@ func evasion() -> Variant
 
 常量（不含依赖脚本引用）：`ACTIONS`。
 
-源文件：templates/runtime/scripts/ActorTools.gd。F6角色成长测试UI，actor_id/parameter/selected选择当前对象/属性/按钮；refresh/paint_selection/update身份表单，action/identity_action执行已定义按钮，text_edit/parameter_name为UI辅助。navigate/activate/back/handle_key由菜单路由，has_text_focus防止编辑文本被快捷键截获，不是剧情事件入口。
+源文件：templates/runtime/scripts/11_Development/ActorTools.gd。F6角色成长测试UI，actor_id/parameter/selected选择当前对象/属性/按钮；refresh/paint_selection/update身份表单，action/identity_action执行已定义按钮，text_edit/parameter_name为UI辅助。navigate/activate/back/handle_key由菜单路由，has_text_focus防止编辑文本被快捷键截获，不是剧情事件入口。
 
 ```gdscript
 extends Control
@@ -569,7 +603,7 @@ func handle_key(key: int) -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/AnimationLab.gd。原动画并发测试UI；play_at目标索引0/1，animation_id=0取当前选择而非正式播放的空动画语义。action/navigate/activate路由测试按钮，stop_all停止该页实例，back返回。独立目标，不代替当前地图的animation_target。
+源文件：templates/runtime/scripts/11_Development/AnimationLab.gd。原动画并发测试UI；play_at目标索引0/1，animation_id=0取当前选择而非正式播放的空动画语义。action/navigate/activate路由测试按钮，stop_all停止该页实例，back返回。独立目标，不代替当前地图的animation_target。
 
 ```gdscript
 extends Control
@@ -588,11 +622,11 @@ func back() -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/AudioRuntime.gd。RuntimeState.audio持有的长寿命Node；播放参数、ME协调、SE上限、fade_out、memorize/restore_memory/snapshot返回差异见第4.3节。菜单不暂停音频，不把memory/播放进度存进现有存档。
+源文件：templates/runtime/scripts/10_Support/Audio/AudioRuntime.gd。RuntimeState.audio持有的长寿命Node；播放参数、ME协调、SE上限、fade_out、memorize/restore_memory/snapshot返回差异见第4.3节。菜单不暂停音频，不把memory/播放进度存进现有存档。
 
 ```gdscript
 extends Node
-static func prepare_audio(kind: String, audio: Dictionary, position_seconds: Variant = 0.0) -> Dictionary
+static func prepare_audio( kind: String, audio: Dictionary, position_seconds: Variant = 0.0 ) -> Dictionary
 func play(kind: String, audio: Dictionary, position_seconds: Variant = 0.0) -> Dictionary
 func stop(kind: String) -> void
 func stop_all() -> void
@@ -600,6 +634,7 @@ func fade_out(kind: String, seconds: Variant) -> Dictionary
 func memorize() -> Dictionary
 func restore_memory() -> Dictionary
 func persistent_snapshot() -> Dictionary
+func can_autoplay_after_restore(kind: String) -> bool
 static func decode_persistent(value: Variant) -> Dictionary
 func restore_prepared(prepared: Dictionary) -> void
 func snapshot() -> Dictionary
@@ -611,7 +646,7 @@ func snapshot() -> Dictionary
 
 常量（不含依赖脚本引用）：`DIRECTIONS`、`DEFAULTS`。
 
-源文件：templates/runtime/scripts/CharacterMotion.gd。纯运动状态；cell/target格，visual_cell浮点格，direction/pattern/options/jump_height。validate可partial或complete，configure原子更新；begin_move/begin_jump仅启动运动，不查地图碰撞（先由MapCharacter校验）。advance返回空字符串或完成类型walk/jump；relocate立即定位，reset默认重置，snapshot给像素real_x/y。
+源文件：templates/runtime/scripts/03_Map/CharacterMotion.gd。纯运动状态；cell/target格，visual_cell浮点格，direction/pattern/options/jump_height。validate可partial或complete，configure原子更新；begin_move/begin_jump仅启动运动，不查地图碰撞（先由MapCharacter校验）。advance返回空字符串或完成类型walk/jump；relocate立即定位，reset默认重置，snapshot给像素real_x/y。
 
 ```gdscript
 extends RefCounted
@@ -640,7 +675,7 @@ static func decode(value: Variant, width: int, height: int) -> Dictionary
 
 常量（不含依赖脚本引用）：`HUE_SHADER`。
 
-源文件：templates/runtime/scripts/CharacterSprite.gd。菜单TextureRect角色图；configure使用Characters四方向四帧、独立色相，set_frame方向2/4/6/8和pattern0..3。没有地图碰撞/运行角色状态，纹理共享但实例材料独立。
+源文件：templates/runtime/scripts/03_Map/CharacterSprite.gd。菜单TextureRect角色图；configure使用Characters四方向四帧、独立色相，set_frame方向2/4/6/8和pattern0..3。没有地图碰撞/运行角色状态，纹理共享但实例材料独立。
 
 ```gdscript
 extends TextureRect
@@ -654,7 +689,7 @@ func set_frame(direction: int, pattern: int) -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/DialogueOverlay.gd。CanvasLayer20，show_*与is_open及信号连接见第7节。数字输入完成返回数值，不负责直接修改变量。诊断显示不提供Ruby执行或完整RM文本控制码。
+源文件：templates/runtime/scripts/06_Message/DialogueOverlay.gd。CanvasLayer20，show_*与is_open及信号连接见第7节。数字输入完成返回数值，不负责直接修改变量。诊断显示不提供Ruby执行或完整RM文本控制码。
 
 ```gdscript
 extends CanvasLayer
@@ -664,11 +699,11 @@ signal choice_selected(index: int)
 signal number_confirmed(value: int)
 signal closed
 signal event_response(request_id: int, kind: String, value: Variant)
-signal event_failed(request_id: int,message: String)
+signal event_failed(request_id: int, message: String)
 func is_open() -> bool
 func show_message(lines: Array, request_id: int = -1, options: Dictionary = {}) -> void
-func show_choices(choices: Array, cancel_type: int, request_id: int = -1, options: Dictionary = {}) -> void
-func show_number(variable_id: int, digits: int, request_id: int = -1, options: Dictionary = {}) -> void
+func show_choices( choices: Array, cancel_type: int, request_id: int = -1, options: Dictionary = {} ) -> void
+func show_number( variable_id: int, digits: int, request_id: int = -1, options: Dictionary = {} ) -> void
 func show_button(variable_id: int, request_id: int = -1, options: Dictionary = {}) -> void
 func show_event(payload: Dictionary, request_id: int = -1) -> void
 func show_diagnostic(message: String, request_id: int = -1) -> void
@@ -681,13 +716,13 @@ func dismiss() -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/EventInterpreter.gd。RefCounted单个执行实例；context与wait_state独立，managed决定立即运行或预算推进。resume带可选token；cancel清理等待。reject_shop输出精确诊断并中断。信号与已接通指令见第8节；禁止额外创建天气/角色真值。
+源文件：templates/runtime/scripts/02_Event/EventInterpreter.gd。RefCounted单个执行实例；context与wait_state独立，managed决定立即运行或预算推进。resume带可选token；cancel清理等待。reject_shop输出精确诊断并中断。信号与已接通指令见第8节；禁止额外创建天气/角色真值。
 
 ```gdscript
 extends RefCounted
 class_name EventInterpreter
 signal message_requested(lines: Array)
-signal unblocking_message_requested(lines: Array,event_id: int)
+signal unblocking_message_requested(lines: Array, event_id: int)
 signal choices_requested(choices: Array, cancel_type: int)
 signal number_requested(variable_id: int, digits: int)
 signal dialogue_requested(payload: Dictionary)
@@ -722,20 +757,20 @@ func reject_scene_ui(kind: String, message: String) -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/Game.gd。Game.tscn组装者，自动创建地图、玩家、相机、显示层、解释器、对话和菜单；无通用Scene栈公共API。can_save为完整上下文门禁，save_slot成功委托SaveService。_map/_interpreter/_transition等属内部，未来事件统一入口不要绕过门禁。
+源文件：templates/runtime/scripts/10_Support/Boot/Game.gd。Game.tscn组装者，自动创建地图、玩家、相机、显示层、解释器、对话和菜单；无通用Scene栈公共API。can_save为完整上下文门禁，save_slot成功委托SaveService。_map/_interpreter/_transition等属内部，未来事件统一入口不要绕过门禁。
 
 ```gdscript
 extends Node2D
 func can_save() -> bool
-func play_flash_effect(name: String,args: Array=[]) -> Dictionary
-func unravel_picture(number: int,args: Array=[]) -> Dictionary
-func unravel_character(event_id: int=-1,args: Array=[]) -> Dictionary
-func show_flash_scene(source_name: String,args: Array=[]) -> Dictionary
+func play_flash_effect(name: String, args: Array = []) -> Dictionary
+func unravel_picture(number: int, args: Array = []) -> Dictionary
+func unravel_character(event_id: int = -1, args: Array = []) -> Dictionary
+func show_flash_scene(source_name: String, args: Array = []) -> Dictionary
 func event_save_override() -> bool
-func capture_event_state(detached_nodes: Array=[]) -> Dictionary
+func capture_event_state(detached_nodes: Array = []) -> Dictionary
 func script_field_roots() -> Array
 func restore_event_state() -> void
-func event_save_reason(ignore_checkpoint: bool=false) -> String
+func event_save_reason(ignore_checkpoint: bool = false) -> String
 func event_map() -> Node
 func event_transfer_ready() -> bool
 func event_ui_available() -> bool
@@ -763,7 +798,7 @@ func save_slot(slot: int) -> Dictionary
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/GameTimer.gd。RuntimeState.timer持有的纯计时状态；remaining/running/visible，expired信号、start/stop/text、decode见第4.3节。由MapEffectsRenderer推进，不能再在解释器每帧advance。
+源文件：templates/runtime/scripts/00_Game/GameTimer.gd。RuntimeState.timer持有的纯计时状态；remaining/running/visible，expired信号、start/stop/text、decode见第4.3节。由MapEffectsRenderer推进，不能再在解释器每帧advance。
 
 ```gdscript
 extends RefCounted
@@ -782,7 +817,7 @@ static func decode(value: Variant) -> Dictionary
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/InventoryScene.gd。Control，mode为inventory/equipment、actor_id选角色；refresh按当前页面重建内容，navigate/activate/back按列表→角色→槽位→候选→确认层级路由。back_requested/sound_requested交MenuScene处理；业务修改仅通过InventoryService/RuntimeState。
+源文件：templates/runtime/scripts/08_Menu/Item/InventoryScene.gd。Control，mode为inventory/equipment、actor_id选角色；refresh按当前页面重建内容，navigate/activate/back按列表→角色→槽位→候选→确认层级路由。back_requested/sound_requested交MenuScene处理；业务修改仅通过InventoryService/RuntimeState。
 
 ```gdscript
 extends Control
@@ -801,10 +836,11 @@ func back() -> void
 
 常量（不含依赖脚本引用）：`DATABASES`。
 
-源文件：templates/runtime/scripts/InventoryService.gd。静态确定性物品/装备事务；entries/item_reason/equip_reason查询不提交，空reason表示可尝试。use_item成功含targets数量，equip_preview返回before/after/equipment，equip正式交换；failure为统一失败包装。限制和参数见第4.2节。
+源文件：templates/runtime/scripts/00_Game/InventoryService.gd。静态确定性物品/装备事务；entries/item_reason/equip_reason查询不提交，空reason表示可尝试。use_item成功含targets数量，equip_preview返回before/after/equipment，equip正式交换；failure为统一失败包装。限制和参数见第4.2节。
 
 ```gdscript
 extends RefCounted
+static func change(state: Node, kind: String, id: int, amount: int) -> Dictionary
 static func entries(state: Node) -> Array[Dictionary]
 static func item_reason(item_id: int) -> String
 static func use_item(state: Node, item_id: int, target_id: int) -> Dictionary
@@ -820,7 +856,7 @@ static func failure(message: String) -> Dictionary
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/MapCamera.gd。Camera2D，必须在add_child前设model(MapViewState)、map(MapRuntime)、player(MapCharacter)；sync计算当前尺寸/边界/跟随，snap仅强制定位；scroll委托model且提供地图尺寸。震动offset来自ScreenRenderer，不让第二套相机逻辑覆盖display。
+源文件：templates/runtime/scripts/03_Map/MapCamera.gd。Camera2D，必须在add_child前设model(MapViewState)、map(MapRuntime)、player(MapCharacter)；sync计算当前尺寸/边界/跟随，snap仅强制定位；scroll委托model且提供地图尺寸。震动offset来自ScreenRenderer，不让第二套相机逻辑覆盖display。
 
 ```gdscript
 extends Camera2D
@@ -834,7 +870,7 @@ func scroll(direction: int, tiles: Variant, seconds: Variant) -> Dictionary
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/MapCharacter.gd。Node2D共用人物显示/运动父类；map_runtime、motion、character_id，派生PlayerController/MapEvent。set_graphic(name,hue,tile_id)可Characters或图块；tile_position/facing与选项属性代理motion。move_straight/move_to/jump、occupied_cells、arrived、advance_motion见第6节；animation_bounds给本人物局部图像范围。
+源文件：templates/runtime/scripts/03_Map/MapCharacter.gd。Node2D共用人物显示/运动父类；map_runtime、motion、character_id，派生PlayerController/MapEvent。set_graphic(name,hue,tile_id)可Characters或图块；tile_position/facing与选项属性代理motion。move_straight/move_to/jump、occupied_cells、arrived、advance_motion见第6节；animation_bounds给本人物局部图像范围。
 
 ```gdscript
 extends Node2D
@@ -851,7 +887,7 @@ func configure_motion(value: Dictionary) -> Dictionary
 func turn(direction: int) -> bool
 func move_straight(direction: int, turn_on_failure: bool = true) -> bool
 func move_diagonal(offset: Vector2i) -> bool
-func force_move_route(route: Dictionary, source: String = "", on_error: Callable = Callable()) -> Dictionary
+func force_move_route( route: Dictionary, source: String = "", on_error: Callable = Callable() ) -> Dictionary
 func cancel_move_route(stop_autonomous: bool = false) -> void
 func reset_route_state() -> void
 func route_locked() -> bool
@@ -871,7 +907,7 @@ func animation_bounds() -> Rect2
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/MapEffectsRenderer.gd。Node持有全景/雾/天气/边界/计时显示组；add_child前设置model、view_model、screen_model，选填timer_model/map/camera。sync既推进模型又同步显示，不能重入重复计时；preview=true仅隔离预览，texture_overrides只用于工具对照图。不是天气状态拥有者。
+源文件：templates/runtime/scripts/03_Map/MapEffectsRenderer.gd。Node持有全景/雾/天气/边界/计时显示组；add_child前设置model、view_model、screen_model，选填timer_model/map/camera。sync既推进模型又同步显示，不能重入重复计时；preview=true仅隔离预览，texture_overrides只用于工具对照图。不是天气状态拥有者。
 
 ```gdscript
 extends Node
@@ -884,7 +920,7 @@ func sync(delta: float) -> void
 
 常量（不含依赖脚本引用）：`DEFAULTS`。
 
-源文件：templates/runtime/scripts/MapEffectsState.gd。地图表现纯模型，data只含map_id和全景/雾/渐变；configure仅接受9个素材/静态参数，setup_map同图保留、换图重置雾。decode可校验并提取旧天气，返回legacy_weather供SaveCodec迁移，现场不再保存或推进天气。
+源文件：templates/runtime/scripts/00_Game/MapEffectsState.gd。地图表现纯模型，data只含map_id和全景/雾/渐变；configure仅接受9个素材/静态参数，setup_map同图保留、换图重置雾。decode可校验并提取旧天气，返回legacy_weather供SaveCodec迁移，现场不再保存或推进天气。
 
 ```gdscript
 extends RefCounted
@@ -904,10 +940,10 @@ static func decode(value: Variant) -> Dictionary
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/MapEvent.gd。继承MapCharacter，event_id/map_id/trigger/commands/blocking/page_index/tile_id；configure根据选定页设置图像和运动选项。front_interaction遵循RM原生over_trigger?：非穿透角色图或当前位置原生方向0通行检查失败时从正面触发，不以图块显示优先级判断。自主/强制路线由继承的MapCharacter.routes执行；本类不自行调度并行解释器。
+源文件：templates/runtime/scripts/03_Map/MapEvent.gd。继承MapCharacter，event_id/map_id/trigger/commands/blocking/page_index/tile_id；configure根据选定页设置图像和运动选项。front_interaction遵循RM原生over_trigger?：非穿透角色图或当前位置原生方向0通行检查失败时从正面触发，不以图块显示优先级判断。自主/强制路线由继承的MapCharacter.routes执行；本类不自行调度并行解释器。
 
 ```gdscript
-extends "res://runtime/scripts/MapCharacter.gd"
+extends "res://runtime/scripts/03_Map/MapCharacter.gd"
 class_name MapEvent
 func configure(event_data: Dictionary, page: Dictionary, id: int, current_map_id: int) -> void
 func front_interaction() -> bool
@@ -927,7 +963,7 @@ func jump(x: int, y: int) -> bool
 
 常量（不含依赖脚本引用）：`TILE_SIZE`、`AUTOTILE_PARTS`。
 
-源文件：templates/runtime/scripts/MapRuntime.gd。Node2D地图容器；map_data/tileset/通行与优先级表，player_character指向玩家。载入、查询、碰撞、触发、传送、动画接口见第6节。ensure_character_layer提供人物与前景同组排序；set_background_visible/draw_tile供显示组使用。show_picture/move_picture是遗留参数适配辅助且未接通231/232，未来接入需完整解析变量坐标/时间，不直接复用当已兼容；play_audio只接受现有241/245/249/250，stop_sound_effect只停SE。
+源文件：templates/runtime/scripts/03_Map/MapRuntime.gd。Node2D地图容器；map_data/tileset/通行与优先级表，player_character指向玩家。载入、查询、碰撞、触发、传送、动画接口见第6节。ensure_character_layer提供人物与前景同组排序；set_background_visible/draw_tile供显示组使用。show_picture/move_picture是遗留参数适配辅助且未接通231/232，未来接入需完整解析变量坐标/时间，不直接复用当已兼容；play_audio只接受现有241/245/249/250，stop_sound_effect只停SE。
 
 ```gdscript
 extends Node2D
@@ -938,7 +974,7 @@ signal events_changed
 func load_map(map_id: int) -> bool
 func ensure_character_layer() -> Node2D
 func load_definition(definition: Dictionary, tileset_definition: Dictionary) -> void
-func apply_flash_tiles(changes: Dictionary,rebuild: bool=true) -> void
+func apply_flash_tiles(changes: Dictionary, rebuild: bool = true) -> void
 func map_width() -> int
 func map_height() -> int
 func valid(x: int, y: int) -> bool
@@ -950,9 +986,9 @@ func terrain_tag(x: int, y: int) -> int
 func is_bush(x: int, y: int) -> bool
 func is_counter(x: int, y: int) -> bool
 func event_ids_at(x: int, y: int) -> Array[int]
-func can_move(from: Vector2i, direction: Vector2i, through: bool = false, ignore_event_id: int = -1) -> bool
+func can_move( from: Vector2i, direction: Vector2i, through: bool = false, ignore_event_id: int = -1 ) -> bool
 func can_stand(cell: Vector2i, through: bool = false, ignore_event_id: int = -1) -> bool
-func can_move_diagonal(from: Vector2i, offset: Vector2i, through: bool = false, ignore_event_id: int = -1) -> bool
+func can_move_diagonal( from: Vector2i, offset: Vector2i, through: bool = false, ignore_event_id: int = -1 ) -> bool
 func request_action(position: Vector2i, facing: Vector2i) -> bool
 func trigger_player_touch(position: Vector2i, blocked: bool = false) -> bool
 func autorun_event() -> Dictionary
@@ -965,20 +1001,21 @@ func has_erased_events() -> bool
 func flush_event_refresh() -> void
 func request_event_touch(event: Node, target: Vector2i) -> bool
 func animation_target(character_id: int, current_event_id: int = 0) -> CanvasItem
-func set_character_position(target_id: int, mode: int, x: int, y: int, direction: int, current_event_id: int = 0) -> Dictionary
+func set_character_position( target_id: int, mode: int, x: int, y: int, direction: int, current_event_id: int = 0 ) -> Dictionary
 func has_forced_routes() -> bool
 func repeating_forced_routes() -> Array[int]
 func character_save_reason() -> String
 func cancel_character_routes() -> void
-func play_animation(animation_id: int, character_id: int = -1, current_event_id: int = 0, hit: bool = true) -> Dictionary
+func play_animation( animation_id: int, character_id: int = -1, current_event_id: int = 0, hit: bool = true ) -> Dictionary
 func transfer(map_id: int, x: int, y: int, direction: int = 0) -> bool
 func show_picture(parameters: Array) -> void
 func move_picture(parameters: Array) -> void
 func erase_picture(number: int) -> void
 func play_audio(code: int, audio: Variant) -> void
 func stop_sound_effect() -> void
+func tile_opacity(x: int, y: int, layer: int) -> float
 func set_background_visible(value: bool) -> void
-func draw_tile(canvas: CanvasItem, id: int, destination: Vector2) -> void
+func draw_tile(canvas: CanvasItem, id: int, destination: Vector2, opacity: float = 1.0) -> void
 ```
 
 ### MapTileRow.gd
@@ -987,7 +1024,7 @@ func draw_tile(canvas: CanvasItem, id: int, destination: Vector2) -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/MapTileRow.gd。Node2D图块前景行，map_runtime/cells/animated在创建时设置，自动_draw调用map_runtime.draw_tile；cells的Vector3i分别为格x/y和tile_id。无自定义非下划线函数，生命周期由MapRuntime管理。不是Godot TileMap编辑器。
+源文件：templates/runtime/scripts/03_Map/MapTileRow.gd。Node2D图块前景行，map_runtime/cells/animated在创建时设置，自动_draw调用map_runtime.draw_tile；cells的Vector3i分别为格x/y和tile_id。无自定义非下划线函数，生命周期由MapRuntime管理。不是Godot TileMap编辑器。
 
 ```gdscript
 extends Node2D
@@ -1000,7 +1037,7 @@ extends Node2D
 
 常量（不含依赖脚本引用）：`DEFAULTS`。
 
-源文件：templates/runtime/scripts/MapViewState.gd。地图区域/镜头純模型，options/display/scroll_target/scroll_remaining/initialized。valid_options完整校验，configure部分更新，view_rect/follow_center/bounded查询，advance推进跟随，scroll启动手动滚动，resume_follow取消并跟随。snapshot/decode详见第4.3节；extent/focus/window_size都是像素。
+源文件：templates/runtime/scripts/00_Game/MapViewState.gd。地图区域/镜头純模型，options/display/scroll_target/scroll_remaining/initialized。valid_options完整校验，configure部分更新，view_rect/follow_center/bounded查询，advance推进跟随，scroll启动手动滚动，resume_follow取消并跟随。snapshot/decode详见第4.3节；extent/focus/window_size都是像素。
 
 ```gdscript
 extends RefCounted
@@ -1009,9 +1046,9 @@ func configure(changes: Dictionary) -> Dictionary
 func view_rect(window_size: Vector2) -> Rect2
 func follow_center(window_size: Vector2) -> Vector2
 func bounded(point: Vector2, extent: Vector2, window_size: Vector2) -> Vector2
-func advance(delta: float, focus: Vector2, extent: Vector2, window_size: Vector2, snap: bool = false) -> void
-func scroll(direction: int, tiles: Variant, seconds: Variant, extent: Vector2, window_size: Vector2) -> Dictionary
-func scroll_native(direction: int, tiles: int, speed: int, extent: Vector2, window_size: Vector2) -> Dictionary
+func advance( delta: float, focus: Vector2, extent: Vector2, window_size: Vector2, snap: bool = false ) -> void
+func scroll( direction: int, tiles: Variant, seconds: Variant, extent: Vector2, window_size: Vector2 ) -> Dictionary
+func scroll_native( direction: int, tiles: int, speed: int, extent: Vector2, window_size: Vector2 ) -> Dictionary
 func resume_follow() -> void
 func snapshot() -> Dictionary
 static func decode(value: Variant) -> Dictionary
@@ -1023,7 +1060,7 @@ static func decode(value: Variant) -> Dictionary
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/MenuCoordinator.gd。CanvasLayer50，game由Game绑定，menu/shop当前显示节点；can_open/open_menu/close_menu保持原地图，return_to_title停止playing并切Title，open_shop返回ok并暂停，close_shop续解释器。输入焦点与等待整格开菜单由该层统一负责。
+源文件：templates/runtime/scripts/08_Menu/Main/MenuCoordinator.gd。CanvasLayer50，game由Game绑定，menu/shop当前显示节点；can_open/open_menu/close_menu保持原地图，return_to_title停止playing并切Title，open_shop返回ok并暂停，close_shop续解释器。输入焦点与等待整格开菜单由该层统一负责。
 
 ```gdscript
 extends CanvasLayer
@@ -1037,7 +1074,7 @@ func open_event_save(request_id: int) -> Dictionary
 func capture_flash_archive_snapshot() -> void
 func begin_flash_backdrop() -> void
 func load_flash_archive(slot: int) -> void
-func open_flash_scene(source_name: String,args: Array=[],done: Callable=Callable()) -> Dictionary
+func open_flash_scene( source_name: String, args: Array = [], done: Callable = Callable() ) -> Dictionary
 func close_menu() -> void
 func return_to_title() -> void
 func open_name(actor_id: int, maximum: int, request_id: int) -> Dictionary
@@ -1052,7 +1089,7 @@ func close_shop() -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/MenuScene.gd。Menu.tscn的Control脚本；page保存页名、save_callback来自Game.save_slot。navigate/activate/back/handle_back负责主菜单与子页；open_test_*及open_*_tools仅测试模式入口。状态页/结束页在本类实现；所有操作用统一RuntimeState，不重新初始化角色。
+源文件：templates/runtime/scripts/08_Menu/Main/MenuScene.gd。Menu.tscn的Control脚本；page保存页名、save_callback来自Game.save_slot。navigate/activate/back/handle_back负责主菜单与子页；open_test_*及open_*_tools仅测试模式入口。状态页/结束页在本类实现；所有操作用统一RuntimeState，不重新初始化角色。
 
 ```gdscript
 extends Control
@@ -1080,7 +1117,7 @@ func show_currency_details() -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/MovementFixture.gd。纯测试夹具生成器：table生成x-fastest表，build生成原创地图/图块/检查点，event构造测试事件定义。只用独立验收区，不写源数据库、不把fixture触发当剧情执行。
+源文件：templates/runtime/scripts/11_Development/MovementFixture.gd。纯测试夹具生成器：table生成x-fastest表，build生成原创地图/图块/检查点，event构造测试事件定义。只用独立验收区，不写源数据库、不把fixture触发当剧情执行。
 
 ```gdscript
 extends RefCounted
@@ -1095,7 +1132,7 @@ static func event(x: int, y: int, name_value: String, trigger: int, text: String
 
 常量（不含依赖脚本引用）：`ACTIONS`。
 
-源文件：templates/runtime/scripts/MovementTools.gd。F6独立移动UI；settings读取表单，apply_preview只改隔离人物，action按钮中显式“应用到玩家”才configure_player。update_labels显示结果；handle_key/navigate/activate/back/has_text_focus用于菜单路由，不替换真实地图或角色坐标。
+源文件：templates/runtime/scripts/11_Development/MovementTools.gd。F6独立移动UI；settings读取表单，apply_preview只改隔离人物，action按钮中显式“应用到玩家”才configure_player。update_labels显示结果；handle_key/navigate/activate/back/has_text_focus用于菜单路由，不替换真实地图或角色坐标。
 
 ```gdscript
 extends Control
@@ -1118,7 +1155,7 @@ func back() -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/PictureSprite.gd。Sprite2D显示PictureState快照，apply返回是否成功，按number设置z层、共享纹理、独立材料；shader_for按blend缓存Shader。该类不拥有/推进图片状态，不根据RM命令修改背包等数据。
+源文件：templates/runtime/scripts/03_Map/PictureSprite.gd。Sprite2D显示PictureState快照，apply返回是否成功，按number设置z层、共享纹理、独立材料；shader_for按blend缓存Shader。该类不拥有/推进图片状态，不根据RM命令修改背包等数据。
 
 ```gdscript
 extends Sprite2D
@@ -1132,7 +1169,7 @@ func apply(view: Dictionary) -> bool
 
 常量（不含依赖脚本引用）：`POSE`。
 
-源文件：templates/runtime/scripts/PictureState.gd。一张图片的纯状态；create编号1..50失败null，decode失败字典/成功picture。pose_snapshot只当前姿态，snapshot加目标/剩余时长/旋转/色调进度；move/rotate/start_tone_change启动效果，advance每帧秒推进；numeric/vector_valid/valid_name/pose_valid/fail为校验工具。取值/单位见第4.3节。
+源文件：templates/runtime/scripts/00_Game/PictureState.gd。一张图片的纯状态；create编号1..50失败null，decode失败字典/成功picture。pose_snapshot只当前姿态，snapshot加目标/剩余时长/旋转/色调进度；move/rotate/start_tone_change启动效果，advance每帧秒推进；numeric/vector_valid/valid_name/pose_valid/fail为校验工具。取值/单位见第4.3节。
 
 ```gdscript
 extends RefCounted
@@ -1157,17 +1194,17 @@ static func fail(message: String) -> Dictionary
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/PlayerController.gd。继承MapCharacter，configure绑定RuntimeState.player_motion与地图，configure_motion转统一配置；input_enabled/stop_after_step供协调器门禁，resume_after_menu抑制残留按键。继承人物方法，成功普通行走才record_step；jump/撞墙/原地转向不计步。
+源文件：templates/runtime/scripts/03_Map/PlayerController.gd。继承MapCharacter，configure绑定RuntimeState.player_motion与地图，configure_motion转统一配置；input_enabled/stop_after_step供协调器门禁，resume_after_menu抑制残留按键。继承人物方法，成功普通行走才record_step；jump/撞墙/原地转向不计步。
 
 ```gdscript
-extends "res://runtime/scripts/MapCharacter.gd"
+extends "res://runtime/scripts/03_Map/MapCharacter.gd"
 class_name PlayerController
 func configure(runtime: Node) -> void
 func configure_motion(value: Dictionary) -> Dictionary
 func move_straight(direction: int, turn_on_failure: bool = true) -> bool
 func move_diagonal(offset: Vector2i) -> bool
-func jump(x: int,y: int) -> bool
-func move_to(x: int,y: int) -> bool
+func jump(x: int, y: int) -> bool
+func move_to(x: int, y: int) -> bool
 func reset_route_state() -> void
 func resume_after_menu() -> void
 ```
@@ -1178,7 +1215,7 @@ func resume_after_menu() -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/PresentationTools.gd。F6独立48×36地图表现预览，持独立view/effects/screen/timer/transition/audio。navigate/activate/back/handle_key/has_text_focus仅UI入口；普通按钮不自动写回当前地图。只有显式真实地图应用/计时按钮连接RuntimeState；工具对照全景/雾禁止应用，当前会连天气一并拒绝。用户已接受保持此预览边界，事件后续走正式运行接口。
+源文件：templates/runtime/scripts/11_Development/PresentationTools.gd。F6独立48×36地图表现预览，持独立view/effects/screen/timer/transition/audio。navigate/activate/back/handle_key/has_text_focus仅UI入口；普通按钮不自动写回当前地图。只有显式真实地图应用/计时按钮连接RuntimeState；工具对照全景/雾禁止应用，当前会连天气一并拒绝。用户已接受保持此预览边界，事件后续走正式运行接口。
 
 ```gdscript
 extends Control
@@ -1197,7 +1234,7 @@ func back() -> void
 
 常量（不含依赖脚本引用）：`FRAME_SECONDS`。
 
-源文件：templates/runtime/scripts/RmxpAnimationData.gd。静态原动画解码/校验服务；compile不加载纹理，resolve再查Animations和分类素材，返回数据契约见第6节；failure带动画ID定位。并非Godot Animation资源转换器。
+源文件：templates/runtime/scripts/09_Effects/RmxpAnimationData.gd。静态原动画解码/校验服务；compile不加载纹理，resolve再查Animations和分类素材，返回数据契约见第6节；failure带动画ID定位。并非Godot Animation资源转换器。
 
 ```gdscript
 extends RefCounted
@@ -1213,13 +1250,13 @@ static func failure(id: int, message: String) -> Dictionary
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/RmxpAnimationPlayer.gd。每次play生成独立Node2D，parent控制生命周期，target_provider每次返回有效CanvasItem目标；0无动画无player，失败不创建实例。finished/timing_reached信号，advance由_process调用，stop释放并完成；同目标/不同位置皆可并发，不共享animation_id状态。
+源文件：templates/runtime/scripts/09_Effects/RmxpAnimationPlayer.gd。每次play生成独立Node2D，parent控制生命周期，target_provider每次返回有效CanvasItem目标；0无动画无player，失败不创建实例。finished/timing_reached信号，advance由_process调用，stop释放并完成；同目标/不同位置皆可并发，不共享animation_id状态。
 
 ```gdscript
 extends Node2D
 signal finished
 signal timing_reached(frame: int, timing: Dictionary)
-static func play(parent: Node, animation_id: int, target_provider: Callable, hit: bool = true) -> Dictionary
+static func play( parent: Node, animation_id: int, target_provider: Callable, hit: bool = true ) -> Dictionary
 func advance(delta: float) -> void
 func stop() -> void
 ```
@@ -1230,7 +1267,7 @@ func stop() -> void
 
 常量（不含依赖脚本引用）：`CATEGORIES`、`IMAGE_EXTENSIONS`。
 
-源文件：templates/runtime/scripts/RmxpCache.gd。静态分类素材Facade，所有方法和13分类见第7节；asset_key是合法Graphics分类键，resolve是索引资源路径，texture/region共享缓存，list_assets/list_names仅枚举。各shortcut接受原分类内文件名（可含子目录/扩展名），不接受任意外部路径。
+源文件：templates/runtime/scripts/10_Support/Cache/RmxpCache.gd。静态分类素材Facade，所有方法和13分类见第7节；asset_key是合法Graphics分类键，resolve是索引资源路径，texture/region共享缓存，list_assets/list_names仅枚举。各shortcut接受原分类内文件名（可含子目录/扩展名），不接受任意外部路径。
 
 ```gdscript
 extends RefCounted
@@ -1266,7 +1303,7 @@ static func clear() -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/RuntimeData.gd。静态JSON缓存/数据库入口；返回定义引用必须只读，record含测试覆盖而source_record不含。manifest/system/map/database/read_json、测试覆盖操作、asset_index/asset_path、field安全取值契约见第5节。没有全局Actor实例或State效果逻辑。
+源文件：templates/runtime/scripts/00_Game/RuntimeData.gd。静态JSON缓存/数据库入口；返回定义引用必须只读，record含测试覆盖而source_record不含。manifest/system/map/database/read_json、测试覆盖操作、asset_index/asset_path、field安全取值契约见第5节。没有全局Actor实例或State效果逻辑。
 
 ```gdscript
 extends RefCounted
@@ -1295,7 +1332,7 @@ static func field(value: Variant, key: String, fallback: Variant = null) -> Vari
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/RuntimeState.gd。生成工程唯一Autoload，字段/方法的调用、空引用、诊断、事务、初始化和生命周期见第4节；restore_prepared仅接受SaveCodec.prepare已验证结果。register_*不拥有场景生命周期，request_quit先停止/释放音频后延迟退出。不能在解释器/UI重新建同一份游戏状态。
+源文件：templates/runtime/scripts/00_Game/RuntimeState.gd。生成工程唯一Autoload，字段/方法的调用、空引用、诊断、事务、初始化和生命周期见第4节；restore_prepared仅接受SaveCodec.prepare已验证结果。register_*不拥有场景生命周期，request_quit先停止/释放音频后延迟退出。不能在解释器/UI重新建同一份游戏状态。
 
 ```gdscript
 extends Node
@@ -1312,7 +1349,7 @@ func set_event_self_switch(map: int, event: int, letter: String, value: bool) ->
 func begin_new_game(system: Dictionary, testing_override: Dictionary = {}) -> void
 func inventory_entries() -> Array[Dictionary]
 func common_event_reason(id: int) -> String
-func reserve_common_event(id: int, source: String = "", actor_id: int = 0, target_id: int = 0) -> Dictionary
+func reserve_common_event( id: int, source: String = "", actor_id: int = 0, target_id: int = 0 ) -> Dictionary
 func use_skill(actor_id: int, skill_id: int, target_id: int = 0) -> Dictionary
 func change_skill(actor_id: int, skill_id: int, learning: bool) -> Dictionary
 func has_skill(actor_id: int, skill_id: int) -> bool
@@ -1369,13 +1406,13 @@ func scroll_map_native(direction: int, tiles: int, speed: int) -> Dictionary
 func resume_map_follow() -> void
 func fade_screen(opacity: Variant, seconds: Variant = 0.0) -> Dictionary
 func freeze_screen() -> Dictionary
-func transition_screen(seconds: Variant = 0.2, name_value: String = "", vague: Variant = 40) -> Dictionary
+func transition_screen( seconds: Variant = 0.2, name_value: String = "", vague: Variant = 40 ) -> Dictionary
 func cancel_screen_transition() -> void
 func self_switch_key(map_value: int, event_id: int, letter: String) -> String
-func restore_prepared(prepared: Dictionary, preserve_audio: bool = false) -> void
-func gain_currency(key: String,amount: Variant) -> Dictionary
-func commit_script_data(writes: Dictionary,draft: RefCounted) -> void
-func custom_record(database: String,id: int) -> Dictionary
+func restore_prepared( prepared: Dictionary, preserve_audio: bool = false, restore_live_events: bool = true ) -> void
+func gain_currency(key: String, amount: Variant) -> Dictionary
+func commit_script_data(writes: Dictionary, draft: RefCounted) -> void
+func custom_record(database: String, id: int) -> Dictionary
 func custom_actor_attributes(id: int) -> Dictionary
 func evaluate_custom_expression(id: String) -> Dictionary
 ```
@@ -1386,7 +1423,7 @@ func evaluate_custom_expression(id: String) -> Dictionary
 
 常量（不含依赖脚本引用）：`VERSION`。
 
-源文件：templates/runtime/scripts/RuntimeVersion.gd。运行时版本常量VERSION=ver0.27；无业务方法。ProjectGenerator由迁移器Version同步生成，不与存档SCHEMA混用。
+源文件：templates/runtime/scripts/00_Game/RuntimeVersion.gd。运行时版本常量VERSION=ver0.27；无业务方法。ProjectGenerator由迁移器Version同步生成，不与存档SCHEMA混用。
 
 ```gdscript
 extends RefCounted
@@ -1399,13 +1436,13 @@ extends RefCounted
 
 常量（不含依赖脚本引用）：`MAX_INTEGER`。
 
-源文件：templates/runtime/scripts/SaveCodec.gd。静态快照校验器，capture/prepare/返回结构见第7节。integer/positive_key/id_list校验JSON整数和数据库ID，testing_records校验存档测试定义且不安装，fail包装错误。只构造脱离现场的角色、状态和预加载音频候选，不提交现场或恢复场景节点/事件。
+源文件：templates/runtime/scripts/10_Support/Persistence/SaveCodec.gd。静态快照校验器，capture/prepare/返回结构见第7节。integer/positive_key/id_list校验JSON整数和数据库ID，testing_records校验存档测试定义且不安装，fail包装错误。只构造脱离现场的角色、状态和预加载音频候选，不提交现场或恢复场景节点/事件。
 
 ```gdscript
 extends RefCounted
 static func integer(value: Variant, minimum: int = 0, maximum: int = MAX_INTEGER) -> bool
 static func capture(state: Node) -> Dictionary
-static func prepare(value: Variant,definitions: RefCounted=null,owned_snapshot: bool=false) -> Dictionary
+static func prepare( value: Variant, definitions: RefCounted = null, owned_snapshot: bool = false ) -> Dictionary
 static func testing_records(value: Variant) -> Dictionary
 static func id_list(value: Variant, database: String, lookup: Callable) -> String
 static func positive_key(key: String) -> bool
@@ -1416,9 +1453,9 @@ static func fail(message: String) -> Dictionary
 
 公开字段：`directory_override`。
 
-常量（不含依赖脚本引用）：`SLOT_COUNT`、`FORMAT`、`SCHEMA`、`MAX_BYTES`、`INFO_CACHE_LIMIT`。
+常量（不含依赖脚本引用）：`SLOT_COUNT`、`FORMAT`、`SCHEMA`、`MAX_BYTES`、`INFO_CACHE_LIMIT`、`ADAPTER_TARGET_ALIASES`。
 
-源文件：templates/runtime/scripts/SaveService.gd。静态四槽磁盘服务；project_id/directory/slot_path/fingerprint查询，save_slot提交磁盘，read_slot/read_path不恢复，load_slot会restore_prepared，slot_info/has_valid_save供标题/槽列表。write_text是内部文件辅助非事件API，fail包装错误；权限/备份确认/格式见第7节。
+源文件：templates/runtime/scripts/10_Support/Persistence/SaveService.gd。静态四槽磁盘服务；project_id/directory/slot_path/fingerprint查询，save_slot提交磁盘，read_slot/read_path不恢复，load_slot会restore_prepared，slot_info/has_valid_save供标题/槽列表。write_text是内部文件辅助非事件API，fail包装错误；权限/备份确认/格式见第7节。
 
 ```gdscript
 extends RefCounted
@@ -1431,6 +1468,7 @@ static func fingerprint() -> String
 static func save_slot(slot: int, state: Node) -> Dictionary
 static func read_slot(slot: int) -> Dictionary
 static func read_path(path: String) -> Dictionary
+static func read_slot_cooperatively( slot: int, definitions: RefCounted, pulse: Callable ) -> Dictionary
 static func load_slot(slot: int, state: Node) -> Dictionary
 static func slot_info(slot: int) -> Dictionary
 static func has_valid_save() -> bool
@@ -1444,7 +1482,7 @@ static func fail(message: String) -> Dictionary
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/SaveSlots.gd。Control，mode=save/load、save_callback是保存Callable；load_requested由标题处理实际读档，back_requested/sound_requested交父页面。refresh/window构建显示，navigate/activate/execute/back包含备份或覆盖确认流程，不能绕过确认直接调用load_slot。
+源文件：templates/runtime/scripts/07_Archive/SaveSlots.gd。Control，mode=save/load、save_callback是保存Callable；load_requested由标题处理实际读档，back_requested/sound_requested交父页面。refresh/window构建显示，navigate/activate/execute/back包含备份或覆盖确认流程，不能绕过确认直接调用load_slot。
 
 ```gdscript
 extends Control
@@ -1465,7 +1503,7 @@ func back() -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/ScreenRenderer.gd。Node组装地图色调、图片与闪光显示，读取RuntimeState.screen，camera用于震动偏移。sync同步显示，full_rect创建ColorRect辅助；正常_process推进screen一次，普通菜单暂停，ScreenTools特例见第7节。它不是Game_Screen状态对象。
+源文件：templates/runtime/scripts/03_Map/ScreenRenderer.gd。Node组装地图色调、图片与闪光显示，读取RuntimeState.screen，camera用于震动偏移。sync同步显示，full_rect创建ColorRect辅助；正常_process推进screen一次，普通菜单暂停，ScreenTools特例见第7节。它不是Game_Screen状态对象。
 
 ```gdscript
 extends Node
@@ -1479,7 +1517,7 @@ func sync() -> void
 
 常量（不含依赖脚本引用）：`DEFAULTS`。
 
-源文件：templates/runtime/scripts/ScreenState.gd。当前Game_Screen对应的纯状态，拥有1..50图片和tone/flash/shake及weather_state。show/move/rotate/tint/erase操作图片，picture可null、picture_ids升序，effects_snapshot不含图片，snapshot含pictures和weather，decode返回screen并兼容旧缺weather字段；advance唯一推进正式屏幕/天气时长。正式显示图片优先RuntimeState校验素材。
+源文件：templates/runtime/scripts/00_Game/ScreenState.gd。当前Game_Screen对应的纯状态，拥有1..50图片和tone/flash/shake及weather_state。show/move/rotate/tint/erase操作图片，picture可null、picture_ids升序，effects_snapshot不含图片，snapshot含pictures和weather，decode返回screen并兼容旧缺weather字段；advance唯一推进正式屏幕/天气时长。正式显示图片优先RuntimeState校验素材。
 
 ```gdscript
 extends RefCounted
@@ -1507,7 +1545,7 @@ static func decode(value: Variant) -> Dictionary
 
 常量（不含依赖脚本引用）：`ACTIONS`。
 
-源文件：templates/runtime/scripts/ScreenTools.gd。F6图片测试Control；number/asset_name/selected按钮状态，select_asset选原Pictures，display_at调用真实RuntimeState.show_picture，action测试变换/屏幕效果，neutral_tone作比较；refresh/update_labels/navigate/activate/back供UI。与PresentationTools不同，该页效果修改当前screen，工具图只在测试模式有效。
+源文件：templates/runtime/scripts/11_Development/ScreenTools.gd。F6图片测试Control；number/asset_name/selected按钮状态，select_asset选原Pictures，display_at调用真实RuntimeState.show_picture，action测试变换/屏幕效果，neutral_tone作比较；refresh/update_labels/navigate/activate/back供UI。与PresentationTools不同，该页效果修改当前screen，工具图只在测试模式有效。
 
 ```gdscript
 extends Control
@@ -1530,7 +1568,7 @@ func back() -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/ShopScene.gd。Control，goods由MenuCoordinator设置，mode/command_index/selected/quantity/actor_index驱动列表/数量窗与装备比较。refresh/build_list/build_number/window辅助显示，number_action与navigate/activate/back/handle_key处理数量、确认和返回，change_actor切装备比较角色。业务通过ShopService，返回发back_requested而非直接恢复地图。
+源文件：templates/runtime/scripts/08_Menu/Shop/ShopScene.gd。Control，goods由MenuCoordinator设置，mode/command_index/selected/quantity/actor_index驱动列表/数量窗与装备比较。refresh/build_list/build_number/window辅助显示，number_action与navigate/activate/back/handle_key处理数量、确认和返回，change_actor切装备比较角色。业务通过ShopService，返回发back_requested而非直接恢复地图。
 
 ```gdscript
 extends Control
@@ -1554,7 +1592,7 @@ func handle_key(key: int) -> void
 
 常量（不含依赖脚本引用）：`KINDS`、`MAX_GOLD`。
 
-源文件：templates/runtime/scripts/ShopService.gd。静态交易服务；catalog把RM goods解析为entries并去重，失败可含goods_index；item返回entry，counters返回owned或失败；quote_buy/sell返回maximum/unit_price/owned/message而不提交；buy/sell/transact原子提交，integer/fail辅助。金币库存/种类/价格见第4.2节。
+源文件：templates/runtime/scripts/08_Menu/Shop/ShopService.gd。静态交易服务；catalog把RM goods解析为entries并去重，失败可含goods_index；item返回entry，counters返回owned或失败；quote_buy/sell返回maximum/unit_price/owned/message而不提交；buy/sell/transact原子提交，integer/fail辅助。金币库存/种类/价格见第4.2节。
 
 ```gdscript
 extends RefCounted
@@ -1566,7 +1604,7 @@ static func quote_buy(state: Node, goods: Array, kind: String, id: int) -> Dicti
 static func quote_sell(state: Node, kind: String, id: int) -> Dictionary
 static func buy(state: Node, goods: Array, kind: String, id: int, quantity: int) -> Dictionary
 static func sell(state: Node, kind: String, id: int, quantity: int) -> Dictionary
-static func transact(state: Node, goods: Array, kind: String, id: int, quantity: int, buying: bool) -> Dictionary
+static func transact( state: Node, goods: Array, kind: String, id: int, quantity: int, buying: bool ) -> Dictionary
 static func fail(message: String, goods_index: int = -1) -> Dictionary
 ```
 
@@ -1576,7 +1614,7 @@ static func fail(message: String, goods_index: int = -1) -> Dictionary
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/SkillScene.gd。Control，actor_id对应列表；refresh/navigate/activate/back及信号交父菜单。普通列表接通原生公共事件入口及SP消耗，单体目标选择独立于动画预览；未支持的结算效果原子拒绝。测试模式可学习/遗忘/预览/进入原动画并发实验；不执行回合制战斗。
+源文件：templates/runtime/scripts/08_Menu/Skill/SkillScene.gd。Control，actor_id对应列表；refresh/navigate/activate/back及信号交父菜单。普通列表接通原生公共事件入口及SP消耗，单体目标选择独立于动画预览；未支持的结算效果原子拒绝。测试模式可学习/遗忘/预览/进入原动画并发实验；不执行回合制战斗。
 
 ```gdscript
 extends Control
@@ -1595,7 +1633,7 @@ func back() -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/StateTools.gd。F6状态登记测试Control；refresh/selector显示角色与状态选择，action增删/查询/清空，navigate/activate/back路由。selector的actors布尔区分角色列表和状态列表；改变普通状态不清装备来源，不增加剧情事件指令。
+源文件：templates/runtime/scripts/11_Development/StateTools.gd。F6状态登记测试Control；refresh/selector显示角色与状态选择，action增删/查询/清空，navigate/activate/back路由。selector的actors布尔区分角色列表和状态列表；改变普通状态不清装备来源，不增加剧情事件指令。
 
 ```gdscript
 extends Control
@@ -1615,7 +1653,7 @@ func back() -> void
 
 常量（不含依赖脚本引用）：`PAGES`。
 
-源文件：templates/runtime/scripts/TestTools.gd。F6工具目录Control；refresh刷新选择，navigate/activate/back通过tool_requested(page)让MenuScene开对应页。当前角色/商店/状态/图片/移动/表现/原动画入口只在测试模式可见，不是完整编辑器。
+源文件：templates/runtime/scripts/11_Development/TestTools.gd。F6工具目录Control；refresh刷新选择，navigate/activate/back通过tool_requested(page)让MenuScene开对应页。当前角色/商店/状态/图片/移动/表现/原动画入口只在测试模式可见，不是完整编辑器。
 
 ```gdscript
 extends Control
@@ -1634,7 +1672,7 @@ func back() -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/Title.gd。Title.tscn脚本，仅Godot生命周期与内部回调，无自定义公共方法。使用System标题素材/音乐，提供新游戏、继续游戏、退出；新游戏begin_new_game后切Game，继续先SaveService验证/确认备份/restore_prepared，不读取Ruby Scene_Title。
+源文件：templates/runtime/scripts/05_Title/Title.gd。Title.tscn脚本，仅Godot生命周期与内部回调，无自定义公共方法。使用System标题素材/音乐，提供新游戏、继续游戏、退出；新游戏begin_new_game后切Game，继续先SaveService验证/确认备份/restore_prepared，不读取Ruby Scene_Title。
 
 ```gdscript
 extends Control
@@ -1647,7 +1685,7 @@ extends Control
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/TransitionRenderer.gd。CanvasLayer15瞬时画面服务，fade/freeze_screen/transition/cancel契约见第4.3节；必须add_child后使用，freeze需await真实post_draw。状态remaining/busy/frozen目前内部接入用，未来事件应建立正式等待协议；取消/退出释放截图，不序列化。
+源文件：templates/runtime/scripts/09_Effects/TransitionRenderer.gd。CanvasLayer15瞬时画面服务，fade/freeze_screen/transition/cancel契约见第4.3节；必须add_child后使用，freeze需await真实post_draw。状态remaining/busy/frozen目前内部接入用，未来事件应建立正式等待协议；取消/退出释放截图，不序列化。
 
 ```gdscript
 extends CanvasLayer
@@ -1663,7 +1701,7 @@ func cancel() -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/UIResources.gd。静态内部纹理/区域/字体共享缓存；texture接收Graphics全路径，业务首选RmxpCache分类接口。region创建AtlasTexture，font系统中文回退，word读取System并固定标准标签，play_sound播放System指定UI SE，clear释放缓存引用；不热导入文件。
+源文件：templates/runtime/scripts/04_UI_Common/UIResources.gd。静态内部纹理/区域/字体共享缓存；texture接收Graphics全路径，业务首选RmxpCache分类接口。region创建AtlasTexture，font系统中文回退，word读取System并固定标准标签，play_sound播放System指定UI SE，clear释放缓存引用；不热导入文件。
 
 ```gdscript
 extends RefCounted
@@ -1681,7 +1719,7 @@ static func clear() -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/UISpriteset.gd。Control菜单成组生命周期；add_character(view,rectangle)用快照character_name/hue创建CharacterSprite并返回TextureRect，父节点释放时整组释放。不是地图Spriteset或角色状态拥有者。
+源文件：templates/runtime/scripts/04_UI_Common/UISpriteset.gd。Control菜单成组生命周期；add_character(view,rectangle)用快照character_name/hue创建CharacterSprite并返回TextureRect，父节点释放时整组释放。不是地图Spriteset或角色状态拥有者。
 
 ```gdscript
 extends Control
@@ -1694,7 +1732,7 @@ func add_character(view: Dictionary, rectangle: Rect2) -> TextureRect
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/WeatherRenderer.gd。Node2D批量显示，area逻辑像素、type/power/density/display由MapEffectsRenderer赋值。advance只移动/裁切粒子并queue_redraw，particle_count查询；至多256，不提供天气命令或保存，不能把粒子反向作为Game_Screen真值。
+源文件：templates/runtime/scripts/03_Map/WeatherRenderer.gd。Node2D批量显示，area逻辑像素、type/power/density/display由MapEffectsRenderer赋值。advance只移动/裁切粒子并queue_redraw，particle_count查询；至多256，不提供天气命令或保存，不能把粒子反向作为Game_Screen真值。
 
 ```gdscript
 extends Node2D
@@ -1708,11 +1746,11 @@ func particle_count() -> int
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/WindowBase.gd。Control皮肤窗口；label创建Label返回实例，clear_content清掉内容，select_rect更新选择光标。192×128窗口皮肤背景/边框/光标，缺皮肤替代并诊断，content是窗口内容容器；无RGSS同名Ruby API运行能力。
+源文件：templates/runtime/scripts/04_UI_Common/WindowBase.gd。Control皮肤窗口；label创建Label返回实例，clear_content清掉内容，select_rect更新选择光标。192×128窗口皮肤背景/边框/光标，缺皮肤替代并诊断，content是窗口内容容器；无RGSS同名Ruby API运行能力。
 
 ```gdscript
 extends Control
-func label(text: String, rectangle: Rect2, color: Color = Color.WHITE, font_size: int = 20) -> Label
+func label( text: String, rectangle: Rect2, color: Color = Color.WHITE, font_size: int = 20 ) -> Label
 func clear_content() -> void
 func select_rect(rectangle: Rect2, active: bool = true) -> void
 ```
@@ -1723,25 +1761,28 @@ func select_rect(rectangle: Rect2, active: bool = true) -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/WindowCommand.gd。继承WindowSelectable，commands数组，configure(entries,selected) entries需text/enabled，current_enabled查当前项是否启用。父类select/move_selection负责滚动索引；disabled不表示业务已实现。
+源文件：templates/runtime/scripts/04_UI_Common/WindowCommand.gd。继承WindowSelectable，commands数组，configure(entries,selected) entries需text/enabled，current_enabled查当前项是否启用。父类select/move_selection负责滚动索引；disabled不表示业务已实现。
 
 ```gdscript
-extends "res://runtime/scripts/WindowSelectable.gd"
+extends "res://runtime/scripts/04_UI_Common/WindowSelectable.gd"
 func configure(entries: Array, selected: int = 0) -> void
+func select(value: int) -> void
 func current_enabled() -> bool
 ```
 
 ### WindowSelectable.gd
 
-公开字段：`index`、`item_count`、`row_height`、`active`、`scroll_row`。
+公开字段：`index`、`item_count`、`row_height`、`column_count`、`active`、`scroll_row`。
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/WindowSelectable.gd。继承WindowBase，index/item_count/row_height/active/scroll_row，select夹取索引并保持最小滚动，move_selection用方向增量并环绕，selection_changed发索引。父页面按选择/数据变化刷新，不逐帧重绘全部文字。
+源文件：templates/runtime/scripts/04_UI_Common/WindowSelectable.gd。继承WindowBase，index/item_count/row_height/active/scroll_row，select夹取索引并保持最小滚动，move_selection用方向增量并环绕，selection_changed发索引。父页面按选择/数据变化刷新，不逐帧重绘全部文字。
 
 ```gdscript
-extends "res://runtime/scripts/WindowBase.gd"
+extends "res://runtime/scripts/04_UI_Common/WindowBase.gd"
 signal selection_changed(index: int)
+func visible_rows() -> int
+func item_rect(value: int) -> Rect2
 func select(value: int) -> void
 func move_selection(direction: int) -> void
 ```
@@ -1798,7 +1839,7 @@ func write(output_root: String, details: Dictionary) -> Array[String]
 ```gdscript
 extends RefCounted
 class_name ProjectGenerator
-func generate(output_root: String, project_title: String, ini: Dictionary, progress: Callable = Callable(), source_id: String = "") -> Dictionary
+func generate( output_root: String, project_title: String, ini: Dictionary, progress: Callable = Callable(), source_id: String = "" ) -> Dictionary
 func write_flash_source_guide(output_root: String) -> void
 ```
 
@@ -1830,7 +1871,7 @@ extends RefCounted
 class_name RmxpDataConverter
 func _init(text_codec: RmxpTextCodec) -> void
 func set_asset_index(asset_index: Dictionary) -> void
-func convert(source_root: String, output_root: String, progress: Callable = Callable(), export_scripts_from_data: bool = true) -> Dictionary
+func convert( source_root: String, output_root: String, progress: Callable = Callable(), export_scripts_from_data: bool = true ) -> Dictionary
 ```
 
 ### RmxpIniReader.gd
@@ -1956,7 +1997,7 @@ class_name RGMigratorVersion
 
 常量（不含依赖脚本引用）：`SUPPORTED`、`BATTLE`。
 
-源文件：templates/runtime/scripts/EventCommandCatalog.gd。导入器与生成运行时共享能力清单，reason返回空为支持，BATTLE回合制排除；部分111/122、106参数和路线45脚本有独立诊断。
+源文件：templates/runtime/scripts/02_Event/EventCommandCatalog.gd。导入器与生成运行时共享能力清单，reason返回空为支持，BATTLE回合制排除；部分111/122、106参数和路线45脚本有独立诊断。
 
 ```gdscript
 extends RefCounted
@@ -1973,7 +2014,7 @@ static func route_validation(route: Variant) -> Dictionary
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/EventExecutionContext.gd。每个解释器独立拥有命令、指针、来源位置及公共栈/分支/循环；setup初始化，location提供原地图/事件/页与调用链，换图不改来源。
+源文件：templates/runtime/scripts/02_Event/EventExecutionContext.gd。每个解释器独立拥有命令、指针、来源位置及公共栈/分支/循环；setup初始化，location提供原地图/事件/页与调用链，换图不改来源。
 
 ```gdscript
 extends RefCounted
@@ -1987,12 +2028,12 @@ func location() -> String
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/EventFixture.gd。程序绘制素材的真实事件验收地图；build返回map/tileset/common_events；command/event构造独立夹具，原数据库只读。
+源文件：templates/runtime/scripts/11_Development/EventFixture.gd。程序绘制素材的真实事件验收地图；build返回map/tileset/common_events；command/event构造独立夹具，原数据库只读。
 
 ```gdscript
 extends RefCounted
 static func command(code: int, parameters: Array = [], indent: int = 0) -> Dictionary
-static func event(x: int, y: int, trigger: int, commands: Array, condition: Dictionary = {}, graphic: String = "@movement_character") -> Dictionary
+static func event( x: int, y: int, trigger: int, commands: Array, condition: Dictionary = {}, graphic: String = "@movement_character" ) -> Dictionary
 static func build() -> Dictionary
 static func scenario(name: String) -> Array
 ```
@@ -2003,7 +2044,7 @@ static func scenario(name: String) -> Array
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/EventScheduler.gd。main串行前台与parallels独立并行；configure绑定地图，advance公平预算，start_main锁交互人物；cancel_all取消、dispose断开地图与主解释器信号。suppress_loaded_autoruns保留旧存档不重跑开局的兼容边界。
+源文件：templates/runtime/scripts/02_Event/EventScheduler.gd。main串行前台与parallels独立并行；configure绑定地图，advance公平预算，start_main锁交互人物；cancel_all取消、dispose断开地图与主解释器信号。suppress_loaded_autoruns保留旧存档不重跑开局的兼容边界。
 
 ```gdscript
 extends RefCounted
@@ -2011,7 +2052,7 @@ signal interpreter_created(interpreter: RefCounted)
 signal main_completed
 signal main_aborted
 func configure(map: Node, common_override: Variant = null) -> void
-func start_main(commands: Array, event_id: int, page: int = 1, key: String = "", defer_run: bool = false) -> bool
+func start_main( commands: Array, event_id: int, page: int = 1, key: String = "", defer_run: bool = false ) -> bool
 func advance(delta: float, allow_autorun: bool = true) -> void
 func has_running_events() -> bool
 func suppress_loaded_autoruns() -> void
@@ -2025,7 +2066,7 @@ func dispose() -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/EventTestHUD.gd。验收地图CanvasLayer10，仅观察实际变量并控制公共并行开关；F7或退出按钮发back_requested，由Game恢复原地图。
+源文件：templates/runtime/scripts/11_Development/EventTestHUD.gd。验收地图CanvasLayer10，仅观察实际变量并控制公共并行开关；F7或退出按钮发back_requested，由Game恢复原地图。
 
 ```gdscript
 extends CanvasLayer
@@ -2039,7 +2080,7 @@ signal back_requested
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/EventUIBroker.gd。多解释器共用UI队列，弱引用及wait token识别所属执行，request_id区分显示请求。pump只展示有效等待，resolve正确恢复，cancel_all释放界面。
+源文件：templates/runtime/scripts/02_Event/EventUIBroker.gd。多解释器共用UI队列，弱引用及wait token识别所属执行，request_id区分显示请求。pump只展示有效等待，resolve正确恢复，cancel_all释放界面。
 
 ```gdscript
 extends RefCounted
@@ -2062,7 +2103,7 @@ func cancel_all() -> void
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/EventWait.gd。秒等待及界面等待协议；begin/clear提升token，advance只推进time；accepts校验类型与可选token，取消后旧回调失效。
+源文件：templates/runtime/scripts/02_Event/EventWait.gd。秒等待及界面等待协议；begin/clear提升token，advance只推进time；accepts校验类型与可选token，取消后旧回调失效。
 
 ```gdscript
 extends RefCounted
@@ -2074,7 +2115,7 @@ func accepts(value: String, expected_token: int) -> bool
 
 ### EventInput.gd
 
-源文件：templates/runtime/scripts/EventInput.gd。原生按键映射与trigger/pressed查询。
+源文件：templates/runtime/scripts/02_Event/EventInput.gd。原生按键映射与trigger/pressed查询。
 
 公开字段：无。
 常量（不含依赖脚本引用）：`ACTIONS`、`KEYS`。
@@ -2088,7 +2129,7 @@ static func triggered() -> int
 
 ### EventMessage.gd
 
-源文件：templates/runtime/scripts/EventMessage.gd。RM文本控制字符解析，返回颜色片段与金币窗口标志。
+源文件：templates/runtime/scripts/02_Event/EventMessage.gd。RM文本控制字符解析，返回颜色片段与金币窗口标志。
 
 公开字段：无。
 常量（不含依赖脚本引用）：`COLORS`。
@@ -2100,7 +2141,7 @@ static func format(text: String) -> Dictionary
 
 ### EventValueResolver.gd
 
-源文件：templates/runtime/scripts/EventValueResolver.gd。非战斗条件和变量查询/算术，依赖正式状态，不复制状态。
+源文件：templates/runtime/scripts/02_Event/EventValueResolver.gd。非战斗条件和变量查询/算术，依赖正式状态，不复制状态。
 
 公开字段：无。
 常量（不含依赖脚本引用）：`PARAMETER_KEYS`。
@@ -2116,7 +2157,7 @@ static func calculate(current: int, operation: int, operand_value: int) -> int
 
 ### CharacterRoute.gd
 
-源文件：templates/runtime/scripts/CharacterRoute.gd。每个人物的原生自主/强制路线执行器，参数与生命周期见6.1。
+源文件：templates/runtime/scripts/02_Event/CharacterRoute.gd。每个人物的原生自主/强制路线执行器，参数与生命周期见6.1。
 
 公开字段：`move_type`、`move_frequency`、`forcing`。
 
@@ -2126,7 +2167,7 @@ static func calculate(current: int, operation: int, operand_value: int) -> int
 extends RefCounted
 func _init(character: Node) -> void
 static func preflight(route: Variant) -> Dictionary
-func configure(type: Variant, frequency: Variant, route: Variant, source: String = "") -> Dictionary
+func configure( type: Variant, frequency: Variant, route: Variant, source: String = "" ) -> Dictionary
 func force(route: Dictionary, source: String = "", on_error: Callable = Callable()) -> Dictionary
 func cancel() -> void
 func repeat_forced() -> bool
@@ -2140,7 +2181,7 @@ func advance(delta: float) -> void
 
 ### WeatherState.gd
 
-源文件：templates/runtime/scripts/WeatherState.gd。由ScreenState持有的唯一天气模型，六字段及迁移/时钟契约见6.2。
+源文件：templates/runtime/scripts/00_Game/WeatherState.gd。由ScreenState持有的唯一天气模型，六字段及迁移/时钟契约见6.2。
 
 公开字段：`data`。
 
@@ -2157,7 +2198,7 @@ static func decode(value: Variant) -> Dictionary
 
 ### SystemSettings.gd
 
-源文件：templates/runtime/scripts/SystemSettings.gd。运行时系统设置，窗口皮肤覆盖与兼容存档见6.3。
+源文件：templates/runtime/scripts/00_Game/SystemSettings.gd。运行时系统设置，窗口皮肤覆盖与兼容存档见6.3。
 
 公开字段：`windowskin_override`。
 
@@ -2172,7 +2213,7 @@ static func decode(value: Variant) -> Dictionary
 
 ### ActorEventService.gd
 
-源文件：templates/runtime/scripts/ActorEventService.gd。原生角色事件事务：execute统一参数/目标，脱离现场复制与提交，fail返回错误；详见6.4。
+源文件：templates/runtime/scripts/00_Game/ActorEventService.gd。原生角色事件事务：execute统一参数/目标，脱离现场复制与提交，fail返回错误；详见6.4。
 
 公开字段：无。
 
@@ -2186,7 +2227,7 @@ static func fail(message: String) -> Dictionary
 
 ### Gameover.gd
 
-源文件：templates/runtime/scripts/Gameover.gd。实际游戏结束页面：源Gameovers背景和gameover_me，返回标题；清理执行由Game完成，详见6.4。
+源文件：templates/runtime/scripts/05_Title/Gameover.gd。实际游戏结束页面：源Gameovers背景和gameover_me，返回标题；清理执行由Game完成，详见6.4。
 
 公开字段：无。
 
@@ -2199,7 +2240,7 @@ func return_to_title() -> void
 
 ### NameInput.gd
 
-源文件：templates/runtime/scripts/NameInput.gd。303专用姓名页面，actor_id/maximum/initial_name由协调器配置，confirmed仅返回文本，不直接改角色；submit/restore_name/back语义见6.4。
+源文件：templates/runtime/scripts/06_Message/NameInput.gd。303专用姓名页面，actor_id/maximum/initial_name由协调器配置，confirmed仅返回文本，不直接改角色；submit/restore_name/back语义见6.4。
 
 公开字段：`actor_id`、`maximum`、`initial_name`、`edit`。
 
@@ -2215,7 +2256,7 @@ func back() -> void
 
 ### CommonEventUse.gd
 
-源文件：templates/runtime/scripts/CommonEventUse.gd。菜单特技的公共事件入口和SP原子消耗；契约见6.5。
+源文件：templates/runtime/scripts/00_Game/CommonEventUse.gd。菜单特技的公共事件入口和SP原子消耗；契约见6.5。
 
 公开字段：无。
 
@@ -2229,7 +2270,7 @@ static func use_skill(state: Node, actor_id: int, skill_id: int, target_id: int)
 
 ### EventPersistence.gd
 
-源文件：templates/runtime/scripts/EventPersistence.gd。脱离现场的事件/人物/路线/队列快照、完整校验与恢复；契约见6.5。
+源文件：templates/runtime/scripts/02_Event/EventPersistence.gd。脱离现场的事件/人物/路线/队列快照、完整校验与恢复；契约见6.5。
 
 公开字段：无。
 
@@ -2237,14 +2278,14 @@ static func use_skill(state: Node, actor_id: int, skill_id: int, target_id: int)
 
 ```gdscript
 extends RefCounted
-static func capture(game: Node,detached_nodes: Array=[]) -> Dictionary
+static func capture(game: Node, detached_nodes: Array = []) -> Dictionary
 static func decode(value: Variant, map: Dictionary, lookup: Callable = Callable()) -> Dictionary
 static func restore(game: Node, value: Dictionary) -> void
 ```
 
-### EditorCommandDialog.gd
+### Editor_CommandDialog.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorCommandDialog.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
+源文件：templates/editor/addons/rgm_editor/03_Event/Editor_CommandDialog.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
 
 公开字段：无。
 常量（不含依赖脚本引用）：`GROUPS`。
@@ -2252,12 +2293,12 @@ static func restore(game: Node, value: Dictionary) -> void
 ```gdscript
 extends ConfirmationDialog
 signal accepted(code: int, parameters: Array)
-func open(documents: RefCounted, code: int = 101, parameters: Array = [], adding: bool = true, characters: Dictionary = {}) -> void
+func open( documents: RefCounted, code: int = 101, parameters: Array = [], adding: bool = true, characters: Dictionary = {} ) -> void
 ```
 
-### EditorCommands.gd
+### Editor_Commands.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorCommands.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
+源文件：templates/editor/addons/rgm_editor/03_Event/Editor_Commands.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
 
 公开字段：无。
 常量（不含依赖脚本引用）：`SCHEMA`、`ROUTE_NAMES`、`MARKERS`。
@@ -2274,12 +2315,12 @@ static func variant_parameters(code: int, p: Array, index: int, value: Variant) 
 static func expand(code: int, p: Array, indent: int) -> Array
 static func span(list: Array, index: int) -> Vector2i
 static func validate_structure(list: Array) -> String
-static func summary(c: Dictionary, documents: RefCounted = null, characters: Dictionary = {}) -> String
+static func summary( c: Dictionary, documents: RefCounted = null, characters: Dictionary = {} ) -> String
 ```
 
-### EditorDocuments.gd
+### Editor_Documents.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorDocuments.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
+源文件：templates/editor/addons/rgm_editor/01_Documents/Editor_Documents.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2310,9 +2351,9 @@ func new_page() -> Dictionary
 func validate(path: String, value: Variant, before: Variant) -> String
 ```
 
-### EditorMapCanvas.gd
+### Editor_MapCanvas.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorMapCanvas.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
+源文件：templates/editor/addons/rgm_editor/02_Map/Editor_MapCanvas.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
 
 公开字段：无。
 常量（不含依赖脚本引用）：`AUTOTILE_PARTS`。
@@ -2342,13 +2383,13 @@ func select_cell(cell: Vector2i) -> void
 func select_tile(id: int) -> void
 func focus_cell(cell: Vector2i) -> void
 func set_region(region: Rect2i) -> void
-func draw_tile(id: int,pos: Vector2,scale_value: float, opacity: float = 1.0) -> void
+func draw_tile(id: int, pos: Vector2, scale_value: float, opacity: float = 1.0) -> void
 func terrain_text(id: int) -> String
 ```
 
-### EditorMapOps.gd
+### Editor_MapOps.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorMapOps.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
+源文件：templates/editor/addons/rgm_editor/02_Map/Editor_MapOps.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2359,7 +2400,7 @@ static func tile(map: Dictionary, cell: Vector2i, layer: int) -> int
 static func valid(map: Dictionary, cell: Vector2i) -> bool
 static func paint(map: Dictionary, cells: Array, layer: int, id: int) -> void
 static func stamp(map: Dictionary, origins: Array, layer: int, brush: Array) -> void
-static func pattern(map: Dictionary, cells: Array, layer: int, brush: Array, anchor: Vector2i) -> void
+static func pattern( map: Dictionary, cells: Array, layer: int, brush: Array, anchor: Vector2i ) -> void
 static func line_cells(start: Vector2i, end: Vector2i) -> Array
 static func flood_cells(map: Dictionary, start: Vector2i, layer: int) -> Array
 static func resize_map(map: Dictionary, width: int, height: int) -> Dictionary
@@ -2369,9 +2410,9 @@ static func set_layer_count(map: Dictionary, count: int) -> Dictionary
 static func next_event_id(map: Dictionary) -> int
 ```
 
-### EditorPanel.gd
+### Editor_Panel.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorPanel.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
+源文件：templates/editor/addons/rgm_editor/00_Plugin/Editor_Panel.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2383,9 +2424,9 @@ func save_changes() -> bool
 func unsaved_status() -> String
 ```
 
-### EditorRouteDialog.gd
+### Editor_RouteDialog.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorRouteDialog.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
+源文件：templates/editor/addons/rgm_editor/03_Event/Editor_RouteDialog.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2396,9 +2437,9 @@ signal accepted(route: Dictionary)
 func open(route: Dictionary, documents: RefCounted = null) -> void
 ```
 
-### EditorRouteForm.gd
+### Editor_RouteForm.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorRouteForm.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
+源文件：templates/editor/addons/rgm_editor/03_Event/Editor_RouteForm.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2409,9 +2450,9 @@ func configure(route: Dictionary, documents: RefCounted = null, read_only: bool 
 func draft() -> Dictionary
 ```
 
-### EditorScriptAdapter.gd
+### Editor_ScriptAdapter.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorScriptAdapter.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
+源文件：templates/editor/addons/rgm_editor/03_Event/Editor_ScriptAdapter.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2422,9 +2463,9 @@ static func adapt_map(source: Dictionary) -> Dictionary
 static func adapt_common(source: Array) -> Array
 ```
 
-### EditorValueForm.gd
+### Editor_ValueForm.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorValueForm.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
+源文件：templates/editor/addons/rgm_editor/04_Database/Editor_ValueForm.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
 
 公开字段：无。
 常量（不含依赖脚本引用）：`IMAGE_ASSETS`、`LABELS`。
@@ -2433,15 +2474,15 @@ static func adapt_common(source: Array) -> Array
 extends VBoxContainer
 signal value_changed(value: Variant, path: Array, edited: Variant)
 signal asset_edit_requested(path: Array)
-func configure(value: Variant, labels: Variant = {}, documents: RefCounted = null, hints: Dictionary = {}, read_only: bool = false) -> void
+func configure( value: Variant, labels: Variant = {}, documents: RefCounted = null, hints: Dictionary = {}, read_only: bool = false ) -> void
 func draft() -> Variant
 func edit_path(path: Array) -> void
 func edit_asset(path: Array) -> void
 ```
 
-### Plugin.gd
+### Editor_Plugin.gd
 
-源文件：templates/editor/addons/rgm_editor/Plugin.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
+源文件：templates/editor/addons/rgm_editor/00_Plugin/Editor_Plugin.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2451,9 +2492,9 @@ extends EditorPlugin
 # 本类未声明自定义公共方法。
 ```
 
-### EditorCommandList.gd
+### Editor_CommandList.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorCommandList.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。多行指令按原生续行编号及相同缩进组成视觉块；正文按字体宽度对齐，几何竖线贯通整块，空行也绘制。鼠标和键盘一次选中整块，复制/删除/粘贴/移动按整条处理；条件/循环的内部指令不属于续行。原文从draft/原参数读取；续行TreeItem文本仅保留分支标记，描述与提示保留正文。
+源文件：templates/editor/addons/rgm_editor/03_Event/Editor_CommandList.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。多行指令按原生续行编号及相同缩进组成视觉块；正文按字体宽度对齐，几何竖线贯通整块，空行也绘制。鼠标和键盘一次选中整块，复制/删除/粘贴/移动按整条处理；条件/循环的内部指令不属于续行。原文从draft/原参数读取；续行TreeItem文本仅保留分支标记，描述与提示保留正文。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2466,9 +2507,9 @@ func draft() -> Array
 ```
 
 
-### EditorDatabaseDialog.gd
+### Editor_DatabaseDialog.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorDatabaseDialog.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
+源文件：templates/editor/addons/rgm_editor/04_Database/Editor_DatabaseDialog.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2482,9 +2523,9 @@ func pending_status() -> String
 ```
 
 
-### EditorDatabaseSchema.gd
+### Editor_DatabaseSchema.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorDatabaseSchema.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
+源文件：templates/editor/addons/rgm_editor/04_Database/Editor_DatabaseSchema.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
 
 公开字段：无。
 常量（不含依赖脚本引用）：`CATEGORIES`、`LABELS`、`REFERENCES`、`SETS`。
@@ -2498,13 +2539,13 @@ static func timing() -> Dictionary
 static func new_record(category: String, id: int, documents: RefCounted) -> Dictionary
 static func hints(category: String, value: Dictionary) -> Dictionary
 static func normalize(category: String, record: Dictionary, before: Dictionary = {}) -> Dictionary
-static func reason(category: String, value: Dictionary, before: Dictionary, documents: RefCounted) -> String
+static func reason( category: String, value: Dictionary, before: Dictionary, documents: RefCounted ) -> String
 ```
 
 
-### EditorSetDialog.gd
+### Editor_SetDialog.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorSetDialog.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
+源文件：templates/editor/addons/rgm_editor/04_Database/Editor_SetDialog.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2516,9 +2557,9 @@ func open(ids: Array, choices: Array, ordered: bool = false, caption: String = "
 ```
 
 
-### EditorTableDialog.gd
+### Editor_TableDialog.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorTableDialog.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
+源文件：templates/editor/addons/rgm_editor/04_Database/Editor_TableDialog.gd。生成到res://addons/rgm_editor/，编辑器使用脱离运行现场的数据草稿；具体行为见第8.3节。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2530,9 +2571,9 @@ func open(value: Dictionary, kind: String, documents: RefCounted = null) -> void
 ```
 
 
-### EditorTilesetEditor.gd
+### Editor_TilesetEditor.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorTilesetEditor.gd。原图块图像点选后编辑共享passages/priorities/terrain_tags；自动图块可批量更新48个形状ID，草丛0x40/柜台0x80与原RM及MapRuntime一致，其他原位保留。仅编辑属性时按图像补齐新图块表，打开不改变原记录；背景参数与素材预览直接编辑脱离现场的值，不执行游戏。
+源文件：templates/editor/addons/rgm_editor/02_Map/Editor_TilesetEditor.gd。原图块图像点选后编辑共享passages/priorities/terrain_tags；自动图块可批量更新48个形状ID，草丛0x40/柜台0x80与原RM及MapRuntime一致，其他原位保留。仅编辑属性时按图像补齐新图块表，打开不改变原记录；背景参数与素材预览直接编辑脱离现场的值，不执行游戏。
 
 公开字段：无。
 常量（不含依赖脚本引用）：`BACKGROUND_FIELDS`。
@@ -2544,26 +2585,26 @@ func configure(value: Dictionary, documents: RefCounted) -> void
 func draft() -> Dictionary
 ```
 
-### EditorPresentation.gd
+### Editor_Presentation.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorPresentation.gd。编辑器文案、引用、参数含义与事件摘要；只读草稿，不操作运行时。101/108首行保留指令类型，401/408续行仅显示文本；EditorCommandList按主题字体测量首行前缀，将续行正文对齐至首行正文起点，分支标记保持原位。同段沿用文本/注释类别色，原始编号、参数和整段编辑规则保持。
+源文件：templates/editor/addons/rgm_editor/07_Common/Editor_Presentation.gd。编辑器文案、引用、参数含义与事件摘要；只读草稿，不操作运行时。101/108首行保留指令类型，401/408续行仅显示文本；EditorCommandList按主题字体测量首行前缀，将续行正文对齐至首行正文起点，分支标记保持原位。同段沿用文本/注释类别色，原始编号、参数和整段编辑规则保持。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
 
 ```gdscript
 extends RefCounted
-static func reference_text(documents: RefCounted, category: String, value: Variant, empty: String = "") -> String
+static func reference_text( documents: RefCounted, category: String, value: Variant, empty: String = "" ) -> String
 static func character(value: Variant, characters: Dictionary = {}) -> String
 static func field(value: Variant, hint: Dictionary, documents: RefCounted = null) -> String
-static func summary(code: int, p: Array, name: String, documents: RefCounted = null, characters: Dictionary = {}) -> String
-static func route_summary(code: int, p: Array, name: String, documents: RefCounted = null) -> String
+static func summary( code: int, p: Array, name: String, documents: RefCounted = null, characters: Dictionary = {} ) -> String
+static func route_summary( code: int, p: Array, name: String, documents: RefCounted = null ) -> String
 static func parameter_hints(code: int, p: Array, characters: Dictionary = {}) -> Dictionary
 ```
 
-### EditorAssetPreview.gd
+### Editor_AssetPreview.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorAssetPreview.gd。图片与行走图预览；实例私有材质/裁切，双击和网格选帧信号。
+源文件：templates/editor/addons/rgm_editor/05_Assets/Editor_AssetPreview.gd。图片与行走图预览；实例私有材质/裁切，双击和网格选帧信号。
 
 公开字段：`texture`。
 常量（不含依赖脚本引用）：`HUE_SHADER`、`TITLES`、`PURPOSES`。
@@ -2572,12 +2613,12 @@ static func parameter_hints(code: int, p: Array, characters: Dictionary = {}) ->
 extends Control
 signal activated
 signal frame_selected(direction: int, pattern: int)
-func configure(documents: RefCounted, category: String, asset_name: String, settings: Dictionary = {}, sheet: bool = false, editable: bool = true, caption: String = "") -> void
+func configure( documents: RefCounted, category: String, asset_name: String, settings: Dictionary = {}, sheet: bool = false, editable: bool = true, caption: String = "" ) -> void
 ```
 
-### EditorAssetDialog.gd
+### Editor_AssetDialog.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorAssetDialog.gd。搜索、分页缩略图、大图、方向帧与颜色预览，确认返回独立选择。
+源文件：templates/editor/addons/rgm_editor/05_Assets/Editor_AssetDialog.gd。搜索、分页缩略图、大图、方向帧与颜色预览，确认返回独立选择。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2585,24 +2626,24 @@ func configure(documents: RefCounted, category: String, asset_name: String, sett
 ```gdscript
 extends ConfirmationDialog
 signal accepted(asset_name: String, settings: Dictionary)
-func open(documents: RefCounted, category: String, current: String, settings: Dictionary = {}, caption: String = "") -> void
+func open( documents: RefCounted, category: String, current: String, settings: Dictionary = {}, caption: String = "" ) -> void
 ```
 
-### EditorEventPageForm.gd
+### Editor_EventPageForm.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorEventPageForm.gd。事件页分组直接控件，共用原草稿、引用与路线对话框。
+源文件：templates/editor/addons/rgm_editor/03_Event/Editor_EventPageForm.gd。事件页分组直接控件，共用原草稿、引用与路线对话框。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
 
 ```gdscript
-extends "EditorValueForm.gd"
+extends "../04_Database/Editor_ValueForm.gd"
 # 本类未声明自定义公共方法。
 ```
 
-### EditorTileGraphicDialog.gd
+### Editor_TileGraphicDialog.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorTileGraphicDialog.gd。从当前地图绑定的图块集点选普通图块作为事件外观，取消不修改草稿。
+源文件：templates/editor/addons/rgm_editor/02_Map/Editor_TileGraphicDialog.gd。从当前地图绑定的图块集点选普通图块作为事件外观，取消不修改草稿。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2619,7 +2660,7 @@ func open(documents: RefCounted, tileset: Dictionary, graphic: Dictionary) -> vo
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/runtime/scripts/TilesetLayout.gd。多素材普通图块虚拟布局，保留单纹理兼容；共享素材只读，定位与AtlasTexture不合成图片。
+源文件：templates/runtime/scripts/03_Map/TilesetLayout.gd。多素材普通图块虚拟布局，保留单纹理兼容；共享素材只读，定位与AtlasTexture不合成图片。
 
 ```gdscript
 extends RefCounted
@@ -2629,26 +2670,26 @@ func locate(id: int) -> Dictionary
 func tile_texture(id: int) -> Texture2D
 ```
 
-### EditorTilesetOps.gd
+### Editor_TilesetOps.gd
 
 公开字段：无。
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/editor/addons/rgm_editor/EditorTilesetOps.gd。图块组合编号和原生标记的脱离现场同步计划；验证所有引用地图及事件，失败不修改编辑草稿。
+源文件：templates/editor/addons/rgm_editor/02_Map/Editor_TilesetOps.gd。图块组合编号和原生标记的脱离现场同步计划；验证所有引用地图及事件，失败不修改编辑草稿。
 
 ```gdscript
 extends RefCounted
-static func prepare(documents: RefCounted, id: int, before: Dictionary, value: Dictionary) -> Dictionary
+static func prepare( documents: RefCounted, id: int, before: Dictionary, value: Dictionary ) -> Dictionary
 ```
 
-### EditorTilesetSourcesDialog.gd
+### Editor_TilesetSourcesDialog.gd
 
 公开字段：无。
 
 常量（不含依赖脚本引用）：无。
 
-源文件：templates/editor/addons/rgm_editor/EditorTilesetSourcesDialog.gd。普通图块素材顺序、替换和移除界面，确认以原子草稿事务同步数据库和地图，显式保存才写磁盘。
+源文件：templates/editor/addons/rgm_editor/02_Map/Editor_TilesetSourcesDialog.gd。普通图块素材顺序、替换和移除界面，确认以原子草稿事务同步数据库和地图，显式保存才写磁盘。
 
 ```gdscript
 extends ConfirmationDialog
@@ -2656,22 +2697,22 @@ signal accepted(value: Dictionary)
 func open(documents: RefCounted, value: Dictionary) -> void
 ```
 
-### EditorDatabaseForm.gd
+### Editor_DatabaseForm.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorDatabaseForm.gd。继承Typed ValueForm草稿和素材/表格/集合选择器，主界面用具名控件和用途页签替换字段树；隐藏树只供原有数据定位，不提供重复可见入口。未知扩展独立，原生Troops只读。
+源文件：templates/editor/addons/rgm_editor/04_Database/Editor_DatabaseForm.gd。继承Typed ValueForm草稿和素材/表格/集合选择器，主界面用具名控件和用途页签替换字段树；隐藏树只供原有数据定位，不提供重复可见入口。未知扩展独立，原生Troops只读。
 
 公开字段：无。
 
 常量（不含依赖脚本引用）：`GROUPS`、`WORD_LABELS`、`CUSTOM_LABELS`。
 
 ```gdscript
-extends "EditorValueForm.gd"
+extends "Editor_ValueForm.gd"
 # 本类未声明自定义公共方法。
 ```
 
-### EditorNamesEditor.gd
+### Editor_NamesEditor.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorNamesEditor.gd。开关/变量/属性稳定编号名称表；过滤与分页不改变ID，保护编号0，只允许末尾追加。
+源文件：templates/editor/addons/rgm_editor/04_Database/Editor_NamesEditor.gd。开关/变量/属性稳定编号名称表；过滤与分页不改变ID，保护编号0，只允许末尾追加。
 
 公开字段：无。
 
@@ -2684,9 +2725,9 @@ func configure(names: Array, kind: String, documents: RefCounted = null) -> void
 func draft() -> Array
 ```
 
-### EditorLearningsEditor.gd
+### Editor_LearningsEditor.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorLearningsEditor.gd。职业习得等级和具名特技编辑，保留同级多条、原顺序及额外字段。
+源文件：templates/editor/addons/rgm_editor/04_Database/Editor_LearningsEditor.gd。职业习得等级和具名特技编辑，保留同级多条、原顺序及额外字段。
 
 公开字段：无。
 
@@ -2699,9 +2740,9 @@ signal edit_requested(path: Array)
 func configure(learnings: Array, documents: RefCounted) -> void
 ```
 
-### EditorAnimationEditor.gd
+### Editor_AnimationEditor.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorAnimationEditor.gd。动画帧、单元及音效/闪光时序专用编辑，预览只显示图像，不执行事件或音效；删除有时序的帧被拦截，后续时序随帧删除调整。
+源文件：templates/editor/addons/rgm_editor/04_Database/Editor_AnimationEditor.gd。动画帧、单元及音效/闪光时序专用编辑，预览只显示图像，不执行事件或音效；删除有时序的帧被拦截，后续时序随帧删除调整。
 
 公开字段：无。
 
@@ -2715,9 +2756,9 @@ func configure(value: Dictionary, documents: RefCounted) -> void
 func draft() -> Dictionary
 ```
 
-### EditorAnimationCanvas.gd
+### Editor_AnimationCanvas.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorAnimationCanvas.gd。独立Sprite2D预览原生192px/5列动画图案、位置、缩放、逆向旋转、镜像、透明度和混合；纹理只读，每预览拥有色相材料。
+源文件：templates/editor/addons/rgm_editor/04_Database/Editor_AnimationCanvas.gd。独立Sprite2D预览原生192px/5列动画图案、位置、缩放、逆向旋转、镜像、透明度和混合；纹理只读，每预览拥有色相材料。
 
 公开字段：无。
 
@@ -2728,9 +2769,9 @@ extends Control
 func configure(frame: Dictionary, texture: Texture2D, hue: int, selected: int = -1) -> void
 ```
 
-### EditorAudioPreview.gd
+### Editor_AudioPreview.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorAudioPreview.gd。编辑器独立试听与动画音效。
+源文件：templates/editor/addons/rgm_editor/05_Assets/Editor_AudioPreview.gd。编辑器独立试听与动画音效。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2742,9 +2783,9 @@ func set_parameters(volume: float, pitch: float) -> void
 func stop() -> void
 ```
 
-### EditorAudioBrowser.gd
+### Editor_AudioBrowser.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorAudioBrowser.gd。音频库及实时试听面板。
+源文件：templates/editor/addons/rgm_editor/05_Assets/Editor_AudioBrowser.gd。音频库及实时试听面板。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2756,9 +2797,9 @@ func draft() -> Dictionary
 func stop() -> void
 ```
 
-### EditorAudioDialog.gd
+### Editor_AudioDialog.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorAudioDialog.gd。音频引用和参数选择。
+源文件：templates/editor/addons/rgm_editor/05_Assets/Editor_AudioDialog.gd。音频引用和参数选择。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2769,9 +2810,9 @@ signal accepted(audio: Dictionary)
 func open(documents: RefCounted, category: String, audio: Dictionary) -> void
 ```
 
-### EditorMapLocationPicker.gd
+### Editor_MapLocationPicker.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorMapLocationPicker.gd。实际地图点格位置选择。
+源文件：templates/editor/addons/rgm_editor/02_Map/Editor_MapLocationPicker.gd。实际地图点格位置选择。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2783,21 +2824,21 @@ signal map_browsed(map_id: int)
 func configure(documents: RefCounted, map_id: int, cell: Vector2i) -> void
 ```
 
-### EditorCapacityOps.gd
+### Editor_CapacityOps.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorCapacityOps.gd。编号容量和引用保护的纯草稿计划。
+源文件：templates/editor/addons/rgm_editor/01_Documents/Editor_CapacityOps.gd。编号容量和引用保护的纯草稿计划。
 
 公开字段：无。
 常量（不含依赖脚本引用）：`MAXIMUM`。
 
 ```gdscript
 extends RefCounted
-static func resize(documents: RefCounted, category: String, values: Array, maximum: int) -> Dictionary
+static func resize( documents: RefCounted, category: String, values: Array, maximum: int ) -> Dictionary
 ```
 
-### EditorCommandColors.gd
+### Editor_CommandColors.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorCommandColors.gd。事件与路线的类别色和主题对比。
+源文件：templates/editor/addons/rgm_editor/03_Event/Editor_CommandColors.gd。事件与路线的类别色和主题对比。
 
 公开字段：无。
 常量（不含依赖脚本引用）：`DARK`、`LIGHT`。
@@ -2805,12 +2846,12 @@ static func resize(documents: RefCounted, category: String, values: Array, maxim
 ```gdscript
 extends RefCounted
 static func group(code: int, route: bool = false) -> String
-static func apply(tree: Tree, row: TreeItem, code: int, unsupported: bool = false, route: bool = false) -> void
+static func apply( tree: Tree, row: TreeItem, code: int, unsupported: bool = false, route: bool = false ) -> void
 ```
 
 ### ScriptRuntime.gd
 
-源文件：templates/runtime/scripts/ScriptRuntime.gd。显式或事件执行生成单元；绑定校验、按序惰性库加载和未迁移依赖诊断。
+源文件：templates/runtime/scripts/10_Support/Scripting/ScriptRuntime.gd。显式或事件执行生成单元；绑定校验、按序惰性库加载和未迁移依赖诊断。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2820,22 +2861,25 @@ extends RefCounted
 static func execute_unit(unit_id: String, state: Object) -> Dictionary
 static func prewarm() -> Dictionary
 static func validate_binding(binding: Variant, source: String) -> Dictionary
-static func execute_bound(binding: Variant, source: String, state: Object, context: Dictionary) -> Dictionary
+static func execute_bound( binding: Variant, source: String, state: Object, context: Dictionary ) -> Dictionary
 static func error_text(result: Dictionary) -> String
 static func save_reason(state: Object) -> String
-static func call_method(receiver: Dictionary, method: String, arguments: Array, state: Object) -> Dictionary
-static func call_transaction(state: Object,context: Dictionary,operation: Callable) -> Dictionary
+static func call_method( receiver: Dictionary, method: String, arguments: Array, state: Object ) -> Dictionary
+static func call_transaction(state: Object, context: Dictionary, operation: Callable) -> Dictionary
 static func dispatch_snapshot_exports(result: Dictionary) -> Dictionary
+static func cancel_native(owner: Object) -> void
+static func native_pending_reason(state: Object) -> String
+static func native_owner_pending(owner: Object) -> bool
 static func new_object(class_name_value: String, arguments: Array, state: Object) -> Dictionary
 static func script_data(state: Object) -> Dictionary
 static func validate_saved_data(value: Dictionary) -> String
-static func validate_saved_objects(value: Variant,classes: Dictionary,seen: Array=[]) -> String
-static func evaluate_data_expression(id: String,state: Object) -> Dictionary
+static func validate_saved_objects(value: Variant, classes: Dictionary, seen: Array = []) -> String
+static func evaluate_data_expression(id: String, state: Object) -> Dictionary
 ```
 
 ### ScriptStateBridge.gd
 
-源文件：templates/runtime/scripts/ScriptStateBridge.gd。生成单元的现有状态桥；整段验证后调用RuntimeState业务写入。
+源文件：templates/runtime/scripts/10_Support/Scripting/ScriptStateBridge.gd。生成单元的现有状态桥；整段验证后调用RuntimeState业务写入。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -2874,7 +2918,7 @@ func generate(output_root: String, scripts: Array[Dictionary]) -> Dictionary
 
 ### ScriptSemantics.gd
 
-源文件：templates/runtime/scripts/ScriptSemantics.gd。
+源文件：templates/runtime/scripts/10_Support/Scripting/ScriptSemantics.gd。
 
 公开字段：`state`、`classes`、`methods`、`globals`、`constants`、`failure`、`origin`、`span`、`execution_context`、`definition_loader`、`loaded_units`、`loading_units`。
 常量（不含依赖脚本引用）：无。
@@ -2889,7 +2933,7 @@ static func words(value: String) -> Array
 func stringify(value: Variant, depth: int = 0) -> Variant
 func hash_pairs(pairs: Array) -> Dictionary
 func begin(source_origin: Dictionary) -> bool
-func begin_query(source_origin: Dictionary,plan: Dictionary) -> bool
+func begin_query(source_origin: Dictionary, plan: Dictionary) -> bool
 func finish_query(value: Variant) -> Dictionary
 func finish(value: Variant) -> Dictionary
 func root_receiver() -> Variant
@@ -2897,28 +2941,28 @@ func ensure_definition(name: String, owner: String = "", singleton: bool = false
 func tick(location: Dictionary) -> bool
 func fail(message: String) -> Variant
 func declare_type(name: String, parent: String, kind: String) -> void
-func define_method(owner: String, name: String, singleton: bool, path: String, function: String, source: Dictionary) -> void
+func define_method( owner: String, name: String, singleton: bool, path: String, function: String, source: Dictionary ) -> void
 func alias_method(owner: String, name: String, target: String, singleton: bool = false) -> void
-func copy_module_function(owner: String,name: String) -> void
+func copy_module_function(owner: String, name: String) -> void
 func type_ref(name: String) -> Variant
 func include_module(owner: String, module: Variant, singleton: bool = false) -> void
 func object_ref(name: String) -> Variant
 func read_name(name: String, locals: Dictionary, receiver: Variant, owner: String) -> Variant
-func write_name(name: String, value: Variant, locals: Dictionary, receiver: Variant, owner: String) -> Variant
+func write_name( name: String, value: Variant, locals: Dictionary, receiver: Variant, owner: String ) -> Variant
 func index_get(receiver: Variant, index: Variant) -> Variant
-func indexes_get(receiver: Variant,indexes: Array) -> Variant
+func indexes_get(receiver: Variant, indexes: Array) -> Variant
 func index_set(receiver: Variant, index: Variant, value: Variant) -> Variant
 func unary(operator: String, value: Variant) -> Variant
 func binary(operator: String, left: Variant, right: Variant) -> Variant
 func sequence(first: Variant, last: Variant, exclusive: bool) -> Variant
 func iterable(value: Variant) -> Array
 func invoke(receiver: Variant, name: String, args: Array, owner: String = "Object") -> Variant
-func regex_value(pattern: String,flags: String) -> Variant
-func regex_match(descriptor: Dictionary,value: String) -> Variant
+func regex_value(pattern: String, flags: String) -> Variant
+func regex_match(descriptor: Dictionary, value: String) -> Variant
 func enter_regex_scope() -> Variant
 func leave_regex_scope(previous: Variant) -> void
 func flash_attribute_read(name: Variant) -> Variant
-func flash_attribute_write(name: Variant,value: Variant) -> Variant
+func flash_attribute_write(name: Variant, value: Variant) -> Variant
 func flash_name_value(source: Variant) -> Variant
 func invoke_block(receiver: Variant, name: String, block: Callable) -> Variant
 func copy_value(value: Variant, graph: Array = [], depth: int = 0) -> Variant
@@ -2934,7 +2978,7 @@ func big_integer(value: String) -> Variant
 
 ```gdscript
 extends RefCounted
-func compile(source: String, origin: Dictionary = {}, generated_path: String = "", known_methods: Array = []) -> Dictionary
+func compile( source: String, origin: Dictionary = {}, generated_path: String = "", known_methods: Array = [] ) -> Dictionary
 func compile_ast(ast: Dictionary, generated_path: String, known_methods: Array = []) -> Dictionary
 func method_names(ast: Dictionary) -> Array
 ```
@@ -2987,55 +3031,55 @@ extends RefCounted
 static func key(origin: Dictionary) -> String
 static func bind_list(commands: Array, origin: Dictionary, bindings: Dictionary) -> void
 static func bind_route(route: Dictionary, origin: Dictionary, bindings: Dictionary) -> void
-static func integrate(root: String, maps: Dictionary, common: Dictionary, units: Dictionary, errors: Array[String]) -> int
-static func definitions(body: Array, owner: String = "Object",singleton_scope: bool=false) -> Dictionary
+static func integrate( root: String, maps: Dictionary, common: Dictionary, units: Dictionary, errors: Array[String], policy: Dictionary = {} ) -> int
+static func definitions( body: Array, owner: String = "Object", singleton_scope: bool = false ) -> Dictionary
 ```
 
 ### CustomDataState.gd
 
-源文件：templates/runtime/scripts/CustomDataState.gd。
+源文件：templates/runtime/scripts/00_Game/CustomDataState.gd。
 
 公开字段：`manifest`、`values`、`failure`、`actor_edits`、`script_variables`、`execution_context`、`pending_effects`、`character_edits`、`screen_edits`、`last_screen_request`、`script_switches`、`keyboard_draft`、`scene_request`、`temp_fields`、`preference_data`、`history_request`、`movie_request`、`snapshot_requests`、`party_ids`、`inventory_items`、`live_execution`、`preference_changed`。
 常量（不含依赖脚本引用）：无。
 
 ```gdscript
 extends RefCounted
-func _init(owner: Object=null,initialize: bool=true) -> void
+func _init(owner: Object = null, initialize: bool = true) -> void
 func reset() -> void
-func currency_maximum(key: String="gold") -> Variant
-func currency(key: String="gold") -> Variant
-func valid_currency(value: Variant,key: String="gold") -> bool
-func gain_currency(key: String,amount: Variant) -> Dictionary
+func currency_maximum(key: String = "gold") -> Variant
+func currency(key: String = "gold") -> Variant
+func valid_currency(value: Variant, key: String = "gold") -> bool
+func gain_currency(key: String, amount: Variant) -> Dictionary
 func currency_rows() -> Array
-func fork(copy_values: bool=true) -> RefCounted
+func fork(copy_values: bool = true) -> RefCounted
 func live_view() -> RefCounted
 func install(draft: RefCounted) -> void
 func snapshot() -> Dictionary
 func restore(value: Variant) -> Dictionary
-func record(database: String,id: int) -> Dictionary
+func record(database: String, id: int) -> Dictionary
 func actor_attributes(id: int) -> Dictionary
 func staged_actor(id: int) -> RefCounted
 func gameplay() -> RefCounted
 func map_system() -> RefCounted
-func data_ref(kind: String,id: int=0,database: String="",event: int=0) -> Dictionary
+func data_ref(kind: String, id: int = 0, database: String = "", event: int = 0) -> Dictionary
 func named(name: String) -> Variant
-func index_get(ref: Dictionary,index: Variant) -> Variant
-func invoke(ref: Dictionary,name: String,args: Array) -> Variant
+func index_get(ref: Dictionary, index: Variant) -> Variant
+func invoke(ref: Dictionary, name: String, args: Array) -> Variant
 func floor_tree_map(map_id: int) -> Variant
-func party_call(name: String,args: Array) -> Variant
-func monster_set(name: String,args: Array) -> Variant
-func floor_entry(map_id: int,index: Variant) -> Variant
+func party_call(name: String, args: Array) -> Variant
+func monster_set(name: String, args: Array) -> Variant
+func floor_entry(map_id: int, index: Variant) -> Variant
 func rebuild_floor_indices(map_id: int) -> void
 func reject(message: String) -> Variant
 static func error(message: String) -> Dictionary
 static func native_value(value: Variant) -> Variant
-static func plain_reason(value: Variant,seen: Array=[],depth: int=0) -> String
-static func same_value(a: Variant,b: Variant,seen: Array=[]) -> bool
+static func plain_reason(value: Variant, seen: Array = [], depth: int = 0) -> String
+static func same_value(a: Variant, b: Variant, seen: Array = []) -> bool
 ```
 
 ### DecimalInteger.gd
 
-源文件：templates/runtime/scripts/DecimalInteger.gd。
+源文件：templates/runtime/scripts/10_Support/Utilities/DecimalInteger.gd。
 
 公开字段：无。
 常量（不含依赖脚本引用）：`SAFE`。
@@ -3059,7 +3103,7 @@ static func clamped_add(value: Variant, delta: Variant, maximum: Variant) -> Var
 
 ```gdscript
 extends RefCounted
-func generate(source_root: String, output_root: String, scripts: Array, maps: Dictionary, codec: RefCounted,common: Dictionary={}) -> Dictionary
+func generate( source_root: String, output_root: String, scripts: Array, maps: Dictionary, codec: RefCounted, common: Dictionary = {} ) -> Dictionary
 ```
 
 ### RubyDataValues.gd
@@ -3071,13 +3115,13 @@ func generate(source_root: String, output_root: String, scripts: Array, maps: Di
 
 ```gdscript
 extends RefCounted
-func parse(source: String, origin: Dictionary={}) -> Dictionary
-func expression(n: Dictionary, locals: Dictionary={}) -> Variant
+func parse(source: String, origin: Dictionary = {}) -> Dictionary
+func expression(n: Dictionary, locals: Dictionary = {}) -> Variant
 ```
 
 ### CustomDataTags.gd
 
-源文件：templates/runtime/scripts/CustomDataTags.gd。
+源文件：templates/runtime/scripts/00_Game/CustomDataTags.gd。
 
 公开字段：无。
 常量（不含依赖脚本引用）：无。
@@ -3087,9 +3131,9 @@ extends RefCounted
 static func parse(name: String) -> Array
 ```
 
-### FlashGameplayImporter.gd
+### GameplayImporter.gd
 
-源文件：scripts/importer/FlashGameplayImporter.gd。
+源文件：scripts/importer/GameplayImporter.gd。
 
 公开字段：无。
 
@@ -3097,12 +3141,12 @@ static func parse(name: String) -> Array
 
 ```gdscript
 extends RefCounted
-func generate(output_root: String,scripts: Array) -> Dictionary
+func generate(output_root: String, scripts: Array) -> Dictionary
 ```
 
-### FlashActorFields.gd
+### ActorFields.gd
 
-源文件：templates/runtime/scripts/FlashActorFields.gd。
+源文件：templates/runtime/scripts/00_Game/ActorFields.gd。
 
 公开字段：无。
 
@@ -3115,9 +3159,9 @@ static func integer(value: Variant) -> bool
 static func number(value: Variant) -> bool
 ```
 
-### FlashActorState.gd
+### Game_ActorState.gd
 
-源文件：templates/runtime/scripts/FlashActorState.gd。
+源文件：templates/runtime/scripts/00_Game/Game_ActorState.gd。
 
 公开字段：`project_fields`、`project_rules`。
 
@@ -3125,44 +3169,44 @@ static func number(value: Variant) -> bool
 
 ```gdscript
 extends "ActorState.gd"
-func configure(actor_id: int,definition: Dictionary,lookup: Callable) -> void
+func configure(actor_id: int, definition: Dictionary, lookup: Callable) -> void
 func attach_project_fields(fields: Dictionary) -> void
 func get_parameter(key: String) -> Variant
-func set_project_parameter(key: String,value: Variant) -> Dictionary
+func set_project_parameter(key: String, value: Variant) -> Dictionary
 func get_resist() -> Array
 func set_resist(values: Array) -> Dictionary
-func equip_project(slot: int,record_id: int) -> Dictionary
+func equip_project(slot: int, record_id: int) -> Dictionary
 func next_level_experience() -> Variant
-func equip_project_skill(skill_id: int,turn: int) -> Dictionary
-func cancel_project_skill(skill_id: int,turn: int) -> void
+func equip_project_skill(skill_id: int, turn: int) -> Dictionary
+func cancel_project_skill(skill_id: int, turn: int) -> void
 func project_skill_slot(skill_id: int) -> Array
-func trans_project_skill(skill_id: int,turn: int) -> Dictionary
-func swap_project_skills(first_id: int,second_id: int,first_turn: int,second_turn: int) -> Dictionary
+func trans_project_skill(skill_id: int, turn: int) -> Dictionary
+func swap_project_skills( first_id: int, second_id: int, first_turn: int, second_turn: int ) -> Dictionary
 func set_project_class(value: Variant) -> Dictionary
 func clear_project_skills() -> void
-func save_project_skill_set(index: int,side: String) -> Dictionary
-func load_project_skill_set(index: int,side: String) -> Dictionary
+func save_project_skill_set(index: int, side: String) -> Dictionary
+func load_project_skill_set(index: int, side: String) -> Dictionary
 func set_experience(value: Variant) -> Dictionary
 func add_experience(amount: Variant) -> Dictionary
 func add_level(amount: Variant) -> Dictionary
 func get_parameter_plus(key: String) -> Variant
-func set_parameter_plus(key: String,value: Variant) -> Dictionary
+func set_parameter_plus(key: String, value: Variant) -> Dictionary
 func set_level(value: Variant) -> Dictionary
 func battle_down() -> bool
-func inflict_battle_down(rest_count: int=-1) -> void
+func inflict_battle_down(rest_count: int = -1) -> void
 func recover_battle_down() -> void
 func tick_battle_down_recovery() -> void
-func snapshot(equipment_override: Array=[],level_override: int=-1,bonuses_override: Dictionary={}) -> Dictionary
+func snapshot( equipment_override: Array = [], level_override: int = -1, bonuses_override: Dictionary = {} ) -> Dictionary
 func automatic_state_ids() -> Array
-func add_project_state(state_id: int,force: bool=false) -> Dictionary
+func add_project_state(state_id: int, force: bool = false) -> Dictionary
 func clear_states() -> Dictionary
 func reset_project_all() -> Dictionary
 func recover_all() -> Dictionary
-func set_vital(key: String,value: Variant) -> Dictionary
-func add_vital(key: String,amount: Variant) -> Dictionary
-func change_hp_native(amount: int,allow_death: bool,zero_hp_ids: Array) -> Dictionary
+func set_vital(key: String, value: Variant) -> Dictionary
+func add_vital(key: String, amount: Variant) -> Dictionary
+func change_hp_native(amount: int, allow_death: bool, zero_hp_ids: Array) -> Dictionary
 func project_state_query(name: String) -> Variant
-func get_state_ids(include_equipment: bool=true) -> Array[int]
+func get_state_ids(include_equipment: bool = true) -> Array[int]
 func periodic_damage(attacker: RefCounted) -> int
 func persistent_data() -> Dictionary
 func restore_persistent(saved: Dictionary) -> String
@@ -3170,9 +3214,9 @@ func detached_copy() -> Dictionary
 func commit_event_state(prepared: RefCounted) -> void
 ```
 
-### FlashBattleSimulator.gd
+### BattleSimulator.gd
 
-源文件：templates/runtime/scripts/FlashBattleSimulator.gd。
+源文件：templates/runtime/scripts/01_Battle/BattleSimulator.gd。
 
 公开字段：`registry`、`skills`、`constants`、`failure`、`catalog_failure`。
 
@@ -3182,18 +3226,18 @@ func commit_event_state(prepared: RefCounted) -> void
 extends RefCounted
 func configure(rules: Dictionary) -> void
 func validate() -> String
-func define_skill(id: int,builder: Callable=Callable()) -> Dictionary
-func resolve_enemy_skills(actions: Array,patience: int) -> Dictionary
-func predict(main: Dictionary,support: Dictionary,enemy: Dictionary) -> Dictionary
-func enemy_attributes(main: Dictionary,support: Dictionary,enemy: Dictionary) -> Dictionary
-func skill_spec(id: int,side: String="actor") -> Dictionary
+func define_skill(id: int, builder: Callable = Callable()) -> Dictionary
+func resolve_enemy_skills(actions: Array, patience: int) -> Dictionary
+func predict(main: Dictionary, support: Dictionary, enemy: Dictionary) -> Dictionary
+func enemy_attributes(main: Dictionary, support: Dictionary, enemy: Dictionary) -> Dictionary
+func skill_spec(id: int, side: String = "actor") -> Dictionary
 func legacy_log(result: Dictionary) -> Array
-func build_context(main: Dictionary,support: Dictionary,enemy: Dictionary,result: Dictionary) -> Dictionary
+func build_context( main: Dictionary, support: Dictionary, enemy: Dictionary, result: Dictionary ) -> Dictionary
 ```
 
-### FlashCharacterBridge.gd
+### CharacterBridge.gd
 
-源文件：templates/runtime/scripts/FlashCharacterBridge.gd。
+源文件：templates/runtime/scripts/03_Map/CharacterBridge.gd。
 
 公开字段：无。
 
@@ -3201,14 +3245,14 @@ func build_context(main: Dictionary,support: Dictionary,enemy: Dictionary,result
 
 ```gdscript
 extends RefCounted
-static func invoke(custom: RefCounted,ref: Dictionary,name: String,args: Array) -> Variant
+static func invoke(custom: RefCounted, ref: Dictionary, name: String, args: Array) -> Variant
 static func validate(edits: Array) -> String
 static func commit(edits: Array) -> void
 ```
 
-### FlashGameplay.gd
+### Gameplay.gd
 
-源文件：templates/runtime/scripts/FlashGameplay.gd。
+源文件：templates/runtime/scripts/01_Battle/Gameplay.gd。
 
 公开字段：`rules`、`simulator`、`simulation_count`、`cache_service`。
 
@@ -3216,26 +3260,26 @@ static func commit(edits: Array) -> void
 
 ```gdscript
 extends RefCounted
-func _init(custom: RefCounted,definitions: RefCounted=null) -> void
-func role_ids(initialize_main: bool=false,synchronize: bool=false) -> Array
+func _init(custom: RefCounted, definitions: RefCounted = null) -> void
+func role_ids(initialize_main: bool = false, synchronize: bool = false) -> Array
 func role_actor_ids() -> Array
 func party_snapshot() -> Array
 func party_cache_inputs() -> Array
 func actor_input(actor: RefCounted) -> Dictionary
-func enemy_input(map_id: int,event_id: int) -> Dictionary
-func enemy_fields(map_id: int,event_id: int) -> Dictionary
-func predict(map_id: int,event_id: int,force: bool=false) -> Variant
-func begin_battle(map_id: int,event_id: int) -> Variant
-func finish_battle(map_id: int,event_id: int) -> Variant
-func load_skill_set(actor: RefCounted,index: int,side: String) -> Variant
-func apply_actor_preset(actor_id: int,index: int=0) -> Variant
-func enemy_call(ref: Dictionary,name: String,args: Array) -> Variant
-func invoke(ref: Dictionary,name: String,args: Array) -> Variant
+func enemy_input(map_id: int, event_id: int) -> Dictionary
+func enemy_fields(map_id: int, event_id: int) -> Dictionary
+func predict(map_id: int, event_id: int, force: bool = false) -> Variant
+func begin_battle(map_id: int, event_id: int) -> Variant
+func finish_battle(map_id: int, event_id: int) -> Variant
+func load_skill_set(actor: RefCounted, index: int, side: String) -> Variant
+func apply_actor_preset(actor_id: int, index: int = 0) -> Variant
+func enemy_call(ref: Dictionary, name: String, args: Array) -> Variant
+func invoke(ref: Dictionary, name: String, args: Array) -> Variant
 ```
 
 ### RubyRegexValues.gd
 
-源文件：templates/runtime/scripts/RubyRegexValues.gd。
+源文件：templates/runtime/scripts/10_Support/Scripting/RubyRegexValues.gd。
 
 公开字段：无。
 
@@ -3243,14 +3287,14 @@ func invoke(ref: Dictionary,name: String,args: Array) -> Variant
 
 ```gdscript
 extends RefCounted
-static func compile(pattern: String,flags: String) -> Dictionary
-static func match_value(descriptor: Dictionary,value: String) -> Dictionary
-static func split(descriptor: Dictionary,value: String,limit: int=0) -> Dictionary
+static func compile(pattern: String, flags: String) -> Dictionary
+static func match_value(descriptor: Dictionary, value: String) -> Dictionary
+static func split(descriptor: Dictionary, value: String, limit: int = 0) -> Dictionary
 ```
 
-### FlashSourceCorrections.gd
+### SourceCorrections.gd
 
-源文件：scripts/importer/FlashSourceCorrections.gd。
+源文件：scripts/importer/SourceCorrections.gd。
 
 公开字段：无。
 
@@ -3258,14 +3302,14 @@ static func split(descriptor: Dictionary,value: String,limit: int=0) -> Dictiona
 
 ```gdscript
 extends RefCounted
-static func adapt(source: String,origin: Dictionary) -> Dictionary
-static func native_adaptations(source: String,origin: Dictionary) -> Array
-static func adapt_commands(commands: Array,origin: Dictionary) -> Array
+static func adapt(source: String, origin: Dictionary) -> Dictionary
+static func native_adaptations(source: String, origin: Dictionary) -> Array
+static func adapt_commands(commands: Array, origin: Dictionary) -> Array
 ```
 
-### FlashActions.gd
+### Actions.gd
 
-源文件：templates/runtime/scripts/FlashActions.gd。
+源文件：templates/runtime/scripts/01_Battle/Actions.gd。
 
 公开字段：无。
 
@@ -3273,27 +3317,27 @@ static func adapt_commands(commands: Array,origin: Dictionary) -> Array
 
 ```gdscript
 extends RefCounted
-static func exchange_crystal(state: Object,id: int,index: int,crystal_id: int) -> Dictionary
-static func equip(state: Object,actor_id: int,slot: int,equipment_id: int) -> Dictionary
-static func equip_skill(state: Object,actor_id: int,skill_id: int,turn: int) -> Dictionary
-static func cancel_skill(state: Object,actor_id: int,skill_id: int,turn: int) -> Dictionary
-static func set_roles(state: Object,main_id: int,support_id: int) -> Dictionary
-static func use_item(state: Object,item_id: int) -> Dictionary
+static func exchange_crystal(state: Object, id: int, index: int, crystal_id: int) -> Dictionary
+static func equip(state: Object, actor_id: int, slot: int, equipment_id: int) -> Dictionary
+static func equip_skill(state: Object, actor_id: int, skill_id: int, turn: int) -> Dictionary
+static func cancel_skill(state: Object, actor_id: int, skill_id: int, turn: int) -> Dictionary
+static func set_roles(state: Object, main_id: int, support_id: int) -> Dictionary
+static func use_item(state: Object, item_id: int) -> Dictionary
 static func after_step(state: Object) -> Dictionary
-static func recover_item(state: Object,item_id: int,actor_id: int) -> Dictionary
-static func request_tool(state: Object,item_id: int) -> Dictionary
-static func save_skill_set(state: Object,actor_id: int,index: int,side: String) -> Dictionary
-static func load_skill_set(state: Object,actor_id: int,index: int,side: String) -> Dictionary
+static func recover_item(state: Object, item_id: int, actor_id: int) -> Dictionary
+static func request_tool(state: Object, item_id: int) -> Dictionary
+static func save_skill_set(state: Object, actor_id: int, index: int, side: String) -> Dictionary
+static func load_skill_set(state: Object, actor_id: int, index: int, side: String) -> Dictionary
 static func switch_roles(state: Object) -> Dictionary
-static func choose_floor(state: Object,floor_number: Variant) -> Dictionary
+static func choose_floor(state: Object, floor_number: Variant) -> Dictionary
 static func cancel_floor(state: Object) -> Dictionary
-static func choose_character(state: Object,actor_id: Variant) -> Dictionary
+static func choose_character(state: Object, actor_id: Variant) -> Dictionary
 static func cancel_character(state: Object) -> Dictionary
 ```
 
-### FlashBlastic.gd
+### Blastic.gd
 
-源文件：templates/runtime/scripts/FlashBlastic.gd。
+源文件：templates/runtime/scripts/01_Battle/Blastic.gd。
 
 公开字段：无。
 
@@ -3301,16 +3345,16 @@ static func cancel_character(state: Object) -> Dictionary
 
 ```gdscript
 extends RefCounted
-static func record(custom: RefCounted,id: int) -> Dictionary
-static func invoke(custom: RefCounted,id: int,name: String,args: Array) -> Variant
-static func exchange(custom: RefCounted,id: int,index: int,crystal_id: int) -> Dictionary
-static func echoes(custom: RefCounted,elements: Array,preview: bool=false) -> Array
-static func validate(custom: RefCounted,values: Dictionary) -> String
+static func record(custom: RefCounted, id: int) -> Dictionary
+static func invoke(custom: RefCounted, id: int, name: String, args: Array) -> Variant
+static func exchange(custom: RefCounted, id: int, index: int, crystal_id: int) -> Dictionary
+static func echoes(custom: RefCounted, elements: Array, preview: bool = false) -> Array
+static func validate(custom: RefCounted, values: Dictionary) -> String
 ```
 
-### FlashMapBridge.gd
+### MapBridge.gd
 
-源文件：templates/runtime/scripts/FlashMapBridge.gd。
+源文件：templates/runtime/scripts/03_Map/MapBridge.gd。
 
 公开字段：无。
 
@@ -3318,21 +3362,21 @@ static func validate(custom: RefCounted,values: Dictionary) -> String
 
 ```gdscript
 extends RefCounted
-static func invoke(custom: RefCounted,ref: Dictionary,name: String,args: Array) -> Variant
-static func event_name(custom: RefCounted,map_id: int,event_id: int) -> String
-static func is_dead(custom: RefCounted,map_id: int,event_id: int) -> bool
-static func set_event_name(custom: RefCounted,map_id: int,event_id: int,value: String) -> void
+static func invoke(custom: RefCounted, ref: Dictionary, name: String, args: Array) -> Variant
+static func event_name(custom: RefCounted, map_id: int, event_id: int) -> String
+static func is_dead(custom: RefCounted, map_id: int, event_id: int) -> bool
+static func set_event_name(custom: RefCounted, map_id: int, event_id: int, value: String) -> void
 static func current_map(custom: RefCounted) -> Node
-static func read_tile(custom: RefCounted,map: Node,x: int,y: int,layer: int) -> Variant
-static func write_tile(custom: RefCounted,map: Node,x: int,y: int,layer: int,value: int) -> void
-static func check_event(custom: RefCounted,map: Node,x: int,y: int) -> int
-static func passable_zero(custom: RefCounted,map: Node,x: int,y: int) -> bool
+static func read_tile(custom: RefCounted, map: Node, x: int, y: int, layer: int) -> Variant
+static func write_tile( custom: RefCounted, map: Node, x: int, y: int, layer: int, value: int ) -> void
+static func check_event(custom: RefCounted, map: Node, x: int, y: int) -> int
+static func passable_zero(custom: RefCounted, map: Node, x: int, y: int) -> bool
 static func validate_saved_tiles(changes: Variant) -> String
 ```
 
-### FlashObjectCatalog.gd
+### ObjectCatalog.gd
 
-源文件：templates/runtime/scripts/FlashObjectCatalog.gd。
+源文件：templates/runtime/scripts/00_Game/ObjectCatalog.gd。
 
 公开字段：无。
 
@@ -3340,18 +3384,18 @@ static func validate_saved_tiles(changes: Variant) -> String
 
 ```gdscript
 extends RefCounted
-static func construct(custom: RefCounted,type_name: String,args: Array) -> Variant
-static func object_ref(custom: RefCounted,database: String,id: int) -> Variant
+static func construct(custom: RefCounted, type_name: String, args: Array) -> Variant
+static func object_ref(custom: RefCounted, database: String, id: int) -> Variant
 static func class_name_for(database: String) -> String
-static func is_a(database: String,type_name: String) -> bool
-static func equipment_ref(custom: RefCounted,kind: Variant,id: Variant) -> Variant
-static func value(custom: RefCounted,database: String,id: int,field: String,fields: Dictionary={}) -> Variant
+static func is_a(database: String, type_name: String) -> bool
+static func equipment_ref(custom: RefCounted, kind: Variant, id: Variant) -> Variant
+static func value( custom: RefCounted, database: String, id: int, field: String, fields: Dictionary = {} ) -> Variant
 static func validate_saved(value: Variant) -> String
 ```
 
-### FlashValueExtensions.gd
+### ValueExtensions.gd
 
-源文件：templates/runtime/scripts/FlashValueExtensions.gd。
+源文件：templates/runtime/scripts/10_Support/Scripting/ValueExtensions.gd。
 
 公开字段：无。
 
@@ -3359,13 +3403,13 @@ static func validate_saved(value: Variant) -> String
 
 ```gdscript
 extends RefCounted
-static func vector(left: Array,right: Variant,operation: String) -> Dictionary
-static func bwise(values: Array,code: String) -> Dictionary
+static func vector(left: Array, right: Variant, operation: String) -> Dictionary
+static func bwise(values: Array, code: String) -> Dictionary
 ```
 
-### FlashEnemyAbilities.gd
+### EnemyAbilities.gd
 
-源文件：templates/runtime/scripts/FlashEnemyAbilities.gd。
+源文件：templates/runtime/scripts/01_Battle/EnemyAbilities.gd。
 
 公开字段：无。
 
@@ -3373,13 +3417,13 @@ static func bwise(values: Array,code: String) -> Dictionary
 
 ```gdscript
 extends RefCounted
-static func map_parameters(actions: Array,constants: Dictionary) -> Dictionary
+static func map_parameters(actions: Array, constants: Dictionary) -> Dictionary
 static func elements(definition: Dictionary) -> Array
 ```
 
-### FlashItemEffects.gd
+### ItemEffects.gd
 
-源文件：templates/runtime/scripts/FlashItemEffects.gd。
+源文件：templates/runtime/scripts/01_Battle/ItemEffects.gd。
 
 公开字段：无。
 
@@ -3387,12 +3431,12 @@ static func elements(definition: Dictionary) -> Array
 
 ```gdscript
 extends RefCounted
-static func invoke(custom: RefCounted,name: String,args: Array) -> Variant
+static func invoke(custom: RefCounted, name: String, args: Array) -> Variant
 ```
 
-### FlashMapDamage.gd
+### MapDamage.gd
 
-源文件：templates/runtime/scripts/FlashMapDamage.gd。
+源文件：templates/runtime/scripts/03_Map/MapDamage.gd。
 
 公开字段：无。
 
@@ -3400,12 +3444,12 @@ static func invoke(custom: RefCounted,name: String,args: Array) -> Variant
 
 ```gdscript
 extends RefCounted
-static func invoke(custom: RefCounted,name: String) -> Variant
+static func invoke(custom: RefCounted, name: String) -> Variant
 ```
 
-### FlashBattleCache.gd
+### BattleCache.gd
 
-源文件：templates/runtime/scripts/FlashBattleCache.gd。
+源文件：templates/runtime/scripts/01_Battle/BattleCache.gd。
 
 公开字段：`conditions`、`revision`。
 
@@ -3413,16 +3457,16 @@ static func invoke(custom: RefCounted,name: String) -> Variant
 
 ```gdscript
 extends RefCounted
-func register_condition(name: String,provider: Callable) -> Dictionary
+func register_condition(name: String, provider: Callable) -> Dictionary
 static func unregister_condition(name: String) -> void
 static func clear_conditions() -> void
-func tag_for(key: String,party: Array,enemy: Dictionary,skills: Dictionary,skill_revision: int) -> Dictionary
+func tag_for( key: String, party: Array, enemy: Dictionary, skills: Dictionary, skill_revision: int ) -> Dictionary
 func with_party_snapshot(action: Callable) -> Variant
 ```
 
-### FlashBattleCatalog.gd
+### BattleCatalog.gd
 
-源文件：templates/runtime/scripts/FlashBattleCatalog.gd。
+源文件：templates/runtime/scripts/01_Battle/BattleCatalog.gd。
 
 公开字段：无。
 
@@ -3430,12 +3474,12 @@ func with_party_snapshot(action: Callable) -> Variant
 
 ```gdscript
 extends RefCounted
-static func install_catalog(registry: RefCounted,catalog: Dictionary) -> Dictionary
+static func install_catalog(registry: RefCounted, catalog: Dictionary) -> Dictionary
 ```
 
-### FlashBattleRegistry.gd
+### BattleRegistry.gd
 
-源文件：templates/runtime/scripts/FlashBattleRegistry.gd。
+源文件：templates/runtime/scripts/01_Battle/BattleRegistry.gd。
 
 公开字段：`definitions`、`revision`。
 
@@ -3445,7 +3489,7 @@ static func install_catalog(registry: RefCounted,catalog: Dictionary) -> Diction
 extends RefCounted
 func is_configured() -> bool
 func configure(catalog: Dictionary) -> void
-func define_skill(id: int,builder: Callable=Callable()) -> Dictionary
+func define_skill(id: int, builder: Callable = Callable()) -> Dictionary
 func fetch(id: int) -> Variant
 func includes(id: int) -> bool
 func action_skill(id: int) -> bool
@@ -3455,9 +3499,9 @@ func rage_skill(id: int) -> bool
 func database_fields(id: int) -> Dictionary
 ```
 
-### FlashBattlerRules.gd
+### BattlerRules.gd
 
-源文件：templates/runtime/scripts/FlashBattlerRules.gd。
+源文件：templates/runtime/scripts/01_Battle/BattlerRules.gd。
 
 公开字段：无。
 
@@ -3465,15 +3509,15 @@ func database_fields(id: int) -> Dictionary
 
 ```gdscript
 extends RefCounted
-static func parameter(base: Variant,plus: Variant,key: String,states: Array,record: Callable) -> int
-static func resist(base: Array,plus: Array,states: Array,record: Callable) -> Array
-static func change(current: Dictionary,ids: Array,adding: bool,force: bool,parameter_getter: Callable,record: Callable) -> Dictionary
-static func query(states: Array,name: String,record: Callable) -> Variant
+static func parameter( base: Variant, plus: Variant, key: String, states: Array, record: Callable ) -> int
+static func resist(base: Array, plus: Array, states: Array, record: Callable) -> Array
+static func change( current: Dictionary, ids: Array, adding: bool, force: bool, parameter_getter: Callable, record: Callable ) -> Dictionary
+static func query(states: Array, name: String, record: Callable) -> Variant
 ```
 
-### FlashBattleSkillDefinition.gd
+### BattleSkillDefinition.gd
 
-源文件：templates/runtime/scripts/FlashBattleSkillDefinition.gd。
+源文件：templates/runtime/scripts/01_Battle/BattleSkillDefinition.gd。
 
 公开字段：`value`、`failure`。
 
@@ -3482,11 +3526,11 @@ static func query(states: Array,name: String,record: Callable) -> Variant
 ```gdscript
 extends RefCounted
 func _init(id: int) -> void
-func display(name: String,description: Variant=null) -> RefCounted
-func action(target: String,atk_rate: float,hit_count: int=1,stiffness: int=20) -> RefCounted
-func follow_up_damage(rate: float=0.0) -> RefCounted
-func follow_up_counter(threshold: int,atk_rate: float) -> RefCounted
-func follow_up_attack_count(threshold: int,atk_rate: float) -> RefCounted
+func display(name: String, description: Variant = null) -> RefCounted
+func action(target: String, atk_rate: float, hit_count: int = 1, stiffness: int = 20) -> RefCounted
+func follow_up_damage(rate: float = 0.0) -> RefCounted
+func follow_up_counter(threshold: int, atk_rate: float) -> RefCounted
+func follow_up_attack_count(threshold: int, atk_rate: float) -> RefCounted
 func passive_enemy_defense_rate(rate: float) -> RefCounted
 func passive_attack_rate(rate: float) -> RefCounted
 func extra_attack(count: int) -> RefCounted
@@ -3494,9 +3538,9 @@ func rage(builder: Callable) -> RefCounted
 func to_dictionary() -> Dictionary
 ```
 
-### FlashBattleStateContainer.gd
+### BattleStateContainer.gd
 
-源文件：templates/runtime/scripts/FlashBattleStateContainer.gd。
+源文件：templates/runtime/scripts/01_Battle/BattleStateContainer.gd。
 
 公开字段：`statuses`。
 
@@ -3504,7 +3548,7 @@ func to_dictionary() -> Dictionary
 
 ```gdscript
 extends RefCounted
-static func create_status(name: String,category: String,duration: Variant,effects: Dictionary={}) -> Dictionary
+static func create_status( name: String, category: String, duration: Variant, effects: Dictionary = {} ) -> Dictionary
 func add(status: Dictionary) -> void
 func stat_rate(key: String) -> float
 func stat_plus(key: String) -> float
@@ -3512,9 +3556,9 @@ func resolve_action_end(owner: Dictionary) -> Array
 func tick_action_window() -> void
 ```
 
-### FlashEnemyState.gd
+### EnemyState.gd
 
-源文件：templates/runtime/scripts/FlashEnemyState.gd。
+源文件：templates/runtime/scripts/00_Game/EnemyState.gd。
 
 公开字段：`custom`、`entry`、`definition`、`attributes`、`battle`、`map_id`、`event_id`。
 
@@ -3522,20 +3566,20 @@ func tick_action_window() -> void
 
 ```gdscript
 extends RefCounted
-func _init(owner: RefCounted,floor_entry: Dictionary,fields: Dictionary,map: int,event: int) -> void
+func _init( owner: RefCounted, floor_entry: Dictionary, fields: Dictionary, map: int, event: int ) -> void
 static func handles(name: String) -> bool
 func base_parameter(key: String) -> Variant
-func get_parameter(key: String,states: Array=[]) -> int
+func get_parameter(key: String, states: Array = []) -> int
 func get_resist() -> Array
 func clamp_battle() -> void
 func input() -> Dictionary
-func invoke(name: String,args: Array) -> Variant
-static func validate(entry: Dictionary,lookup: Callable) -> String
+func invoke(name: String, args: Array) -> Variant
+static func validate(entry: Dictionary, lookup: Callable) -> String
 ```
 
-### FlashUtils.gd
+### Utils.gd
 
-源文件：templates/runtime/scripts/FlashUtils.gd。
+源文件：templates/runtime/scripts/10_Support/Utilities/Utils.gd。
 
 公开字段：无。
 
@@ -3543,21 +3587,21 @@ static func validate(entry: Dictionary,lookup: Callable) -> String
 
 ```gdscript
 extends RefCounted
-static func invoke(custom: RefCounted,name: String,args: Array) -> Variant
-static func adapt_text(width: int,font_size: int,value: String,rich: bool=false) -> Array
-static func get_pic(type: String,name: String,ext: String=".png") -> RefCounted
-static func update_mask(mask_name: String,source: RefCounted,x: int,y: int) -> Dictionary
-static func sprite_unravel(state: Object,sprite: Sprite2D,args: Array=[],initialize: Callable=Callable()) -> Dictionary
-static func integer_text(value: String,base: int) -> Dictionary
+static func invoke(custom: RefCounted, name: String, args: Array) -> Variant
+static func adapt_text(width: int, font_size: int, value: String, rich: bool = false) -> Array
+static func get_pic(type: String, name: String, ext: String = ".png") -> RefCounted
+static func update_mask(mask_name: String, source: RefCounted, x: int, y: int) -> Dictionary
+static func sprite_unravel( state: Object, sprite: Sprite2D, args: Array = [], initialize: Callable = Callable() ) -> Dictionary
+static func integer_text(value: String, base: int) -> Dictionary
 ```
 
 2026-10-13：0.45普通战斗技能可编辑源码为生成工程runtime/generated/flash_skill_catalog.gd；Registry/Cache注册跨普通事务保留，RuntimeData提供脱离原数据的Skills内存视图。新注册角色与读档Flash角色的数据库lookup重绑RuntimeState.custom_record，不能保留临时草稿Callable。公开use_item、Flash装备、角色/楼层选择与商店业务接入原玩法事务；native工程行为保持。文档按161个生产脚本/1020个公开方法检查。
 
 编码专项/正式迁移测试可用临时ProjectSettings设置rgmigrator/codec_temp_directory，将CP解码表留在工作区.godot/codec；普通迁移仍使用原用户数据目录。
 
-### FlashFloor.gd
+### Floor.gd
 
-源文件：templates/runtime/scripts/FlashFloor.gd。
+源文件：templates/runtime/scripts/03_Map/Floor.gd。
 
 公开字段：`region`、`floor_number`、`map_id`、`links`。
 
@@ -3565,15 +3609,15 @@ static func integer_text(value: String,base: int) -> Dictionary
 
 ```gdscript
 extends RefCounted
-func _init(custom: RefCounted,area: int,floor_id: int) -> void
+func _init(custom: RefCounted, area: int, floor_id: int) -> void
 func load_links() -> void
 func signature() -> Array
 func transloc() -> Variant
 ```
 
-### FlashMapBlock.gd
+### MapBlock.gd
 
-源文件：templates/runtime/scripts/FlashMapBlock.gd。
+源文件：templates/runtime/scripts/08_Menu/MapSystem/MapBlock.gd。
 
 公开字段：`id`、`x`、`y`、`width`、`height`、`tile_width`、`tile_height`、`area`。
 
@@ -3581,19 +3625,19 @@ func transloc() -> Variant
 
 ```gdscript
 extends RefCounted
-func _init(map_id: int,tiles_x: int=20,tiles_y: int=15,region: int=0) -> void
+func _init(map_id: int, tiles_x: int = 20, tiles_y: int = 15, region: int = 0) -> void
 func bind(system: RefCounted) -> void
 func record() -> Dictionary
 func position() -> Array
 func set_position(pos: Array) -> void
-func cell_at(px: int,py: int) -> Array
+func cell_at(px: int, py: int) -> Array
 func center() -> Array
-func distance_key(px: float,py: float) -> Array
+func distance_key(px: float, py: float) -> Array
 ```
 
-### FlashMapConfig.gd
+### MapConfig.gd
 
-源文件：templates/runtime/scripts/FlashMapConfig.gd。
+源文件：templates/runtime/scripts/08_Menu/MapSystem/MapConfig.gd。
 
 公开字段：`AREAS`、`MAPS`、`DIRECTIONS`。
 
@@ -3606,13 +3650,13 @@ static func map_name(id: int) -> String
 static func area_for(id: int) -> int
 static func area_name(id: int) -> String
 static func area_color(id: int) -> Color
-static func cell_count(size: int,step: int) -> int
-static func departure_override(a: int,b: int) -> Variant
+static func cell_count(size: int, step: int) -> int
+static func departure_override(a: int, b: int) -> Variant
 ```
 
-### FlashMapCursor.gd
+### MapCursor.gd
 
-源文件：templates/runtime/scripts/FlashMapCursor.gd。
+源文件：templates/runtime/scripts/08_Menu/MapSystem/MapCursor.gd。
 
 公开字段：`system`、`x`、`y`、`area`、`selected`、`locked`、`idle`。
 
@@ -3620,16 +3664,16 @@ static func departure_override(a: int,b: int) -> Variant
 
 ```gdscript
 extends RefCounted
-func _init(owner: RefCounted,value: RefCounted) -> void
+func _init(owner: RefCounted, value: RefCounted) -> void
 func select(value: RefCounted) -> void
 func rect() -> Rect2
-func update(dx: int,dy: int) -> String
+func update(dx: int, dy: int) -> String
 func change_area(step: int) -> void
 ```
 
-### FlashMapPreview.gd
+### MapPreview.gd
 
-源文件：templates/runtime/scripts/FlashMapPreview.gd。
+源文件：templates/runtime/scripts/08_Menu/MapSystem/MapPreview.gd。
 
 公开字段：`images`、`order`、`id`、`frame`、`texture`、`error`、`source_kind`。
 
@@ -3639,16 +3683,16 @@ func change_area(step: int) -> void
 extends RefCounted
 func show_map(map_id: int) -> void
 func advance() -> Vector2
-static func offset(tick: int,max_x: float,max_y: float) -> Vector2
-static func ping_pong(tick: int,distance: float) -> float
+static func offset(tick: int, max_x: float, max_y: float) -> Vector2
+static func ping_pong(tick: int, distance: float) -> float
 static func render(map_id: int) -> Dictionary
-static func table_value(table: Dictionary,x: int,y: int,z: int) -> int
-static func tile_image(id: int,layout: RefCounted,tileset: Dictionary) -> Image
+static func table_value(table: Dictionary, x: int, y: int, z: int) -> int
+static func tile_image(id: int, layout: RefCounted, tileset: Dictionary) -> Image
 ```
 
-### FlashMapScreen.gd
+### MapScreen.gd
 
-源文件：templates/runtime/scripts/FlashMapScreen.gd。
+源文件：templates/runtime/scripts/08_Menu/MapSystem/MapScreen.gd。
 
 公开字段：`page`、`world`、`cursor`、`preview`、`camera`、`preview_offset`、`ticks`、`canvas`。
 
@@ -3661,13 +3705,13 @@ func center_camera() -> void
 func follow_cursor() -> bool
 func refresh() -> void
 func handle_key(key: int) -> void
-func point(x: float,y: float) -> Vector2
+func point(x: float, y: float) -> Vector2
 func draw_world(target: Control) -> void
 ```
 
-### FlashMapSystem.gd
+### MapSystem.gd
 
-源文件：templates/runtime/scripts/FlashMapSystem.gd。
+源文件：templates/runtime/scripts/08_Menu/MapSystem/MapSystem.gd。
 
 公开字段：无。
 
@@ -3688,24 +3732,24 @@ func areas() -> Dictionary
 func area_unlock(id: int) -> bool
 func maps_in_area(id: int) -> Array
 func discover_current() -> RefCounted
-func discover_map(id: int,tiles_x: int,tiles_y: int,pos: Variant=null) -> RefCounted
+func discover_map(id: int, tiles_x: int, tiles_y: int, pos: Variant = null) -> RefCounted
 func free_position(area: int) -> Array
-func occupied(value: RefCounted,pos: Array) -> bool
+func occupied(value: RefCounted, pos: Array) -> bool
 func capture_location() -> Dictionary
-func departure_side(from: Dictionary,to: Dictionary) -> int
-func adjacent_position(source: RefCounted,target: RefCounted,from: Dictionary,to: Dictionary,side: int) -> Variant
-func record_transfer(from: Dictionary,to: Dictionary) -> RefCounted
-func connected(a: int,b: int) -> bool
-func nearest_map(area: int,px: float,py: float) -> RefCounted
+func departure_side(from: Dictionary, to: Dictionary) -> int
+func adjacent_position( source: RefCounted, target: RefCounted, from: Dictionary, to: Dictionary, side: int ) -> Variant
+func record_transfer(from: Dictionary, to: Dictionary) -> RefCounted
+func connected(a: int, b: int) -> bool
+func nearest_map(area: int, px: float, py: float) -> RefCounted
 func bridge(link: Dictionary) -> Variant
 func links_for(id: int) -> Array
-func invoke(ref: Dictionary,name: String,args: Array) -> Variant
+func invoke(ref: Dictionary, name: String, args: Array) -> Variant
 static func validate(value: Variant) -> String
 ```
 
-### FlashRegion.gd
+### Region.gd
 
-源文件：templates/runtime/scripts/FlashRegion.gd。
+源文件：templates/runtime/scripts/03_Map/Region.gd。
 
 公开字段：`region`、`floors`。
 
@@ -3713,15 +3757,15 @@ static func validate(value: Variant) -> String
 
 ```gdscript
 extends RefCounted
-func _init(custom: RefCounted,area: Variant) -> void
+func _init(custom: RefCounted, area: Variant) -> void
 func load_floors() -> void
 func generate_structure() -> void
 func set_region(area: Variant) -> void
 ```
 
-### FlashTilemap.gd
+### Tilemap.gd
 
-源文件：templates/runtime/scripts/FlashTilemap.gd。
+源文件：templates/runtime/scripts/03_Map/Tilemap.gd。
 
 公开字段：无。
 
@@ -3732,28 +3776,30 @@ extends RefCounted
 static func parts(variant: int) -> Array
 ```
 
-### FlashBlasticPage.gd
+### BlasticPage.gd
 
-源文件：templates/runtime/scripts/FlashBlasticPage.gd。
+源文件：templates/runtime/scripts/08_Menu/Orbment/BlasticPage.gd。
 
-公开字段：`page`、`blastic_id`、`slot`、`choosing`、`candidates`、`candidate_index`、`notice`、`value`、`preview_elements`、`preview_rows`、`crystal_description`、`echo_rows`。
+公开字段：`page`、`blastic_id`、`slot`、`choosing`、`candidates`、`candidate_index`、`notice`、`value`、`preview_elements`、`preview_rows`、`crystal_description`、`echo_rows`、`echo_index`。
 
 常量（不含依赖脚本引用）：`CRYSTAL_NAME`。
 
 ```gdscript
 extends Control
 signal back_requested
+signal sound_requested(key: String)
 func refresh() -> void
 func commit_choice() -> Dictionary
 func handle_key(key: int) -> void
 func candidate_allowed(id: int) -> bool
+func set_menu_progress(value: int) -> void
 ```
 
-### FlashConfigPage.gd
+### ConfigPage.gd
 
-源文件：templates/runtime/scripts/FlashConfigPage.gd。
+源文件：templates/runtime/scripts/05_Title/ConfigPage.gd。
 
-公开字段：`page`、`sheet`、`index`。
+公开字段：`page`、`sheet`、`index`、`entrance`。
 
 常量（不含依赖脚本引用）：无。
 
@@ -3761,13 +3807,14 @@ func candidate_allowed(id: int) -> bool
 extends Control
 signal back_requested
 func refresh() -> void
+func set_title_progress(value: int) -> void
 func adjust(direction: int) -> void
 func handle_key(key: int) -> void
 ```
 
-### FlashItemPage.gd
+### ItemPage.gd
 
-源文件：templates/runtime/scripts/FlashItemPage.gd。
+源文件：templates/runtime/scripts/08_Menu/Item/ItemPage.gd。
 
 公开字段：`page`、`stage`、`categories`、`category_index`、`item_ids`、`index`、`target_index`、`slot`、`active_item`、`notice`。
 
@@ -3776,17 +3823,19 @@ func handle_key(key: int) -> void
 ```gdscript
 extends Control
 signal back_requested
+signal sound_requested(key: String)
 signal common_event_requested
 func selected_id() -> int
 func refresh() -> void
 func activate() -> void
 func assign_preset() -> void
 func handle_key(key: int) -> void
+func set_menu_progress(value: int) -> void
 ```
 
-### FlashItemPresets.gd
+### ItemPresets.gd
 
-源文件：templates/runtime/scripts/FlashItemPresets.gd。
+源文件：templates/runtime/scripts/08_Menu/Item/ItemPresets.gd。
 
 公开字段：无。
 
@@ -3797,27 +3846,27 @@ extends RefCounted
 static func variable_id(state: Object) -> int
 static func slots(state: Object) -> Array
 static func normalize(state: Object) -> Dictionary
-static func set_slot(state: Object,slot: int,item_id: int) -> Dictionary
-static func native_item(id: int,state: Object) -> Dictionary
+static func set_slot(state: Object, slot: int, item_id: int) -> Dictionary
+static func native_item(id: int, state: Object) -> Dictionary
 static func category(item: Dictionary) -> String
 ```
 
-### FlashMapHUD.gd
+### MapHUD.gd
 
-源文件：templates/runtime/scripts/FlashMapHUD.gd。
+源文件：templates/runtime/scripts/03_Map/MapHUD.gd。
 
 公开字段：无。
 
 常量（不含依赖脚本引用）：无。
 
 ```gdscript
-extends "res://runtime/scripts/FlashPlayerHUD.gd"
+extends "res://runtime/scripts/03_Map/PlayerHUD.gd"
 # 本类未声明自定义公共方法。
 ```
 
-### FlashMapShortcuts.gd
+### MapShortcuts.gd
 
-源文件：templates/runtime/scripts/FlashMapShortcuts.gd。
+源文件：templates/runtime/scripts/03_Map/MapShortcuts.gd。
 
 公开字段：无。
 
@@ -3825,18 +3874,18 @@ extends "res://runtime/scripts/FlashPlayerHUD.gd"
 
 ```gdscript
 extends RefCounted
-static func use_slot(state: Object,slot: int) -> Dictionary
-static func load_group(state: Object,slot: int,side: String) -> Dictionary
-static func switch_roles(state: Object,key: int) -> Dictionary
+static func use_slot(state: Object, slot: int) -> Dictionary
+static func load_group(state: Object, slot: int, side: String) -> Dictionary
+static func switch_roles(state: Object, key: int) -> Dictionary
 ```
 
-### FlashMenuScreen.gd
+### MenuScreen.gd
 
-源文件：templates/runtime/scripts/FlashMenuScreen.gd。
+源文件：templates/runtime/scripts/08_Menu/Main/MenuScreen.gd。
 
-公开字段：`page`、`index`、`save_callback`、`child`、`active_command`。
+公开字段：`page`、`index`、`save_callback`、`child`、`active_command`、`window_process`、`child_process`。
 
-常量（不含依赖脚本引用）：`COMMANDS`、`DEFAULT_LOCKS`。
+常量（不含依赖脚本引用）：`COMMANDS`、`DEFAULT_LOCKS`、`ENGLISH`。
 
 ```gdscript
 extends Control
@@ -3846,30 +3895,34 @@ signal sound_requested(key: String)
 signal load_requested(slot: int)
 func enabled(command: int) -> bool
 func refresh() -> void
+func ready_for_input() -> bool
 func activate() -> void
+func resume_after_failed_load() -> void
 func back() -> void
 func handle_key(key: int) -> void
 ```
 
-### FlashNotePage.gd
+### NotePage.gd
 
-源文件：templates/runtime/scripts/FlashNotePage.gd。
+源文件：templates/runtime/scripts/08_Menu/Note/NotePage.gd。
 
-公开字段：`page`、`category`、`index`、`selecting`、`entries`、`description`。
+公开字段：`page`、`category`、`index`、`selecting`、`entries`、`description`、`description_scroll`。
 
 常量（不含依赖脚本引用）：`CATEGORIES`。
 
 ```gdscript
 extends Control
 signal back_requested
+signal sound_requested(key: String)
 func enabled(id: int) -> bool
 func refresh() -> void
 func handle_key(key: int) -> void
+func set_menu_progress(value: int) -> void
 ```
 
-### FlashPreferences.gd
+### Preferences.gd
 
-源文件：templates/runtime/scripts/FlashPreferences.gd。
+源文件：templates/runtime/scripts/00_Game/Preferences.gd。
 
 公开字段：`vars`、`music_lock`、`apply_display`、`directory_override`、`storage_error`、`bgm_volume`、`se_volume`、`run_mode`、`window_resize`。
 
@@ -3879,7 +3932,7 @@ func handle_key(key: int) -> void
 extends RefCounted
 signal changed
 func _init(owner: Node) -> void
-func set_volume(kind: String,value: int) -> bool
+func set_volume(kind: String, value: int) -> bool
 func next_run_mode() -> void
 func change_window_size(direction: int) -> int
 func apply_audio() -> void
@@ -3891,9 +3944,9 @@ func load_preferences() -> Dictionary
 static func validate(value: Variant) -> String
 ```
 
-### FlashSkillConfig.gd
+### SkillConfig.gd
 
-源文件：templates/runtime/scripts/FlashSkillConfig.gd。
+源文件：templates/runtime/scripts/08_Menu/Skill/SkillConfig.gd。
 
 公开字段：无。
 
@@ -3902,33 +3955,36 @@ static func validate(value: Variant) -> String
 ```gdscript
 extends RefCounted
 static func category(skill: Dictionary) -> int
-static func available(custom: RefCounted,actor: RefCounted,skill_id: int) -> bool
-static func set_skill(state: Object,actor_id: int,skill_id: int,input: int=0) -> Dictionary
+static func available(custom: RefCounted, actor: RefCounted, skill_id: int) -> bool
+static func set_skill(state: Object, actor_id: int, skill_id: int, input: int = 0) -> Dictionary
 static func switch_page_actor(state: Object) -> Dictionary
+static func restore_page_actor(state: Object, actor_id: int) -> Dictionary
 ```
 
-### FlashSkillPage.gd
+### SkillPage.gd
 
-源文件：templates/runtime/scripts/FlashSkillPage.gd。
+源文件：templates/runtime/scripts/08_Menu/Skill/SkillPage.gd。
 
-公开字段：`page`、`skill_ids`、`index`、`easy`、`notice`。
+公开字段：`page`、`skill_ids`、`index`、`easy`、`notice`、`description_scroll`。
 
 常量（不含依赖脚本引用）：无。
 
 ```gdscript
 extends Control
 signal back_requested
+signal sound_requested(key: String)
 func actor() -> RefCounted
 func refresh() -> void
 func selected_id() -> int
 func handle_key(key: int) -> void
+func set_menu_progress(value: int) -> void
 ```
 
-### FlashTitleExtrasPage.gd
+### TitleExtrasPage.gd
 
-源文件：templates/runtime/scripts/FlashTitleExtrasPage.gd。
+源文件：templates/runtime/scripts/05_Title/TitleExtrasPage.gd。
 
-公开字段：`kind`、`index`、`book`、`progress`、`old_index`、`angle`、`playing`。
+公开字段：`kind`、`index`、`book`、`progress`、`old_index`、`angle`、`playing`、`entrance`、`book_progress`、`merit_progress`。
 
 常量（不含依赖脚本引用）：无。
 
@@ -3936,38 +3992,41 @@ func handle_key(key: int) -> void
 extends Control
 signal back_requested
 func refresh() -> void
+func set_title_progress(value: int) -> void
 func handle_key(key: int) -> void
 ```
 
-### FlashTitleScreen.gd
+### TitleScreen.gd
 
-源文件：templates/runtime/scripts/FlashTitleScreen.gd。
+源文件：templates/runtime/scripts/05_Title/TitleScreen.gd。
 
-公开字段：`index`、`difficulty`、`page`、`child`、`frame`、`logo_progress`。
+公开字段：`index`、`difficulty`、`page`、`child`、`frame`、`logo_progress`、`selection_ticks`、`mode_ticks`、`page_progress`、`title_progress`。
 
-常量（不含依赖脚本引用）：`COMMANDS`。
+常量（不含依赖脚本引用）：`COMMANDS`、`TAGS`。
 
 ```gdscript
 extends Control
 signal new_game_requested(difficulty: int)
 signal load_requested(slot: int)
 func refresh() -> void
+func ready_for_input() -> bool
 func activate() -> void
+func resume_after_failed_load() -> void
 func back() -> void
 func handle_key(key: int) -> void
 ```
 
-### FlashMessageBoxState.gd
+### MessageBoxState.gd
 
-源文件：templates/runtime/scripts/FlashMessageBoxState.gd。
+源文件：templates/runtime/scripts/06_Message/MessageBoxState.gd。
 
-公开字段：`tokens`、`metadata`、`cursor`、`state`、`process`、`speed`、`waiting`、`auto_terminate`、`interpreter_waiting`、`move_time`、`movement`、`offset`、`back_opacity`、`style`、`painted`、`effects`、`pageon`、`page_scroll`、`page_targets`、`failure`、`hint`。
+公开字段：`tokens`、`source_tokens`、`metadata`、`cursor`、`state`、`process`、`speed`、`waiting`、`auto_terminate`、`interpreter_waiting`、`move_time`、`movement`、`offset`、`back_opacity`、`style`、`painted`、`effects`、`pageon`、`page_scroll`、`page_targets`、`page_breaks`、`page_pending_token`、`page_resume_state`、`page_start_token`、`failure`、`hint`。
 
 常量（不含依赖脚本引用）：无。
 
 ```gdscript
 extends RefCounted
-func _init(raw: String,owner: Object,is_hint: bool=false) -> void
+func _init(raw: String, owner: Object, is_hint: bool = false) -> void
 func mode() -> int
 func extend_enabled() -> bool
 func finished() -> bool
@@ -3979,9 +4038,9 @@ func tick() -> void
 func plain_text() -> String
 ```
 
-### FlashMessageText.gd
+### MessageText.gd
 
-源文件：templates/runtime/scripts/FlashMessageText.gd。
+源文件：templates/runtime/scripts/06_Message/MessageText.gd。
 
 公开字段：无。
 
@@ -3991,16 +4050,16 @@ func plain_text() -> String
 extends RefCounted
 static func defaults() -> Dictionary
 static func color(id: int) -> Color
-static func frame_duration(value: int,frame_rate: int=60) -> int
-static func parse(raw: String,state: Object,box_setup: bool=true) -> Dictionary
-static func expand(raw: String,state: Object) -> Dictionary
+static func frame_duration(value: int, frame_rate: int = 60) -> int
+static func parse(raw: String, state: Object, box_setup: bool = true) -> Dictionary
+static func expand(raw: String, state: Object) -> Dictionary
 static func font(style: Dictionary) -> SystemFont
-static func apply_style(style: Dictionary,token: Array) -> void
+static func apply_style(style: Dictionary, token: Array) -> void
 ```
 
-### FlashTextRow.gd
+### TextRow.gd
 
-源文件：templates/runtime/scripts/FlashTextRow.gd。
+源文件：templates/runtime/scripts/06_Message/TextRow.gd。
 
 公开字段：`text`、`halign`、`valign`、`text_width`、`text_height`、`line_space`、`tokens`、`cursor`、`failure`。
 
@@ -4008,20 +4067,20 @@ static func apply_style(style: Dictionary,token: Array) -> void
 
 ```gdscript
 extends RefCounted
-func _init(raw: String,state: Object) -> void
+func _init(raw: String, state: Object) -> void
 func getchar() -> Variant
 func peer() -> Variant
-func shift(amount: int=1) -> int
+func shift(amount: int = 1) -> int
 func goto_head() -> void
 func goto_tail() -> void
 func eof() -> bool
 func snapshot() -> Dictionary
-static func invoke(custom: RefCounted,ref: Dictionary,name: String,args: Array) -> Variant
+static func invoke(custom: RefCounted, ref: Dictionary, name: String, args: Array) -> Variant
 ```
 
-### FlashMessageController.gd
+### MessageController.gd
 
-源文件：templates/runtime/scripts/FlashMessageController.gd。
+源文件：templates/runtime/scripts/06_Message/MessageController.gd。
 
 公开字段：`boxes`、`viewport_size`。
 
@@ -4029,40 +4088,43 @@ static func invoke(custom: RefCounted,ref: Dictionary,name: String,args: Array) 
 
 ```gdscript
 extends RefCounted
-signal responded(request_id: int,kind: String,value: Variant)
-signal rejected(request_id: int,message: String)
+signal responded(request_id: int, kind: String, value: Variant)
+signal rejected(request_id: int, message: String)
 signal changed
 func _init(owner: Object) -> void
-func present(payload: Dictionary,request_id: int=-1,event_id: int=0,hint: bool=false,consume_field: String="") -> Dictionary
+func present( payload: Dictionary, request_id: int = -1, event_id: int = 0, hint: bool = false, consume_field: String = "" ) -> Dictionary
 func advance(delta: float) -> void
 func tick() -> void
 func confirm() -> bool
 func handle_key(key: int) -> bool
+func relayout(next_size: Vector2) -> void
 func message_window_showing() -> bool
-func interpreter_waiting(event_id: int,blocking: bool) -> bool
+func interpreter_waiting(event_id: int, blocking: bool) -> bool
 func cancel_request(request_id: int) -> void
 func reset() -> void
-func history(hint: bool=false) -> Array
+func history(hint: bool = false) -> Array
 ```
 
-### FlashMessageLayout.gd
+### MessageLayout.gd
 
-源文件：templates/runtime/scripts/FlashMessageLayout.gd。
+源文件：templates/runtime/scripts/06_Message/MessageLayout.gd。
 
-公开字段：`positions`、`rows`、`box_size`、`text_origin`、`text_size`、`name_text`、`face_name`、`face_index`、`anchor_event`、`fixed_anchor`、`failure`。
+公开字段：`positions`、`rows`、`choice_rects`、`box_size`、`text_origin`、`text_size`、`content_height`、`name_text`、`face_name`、`face_index`、`anchor_event`、`fixed_anchor`、`failure`、`footer_height`。
 
 常量（不含依赖脚本引用）：无。
 
 ```gdscript
 extends RefCounted
-func _init(model: RefCounted,owner: Object,viewport_size: Vector2) -> void
+func _init( model: RefCounted, owner: Object, viewport_size: Vector2, choice_source_lines: Array = [], footer: int = 0 ) -> void
 func anchor(owner: Object) -> Vector2
-func rectangle(owner: Object,viewport_size: Vector2,model: RefCounted) -> Rect2
+func geometry(owner: Object, viewport_size: Vector2, model: RefCounted) -> Dictionary
+func rectangle(owner: Object, viewport_size: Vector2, model: RefCounted) -> Rect2
+static func choice_lines(payload: Dictionary) -> Array
 ```
 
-### FlashMessageMemoryPage.gd
+### MessageMemoryPage.gd
 
-源文件：templates/runtime/scripts/FlashMessageMemoryPage.gd。
+源文件：templates/runtime/scripts/06_Message/MessageMemoryPage.gd。
 
 公开字段：`page`、`mode_index`、`index`、`records`。
 
@@ -4077,9 +4139,9 @@ func plain_text(raw: String) -> String
 func handle_key(key: int) -> void
 ```
 
-### FlashMessageOverlay.gd
+### MessageOverlay.gd
 
-源文件：templates/runtime/scripts/FlashMessageOverlay.gd。
+源文件：templates/runtime/scripts/06_Message/MessageOverlay.gd。
 
 公开字段：`controller`。
 
@@ -4090,9 +4152,9 @@ extends Control
 # 本类未声明自定义公共方法。
 ```
 
-### FlashMessageView.gd
+### MessageView.gd
 
-源文件：templates/runtime/scripts/FlashMessageView.gd。
+源文件：templates/runtime/scripts/06_Message/MessageView.gd。
 
 公开字段：`entry`。
 
@@ -4100,12 +4162,12 @@ extends Control
 
 ```gdscript
 extends Control
-func refresh(owner: Object,viewport_size: Vector2) -> void
+func refresh(owner: Object, viewport_size: Vector2) -> void
 ```
 
-### FlashTextStream.gd
+### TextStream.gd
 
-源文件：templates/runtime/scripts/FlashTextStream.gd。
+源文件：templates/runtime/scripts/06_Message/TextStream.gd。
 
 公开字段：`file_name`、`line_label`、`is_open`、`lines`、`cursor`、`failure`。
 
@@ -4113,14 +4175,14 @@ func refresh(owner: Object,viewport_size: Vector2) -> void
 
 ```gdscript
 extends RefCounted
-func open(name: String,label: String="",reload: bool=false) -> bool
+func open(name: String, label: String = "", reload: bool = false) -> bool
 func close() -> void
-func get_text(length: int=4) -> String
+func get_text(length: int = 4) -> String
 ```
 
-### FlashSightModel.gd
+### SightModel.gd
 
-源文件：templates/runtime/scripts/FlashSightModel.gd。
+源文件：templates/runtime/scripts/08_Menu/Sight/SightModel.gd。
 
 公开字段：`cursor`、`focus`、`stage`、`list_index`、`skill_index`、`focused_ids`、`groups`、`description_visible`、`failure`。
 
@@ -4128,7 +4190,7 @@ func get_text(length: int=4) -> String
 
 ```gdscript
 extends RefCounted
-func _init(owner: Object,map: Node) -> void
+func _init(owner: Object, map: Node) -> void
 func reset_free() -> void
 func events() -> Array
 func event_at_cursor() -> Dictionary
@@ -4137,18 +4199,18 @@ func item_groups() -> Array
 func set_focus(value: int) -> void
 func update_group() -> void
 func select_group() -> bool
-func move_cursor(direction: Vector2i,viewport_size: Vector2) -> void
+func move_cursor(direction: Vector2i, viewport_size: Vector2) -> void
 func view_bounds(viewport_size: Vector2) -> Rect2i
 func enemy_snapshot() -> Dictionary
-func skill_presentation(action: Dictionary,skill_set: Dictionary) -> Dictionary
+func skill_presentation(action: Dictionary, skill_set: Dictionary) -> Dictionary
 func description() -> String
 ```
 
-### FlashSightPage.gd
+### SightPage.gd
 
-源文件：templates/runtime/scripts/FlashSightPage.gd。
+源文件：templates/runtime/scripts/08_Menu/Sight/SightPage.gd。
 
-公开字段：`page`、`game`、`model`、`snapshot`。
+公开字段：`page`、`game`、`model`、`snapshot`、`detail_scroll`、`window_process`、`automatic_index`、`browse_alpha`。
 
 常量（不含依赖脚本引用）：无。
 
@@ -4156,14 +4218,15 @@ func description() -> String
 extends Control
 signal close_requested
 func refresh() -> void
+func ready_for_input() -> bool
 func handle_key(key: int) -> void
 func draw_marks(target: Node2D) -> void
 static func hp_opacities(frame: int) -> Array
 ```
 
-### FlashActionOrder.gd
+### ActionOrder.gd
 
-源文件：templates/runtime/scripts/FlashActionOrder.gd。
+源文件：templates/runtime/scripts/01_Battle/ActionOrder.gd。
 
 公开字段：`rows`、`sprites`。
 
@@ -4174,9 +4237,9 @@ extends ScrollContainer
 # 本类未声明自定义公共方法。
 ```
 
-### FlashMessageWords.gd
+### MessageWords.gd
 
-源文件：templates/runtime/scripts/FlashMessageWords.gd。
+源文件：templates/runtime/scripts/06_Message/MessageWords.gd。
 
 公开字段：无。
 
@@ -4184,12 +4247,12 @@ extends ScrollContainer
 
 ```gdscript
 extends RefCounted
-static func item_fails(item_id: int,parameter: int,custom: RefCounted) -> Variant
+static func item_fails(item_id: int, parameter: int, custom: RefCounted) -> Variant
 ```
 
-### FlashArchiveData.gd
+### ArchiveData.gd
 
-源文件：templates/runtime/scripts/FlashArchiveData.gd。
+源文件：templates/runtime/scripts/07_Archive/ArchiveData.gd。
 
 公开字段：无。
 
@@ -4203,26 +4266,32 @@ static func validate(value: Variant) -> String
 static func preview(value: Dictionary) -> Image
 ```
 
-### FlashArchivePage.gd
+### ArchivePage.gd
 
-源文件：templates/runtime/scripts/FlashArchivePage.gd。
+源文件：templates/runtime/scripts/07_Archive/ArchivePage.gd。
 
-公开字段：`page`、`allow_mode_switch`、`window_process`、`preview_process`、`preview_id`。
+公开字段：`page`、`allow_mode_switch`、`window_process`、`preview_process`、`preview_id`、`selection_ticks`。
 
 常量（不含依赖脚本引用）：无。
 
 ```gdscript
 extends "SaveSlots.gd"
-func refresh(reload_catalog: bool=true) -> void
+func refresh(reload_catalog: bool = true) -> void
+func ready_for_input() -> bool
+func set_title_progress(value: int) -> void
+func set_menu_progress(value: int) -> void
+func resume_after_failed_load() -> void
+func cursor_position() -> Vector2
 func navigate(direction: int) -> void
 func activate() -> void
 func execute() -> void
+func back() -> void
 func handle_key(key: int) -> void
 ```
 
-### FlashBitmap.gd
+### Bitmap.gd
 
-源文件：templates/runtime/scripts/FlashBitmap.gd。
+源文件：templates/runtime/scripts/04_UI_Common/Bitmap.gd。
 
 公开字段：`image`。
 
@@ -4230,56 +4299,56 @@ func handle_key(key: int) -> void
 
 ```gdscript
 extends RefCounted
-func _init(width: int=1,height: int=1) -> void
+func _init(width: int = 1, height: int = 1) -> void
 func clear() -> void
-func fill_rect(rect: Rect2i,color: Color) -> void
-func set_pixel(x: int,y: int,color: Color) -> void
+func fill_rect(rect: Rect2i, color: Color) -> void
+func set_pixel(x: int, y: int, color: Color) -> void
 func texture() -> ImageTexture
 func clear_rect(rect: Rect2i) -> void
-func get_pixel(x: int,y: int) -> Color
+func get_pixel(x: int, y: int) -> Color
 func copy() -> RefCounted
 func invert() -> void
 func hue_change(degrees: float) -> void
-func change_tone(red: int,green: int,blue: int,_simplify: int=1) -> void
-func clip_mask(mask: Image,x: int=0,y: int=0,outer: int=0) -> void
-func mosaic(width: int=5,height: int=5) -> void
-func mosaic_rect(rect: Rect2i,width: int=5,height: int=5) -> void
-func blend_blt(x: int,y: int,source: Image,rect: Rect2i,blend_type: int=0,opacity: int=255) -> void
-func blur2(radius: int=1) -> void
+func change_tone(red: int, green: int, blue: int, _simplify: int = 1) -> void
+func clip_mask(mask: Image, x: int = 0, y: int = 0, outer: int = 0) -> void
+func mosaic(width: int = 5, height: int = 5) -> void
+func mosaic_rect(rect: Rect2i, width: int = 5, height: int = 5) -> void
+func blend_blt( x: int, y: int, source: Image, rect: Rect2i, blend_type: int = 0, opacity: int = 255 ) -> void
+func blur2(radius: int = 1) -> void
 func get_pixel_data() -> PackedByteArray
 func set_pixel_data(value: PackedByteArray) -> Dictionary
-func png_save(path: String,_level: int=9,_filter: int=0) -> Dictionary
-func draw_rhombus(points: Array,colors: Array) -> void
-func fill_ellipse(center: Vector2i,width: int,height: int,color: Color) -> void
-func draw_ellipse_border(center: Vector2i,radius: int,type: int,color: Color) -> void
-func draw_rounded_border(center: Rect2i,radius: int,color: Color) -> void
-func fill_rounded_rect(rect: Rect2i,radius: int,color: Color) -> void
-func gradient(rect: Rect2i,first: Color,last: Color,vertical: bool=false) -> void
-func gradation_rect(rect: Rect2i,first: Color,last: Color,align: int=0) -> void
-func gradate_line(rect: Rect2i,colors: Array,indent: Vector2i=Vector2i.ZERO,vertical: bool=false) -> void
-func gradate_rect(rect: Rect2i,colors: Array) -> void
-func draw_line(first: int,second: int,third: int,fourth: int,coordinate: int,type: int=0,opacity: int=255) -> void
-func draw_line2(first: Vector2i,last: Vector2i,width: int,colors: Array) -> void
+func png_save(path: String, _level: int = 9, _filter: int = 0) -> Dictionary
+func draw_rhombus(points: Array, colors: Array) -> void
+func fill_ellipse(center: Vector2i, width: int, height: int, color: Color) -> void
+func draw_ellipse_border(center: Vector2i, radius: int, type: int, color: Color) -> void
+func draw_rounded_border(center: Rect2i, radius: int, color: Color) -> void
+func fill_rounded_rect(rect: Rect2i, radius: int, color: Color) -> void
+func gradient(rect: Rect2i, first: Color, last: Color, vertical: bool = false) -> void
+func gradation_rect(rect: Rect2i, first: Color, last: Color, align: int = 0) -> void
+func gradate_line( rect: Rect2i, colors: Array, indent: Vector2i = Vector2i.ZERO, vertical: bool = false ) -> void
+func gradate_rect(rect: Rect2i, colors: Array) -> void
+func draw_line( first: int, second: int, third: int, fourth: int, coordinate: int, type: int = 0, opacity: int = 255 ) -> void
+func draw_line2(first: Vector2i, last: Vector2i, width: int, colors: Array) -> void
 func draw_h8_panel_fill(rect: Rect2i) -> void
-func draw_h8_background(rect: Rect2i,opacity: int=160,margin: int=16) -> void
-func draw_h8_outer_frame(rect: Rect2i,opacity: int=132) -> void
-func draw_h8_corner_light(point: Vector2i,direction: Vector2i,opacity: int=132) -> void
-func draw_h8_inner_line(first: Vector2i,last: Vector2i,type: int=0,opacity: int=132,width: int=1) -> void
-func draw_h8_bulge(first: Vector2i,last: Vector2i,plus: bool,height: int,type: int) -> void
+func draw_h8_background(rect: Rect2i, opacity: int = 160, margin: int = 16) -> void
+func draw_h8_outer_frame(rect: Rect2i, opacity: int = 132) -> void
+func draw_h8_corner_light(point: Vector2i, direction: Vector2i, opacity: int = 132) -> void
+func draw_h8_inner_line( first: Vector2i, last: Vector2i, type: int = 0, opacity: int = 132, width: int = 1 ) -> void
+func draw_h8_bulge(first: Vector2i, last: Vector2i, plus: bool, height: int, type: int) -> void
 static func skill_frame_colors(type: int) -> Array
-func draw_skill_frame(rect: Rect2i,type: int=1,show_turn_box: bool=false,corners: bool=true) -> void
-func draw_turn_box(rect: Rect2i,colors: Array) -> void
-func draw_item_frame(rect: Rect2i,corners: bool=true) -> void
-func draw_hud_back(rect: Rect2i,type: int=0) -> void
-func draw_hud_line(rect: Rect2i,value: int,maximum: int,first: Color,last: Color,type: int=0) -> void
-func draw_trapezoid_meter(rect: Rect2i,value: int,maximum: int,first: Color,last: Color) -> void
-static func panel_style(size: Vector2i,margin: int=16) -> StyleBoxTexture
-static func skill_style(size: Vector2i,type: int=1,corners: bool=true) -> StyleBoxTexture
+func draw_skill_frame( rect: Rect2i, type: int = 1, show_turn_box: bool = false, corners: bool = true ) -> void
+func draw_turn_box(rect: Rect2i, colors: Array) -> void
+func draw_item_frame(rect: Rect2i, corners: bool = true) -> void
+func draw_hud_back(rect: Rect2i, type: int = 0) -> void
+func draw_hud_line( rect: Rect2i, value: int, maximum: int, first: Color, last: Color, type: int = 0 ) -> void
+func draw_trapezoid_meter( rect: Rect2i, value: int, maximum: int, first: Color, last: Color ) -> void
+static func panel_style(size: Vector2i, margin: int = 16) -> StyleBoxTexture
+static func skill_style(size: Vector2i, type: int = 1, corners: bool = true) -> StyleBoxTexture
 ```
 
-### FlashBrokenScreen.gd
+### BrokenScreen.gd
 
-源文件：templates/runtime/scripts/FlashBrokenScreen.gd。
+源文件：templates/runtime/scripts/09_Effects/BrokenScreen.gd。
 
 公开字段：`shards`、`ticks`。
 
@@ -4287,14 +4356,14 @@ static func skill_style(size: Vector2i,type: int=1,corners: bool=true) -> StyleB
 
 ```gdscript
 extends RefCounted
-func configure(source: Image,mask: Image,seed_value: int=-1) -> Dictionary
+func configure(source: Image, mask: Image, seed_value: int = -1) -> Dictionary
 func advance_tick() -> void
 func dispose() -> void
 ```
 
-### FlashCastingPage.gd
+### CastingPage.gd
 
-源文件：templates/runtime/scripts/FlashCastingPage.gd。
+源文件：templates/runtime/scripts/08_Menu/Skill/CastingPage.gd。
 
 公开字段：`page`。
 
@@ -4305,9 +4374,9 @@ extends "SkillScene.gd"
 func handle_key(key: int) -> void
 ```
 
-### FlashColor.gd
+### Color.gd
 
-源文件：templates/runtime/scripts/FlashColor.gd。
+源文件：templates/runtime/scripts/04_UI_Common/Color.gd。
 
 公开字段：无。
 
@@ -4317,15 +4386,15 @@ func handle_key(key: int) -> void
 extends RefCounted
 static func rgba(color: Color) -> Array
 static func rgb(color: Color) -> Array
-static func add(first: Color,second: Variant) -> Color
-static func subtract(first: Color,second: Variant) -> Color
-static func multiply(color: Color,value: Variant) -> Color
-static func divide(color: Color,value: Variant) -> Variant
+static func add(first: Color, second: Variant) -> Color
+static func subtract(first: Color, second: Variant) -> Color
+static func multiply(color: Color, value: Variant) -> Color
+static func divide(color: Color, value: Variant) -> Variant
 ```
 
-### FlashDebugPage.gd
+### DebugPage.gd
 
-源文件：templates/runtime/scripts/FlashDebugPage.gd。
+源文件：templates/runtime/scripts/11_Development/DebugPage.gd。
 
 公开字段：`page`、`group`、`index`、`editing`、`groups`、`message`。
 
@@ -4341,9 +4410,9 @@ func back() -> void
 func handle_key(key: int) -> void
 ```
 
-### FlashEffectView.gd
+### EffectView.gd
 
-源文件：templates/runtime/scripts/FlashEffectView.gd。
+源文件：templates/runtime/scripts/09_Effects/EffectView.gd。
 
 公开字段：`model`、`game`。
 
@@ -4352,16 +4421,16 @@ func handle_key(key: int) -> void
 ```gdscript
 extends CanvasLayer
 func apply_map_visible(value: bool) -> void
-func target_sprite(kind: String,id: int) -> Sprite2D
+func target_sprite(kind: String, id: int) -> Sprite2D
 func sync() -> void
-func draw_effects(canvas: Node2D,top: bool) -> void
-func draw_particles(canvas: Node2D,blend: int=0) -> void
+func draw_effects(canvas: Node2D, top: bool) -> void
+func draw_particles(canvas: Node2D, blend: int = 0) -> void
 func draw_glitch(canvas: Node2D) -> void
 ```
 
-### FlashEnemyMapLabels.gd
+### EnemyMapLabels.gd
 
-源文件：templates/runtime/scripts/FlashEnemyMapLabels.gd。
+源文件：templates/runtime/scripts/03_Map/EnemyMapLabels.gd。
 
 公开字段：`game`、`entries`、`rebuild_count`。
 
@@ -4371,13 +4440,13 @@ func draw_glitch(canvas: Node2D) -> void
 extends CanvasLayer
 func request_refresh() -> void
 func rebuild() -> void
-static func damage_grade(damage: int,hp: int) -> int
+static func damage_grade(damage: int, hp: int) -> int
 func draw_labels(target: Control) -> void
 ```
 
-### FlashEquipmentPage.gd
+### EquipmentPage.gd
 
-源文件：templates/runtime/scripts/FlashEquipmentPage.gd。
+源文件：templates/runtime/scripts/08_Menu/Item/EquipmentPage.gd。
 
 公开字段：`page`、`actor_id`、`slot`、`index`、`choosing`、`candidates`、`preview`、`message`。
 
@@ -4395,9 +4464,9 @@ func back() -> void
 func handle_key(key: int) -> void
 ```
 
-### FlashFollowers.gd
+### Followers.gd
 
-源文件：templates/runtime/scripts/FlashFollowers.gd。
+源文件：templates/runtime/scripts/03_Map/Followers.gd。
 
 公开字段：`motions`、`graphics`、`move_list`、`transparent_actors`。
 
@@ -4407,24 +4476,24 @@ func handle_key(key: int) -> void
 extends RefCounted
 func _init(owner: Node) -> void
 func reset() -> void
-func bind(player: Node,map: Node) -> void
+func bind(player: Node, map: Node) -> void
 func refresh() -> void
 func advance(delta: float) -> void
-func accept_action(type: int,args: Array=[]) -> void
-func moveto_party_actors(x: int,y: int) -> void
+func accept_action(type: int, args: Array = []) -> void
+func moveto_party_actors(x: int, y: int) -> void
 func delete_move() -> void
 func set_transparent_actors(value: bool) -> void
 func get_characters_xy(index: int) -> Array
-func set_characters(index: int,direction: int) -> void
-func set_characters_xy(index: int,x: int,y: int) -> void
+func set_characters(index: int, direction: int) -> void
+func set_characters_xy(index: int, x: int, y: int) -> void
 func snapshot() -> Dictionary
 static func validate_snapshot(value: Variant) -> String
 func restore_snapshot(value: Dictionary) -> void
 ```
 
-### FlashHelpMessage.gd
+### HelpMessage.gd
 
-源文件：templates/runtime/scripts/FlashHelpMessage.gd。
+源文件：templates/runtime/scripts/06_Message/HelpMessage.gd。
 
 公开字段：`rect`、`shadows`、`text`。
 
@@ -4432,16 +4501,16 @@ func restore_snapshot(value: Dictionary) -> void
 
 ```gdscript
 extends RefCounted
-func _init(x: int=0,y: int=0,width: int=0,height: int=0,canvas: Vector2i=Vector2i(640,640)) -> void
-func make_shadow(canvas: Vector2i=Vector2i(640,640)) -> void
+func _init( x: int = 0, y: int = 0, width: int = 0, height: int = 0, canvas: Vector2i = Vector2i(640, 640) ) -> void
+func make_shadow(canvas: Vector2i = Vector2i(640, 640)) -> void
 func set_text(_type: Variant) -> void
 func update() -> void
 func dispose() -> void
 ```
 
-### FlashKeyboard.gd
+### Keyboard.gd
 
-源文件：templates/runtime/scripts/FlashKeyboard.gd。
+源文件：templates/runtime/scripts/10_Support/Utilities/Keyboard.gd。
 
 公开字段：`held`、`repeats`、`key`、`input_provider`。
 
@@ -4454,12 +4523,12 @@ static func godot_key(vk: int) -> int
 func pressed(vk: int) -> bool
 func snapshot() -> Dictionary
 func install(value: Dictionary) -> void
-static func invoke(custom: RefCounted,name: String,args: Array) -> Variant
+static func invoke(custom: RefCounted, name: String, args: Array) -> Variant
 ```
 
-### FlashPalette.gd
+### Palette.gd
 
-源文件：templates/runtime/scripts/FlashPalette.gd。
+源文件：templates/runtime/scripts/04_UI_Common/Palette.gd。
 
 公开字段：无。
 
@@ -4468,29 +4537,33 @@ static func invoke(custom: RefCounted,name: String,args: Array) -> Variant
 ```gdscript
 extends RefCounted
 static func color(index: int) -> Color
-static func color_type(type: int,opacity: int=255) -> Array
+static func color_type(type: int, opacity: int = 255) -> Array
 ```
 
-### FlashPlayerHUD.gd
+### PlayerHUD.gd
 
-源文件：templates/runtime/scripts/FlashPlayerHUD.gd。
+源文件：templates/runtime/scripts/03_Map/PlayerHUD.gd。
 
-公开字段：`canvas`、`slots`、`rows`、`layout_flipped`、`window_process`、`itembar_process`、`mapname_frame`、`mapname`。
+公开字段：`canvas`、`item_canvas`、`slots`、`rows`、`layout_flipped`、`window_process`、`itembar_process`、`mapname_frame`、`mapname`、`support_preview_enabled`。
 
 常量（不含依赖脚本引用）：无。
 
 ```gdscript
 extends CanvasLayer
 func reset() -> void
+func set_support_preview(enabled: bool) -> bool
 func map_changed(_id: int) -> void
 func visible_target() -> bool
+func set_itembar_selection(slot: int = -1) -> void
+func itembar_navigation_ready() -> bool
 func refresh_rows() -> void
 func draw_hud(target: Control) -> void
+func draw_itembar(target: Control) -> void
 ```
 
-### FlashSceneBackdrop.gd
+### SceneBackdrop.gd
 
-源文件：templates/runtime/scripts/FlashSceneBackdrop.gd。
+源文件：templates/runtime/scripts/04_UI_Common/SceneBackdrop.gd。
 
 公开字段：`entering`、`blur_process`。
 
@@ -4501,9 +4574,9 @@ extends TextureRect
 # 本类未声明自定义公共方法。
 ```
 
-### FlashSceneRegistry.gd
+### SceneRegistry.gd
 
-源文件：templates/runtime/scripts/FlashSceneRegistry.gd。
+源文件：templates/runtime/scripts/08_Menu/Main/SceneRegistry.gd。
 
 公开字段：无。
 
@@ -4511,15 +4584,15 @@ extends TextureRect
 
 ```gdscript
 extends RefCounted
-static func validate(name: String,args: Array,state: Object) -> String
-static func create(name: String,args: Array,state: Object) -> Control
-static func construct(custom: RefCounted,name: String,args: Array) -> Variant
-static func stage(custom: RefCounted,value: Dictionary) -> Variant
+static func validate(name: String, args: Array, state: Object) -> String
+static func create(name: String, args: Array, state: Object) -> Control
+static func construct(custom: RefCounted, name: String, args: Array) -> Variant
+static func stage(custom: RefCounted, value: Dictionary) -> Variant
 ```
 
-### FlashScreenEffects.gd
+### ScreenEffects.gd
 
-源文件：templates/runtime/scripts/FlashScreenEffects.gd。
+源文件：templates/runtime/scripts/09_Effects/ScreenEffects.gd。
 
 公开字段：`active`、`results`、`test_capture`、`map_visible`、`rect_amount`、`filter_enabled`、`frozen`、`blurred`、`blur_radius`、`voice_visible`、`voice_process`、`voice_alpha`、`voice_zoom`、`voice`、`transient`、`particle_sets`、`broken`。
 
@@ -4537,18 +4610,18 @@ func restore_sprite(target: Sprite2D) -> void
 func status(id: int) -> Dictionary
 func cancel(id: int) -> void
 func appear(value: bool) -> void
-static func stage(custom: RefCounted,name: String,args: Array) -> Variant
+static func stage(custom: RefCounted, name: String, args: Array) -> Variant
 func validate(requests: Array) -> String
-static func parameter_reason(name: String,args: Array) -> String
+static func parameter_reason(name: String, args: Array) -> String
 static func particle_reason(args: Array) -> String
 func install(requests: Array) -> void
 func advance(delta: float) -> void
-func unravel_sprite(target: Sprite2D,args: Array=[],initialize: Callable=Callable()) -> Dictionary
+func unravel_sprite( target: Sprite2D, args: Array = [], initialize: Callable = Callable() ) -> Dictionary
 ```
 
-### FlashSelectionPage.gd
+### SelectionPage.gd
 
-源文件：templates/runtime/scripts/FlashSelectionPage.gd。
+源文件：templates/runtime/scripts/08_Menu/Main/SelectionPage.gd。
 
 公开字段：`page`、`kind`、`index`、`entries`、`message`。
 
@@ -4565,9 +4638,9 @@ func back() -> void
 func handle_key(key: int) -> void
 ```
 
-### FlashShape.gd
+### Shape.gd
 
-源文件：templates/runtime/scripts/FlashShape.gd。
+源文件：templates/runtime/scripts/04_UI_Common/Shape.gd。
 
 公开字段：`origin`、`rects`、`radius`、`phase`。
 
@@ -4575,19 +4648,19 @@ func handle_key(key: int) -> void
 
 ```gdscript
 extends RefCounted
-func _init(x: int=0,y: int=0,rectangles: Array=[]) -> void
+func _init(x: int = 0, y: int = 0, rectangles: Array = []) -> void
 func set_origin(point: Vector2i) -> void
 func includes(point: Vector2i) -> bool
 func each_pixel(callback: Callable) -> void
 func each_rect(callback: Callable) -> void
-func fill(bitmap: RefCounted,color: Color) -> void
-func set_hexagon(value: int,phase_value: float=0) -> void
+func fill(bitmap: RefCounted, color: Color) -> void
+func set_hexagon(value: int, phase_value: float = 0) -> void
 func twist(angle: float) -> void
 ```
 
-### FlashTextDrawing.gd
+### TextDrawing.gd
 
-源文件：templates/runtime/scripts/FlashTextDrawing.gd。
+源文件：templates/runtime/scripts/04_UI_Common/TextDrawing.gd。
 
 公开字段：无。
 
@@ -4595,15 +4668,15 @@ func twist(angle: float) -> void
 
 ```gdscript
 extends RefCounted
-static func draw_text(target: CanvasItem,rect: Rect2,value: String,style: Dictionary,align: int=0,shadow: bool=false) -> void
-static func draw_text_border(target: CanvasItem,rect: Rect2,value: String,style: Dictionary,align: int=0) -> void
-static func draw_delete_line_text(target: CanvasItem,rect: Rect2,value: String,style: Dictionary,align: int=0,shadow: bool=false) -> void
-static func draw_rich_text(target: CanvasItem,rect: Rect2,raw: String,owner: Object,align: int=0,memory: bool=false) -> Dictionary
+static func draw_text( target: CanvasItem, rect: Rect2, value: String, style: Dictionary, align: int = 0, shadow: bool = false ) -> void
+static func draw_text_border( target: CanvasItem, rect: Rect2, value: String, style: Dictionary, align: int = 0 ) -> void
+static func draw_delete_line_text( target: CanvasItem, rect: Rect2, value: String, style: Dictionary, align: int = 0, shadow: bool = false ) -> void
+static func draw_rich_text( target: CanvasItem, rect: Rect2, raw: String, owner: Object, align: int = 0, memory: bool = false ) -> Dictionary
 ```
 
-### FlashTopic.gd
+### Topic.gd
 
-源文件：templates/runtime/scripts/FlashTopic.gd。
+源文件：templates/runtime/scripts/03_Map/Topic.gd。
 
 公开字段：`title_id`、`text`、`fade`、`window_process`、`base_position`。
 
@@ -4615,9 +4688,9 @@ func set_title(id: int) -> void
 func refresh() -> void
 ```
 
-### FlashUnravel.gd
+### Unravel.gd
 
-源文件：templates/runtime/scripts/FlashUnravel.gd。
+源文件：templates/runtime/scripts/09_Effects/Unravel.gd。
 
 公开字段：`speed`、`opaque_only`、`opaque_threshold`、`particles`、`image`、`moving`、`disposed`、`move_effect`。
 
@@ -4625,17 +4698,17 @@ func refresh() -> void
 
 ```gdscript
 extends RefCounted
-static func make_speed(x: int=100,y: int=100,opacity: int=550) -> void
-static func make_otake(value: bool=true) -> void
-static func make_otake_value(value: int=1) -> void
-func configure(source: Image,origin: Vector2,region: Rect2i,n: int=0,d: int=4,co: float=0.5,type: String="RU",shape: String="C",clear_source: bool=true,seed_value: int=-1,initialize: Callable=Callable()) -> Dictionary
-func advance_ticks(count: int=1,area: Vector2=Vector2(640,640)) -> void
-func all_move(x: float,y: float) -> void
+static func make_speed(x: int = 100, y: int = 100, opacity: int = 550) -> void
+static func make_otake(value: bool = true) -> void
+static func make_otake_value(value: int = 1) -> void
+func configure( source: Image, origin: Vector2, region: Rect2i, n: int = 0, d: int = 4, co: float = 0.5, type: String = "RU", shape: String = "C", clear_source: bool = true, seed_value: int = -1, initialize: Callable = Callable() ) -> Dictionary
+func advance_ticks(count: int = 1, area: Vector2 = Vector2(640, 640)) -> void
+func all_move(x: float, y: float) -> void
 func stop() -> void
 func begin() -> void
 func move_effe(callback: Callable) -> void
 func move_type(type: String) -> Dictionary
-func auto_dispose(part: Dictionary,_index: int=0,area: Vector2=Vector2(640,640)) -> void
+func auto_dispose(part: Dictionary, _index: int = 0, area: Vector2 = Vector2(640, 640)) -> void
 func get_all_sprite() -> Array
 func get_viewport() -> Variant
 func dispose() -> void
@@ -4645,7 +4718,7 @@ func dispose() -> void
 
 RuntimeState持有flash_messages/flash_effects/flash_followers/flash_keyboard。页面、角色、敌人和预测使用同一份状态。FlashCharacterBridge的speed_change/人物参数、屏幕请求、场景请求与键盘重复计数须先草稿后提交。一个脚本片段同时申请场景与屏幕演出会明确拒绝，应拆成相邻指令。EventInterpreter/CharacterRoute按请求ID等待，退出/重开清除旧回调。屏幕演出、跟随、消息模型各只有一个60Hz时钟。
 
-FlashScreenEffects.transient_save_reason拒绝尚无法复原的活动画面关系；完整活动消息/冻结/消散/跟随及设置跨启动持久化属于0.47。FlashArchiveData只读取正式状态，截图进入Godot校验存档且限制PNG尺寸/长度。SaveService闪翼最多4096位，其他工程原契约不变；本轮只做闪翼回归和导出。缺失原音效/碎屏蒙版明确拒绝，不把内存测试资源写入正式工程。源码文件映射见docs/FLASH_UI_GDSCRIPT_v0.46.md。
+ScreenEffects.transient_save_reason拒绝尚无法复原的活动画面关系；完整活动消息/冻结/消散/跟随及设置跨启动持久化属于0.47。FlashArchiveData只读取正式状态，截图进入Godot校验存档且限制PNG尺寸/长度。SaveService闪翼最多4096位，其他工程原契约不变；本轮只做闪翼回归和导出。缺失原音效/碎屏蒙版明确拒绝，不把内存测试资源写入正式工程。源码文件映射见docs/FLASH_UI_GDSCRIPT_v0.46.md。
 
 ## 0.47 闪翼持久化与工具约束
 
@@ -4657,9 +4730,9 @@ FlashPreferences在工程隔离的user://rgmigrator_preferences目录保存跨�
 
 FlashMapSnapshot的M/U/T/A、缩放和PNG导出独立于活动地图；输出到user://MapSnapshots。FlashMoviePlayer使用Godot视频资源与非阻塞等待/跳过，原工程没有视频素材或事件调用，不能将缺失分支声称已实际播放验证。Win32/DLL地址由用途服务替代，原缺失音效/蒙版/副手和空方法保持明确边界。继续只做闪翼回归和全新正式原RM导出，不执行Ruby或二律回归，不修改原公式。
 
-### FlashFileStore.gd
+### FileStore.gd
 
-源文件：templates/runtime/scripts/FlashFileStore.gd。
+源文件：templates/runtime/scripts/10_Support/Persistence/FileStore.gd。
 
 公开字段：无。
 
@@ -4667,13 +4740,13 @@ FlashMapSnapshot的M/U/T/A、缩放和PNG导出独立于活动地图；输出到
 
 ```gdscript
 extends RefCounted
-static func write(path: String,kind: String,value: Variant) -> Dictionary
-static func read(path: String,kind: String,validator: Callable=Callable()) -> Dictionary
+static func write(path: String, kind: String, value: Variant) -> Dictionary
+static func read(path: String, kind: String, validator: Callable = Callable()) -> Dictionary
 ```
 
-### FlashHistory.gd
+### History.gd
 
-源文件：templates/runtime/scripts/FlashHistory.gd。
+源文件：templates/runtime/scripts/10_Support/Persistence/History.gd。
 
 公开字段：无。
 
@@ -4681,12 +4754,12 @@ static func read(path: String,kind: String,validator: Callable=Callable()) -> Di
 
 ```gdscript
 extends RefCounted
-signal checkpoint_prepared(request_id: int,result: Dictionary)
+signal checkpoint_prepared(request_id: int, result: Dictionary)
 func _init(owner: Node) -> void
 func eligible(name: String) -> bool
 func path_for(serial: int) -> String
-func record(force: bool=false) -> Dictionary
-func record_async(force: bool=false) -> Dictionary
+func record(force: bool = false) -> Dictionary
+func record_async(force: bool = false) -> Dictionary
 func prepare_record(request_id: int) -> void
 func poll() -> void
 func flush_pending() -> void
@@ -4695,9 +4768,9 @@ func cancel_preparation() -> void
 func undo() -> Dictionary
 ```
 
-### FlashMapSnapshot.gd
+### MapSnapshot.gd
 
-源文件：templates/runtime/scripts/FlashMapSnapshot.gd。
+源文件：templates/runtime/scripts/10_Support/Persistence/MapSnapshot.gd。
 
 公开字段：`scale`、`mode`、`output_directory`。
 
@@ -4713,9 +4786,9 @@ func snaps(ids: Array) -> Dictionary
 func snap_all() -> Dictionary
 ```
 
-### FlashMoviePlayer.gd
+### MoviePlayer.gd
 
-源文件：templates/runtime/scripts/FlashMoviePlayer.gd。
+源文件：templates/runtime/scripts/10_Support/Utilities/MoviePlayer.gd。
 
 公开字段：`player`、`skippable`、`request_id`。
 
@@ -4725,18 +4798,18 @@ func snap_all() -> Dictionary
 extends CanvasLayer
 signal completed(request_id: int)
 func resolve_path(filename: String) -> String
-func play(filename: String,wait: bool=true,allow_skip: bool=true,x: int=0,y: int=0,width: int=640,height: int=640) -> Dictionary
+func play( filename: String, wait: bool = true, allow_skip: bool = true, x: int = 0, y: int = 0, width: int = 640, height: int = 640 ) -> Dictionary
 func stop() -> void
 func pause() -> bool
 func resume() -> bool
-func resize(x: int=0,y: int=0,width: int=640,height: int=640) -> bool
+func resize(x: int = 0, y: int = 0, width: int = 640, height: int = 640) -> bool
 func playing() -> bool
 func status(id: int) -> Dictionary
 ```
 
-### FlashPresentationState.gd
+### PresentationState.gd
 
-源文件：templates/runtime/scripts/FlashPresentationState.gd。
+源文件：templates/runtime/scripts/09_Effects/PresentationState.gd。
 
 公开字段：无。
 
@@ -4746,12 +4819,12 @@ func status(id: int) -> Dictionary
 extends RefCounted
 static func capture(state: Node) -> Dictionary
 static func prepare(value: Variant) -> Dictionary
-static func restore(state: Node,row: Dictionary,game: Node,request_ids: Dictionary={}) -> void
+static func restore(state: Node, row: Dictionary, game: Node, request_ids: Dictionary = {}) -> void
 ```
 
 ### SaveGraph.gd
 
-源文件：templates/runtime/scripts/SaveGraph.gd。
+源文件：templates/runtime/scripts/10_Support/Persistence/SaveGraph.gd。
 
 公开字段：无。
 
@@ -4760,11 +4833,11 @@ static func restore(state: Node,row: Dictionary,game: Node,request_ids: Dictiona
 ```gdscript
 extends RefCounted
 static func encode(value: Variant) -> Dictionary
-static func reason(value: Variant,classes: Variant=null) -> String
-static func reason_cooperatively(value: Variant,pulse: Callable,classes: Variant=null) -> String
-static func clone(value: Variant, graph: Array=[]) -> Variant
-static func clone_checked(value: Variant,graph: Array=[]) -> Dictionary
-static func rebind(value: Variant,pairs: Array,seen: Array=[]) -> Variant
+static func reason(value: Variant, classes: Variant = null) -> String
+static func reason_cooperatively( value: Variant, pulse: Callable, classes: Variant = null ) -> String
+static func clone(value: Variant, graph: Array = []) -> Variant
+static func clone_checked(value: Variant, graph: Array = []) -> Dictionary
+static func rebind(value: Variant, pairs: Array, seen: Array = []) -> Variant
 static func decode(value: Variant) -> Dictionary
 ```
 
@@ -4781,9 +4854,9 @@ extends RefCounted
 func generate(root: String) -> Dictionary
 ```
 
-### EditorProjectTransaction.gd
+### Editor_ProjectTransaction.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorProjectTransaction.gd。
+源文件：templates/editor/addons/rgm_editor/01_Documents/Editor_ProjectTransaction.gd。
 
 公开字段：无。
 
@@ -4796,9 +4869,9 @@ static func stamp(root: String, path: String) -> Dictionary
 static func publish(root: String, changes: Dictionary, expected: Dictionary) -> Dictionary
 ```
 
-### EditorScriptCoverage.gd
+### Editor_ScriptCoverage.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorScriptCoverage.gd。
+源文件：templates/editor/addons/rgm_editor/06_Scripts/Editor_ScriptCoverage.gd。
 
 公开字段：无。
 
@@ -4806,13 +4879,14 @@ static func publish(root: String, changes: Dictionary, expected: Dictionary) -> 
 
 ```gdscript
 extends RefCounted
-static func build(root: String, registry: Dictionary, inventory: Dictionary, workspace: Dictionary) -> Dictionary
+static func audit_services(root: String, registry: Dictionary) -> Dictionary
+static func build( root: String, registry: Dictionary, inventory: Dictionary, workspace: Dictionary ) -> Dictionary
 static func markdown(report: Dictionary) -> String
 ```
 
-### EditorScriptDialog.gd
+### Editor_ScriptDialog.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorScriptDialog.gd。
+源文件：templates/editor/addons/rgm_editor/06_Scripts/Editor_ScriptDialog.gd。
 
 公开字段：无。
 
@@ -4827,9 +4901,9 @@ func pending_status() -> String
 func reload() -> void
 ```
 
-### EditorScriptWorkspace.gd
+### Editor_ScriptWorkspace.gd
 
-源文件：templates/editor/addons/rgm_editor/EditorScriptWorkspace.gd。
+源文件：templates/editor/addons/rgm_editor/06_Scripts/Editor_ScriptWorkspace.gd。
 
 公开字段：无。
 
@@ -4842,11 +4916,11 @@ func _init(documents: RefCounted) -> void
 func reload() -> void
 static func initial(root: String, registry: Dictionary) -> Dictionary
 func entries() -> Array
-func source(id: String, original: bool=false) -> String
+func source(id: String, original: bool = false) -> String
 func generated(id: String) -> String
 func set_source(id: String, text: String) -> Dictionary
 func rename(id: String, name: String) -> Dictionary
-func add_script(name: String="新脚本") -> Dictionary
+func add_script(name: String = "新脚本") -> Dictionary
 func save() -> Dictionary
 func diagnostics(id: String) -> Array
 func coverage() -> Dictionary
@@ -4858,7 +4932,7 @@ static func restore_common(source_events: Array) -> Dictionary
 
 ### SavePreparation.gd
 
-源文件：templates/runtime/scripts/SavePreparation.gd。
+源文件：templates/runtime/scripts/10_Support/Persistence/SavePreparation.gd。
 
 公开字段：无。
 
@@ -4866,12 +4940,12 @@ static func restore_common(source_events: Array) -> Dictionary
 
 ```gdscript
 extends "SaveCodec.gd"
-static func prepare_cooperatively(value: Variant,definitions: RefCounted,owned_snapshot: bool,pulse: Callable,graph_check: Callable=Callable()) -> Dictionary
+static func prepare_cooperatively(value: Variant, definitions: RefCounted, owned_snapshot: bool, pulse: Callable, graph_check: Callable = Callable()) -> Dictionary
 ```
 
 ### ScriptQueryProof.gd
 
-源文件：templates/runtime/scripts/ScriptQueryProof.gd。
+源文件：templates/runtime/scripts/10_Support/Scripting/ScriptQueryProof.gd。
 
 公开字段：无。
 
@@ -4884,7 +4958,7 @@ static func plan(unit: Dictionary) -> Dictionary
 
 ### ScriptErrorLogger.gd
 
-源文件：templates/runtime/scripts/ScriptErrorLogger.gd。
+源文件：templates/runtime/scripts/10_Support/Scripting/ScriptErrorLogger.gd。
 
 公开字段：无。
 
@@ -4895,9 +4969,9 @@ extends Logger
 func _init(owner: Node) -> void
 ```
 
-### FlashDamageWorker.gd
+### DamageWorker.gd
 
-源文件：templates/runtime/scripts/FlashDamageWorker.gd。
+源文件：templates/runtime/scripts/01_Battle/DamageWorker.gd。
 
 公开字段：无。
 
@@ -4908,4 +4982,531 @@ extends RefCounted
 func request(job: Dictionary) -> Error
 func take() -> Dictionary
 func stop() -> void
+```
+
+### MenuModel.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：`COMMANDS`、`DEFAULT_LOCKS`。
+
+源文件：templates/runtime/scripts/08_Menu/Main/MenuModel.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func initialize(state: Object) -> void
+static func enabled(state: Object, command: int) -> bool
+```
+
+### MenuPages.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：`PAGES`。
+
+源文件：templates/runtime/scripts/08_Menu/Main/MenuPages.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func create(command: int, save_callback: Callable) -> Control
+```
+
+### ScriptPaths.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：`RUNTIME`。
+
+源文件：templates/runtime/scripts/10_Support/Scripting/ScriptPaths.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func runtime(filename: String) -> String
+```
+
+### ProgramDocumentation.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：`LEGACY_HEADER`、`HEADER`。
+
+源文件：templates/runtime/scripts/10_Support/Scripting/ProgramDocumentation.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func header_info(source: String) -> Dictionary
+static func source_hashes(source: String) -> Array
+static func canonical_line(program: String, span: Dictionary, generated_line: Variant) -> int
+```
+
+### NativeEventImporter.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：scripts/importer/NativeEventImporter.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func record_upgrade( value: Variant, root: String, path: String, units: Dictionary, policy: Dictionary, indent: String = "", trailing_newline: bool = true ) -> void
+static func upgrade(value: Variant, root: String, units: Dictionary, policy: Dictionary) -> void
+```
+
+### Editor_EventScript.gd
+
+公开字段：`code`、`status`。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/editor/addons/rgm_editor/03_Event/Editor_EventScript.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends VBoxContainer
+func configure(source: String, legacy: String = "") -> void
+func source() -> String
+func check() -> bool
+```
+
+### NativeEventContext.gd
+
+公开字段：`api`、`actor_init`、`temp`、`system`、`party`、`actors`、`variables`、`self_switches`、`main_actor`、`attack_actor`、`event`、`game_map`、`player`、`screen`、`storage`、`enemies`、`result`、`state`、`map_id`、`event_id`、`common_event_id`、`fields`、`character`、`map`。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/02_Event/NativeEventContext.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+func _init(runtime_state: Object, execution: Dictionary, origin: Dictionary) -> void
+func active() -> bool
+func actor(id: int) -> RefCounted
+func variable(id: int, fallback: Variant = 0) -> Variant
+func set_variable(id: int, value: Variant) -> bool
+func switch(id: int) -> bool
+func set_switch(id: int, value: bool) -> bool
+func self_switch(letter: String, value: bool) -> bool
+func item_count(kind: String, id: int) -> int
+func gain_item(kind: String, id: int, amount: int) -> bool
+func wait(seconds: float) -> bool
+func retry(seconds: float = 0.0) -> bool
+func fail(message: String) -> void
+func migrated(program: Callable) -> Variant
+```
+
+### NativeEventTask.gd
+
+公开字段：`context`、`done`、`result`。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/02_Event/NativeEventTask.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+func start(script: GDScript, state: Object, execution: Dictionary, binding: Dictionary) -> void
+```
+
+### NativeScriptSource.gd
+
+公开字段：`compiling`。
+
+常量（不含依赖脚本引用）：`FORMAT`。
+
+源文件：templates/runtime/scripts/02_Event/NativeScriptSource.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func template(condition: bool = false) -> String
+static func is_module(source: String) -> bool
+static func module_source(source: String) -> Dictionary
+static func binding(source: String, previous: Dictionary = {}, count: int = 1) -> Dictionary
+static func is_native(value: Variant) -> bool
+static func compile(source: String, id: String = "draft") -> Dictionary
+static func preview(source: String) -> String
+static func validate_tree(value: Variant, location: String = "") -> Dictionary
+static func copy_with_new_ids(value: Variant) -> Variant
+```
+
+### EventBodyEmitter.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：`OBJECTS`、`METHODS`、`ACTIONS`。
+
+源文件：scripts/importer/EventBodyEmitter.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+func emit(ast: Dictionary) -> Dictionary
+```
+
+### Game_ActorInit.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/00_Game/Game_ActorInit.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+func _init(api: RefCounted) -> void
+func load(actor_id: int, index: int = 0) -> Variant
+static func apply(custom: RefCounted, actor_id: int, index: int = 0) -> Variant
+```
+
+### EventScriptAPI.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/02_Event/EventScriptAPI.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+func _init(context: RefCounted) -> void
+func boxed(value: Variant) -> Variant
+func raw(value: Variant) -> Variant
+func operation(kind: String, arguments: Array) -> Variant
+func named(name: String) -> Variant
+func write(name: String, value: Variant) -> Variant
+func invoke(receiver: Variant, method: String, arguments: Array = []) -> Variant
+func root_call(method: String, arguments: Array = []) -> Variant
+func at(receiver: Variant, indexes: Array) -> Variant
+func put(receiver: Variant, index: Variant, value: Variant) -> Variant
+func binary(operator: String, left: Variant, right: Variant) -> Variant
+func truth(value: Variant) -> bool
+func iterable(value: Variant) -> Array
+func regex(pattern: String, flags: String = "") -> Variant
+func text(value: Variant) -> String
+func integer(value: Variant) -> int
+func contains(value: Variant, item: Variant) -> bool
+func maximum(value: Array) -> Variant
+func split(value: Variant, separator: Variant) -> Variant
+func attribute(name: Variant) -> Variant
+func set_attribute(name: Variant, value: Variant) -> Variant
+func name_value(value: Variant) -> Variant
+func add(left: Variant, right: Variant) -> Variant
+func subtract(left: Variant, right: Variant) -> Variant
+func multiply(left: Variant, right: Variant) -> Variant
+func greater(left: Variant, right: Variant) -> Variant
+func at_least(left: Variant, right: Variant) -> Variant
+func equal(left: Variant, right: Variant) -> Variant
+func case_equal(left: Variant, right: Variant) -> Variant
+```
+
+### EventScriptValue.gd
+
+公开字段：`enemy`、`event`、`name`、`event_erase`、`item_id`、`ending_id`、`barrier_id`、`hp`、`potion_id`、`hp_addition`、`gem_id`、`door_id`、`shotcut_enabled`、`ending_score`、`attr_addtion`、`main_actor_id`、`exp`、`id`、`x`、`y`、`pdef`、`events`、`animation_id`、`gold`、`actor_id`、`enemy_hp_addition`、`pending_battle_result`、`battle_animation`、`opacity`、`support_actor_id`、`potion_hp`、`battle_id`、`gem_attr`、`map_id`、`patk`、`matk`、`mdef`、`enemy_erase`、`level`、`next_exp`、`atk`、`eva`、`potion_itemization`、`gem_itemization`、`direction`、`aim_layer`、`data`、`aim_data`、`actors`、`show_playerdata`、`show_mapname`、`mdef_available`、`speed_available`、`show_greenkeys`、`enemy_id`、`got_damage`、`enemy_damage`、`battle_result`、`maxhp`、`maxsp`、`sp`、`agi`、`intelligence`、`items`、`skills`、`troop`、`item_num`。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/02_Event/EventScriptValue.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+func _init(api: RefCounted, value: Variant) -> void
+func at(index: Variant, second: Variant = null, third: Variant = null) -> Variant
+func put(index: Variant, value: Variant) -> Variant
+func begin_battle() -> Variant
+func finish_battle() -> Variant
+func is_dead() -> Variant
+func is_box_in_place() -> Variant
+func refresh() -> Variant
+func refresh_damage() -> Variant
+func attr_addition_clear() -> Variant
+func erase() -> Variant
+func die() -> Variant
+func move_down() -> Variant
+func move_left() -> Variant
+func move_right() -> Variant
+func move_up() -> Variant
+func wake() -> Variant
+func freeze() -> Variant
+func unravel() -> Variant
+func gain_item(id: int, amount: int) -> Variant
+func gain_gold(amount: Variant) -> Variant
+func gain_exp(amount: Variant) -> Variant
+func add_state(id: int) -> Variant
+func learn_skill(id: int, level: int = 0) -> Variant
+func level_up(id: int, level: int) -> Variant
+func set_rect(mode: int = 0) -> Variant
+func voiceover(enabled: bool = true) -> Variant
+func check_event(x: Variant, y: Variant, pattern: Variant) -> Variant
+```
+
+### UIInput.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/04_UI_Common/UIInput.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func key(event: InputEvent) -> int
+static func accepts( event: InputEvent, navigation: Array = [KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_PAGEUP, KEY_PAGEDOWN] ) -> bool
+```
+
+### UILayout.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：`DESIGN_SIZE`、`MAP_HUD_WIDTH`、`WINDOW_MARGIN`、`LAYER_FRAME`、`LAYER_CURSOR`、`LAYER_CONTENTS`。
+
+源文件：templates/runtime/scripts/04_UI_Common/UILayout.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func usable_rect(viewport_size: Vector2, reserve_hud: bool = false) -> Rect2
+static func fit_rect(rect: Rect2, bounds: Rect2) -> Rect2
+static func content_rect(window_size: Vector2, margin: float = WINDOW_MARGIN) -> Rect2
+```
+
+### UITextBlock.gd
+
+公开字段：`text`、`style`、`page`、`layout_data`。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/04_UI_Common/UITextBlock.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends Control
+signal page_changed(page: int, total: int)
+func configure(value: String, text_style: Dictionary = {}) -> void
+func set_page(index: int) -> void
+func page_count() -> int
+```
+
+### UITextLayout.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：`FONT_CACHE_LIMIT`。
+
+源文件：templates/runtime/scripts/04_UI_Common/UITextLayout.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func font(style: Dictionary) -> SystemFont
+static func measure(value: String, style: Dictionary) -> Vector2
+static func layout( value: String, style: Dictionary, maximum_width: float, maximum_height: float = INF ) -> Dictionary
+```
+
+### UITransition.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/04_UI_Common/UITransition.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+func play(target: Control, goals: Dictionary, seconds: float) -> void
+func advance(seconds: float) -> bool
+func cancel() -> void
+func active() -> bool
+```
+
+### TitleLayout.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/05_Title/TitleLayout.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func command_pose( relative: int, movement: float, visibility: int, canvas: Vector2 ) -> Dictionary
+static func mode_pose(id: int, selection: float, visibility: int, canvas: Vector2) -> Dictionary
+static func tag_rect(visibility: int, canvas: Vector2) -> Rect2
+```
+
+### WindowDrawing.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/04_UI_Common/WindowDrawing.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func panel(size: Vector2i) -> Texture2D
+static func text( target: CanvasItem, font: Font, rect: Rect2, value: String, font_size: int = 18, color: Color = Color.WHITE, align: int = HORIZONTAL_ALIGNMENT_LEFT, shadow: bool = true ) -> void
+static func cursor( target: CanvasItem, rect: Rect2, type: int = 3, inset: Vector2 = Vector2.ZERO, opacity: float = 1.0 ) -> void
+```
+
+### ArchiveView.gd
+
+公开字段：`page`。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/07_Archive/ArchiveView.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends Control
+func positions() -> Dictionary
+func refresh() -> void
+func draw_cards(target: Control) -> void
+func draw_confirmation(target: Control) -> void
+```
+
+### PageSurface.gd
+
+公开字段：`progress`、`regions`。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/04_UI_Common/PageSurface.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends Control
+func begin() -> void
+func window( key: String, rect: Rect2, offset: Vector2 = Vector2.ZERO, parent_key: String = "", panel: bool = true ) -> Control
+func finish() -> void
+func party(key: String, rect: Rect2, selected: int = -1, offset: Vector2 = Vector2.ZERO) -> Control
+func set_progress(value: int) -> void
+func navigation_ready() -> bool
+```
+
+### EquipmentView.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/08_Menu/Item/EquipmentView.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func render(page: Control, surface: Control) -> void
+```
+
+### ItemView.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/08_Menu/Item/ItemView.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func render(page: Control, surface: Control) -> void
+```
+
+### NoteView.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/08_Menu/Note/NoteView.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func render(page: Control, surface: Control) -> void
+```
+
+### BlasticView.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/08_Menu/Orbment/BlasticView.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func render(page: Control, surface: Control) -> void
+```
+
+### ShopView.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/08_Menu/Shop/ShopView.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func render(page: Control, surface: Control) -> void
+```
+
+### SightView.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/08_Menu/Sight/SightView.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func render(page: Control, surface: Control) -> void
+```
+
+### SkillView.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/08_Menu/Skill/SkillView.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+static func render(page: Control, surface: Control) -> void
+```
+
+### ScriptMigrationAudit.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：scripts/importer/ScriptMigrationAudit.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+func generate(root: String, source: String) -> Dictionary
+```
+
+### MapOcclusion.gd
+
+公开字段：无。
+
+常量（不含依赖脚本引用）：`OPACITY`。
+
+源文件：templates/runtime/scripts/03_Map/MapOcclusion.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends RefCounted
+func reset(map: Node, enabled: bool) -> void
+func update(position: Vector2i) -> Dictionary
+func opacity(x: int, y: int, layer: int) -> float
+```
+
+### SaveLoadProgress.gd
+
+公开字段：`game_scene`。
+
+常量（不含依赖脚本引用）：无。
+
+源文件：templates/runtime/scripts/10_Support/Persistence/SaveLoadProgress.gd。职责与调用方式见 docs/SCRIPT_STRUCTURE_v0.51.md。
+
+```gdscript
+extends CanvasLayer
+func read_slot(slot: int, host: Node) -> Dictionary
+func finish_after_scene() -> void
+func close(restore_pause: bool = true) -> void
 ```

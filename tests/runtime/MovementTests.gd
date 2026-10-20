@@ -1,3 +1,46 @@
+## 职责：回归验证：验证人物运动、地图通行与玩家输入控制。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func test_motion() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_map() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func test_player() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func frames(count: int) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(condition: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 condition（bool；必填）：是否创建须返回布尔值的脚本条件模板。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 var failures: Array[String] = []
 var checks := 0
@@ -12,8 +55,8 @@ func _initialize() -> void:
 
 func run() -> void:
 	create_timer(60).timeout.connect(func() -> void: printerr("FAIL: movement test timeout"); quit(1))
-	motion_script = load("res://runtime/scripts/CharacterMotion.gd")
-	fixture_script = load("res://runtime/scripts/MovementFixture.gd")
+	motion_script = load("res://runtime/scripts/03_Map/CharacterMotion.gd")
+	fixture_script = load("res://runtime/scripts/11_Development/MovementFixture.gd")
 	state = root.get_node("RuntimeState")
 	test_motion()
 	await test_map()
@@ -76,11 +119,11 @@ func test_motion() -> void:
 func test_map() -> void:
 	var fixture: Dictionary = fixture_script.build()
 	var before := JSON.stringify(fixture)
-	var map: Node2D = load("res://runtime/scripts/MapRuntime.gd").new()
+	var map: Node2D = load("res://runtime/scripts/03_Map/MapRuntime.gd").new()
 	root.add_child(map)
 	map.load_definition(fixture.map, fixture.tileset)
 	map.set_process(false)
-	var avatar: Node2D = load("res://runtime/scripts/MapCharacter.gd").new()
+	var avatar: Node2D = load("res://runtime/scripts/03_Map/MapCharacter.gd").new()
 	avatar.map_runtime = map
 	map.ensure_character_layer().add_child(avatar)
 	avatar.set_process(false)
@@ -139,10 +182,10 @@ func test_map() -> void:
 
 
 func test_player() -> void:
-	var data: Script = load("res://runtime/scripts/RuntimeData.gd")
+	var data: Script = load("res://runtime/scripts/00_Game/RuntimeData.gd")
 	state.begin_new_game(data.system())
 	state.resume_from_save = true # This test is not testing the sample's startup event.
-	var game: Node2D = load("res://scenes/Game.tscn").instantiate()
+	var game: Node2D = load("res://scenes/03_Map/Game.tscn").instantiate()
 	root.add_child(game)
 	current_scene = game
 	await frames(3)
@@ -164,7 +207,7 @@ func test_player() -> void:
 	expect(game._player.move_straight(6), "real player starts walking")
 	game._player._process(0.1)
 	expect(state.player_x == 2 and state.steps == steps_before and not game._menus.can_open(), "half step does not commit grid/steps or open menu")
-	expect(not load("res://runtime/scripts/SaveService.gd").save_slot(1, state).ok, "direct save rejects in-flight motion before writing")
+	expect(not load("res://runtime/scripts/10_Support/Persistence/SaveService.gd").save_slot(1, state).ok, "direct save rejects in-flight motion before writing")
 	var escape := InputEventKey.new()
 	escape.keycode = KEY_ESCAPE
 	escape.pressed = true
@@ -191,7 +234,7 @@ func test_player() -> void:
 	tools.action(2)
 	expect(state.player_motion.options.move_speed == 6 and state.player_x == 3 and state.steps == steps_before + 1, "apply preview settings without relocating real player or adding steps")
 	expect(JSON.stringify([state.switches, state.variables, state.inventory, state.party]) == flags, "verification area leaves inventory/switches/variables/party unchanged")
-	var codec: Script = load("res://runtime/scripts/SaveCodec.gd")
+	var codec: Script = load("res://runtime/scripts/10_Support/Persistence/SaveCodec.gd")
 	var snapshot: Dictionary = codec.capture(state)
 	var prepared: Dictionary = codec.prepare(snapshot)
 	expect(prepared.ok and prepared.state.player_options.move_speed == 6, "player settings roundtrip through save validation")

@@ -1,3 +1,37 @@
+## 职责：回归验证：验证事件文章、选项及运行界面的实际渲染。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func capture(size: Vector2i, suffix: String) -> void
+##     参数 size（Vector2i；必填）：对象、画布或区域尺寸。
+##     参数 suffix（String；必填）：文件名或名称后缀。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func render_frames(count: int) -> void
+##     用途：等待指定数量的真实渲染帧。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(condition: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 condition（bool；必填）：是否创建须返回布尔值的脚本条件模板。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 var failures: Array[String] = []
 var checks := 0
@@ -16,13 +50,13 @@ func run() -> void:
 	create_timer(45).timeout.connect(func() -> void: printerr("FAIL: event rendering timeout"); quit(1))
 	DirAccess.make_dir_recursive_absolute(captures)
 	var state := root.get_node("RuntimeState")
-	var data: Script = load("res://runtime/scripts/RuntimeData.gd")
+	var data: Script = load("res://runtime/scripts/00_Game/RuntimeData.gd")
 	for size in [Vector2i(640, 480), Vector2i(800, 480), Vector2i(768, 768)]:
 		root.content_scale_size = size
 		DisplayServer.window_set_size(size)
 		state.begin_new_game(data.system())
 		state.resume_from_save = true
-		var game: Node2D = load("res://scenes/Game.tscn").instantiate()
+		var game: Node2D = load("res://scenes/03_Map/Game.tscn").instantiate()
 		root.add_child(game)
 		current_scene = game
 		await render_frames(3)

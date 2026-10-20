@@ -60,26 +60,26 @@ foreach ($outputProject in $results.exports) {
     if (-not $SkipImport) {
         Invoke-GodotCheck "sample-$index-import" $outputProject @('--import')
     }
-    Invoke-GodotCheck "sample-$index-editor-compile" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorCompileTests.gd')) 'EDITOR COMPILE: PASSED'
-	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorTilesetLayersScenario.gd') -Destination (Join-Path $outputProject '.godot/EditorTilesetLayersScenario.gd')
-	Invoke-GodotCheck "sample-$index-tileset-layers" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorTilesetLayersTests.gd')) 'TILESET LAYERS TESTS: PASSED'
-	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorMapEditingScenario.gd') -Destination (Join-Path $outputProject '.godot/EditorMapEditingScenario.gd')
-	Invoke-GodotCheck "sample-$index-map-editing" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorMapEditingTests.gd')) 'MAP EDITING TESTS: PASSED'
-	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorEventAuthoringScenario.gd') -Destination (Join-Path $outputProject '.godot/EditorEventAuthoringScenario.gd')
-	Invoke-GodotCheck "sample-$index-event-authoring" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorEventAuthoringTests.gd')) 'EVENT AUTHORING TESTS: PASSED'
-    Invoke-GodotCheck "sample-$index-editor" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorTests.gd')) 'EDITOR TESTS: PASSED'
-    Invoke-GodotCheck "sample-$index-command-blocks" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorCommandBlockTests.gd')) 'COMMAND BLOCK TESTS: PASSED'
-    Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorStructureGuideScenario.gd') -Destination (Join-Path $outputProject '.godot/EditorStructureGuideScenario.gd')
-    Invoke-GodotCheck "sample-$index-structure-guides" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorStructureGuideTests.gd')) 'STRUCTURE GUIDE TESTS: PASSED'
-    Invoke-GodotCheck "sample-$index-database-editor" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorDatabaseTests.gd')) 'DATABASE EDITOR TESTS: PASSED'
-	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorDatabaseAuthoringScenario.gd') -Destination (Join-Path $outputProject '.godot/EditorDatabaseAuthoringScenario.gd')
-	Invoke-GodotCheck "sample-$index-database-authoring" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorDatabaseAuthoringTests.gd')) 'DATABASE AUTHORING TESTS: PASSED'
-	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorFeedbackScenario.gd') -Destination (Join-Path $outputProject '.godot/EditorFeedbackScenario.gd')
-	Invoke-GodotCheck "sample-$index-editor-feedback" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorFeedbackTests.gd')) 'EDITOR FEEDBACK TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-editor-compile" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/Editor_CompileTests.gd')) 'EDITOR COMPILE: PASSED'
+	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_TilesetLayersScenario.gd') -Destination (Join-Path $outputProject '.godot/Editor_TilesetLayersScenario.gd')
+	Invoke-GodotCheck "sample-$index-tileset-layers" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/Editor_TilesetLayersTests.gd')) 'TILESET LAYERS TESTS: PASSED'
+	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_MapEditingScenario.gd') -Destination (Join-Path $outputProject '.godot/Editor_MapEditingScenario.gd')
+	Invoke-GodotCheck "sample-$index-map-editing" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/Editor_MapEditingTests.gd')) 'MAP EDITING TESTS: PASSED'
+	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_EventAuthoringScenario.gd') -Destination (Join-Path $outputProject '.godot/Editor_EventAuthoringScenario.gd')
+	Invoke-GodotCheck "sample-$index-event-authoring" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/Editor_EventAuthoringTests.gd')) 'EVENT AUTHORING TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-editor" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/Editor_Tests.gd')) 'EDITOR TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-command-blocks" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/Editor_CommandBlockTests.gd')) 'COMMAND BLOCK TESTS: PASSED'
+    Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_StructureGuideScenario.gd') -Destination (Join-Path $outputProject '.godot/Editor_StructureGuideScenario.gd')
+    Invoke-GodotCheck "sample-$index-structure-guides" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/Editor_StructureGuideTests.gd')) 'STRUCTURE GUIDE TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-database-editor" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/Editor_DatabaseTests.gd')) 'DATABASE EDITOR TESTS: PASSED'
+	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_DatabaseAuthoringScenario.gd') -Destination (Join-Path $outputProject '.godot/Editor_DatabaseAuthoringScenario.gd')
+	Invoke-GodotCheck "sample-$index-database-authoring" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/Editor_DatabaseAuthoringTests.gd')) 'DATABASE AUTHORING TESTS: PASSED'
+	Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_FeedbackScenario.gd') -Destination (Join-Path $outputProject '.godot/Editor_FeedbackScenario.gd')
+	Invoke-GodotCheck "sample-$index-editor-feedback" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/Editor_FeedbackTests.gd')) 'EDITOR FEEDBACK TESTS: PASSED'
 
-    Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorFinalUiScenario.gd') -Destination (Join-Path $outputProject '.godot/EditorFinalUiScenario.gd')
-    Invoke-GodotCheck "sample-$index-final-ui" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorFinalUiTests.gd')) 'FINAL UI TESTS: PASSED'
-    Invoke-GodotCheck "sample-$index-editor-readability" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/EditorReadabilityTests.gd')) 'EDITOR READABILITY TESTS: PASSED'
+    Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_FinalUiScenario.gd') -Destination (Join-Path $outputProject '.godot/Editor_FinalUiScenario.gd')
+    Invoke-GodotCheck "sample-$index-final-ui" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/Editor_FinalUiTests.gd')) 'FINAL UI TESTS: PASSED'
+    Invoke-GodotCheck "sample-$index-editor-readability" $outputProject @('--script', (Join-Path $PSScriptRoot 'editor/Editor_ReadabilityTests.gd')) 'EDITOR READABILITY TESTS: PASSED'
     Invoke-GodotCheck "sample-$index-title" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/TitleTests.gd')) 'TITLE TESTS: PASSED'
     Invoke-GodotCheck "sample-$index-runtime" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/RuntimeTests.gd'), '--quit-after', '1200') 'RUNTIME TESTS: PASSED'
     Invoke-GodotCheck "sample-$index-events" $outputProject @('--script', (Join-Path $PSScriptRoot 'runtime/EventTests.gd')) 'EVENT TESTS: PASSED'

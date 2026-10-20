@@ -1,3 +1,25 @@
+## 职责：只读解析 Ruby Marshal 数据，保留对象引用、类名和用户定义数据，不执行 Ruby。
+##
+## 调用方式：
+##   实例接口：先用 preload("res://scripts/importer/RmxpMarshalReader.gd").new(...) 构造，再调用下列方法。
+##
+## 调用接口：
+##   func _init(text_codec: RmxpTextCodec) -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数 text_codec（RmxpTextCodec；必填）：处理原工程文本编码的解码服务。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func read_file(path: String) -> Variant
+##     参数 path（String；必填）：待读取、写入或定位的文件路径。
+##     返回：动态类型结果；允许的具体类型由输入和实际返回分支决定。
+##
+##   func read_bytes(bytes: PackedByteArray) -> Variant
+##     参数 bytes（PackedByteArray；必填）：原始字节数据。
+##     返回：动态类型结果；允许的具体类型由输入和实际返回分支决定。
+##
+## 公开常量：RAW_STRING_KEY。
+## 接口说明结束。
+
 class_name RmxpMarshalReader
 extends RefCounted
 
@@ -45,49 +67,49 @@ func _read_value() -> Variant:
 		return null
 	var tag := _read_byte()
 	match tag:
-		48: # 0 nil
+		48:  # 0 nil
 			return null
-		84: # T true
+		84:  # T true
 			return true
-		70: # F false
+		70:  # F false
 			return false
-		105: # i fixnum
+		105:  # i fixnum
 			return _read_fixnum()
-		108: # l bignum
+		108:  # l bignum
 			return _read_bignum()
-		102: # f float
+		102:  # f float
 			return _read_float()
-		58: # : symbol
+		58:  # : symbol
 			return _read_symbol()
-		59: # ; symbol link
+		59:  # ; symbol link
 			return _read_symbol_link()
-		34: # " string
+		34:  # " string
 			return _read_string()
-		91: # [ array
+		91:  # [ array
 			return _read_array()
-		123, 125: # { hash / } hash with default
+		123, 125:  # { hash / } hash with default
 			return _read_hash(tag == 125)
-		111: # o object
+		111:  # o object
 			return _read_object()
-		83: # S struct
+		83:  # S struct
 			return _read_struct()
-		117: # u: _dump / _load raw payload (RGSS Table, Color, Tone)
+		117:  # u: _dump / _load raw payload (RGSS Table, Color, Tone)
 			return _read_user_defined()
-		85: # U: marshal_dump / marshal_load object payload
+		85:  # U: marshal_dump / marshal_load object payload
 			return _read_user_marshaled()
-		73: # I ivar wrapper
+		73:  # I ivar wrapper
 			return _read_ivar()
-		64: # @ object link
+		64:  # @ object link
 			return _read_object_link()
-		47: # / regexp
+		47:  # / regexp
 			return _read_regexp()
-		99, 109, 77: # class, module, old module
+		99, 109, 77:  # class, module, old module
 			return _read_named_value(tag)
-		101: # e extended object
+		101:  # e extended object
 			return _read_extended()
-		67: # C user class
+		67:  # C user class
 			return _read_user_class()
-		100: # d data object
+		100:  # d data object
 			return _read_data_object()
 		_:
 			_fail("不支持的 Ruby Marshal 标记 0x%02X（偏移 %d）。" % [tag, _position - 1])
@@ -125,7 +147,9 @@ func _read_bignum() -> Dictionary:
 
 func _read_float() -> Variant:
 	var value := _codec.decode(_read_raw(_read_fixnum()))
-	var result: Variant = {"_rmxp_float": value} if value in ["nan", "inf", "-inf"] else value.to_float()
+	var result: Variant = (
+		{"_rmxp_float": value} if value in ["nan", "inf", "-inf"] else value.to_float()
+	)
 	_objects.append(result)
 	return result
 
@@ -228,7 +252,7 @@ func _read_regexp() -> Dictionary:
 
 func _read_named_value(tag: int) -> Dictionary:
 	var kind := "class" if tag == 99 else "module"
-	var result := {("_rmxp_%s" % kind): _codec.decode(_read_raw(_read_fixnum()))}
+	var result := {"_rmxp_%s" % kind: _codec.decode(_read_raw(_read_fixnum()))}
 	_objects.append(result)
 	return result
 

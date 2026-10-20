@@ -1,3 +1,16 @@
+## 职责：回归验证：运行迁移器基础回归，检查 Marshal、Table、素材安全和测试配置生成。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+## 接口说明结束。
+
 extends SceneTree
 
 const RmxpMarshalReader = preload("res://scripts/importer/RmxpMarshalReader.gd")
@@ -148,7 +161,7 @@ func _migrate_sample(source_path: String, temporary_export: String) -> void:
 		_exports.append(output_path)
 		print("EXPORTED: ", output_path)
 		_expect(FileAccess.file_exists(output_path.path_join("project.godot")), "generated project.godot should exist")
-		_expect(FileAccess.file_exists(output_path.path_join("runtime/scripts/Game.gd")), "runtime path must match scene and autoload paths")
+		_expect(FileAccess.file_exists(output_path.path_join("runtime/scripts/10_Support/Boot/Game.gd")), "runtime path must match scene and autoload paths")
 		_expect(FileAccess.file_exists(output_path.path_join("data/manifest.json")), "generated manifest should exist")
 		_expect(FileAccess.file_exists(output_path.path_join("migration_report.md")), "generated report should exist")
 		var test_setup: Variant = JSON.parse_string(FileAccess.get_file_as_string(output_path.path_join("data/test_setup.json")))

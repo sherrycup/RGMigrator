@@ -153,9 +153,9 @@
     ]
   },
   "production_sha256": {
-    "EditorCommands.gd": "61ec8624d4fad39f778a18698a4e4ca1035e4873ddf7084b9b63cd33dc19077e",
-    "EditorPresentation.gd": "838a3f1dbe0fb6a18799c785a5efb1ff8dc485403612f60b4ec9d47b0bf3d7bd",
-    "EditorCommandList.gd": "617701466f11acbceb9584e686b1522dad2b930097f50d409a416d4bd9b38ed3"
+    "Editor_Commands.gd": "61ec8624d4fad39f778a18698a4e4ca1035e4873ddf7084b9b63cd33dc19077e",
+    "Editor_Presentation.gd": "838a3f1dbe0fb6a18799c785a5efb1ff8dc485403612f60b4ec9d47b0bf3d7bd",
+    "Editor_CommandList.gd": "617701466f11acbceb9584e686b1522dad2b930097f50d409a416d4bd9b38ed3"
   },
   "limits": [
     "0.49 whole-game acceptance remains pending.",

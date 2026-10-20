@@ -1,0 +1,5776 @@
+{
+  "version": "ver0.59",
+  "state": "implemented_and_self_checked",
+  "user_acceptance": "pending",
+  "verified_at": "2026-10-20T15:47:58.708134+00:00",
+  "project": "D:\\Dev\\Godot_Trans\\output\\0.59\\release\\黎之闪翼（开发中）_Godot",
+  "export": {
+    "assets": 4097,
+    "errors": [],
+    "flash_gameplay": {
+      "applied": true,
+      "diagnostics": [],
+      "errors": [],
+      "ok": true,
+      "skills": 13,
+      "storage_tables": 42
+    },
+    "functional_windows": true,
+    "generated_mask_verified": true,
+    "maps": 36,
+    "menu_archive_native": true,
+    "message_restoration": true,
+    "migration_audit": {
+      "errors": [],
+      "ok": true,
+      "summary": {
+        "asset_paths": 4077.0,
+        "attribute_declarations": 565.0,
+        "classifications": {
+          "excluded": 35.0,
+          "implemented": 204.0,
+          "source_empty": 93.0,
+          "source_unfinished": 7.0
+        },
+        "dynamic_candidates": 130.0,
+        "effective_method_candidates": 2768.0,
+        "groups": 32.0,
+        "implementations": 131.0,
+        "lexical_method_candidates": 503.0,
+        "literal_dependencies": 738.0,
+        "literal_source_resource_refs": 56.0,
+        "methods": 2790.0,
+        "override_chains": 21.0,
+        "scripts": 339.0,
+        "unindexed_original_assets": 0.0,
+        "unregistered_sources": 0.0
+      }
+    },
+    "native_events": {
+      "legacy": 0,
+      "mismatched": 0,
+      "native": 145
+    },
+    "native_upgrade_bytes_verified": true,
+    "ok": true,
+    "output_path": "D:/Dev/Godot_Trans/output/0.59/release/黎之闪翼（开发中）_Godot",
+    "script_migration": {
+      "errors": [],
+      "mirror_audit": {
+        "differences": [
+          {
+            "load_order": 150,
+            "mirror_analysis": {
+              "calls": [
+                {
+                  "column": 23,
+                  "line": 26,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 18,
+                  "line": 36,
+                  "name": "new",
+                  "receiver": "Win32API"
+                },
+                {
+                  "column": 14,
+                  "line": 44,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 14,
+                  "line": 46,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 14,
+                  "line": 48,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 14,
+                  "line": 50,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 14,
+                  "line": 52,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 14,
+                  "line": 54,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 14,
+                  "line": 56,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 14,
+                  "line": 58,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 14,
+                  "line": 60,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 14,
+                  "line": 62,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 14,
+                  "line": 64,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 14,
+                  "line": 66,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 14,
+                  "line": 68,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 12,
+                  "line": 71,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 11,
+                  "line": 77,
+                  "name": "call",
+                  "receiver": "TICK_COUNTER"
+                }
+              ],
+              "definitions": [
+                {
+                  "alias_target": "",
+                  "column": 8,
+                  "kind": "module",
+                  "line": 7,
+                  "name": "Message",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 150,
+                    "name": "Message 2",
+                    "script_id": 27787001,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0150",
+                  "version_id": "mirror_0150:7:8"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 41,
+                  "name": "color",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 150,
+                    "name": "Message 2",
+                    "script_id": 27787001,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0150",
+                  "version_id": "mirror_0150:41:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 76,
+                  "name": "update_tick",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 150,
+                    "name": "Message 2",
+                    "script_id": 27787001,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0150",
+                  "version_id": "mirror_0150:76:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 87,
+                  "name": "tick",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 150,
+                    "name": "Message 2",
+                    "script_id": 27787001,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0150",
+                  "version_id": "mirror_0150:87:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 91,
+                  "name": "reset_tick",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 150,
+                    "name": "Message 2",
+                    "script_id": 27787001,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0150",
+                  "version_id": "mirror_0150:91:7"
+                }
+              ],
+              "features": [
+                {
+                  "column": 18,
+                  "feature": "native_api",
+                  "line": 36,
+                  "token": "Win32API"
+                }
+              ],
+              "globals": [],
+              "limits": "词法候选；未解析完整作用域、正则/heredoc、动态分派、alias绑定或可达性，不代表功能已迁移"
+            },
+            "mirror_path": "legacy/ruby_scripts/[group] 0017 ▼ 信息相关/0150_Message 2.rb",
+            "mirror_sha256": "8f1ef07b92a5a8418a485bda670d646b0c71f42046044ac88c09afab30cb6282",
+            "name": "Message 2",
+            "rxdata_sha256": "62dd5ca3014be3273bab757914369182ddc20e14139bf8177a2793c84a57b8e9"
+          },
+          {
+            "load_order": 152,
+            "mirror_analysis": {
+              "calls": [
+                {
+                  "column": 5,
+                  "line": 54,
+                  "name": "setup",
+                  "receiver": ""
+                },
+                {
+                  "column": 8,
+                  "line": 91,
+                  "name": "message_proc",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 7,
+                  "line": 92,
+                  "name": "message_proc",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 5,
+                  "line": 96,
+                  "name": "message_proc",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 5,
+                  "line": 97,
+                  "name": "choice_start",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 5,
+                  "line": 98,
+                  "name": "choice_max",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 5,
+                  "line": 99,
+                  "name": "choice_cancel_type",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 5,
+                  "line": 100,
+                  "name": "choice_proc",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 5,
+                  "line": 101,
+                  "name": "message_window_showing",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 14,
+                  "line": 108,
+                  "name": "windowskin",
+                  "receiver": "RPG::Cache"
+                },
+                {
+                  "column": 21,
+                  "line": 109,
+                  "name": "new",
+                  "receiver": "Bitmap"
+                },
+                {
+                  "column": 19,
+                  "line": 110,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 37,
+                  "line": 110,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 19,
+                  "line": 111,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 47,
+                  "line": 111,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 19,
+                  "line": 112,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 47,
+                  "line": 112,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 19,
+                  "line": 113,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 57,
+                  "line": 113,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 21,
+                  "line": 115,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 39,
+                  "line": 115,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 21,
+                  "line": 116,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 49,
+                  "line": 116,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 21,
+                  "line": 119,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 43,
+                  "line": 119,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 21,
+                  "line": 120,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 53,
+                  "line": 120,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 19,
+                  "line": 122,
+                  "name": "fill_rect",
+                  "receiver": ""
+                },
+                {
+                  "column": 68,
+                  "line": 122,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 21,
+                  "line": 153,
+                  "name": "choice_start",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 45,
+                  "line": 247,
+                  "name": "width",
+                  "receiver": "Graphics"
+                },
+                {
+                  "column": 47,
+                  "line": 249,
+                  "name": "width",
+                  "receiver": "Graphics"
+                },
+                {
+                  "column": 5,
+                  "line": 261,
+                  "name": "refresh_arrow",
+                  "receiver": ""
+                },
+                {
+                  "column": 5,
+                  "line": 263,
+                  "name": "refresh_origin",
+                  "receiver": ""
+                },
+                {
+                  "column": 23,
+                  "line": 270,
+                  "name": "new",
+                  "receiver": "Bitmap"
+                },
+                {
+                  "column": 14,
+                  "line": 272,
+                  "name": "windowskin",
+                  "receiver": "RPG::Cache"
+                },
+                {
+                  "column": 21,
+                  "line": 274,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 39,
+                  "line": 274,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 21,
+                  "line": 276,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 39,
+                  "line": 276,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 7,
+                  "line": 315,
+                  "name": "message_window_showing",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 7,
+                  "line": 328,
+                  "name": "message_window_showing",
+                  "receiver": "$game_temp"
+                }
+              ],
+              "definitions": [
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "class",
+                  "line": 7,
+                  "name": "Message::TextBox",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:7:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 26,
+                  "name": "initialize",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:26:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 72,
+                  "name": "dispose",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:72:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 90,
+                  "name": "terminate",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:90:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 106,
+                  "name": "draw_frame",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:106:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 129,
+                  "name": "x",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:129:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 135,
+                  "name": "y",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:135:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 138,
+                  "name": "z",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:138:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 144,
+                  "name": "x=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:144:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 151,
+                  "name": "y=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:151:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 158,
+                  "name": "z=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:158:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 165,
+                  "name": "px=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:165:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 173,
+                  "name": "py=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:173:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 181,
+                  "name": "set_position",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:181:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 189,
+                  "name": "back_opacity",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:189:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 195,
+                  "name": "back_opacity=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:195:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 203,
+                  "name": "contents_opacity",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:203:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 209,
+                  "name": "contents_opacity=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:209:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 217,
+                  "name": "opacity=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:217:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 224,
+                  "name": "zoom=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:224:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 235,
+                  "name": "refresh_position",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:235:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 268,
+                  "name": "refresh_arrow",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:268:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 282,
+                  "name": "refresh_origin",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:282:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 310,
+                  "name": "call",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:310:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 334,
+                  "name": "close",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:334:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 355,
+                  "name": "finished?",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:355:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 361,
+                  "name": "pause",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:361:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 367,
+                  "name": "continue",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:367:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 373,
+                  "name": "got_name",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 152,
+                    "name": "Message::TextBox 1",
+                    "script_id": 51528769,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0152",
+                  "version_id": "mirror_0152:373:7"
+                }
+              ],
+              "features": [
+                {
+                  "column": 21,
+                  "feature": "display",
+                  "line": 109,
+                  "token": "Bitmap"
+                },
+                {
+                  "column": 23,
+                  "feature": "display",
+                  "line": 270,
+                  "token": "Bitmap"
+                }
+              ],
+              "globals": [
+                {
+                  "column": 8,
+                  "line": 91,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 7,
+                  "line": 92,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 5,
+                  "line": 96,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 5,
+                  "line": 97,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 5,
+                  "line": 98,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 5,
+                  "line": 99,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 5,
+                  "line": 100,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 5,
+                  "line": 101,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 21,
+                  "line": 153,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 10,
+                  "line": 245,
+                  "name": "$game_switches"
+                },
+                {
+                  "column": 7,
+                  "line": 315,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 7,
+                  "line": 328,
+                  "name": "$game_temp"
+                }
+              ],
+              "limits": "词法候选；未解析完整作用域、正则/heredoc、动态分派、alias绑定或可达性，不代表功能已迁移"
+            },
+            "mirror_path": "legacy/ruby_scripts/[group] 0017 ▼ 信息相关/0152_Message__TextBox 1.rb",
+            "mirror_sha256": "20483b6f5e5e322d56658a246de8420971e12fbc3ffa90c902b21fbf963a28be",
+            "name": "Message::TextBox 1",
+            "rxdata_sha256": "1889303a5eca782712cd8b19ebbf9631aa701bfa2899fa531fa24eb6ae2d478e"
+          },
+          {
+            "load_order": 153,
+            "mirror_analysis": {
+              "calls": [
+                {
+                  "column": 22,
+                  "line": 12,
+                  "name": "new",
+                  "receiver": "Bitmap"
+                },
+                {
+                  "column": 18,
+                  "line": 13,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 36,
+                  "line": 13,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 20,
+                  "line": 22,
+                  "name": "new",
+                  "receiver": "Bitmap"
+                },
+                {
+                  "column": 31,
+                  "line": 23,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 15,
+                  "line": 26,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 44,
+                  "line": 26,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 18,
+                  "line": 27,
+                  "name": "gradate_line",
+                  "receiver": ""
+                },
+                {
+                  "column": 15,
+                  "line": 28,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 44,
+                  "line": 28,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 18,
+                  "line": 29,
+                  "name": "gradate_line",
+                  "receiver": ""
+                },
+                {
+                  "column": 15,
+                  "line": 30,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 43,
+                  "line": 30,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 18,
+                  "line": 31,
+                  "name": "gradate_line",
+                  "receiver": ""
+                },
+                {
+                  "column": 15,
+                  "line": 32,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 43,
+                  "line": 32,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 18,
+                  "line": 33,
+                  "name": "gradate_line",
+                  "receiver": ""
+                },
+                {
+                  "column": 18,
+                  "line": 34,
+                  "name": "draw_text",
+                  "receiver": ""
+                },
+                {
+                  "column": 20,
+                  "line": 46,
+                  "name": "new",
+                  "receiver": "Bitmap"
+                },
+                {
+                  "column": 12,
+                  "line": 67,
+                  "name": "tick",
+                  "receiver": "Message"
+                },
+                {
+                  "column": 17,
+                  "line": 71,
+                  "name": "events",
+                  "receiver": "$game_map"
+                },
+                {
+                  "column": 13,
+                  "line": 72,
+                  "name": "character",
+                  "receiver": "RPG::Cache"
+                },
+                {
+                  "column": 13,
+                  "line": 78,
+                  "name": "character",
+                  "receiver": "RPG::Cache"
+                },
+                {
+                  "column": 34,
+                  "line": 78,
+                  "name": "character_name",
+                  "receiver": "$game_player"
+                },
+                {
+                  "column": 19,
+                  "line": 81,
+                  "name": "screen_x",
+                  "receiver": "$game_player"
+                },
+                {
+                  "column": 19,
+                  "line": 82,
+                  "name": "screen_y",
+                  "receiver": "$game_player"
+                },
+                {
+                  "column": 10,
+                  "line": 87,
+                  "name": "repeat?",
+                  "receiver": "Input"
+                },
+                {
+                  "column": 9,
+                  "line": 89,
+                  "name": "se_play",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 30,
+                  "line": 89,
+                  "name": "cursor_se",
+                  "receiver": "$data_system"
+                },
+                {
+                  "column": 10,
+                  "line": 94,
+                  "name": "repeat?",
+                  "receiver": "Input"
+                },
+                {
+                  "column": 9,
+                  "line": 96,
+                  "name": "se_play",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 30,
+                  "line": 96,
+                  "name": "cursor_se",
+                  "receiver": "$data_system"
+                },
+                {
+                  "column": 5,
+                  "line": 103,
+                  "name": "update_cursor_rect",
+                  "receiver": ""
+                },
+                {
+                  "column": 7,
+                  "line": 106,
+                  "name": "update_pageon",
+                  "receiver": ""
+                },
+                {
+                  "column": 13,
+                  "line": 113,
+                  "name": "close",
+                  "receiver": ""
+                },
+                {
+                  "column": 12,
+                  "line": 119,
+                  "name": "call",
+                  "receiver": ""
+                },
+                {
+                  "column": 10,
+                  "line": 127,
+                  "name": "choice_max",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 23,
+                  "line": 128,
+                  "name": "choice_max",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 19,
+                  "line": 133,
+                  "name": "new",
+                  "receiver": "Sprite"
+                },
+                {
+                  "column": 26,
+                  "line": 134,
+                  "name": "new",
+                  "receiver": "Bitmap"
+                },
+                {
+                  "column": 24,
+                  "line": 135,
+                  "name": "fill_rect",
+                  "receiver": ""
+                },
+                {
+                  "column": 51,
+                  "line": 135,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 22,
+                  "line": 137,
+                  "name": "choice_start",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 10,
+                  "line": 153,
+                  "name": "trigger?",
+                  "receiver": "Input"
+                },
+                {
+                  "column": 12,
+                  "line": 155,
+                  "name": "choice_max",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 11,
+                  "line": 156,
+                  "name": "se_play",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 32,
+                  "line": 156,
+                  "name": "decision_se",
+                  "receiver": "$data_system"
+                },
+                {
+                  "column": 11,
+                  "line": 157,
+                  "name": "choice_proc",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 34,
+                  "line": 157,
+                  "name": "call",
+                  "receiver": ""
+                },
+                {
+                  "column": 17,
+                  "line": 169,
+                  "name": "push",
+                  "receiver": ""
+                },
+                {
+                  "column": 10,
+                  "line": 212,
+                  "name": "trigger?",
+                  "receiver": "Input"
+                },
+                {
+                  "column": 12,
+                  "line": 220,
+                  "name": "is_a?",
+                  "receiver": ""
+                },
+                {
+                  "column": 46,
+                  "line": 223,
+                  "name": "color",
+                  "receiver": ""
+                },
+                {
+                  "column": 20,
+                  "line": 229,
+                  "name": "split",
+                  "receiver": ""
+                },
+                {
+                  "column": 11,
+                  "line": 230,
+                  "name": "se_play",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 32,
+                  "line": 230,
+                  "name": "new",
+                  "receiver": "RPG::AudioFile"
+                },
+                {
+                  "column": 20,
+                  "line": 270,
+                  "name": "icon",
+                  "receiver": "RPG::Cache"
+                },
+                {
+                  "column": 24,
+                  "line": 280,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 15,
+                  "line": 289,
+                  "name": "gold",
+                  "receiver": "$game_party"
+                },
+                {
+                  "column": 39,
+                  "line": 289,
+                  "name": "words",
+                  "receiver": "$data_system"
+                },
+                {
+                  "column": 29,
+                  "line": 312,
+                  "name": "text_size",
+                  "receiver": ""
+                },
+                {
+                  "column": 22,
+                  "line": 322,
+                  "name": "draw_text",
+                  "receiver": ""
+                },
+                {
+                  "column": 20,
+                  "line": 367,
+                  "name": "fill_rect",
+                  "receiver": ""
+                },
+                {
+                  "column": 71,
+                  "line": 367,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 13,
+                  "line": 377,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 15,
+                  "line": 378,
+                  "name": "face",
+                  "receiver": "RPG::Cache"
+                },
+                {
+                  "column": 13,
+                  "line": 380,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 15,
+                  "line": 381,
+                  "name": "face",
+                  "receiver": "RPG::Cache"
+                },
+                {
+                  "column": 13,
+                  "line": 386,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 13,
+                  "line": 390,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 17,
+                  "line": 396,
+                  "name": "events",
+                  "receiver": "$game_map"
+                },
+                {
+                  "column": 13,
+                  "line": 397,
+                  "name": "character",
+                  "receiver": "RPG::Cache"
+                },
+                {
+                  "column": 11,
+                  "line": 407,
+                  "name": "character",
+                  "receiver": "RPG::Cache"
+                },
+                {
+                  "column": 32,
+                  "line": 407,
+                  "name": "character_name",
+                  "receiver": "$game_player"
+                },
+                {
+                  "column": 13,
+                  "line": 411,
+                  "name": "screen_x",
+                  "receiver": "$game_player"
+                },
+                {
+                  "column": 13,
+                  "line": 412,
+                  "name": "screen_y",
+                  "receiver": "$game_player"
+                },
+                {
+                  "column": 10,
+                  "line": 418,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 10,
+                  "line": 420,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 13,
+                  "line": 422,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 13,
+                  "line": 426,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 13,
+                  "line": 430,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 20,
+                  "line": 434,
+                  "name": "transcode",
+                  "receiver": ""
+                },
+                {
+                  "column": 23,
+                  "line": 435,
+                  "name": "text_width",
+                  "receiver": ""
+                },
+                {
+                  "column": 24,
+                  "line": 436,
+                  "name": "text_height",
+                  "receiver": ""
+                },
+                {
+                  "column": 17,
+                  "line": 443,
+                  "name": "new",
+                  "receiver": "Viewport"
+                },
+                {
+                  "column": 14,
+                  "line": 444,
+                  "name": "new",
+                  "receiver": "Sprite"
+                },
+                {
+                  "column": 14,
+                  "line": 445,
+                  "name": "new",
+                  "receiver": "Sprite"
+                },
+                {
+                  "column": 13,
+                  "line": 446,
+                  "name": "new",
+                  "receiver": "Sprite"
+                },
+                {
+                  "column": 13,
+                  "line": 447,
+                  "name": "new",
+                  "receiver": "Sprite"
+                },
+                {
+                  "column": 13,
+                  "line": 448,
+                  "name": "new",
+                  "receiver": "Sprite"
+                },
+                {
+                  "column": 15,
+                  "line": 449,
+                  "name": "new",
+                  "receiver": "Sprite"
+                },
+                {
+                  "column": 12,
+                  "line": 452,
+                  "name": "set_face",
+                  "receiver": ""
+                },
+                {
+                  "column": 12,
+                  "line": 455,
+                  "name": "set_name",
+                  "receiver": ""
+                },
+                {
+                  "column": 10,
+                  "line": 459,
+                  "name": "split",
+                  "receiver": ""
+                },
+                {
+                  "column": 19,
+                  "line": 460,
+                  "name": "new",
+                  "receiver": "TextRow"
+                },
+                {
+                  "column": 10,
+                  "line": 462,
+                  "name": "set_text",
+                  "receiver": ""
+                }
+              ],
+              "definitions": [
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "class",
+                  "line": 7,
+                  "name": "Message::TextBox",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 153,
+                    "name": "Message::TextBox 2",
+                    "script_id": 15898981,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0153",
+                  "version_id": "mirror_0153:7:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 11,
+                  "name": "set_face",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 153,
+                    "name": "Message::TextBox 2",
+                    "script_id": 15898981,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0153",
+                  "version_id": "mirror_0153:11:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 19,
+                  "name": "set_name",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 153,
+                    "name": "Message::TextBox 2",
+                    "script_id": 15898981,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0153",
+                  "version_id": "mirror_0153:19:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 41,
+                  "name": "set_text",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 153,
+                    "name": "Message::TextBox 2",
+                    "script_id": 15898981,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0153",
+                  "version_id": "mirror_0153:41:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 66,
+                  "name": "update",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 153,
+                    "name": "Message::TextBox 2",
+                    "script_id": 15898981,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0153",
+                  "version_id": "mirror_0153:66:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 339,
+                  "name": "update_cursor_rect",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 153,
+                    "name": "Message::TextBox 2",
+                    "script_id": 15898981,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0153",
+                  "version_id": "mirror_0153:339:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 361,
+                  "name": "update_pageon",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 153,
+                    "name": "Message::TextBox 2",
+                    "script_id": 15898981,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0153",
+                  "version_id": "mirror_0153:361:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 373,
+                  "name": "setup",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 153,
+                    "name": "Message::TextBox 2",
+                    "script_id": 15898981,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0153",
+                  "version_id": "mirror_0153:373:7"
+                }
+              ],
+              "features": [
+                {
+                  "column": 27,
+                  "feature": "currency",
+                  "line": 289,
+                  "token": "gold"
+                },
+                {
+                  "column": 58,
+                  "feature": "currency",
+                  "line": 289,
+                  "token": "gold"
+                },
+                {
+                  "column": 22,
+                  "feature": "display",
+                  "line": 12,
+                  "token": "Bitmap"
+                },
+                {
+                  "column": 20,
+                  "feature": "display",
+                  "line": 22,
+                  "token": "Bitmap"
+                },
+                {
+                  "column": 20,
+                  "feature": "display",
+                  "line": 46,
+                  "token": "Bitmap"
+                },
+                {
+                  "column": 19,
+                  "feature": "display",
+                  "line": 133,
+                  "token": "Sprite"
+                },
+                {
+                  "column": 26,
+                  "feature": "display",
+                  "line": 134,
+                  "token": "Bitmap"
+                },
+                {
+                  "column": 14,
+                  "feature": "display",
+                  "line": 444,
+                  "token": "Sprite"
+                },
+                {
+                  "column": 14,
+                  "feature": "display",
+                  "line": 445,
+                  "token": "Sprite"
+                },
+                {
+                  "column": 13,
+                  "feature": "display",
+                  "line": 446,
+                  "token": "Sprite"
+                },
+                {
+                  "column": 13,
+                  "feature": "display",
+                  "line": 447,
+                  "token": "Sprite"
+                },
+                {
+                  "column": 13,
+                  "feature": "display",
+                  "line": 448,
+                  "token": "Sprite"
+                },
+                {
+                  "column": 15,
+                  "feature": "display",
+                  "line": 449,
+                  "token": "Sprite"
+                }
+              ],
+              "globals": [
+                {
+                  "column": 17,
+                  "line": 71,
+                  "name": "$game_map"
+                },
+                {
+                  "column": 34,
+                  "line": 78,
+                  "name": "$game_player"
+                },
+                {
+                  "column": 19,
+                  "line": 81,
+                  "name": "$game_player"
+                },
+                {
+                  "column": 19,
+                  "line": 82,
+                  "name": "$game_player"
+                },
+                {
+                  "column": 9,
+                  "line": 89,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 30,
+                  "line": 89,
+                  "name": "$data_system"
+                },
+                {
+                  "column": 9,
+                  "line": 96,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 30,
+                  "line": 96,
+                  "name": "$data_system"
+                },
+                {
+                  "column": 10,
+                  "line": 127,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 23,
+                  "line": 128,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 22,
+                  "line": 137,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 12,
+                  "line": 155,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 11,
+                  "line": 156,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 32,
+                  "line": 156,
+                  "name": "$data_system"
+                },
+                {
+                  "column": 11,
+                  "line": 157,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 11,
+                  "line": 230,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 15,
+                  "line": 289,
+                  "name": "$game_party"
+                },
+                {
+                  "column": 39,
+                  "line": 289,
+                  "name": "$data_system"
+                },
+                {
+                  "column": 17,
+                  "line": 396,
+                  "name": "$game_map"
+                },
+                {
+                  "column": 32,
+                  "line": 407,
+                  "name": "$game_player"
+                },
+                {
+                  "column": 13,
+                  "line": 411,
+                  "name": "$game_player"
+                },
+                {
+                  "column": 13,
+                  "line": 412,
+                  "name": "$game_player"
+                }
+              ],
+              "limits": "词法候选；未解析完整作用域、正则/heredoc、动态分派、alias绑定或可达性，不代表功能已迁移"
+            },
+            "mirror_path": "legacy/ruby_scripts/[group] 0017 ▼ 信息相关/0153_Message__TextBox 2.rb",
+            "mirror_sha256": "6b1485f44d7c2c633fa1c8b98733649bcaf9ffe7d4d5d10e0d663d92c1d92793",
+            "name": "Message::TextBox 2",
+            "rxdata_sha256": "f40ec138739d2b94f8fb56e2d5975d36effdffd703224866842ebde02d751e27"
+          },
+          {
+            "load_order": 154,
+            "mirror_analysis": {
+              "calls": [
+                {
+                  "column": 5,
+                  "line": 52,
+                  "name": "setup",
+                  "receiver": ""
+                },
+                {
+                  "column": 14,
+                  "line": 89,
+                  "name": "windowskin",
+                  "receiver": "RPG::Cache"
+                },
+                {
+                  "column": 21,
+                  "line": 90,
+                  "name": "new",
+                  "receiver": "Bitmap"
+                },
+                {
+                  "column": 19,
+                  "line": 91,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 37,
+                  "line": 91,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 19,
+                  "line": 92,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 47,
+                  "line": 92,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 19,
+                  "line": 93,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 47,
+                  "line": 93,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 19,
+                  "line": 94,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 57,
+                  "line": 94,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 21,
+                  "line": 96,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 39,
+                  "line": 96,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 21,
+                  "line": 97,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 49,
+                  "line": 97,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 21,
+                  "line": 100,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 43,
+                  "line": 100,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 21,
+                  "line": 101,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 53,
+                  "line": 101,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 19,
+                  "line": 103,
+                  "name": "fill_rect",
+                  "receiver": ""
+                },
+                {
+                  "column": 68,
+                  "line": 103,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 45,
+                  "line": 225,
+                  "name": "width",
+                  "receiver": "Graphics"
+                },
+                {
+                  "column": 47,
+                  "line": 227,
+                  "name": "width",
+                  "receiver": "Graphics"
+                },
+                {
+                  "column": 5,
+                  "line": 239,
+                  "name": "refresh_arrow",
+                  "receiver": ""
+                },
+                {
+                  "column": 5,
+                  "line": 241,
+                  "name": "refresh_origin",
+                  "receiver": ""
+                },
+                {
+                  "column": 23,
+                  "line": 248,
+                  "name": "new",
+                  "receiver": "Bitmap"
+                },
+                {
+                  "column": 14,
+                  "line": 250,
+                  "name": "windowskin",
+                  "receiver": "RPG::Cache"
+                },
+                {
+                  "column": 21,
+                  "line": 252,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 39,
+                  "line": 252,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 21,
+                  "line": 254,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 39,
+                  "line": 254,
+                  "name": "new",
+                  "receiver": "Rect"
+                }
+              ],
+              "definitions": [
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "class",
+                  "line": 7,
+                  "name": "Message::HintBox",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:7:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 26,
+                  "name": "initialize",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:26:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 63,
+                  "name": "dispose",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:63:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 81,
+                  "name": "terminate",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:81:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 87,
+                  "name": "draw_frame",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:87:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 110,
+                  "name": "x",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:110:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 116,
+                  "name": "y",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:116:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 119,
+                  "name": "z",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:119:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 125,
+                  "name": "x=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:125:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 131,
+                  "name": "y=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:131:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 137,
+                  "name": "z=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:137:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 143,
+                  "name": "px=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:143:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 151,
+                  "name": "py=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:151:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 159,
+                  "name": "set_position",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:159:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 167,
+                  "name": "back_opacity",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:167:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 173,
+                  "name": "back_opacity=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:173:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 181,
+                  "name": "contents_opacity",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:181:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 187,
+                  "name": "contents_opacity=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:187:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 195,
+                  "name": "opacity=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:195:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 202,
+                  "name": "zoom=",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:202:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 213,
+                  "name": "refresh_position",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:213:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 246,
+                  "name": "refresh_arrow",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:246:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 260,
+                  "name": "refresh_origin",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:260:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 288,
+                  "name": "call",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:288:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 305,
+                  "name": "close",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:305:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 323,
+                  "name": "finished?",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:323:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 329,
+                  "name": "pause",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:329:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 335,
+                  "name": "continue",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:335:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 341,
+                  "name": "got_name",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 154,
+                    "name": "Message::HintBox 1",
+                    "script_id": 34809777,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0154",
+                  "version_id": "mirror_0154:341:7"
+                }
+              ],
+              "features": [
+                {
+                  "column": 21,
+                  "feature": "display",
+                  "line": 90,
+                  "token": "Bitmap"
+                },
+                {
+                  "column": 23,
+                  "feature": "display",
+                  "line": 248,
+                  "token": "Bitmap"
+                }
+              ],
+              "globals": [
+                {
+                  "column": 10,
+                  "line": 223,
+                  "name": "$game_switches"
+                }
+              ],
+              "limits": "词法候选；未解析完整作用域、正则/heredoc、动态分派、alias绑定或可达性，不代表功能已迁移"
+            },
+            "mirror_path": "legacy/ruby_scripts/[group] 0017 ▼ 信息相关/0154_Message__HintBox 1.rb",
+            "mirror_sha256": "266a42edee4db082ba07996ba0711736ecb81affa5528f2b0b40a9832189f57d",
+            "name": "Message::HintBox 1",
+            "rxdata_sha256": "f841638a77eac1b42b2441e6003b6df57bf31e91b520131ee054a53e298b0fc1"
+          },
+          {
+            "load_order": 155,
+            "mirror_analysis": {
+              "calls": [
+                {
+                  "column": 22,
+                  "line": 12,
+                  "name": "new",
+                  "receiver": "Bitmap"
+                },
+                {
+                  "column": 18,
+                  "line": 13,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 36,
+                  "line": 13,
+                  "name": "new",
+                  "receiver": "Rect"
+                },
+                {
+                  "column": 20,
+                  "line": 21,
+                  "name": "new",
+                  "receiver": "Bitmap"
+                },
+                {
+                  "column": 31,
+                  "line": 22,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 15,
+                  "line": 25,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 44,
+                  "line": 25,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 18,
+                  "line": 26,
+                  "name": "gradate_line",
+                  "receiver": ""
+                },
+                {
+                  "column": 15,
+                  "line": 27,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 44,
+                  "line": 27,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 18,
+                  "line": 28,
+                  "name": "gradate_line",
+                  "receiver": ""
+                },
+                {
+                  "column": 15,
+                  "line": 29,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 43,
+                  "line": 29,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 18,
+                  "line": 30,
+                  "name": "gradate_line",
+                  "receiver": ""
+                },
+                {
+                  "column": 15,
+                  "line": 31,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 43,
+                  "line": 31,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 18,
+                  "line": 32,
+                  "name": "gradate_line",
+                  "receiver": ""
+                },
+                {
+                  "column": 18,
+                  "line": 33,
+                  "name": "draw_text",
+                  "receiver": ""
+                },
+                {
+                  "column": 20,
+                  "line": 45,
+                  "name": "new",
+                  "receiver": "Bitmap"
+                },
+                {
+                  "column": 12,
+                  "line": 66,
+                  "name": "tick",
+                  "receiver": "Message"
+                },
+                {
+                  "column": 7,
+                  "line": 69,
+                  "name": "update_pageon",
+                  "receiver": ""
+                },
+                {
+                  "column": 13,
+                  "line": 76,
+                  "name": "close",
+                  "receiver": ""
+                },
+                {
+                  "column": 12,
+                  "line": 82,
+                  "name": "call",
+                  "receiver": ""
+                },
+                {
+                  "column": 17,
+                  "line": 102,
+                  "name": "push",
+                  "receiver": ""
+                },
+                {
+                  "column": 12,
+                  "line": 146,
+                  "name": "is_a?",
+                  "receiver": ""
+                },
+                {
+                  "column": 46,
+                  "line": 149,
+                  "name": "color",
+                  "receiver": ""
+                },
+                {
+                  "column": 20,
+                  "line": 155,
+                  "name": "split",
+                  "receiver": ""
+                },
+                {
+                  "column": 11,
+                  "line": 156,
+                  "name": "se_play",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 32,
+                  "line": 156,
+                  "name": "new",
+                  "receiver": "RPG::AudioFile"
+                },
+                {
+                  "column": 20,
+                  "line": 196,
+                  "name": "icon",
+                  "receiver": "RPG::Cache"
+                },
+                {
+                  "column": 24,
+                  "line": 206,
+                  "name": "blt",
+                  "receiver": ""
+                },
+                {
+                  "column": 15,
+                  "line": 215,
+                  "name": "gold",
+                  "receiver": "$game_party"
+                },
+                {
+                  "column": 39,
+                  "line": 215,
+                  "name": "words",
+                  "receiver": "$data_system"
+                },
+                {
+                  "column": 29,
+                  "line": 237,
+                  "name": "text_size",
+                  "receiver": ""
+                },
+                {
+                  "column": 22,
+                  "line": 247,
+                  "name": "draw_text",
+                  "receiver": ""
+                },
+                {
+                  "column": 20,
+                  "line": 267,
+                  "name": "fill_rect",
+                  "receiver": ""
+                },
+                {
+                  "column": 71,
+                  "line": 267,
+                  "name": "new",
+                  "receiver": "Color"
+                },
+                {
+                  "column": 13,
+                  "line": 277,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 15,
+                  "line": 278,
+                  "name": "face",
+                  "receiver": "RPG::Cache"
+                },
+                {
+                  "column": 13,
+                  "line": 280,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 15,
+                  "line": 281,
+                  "name": "face",
+                  "receiver": "RPG::Cache"
+                },
+                {
+                  "column": 13,
+                  "line": 286,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 13,
+                  "line": 290,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 10,
+                  "line": 300,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 10,
+                  "line": 302,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 13,
+                  "line": 304,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 13,
+                  "line": 308,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 13,
+                  "line": 312,
+                  "name": "gsub!",
+                  "receiver": ""
+                },
+                {
+                  "column": 20,
+                  "line": 316,
+                  "name": "transcode",
+                  "receiver": ""
+                },
+                {
+                  "column": 23,
+                  "line": 317,
+                  "name": "text_width",
+                  "receiver": ""
+                },
+                {
+                  "column": 24,
+                  "line": 318,
+                  "name": "text_height",
+                  "receiver": ""
+                },
+                {
+                  "column": 17,
+                  "line": 325,
+                  "name": "new",
+                  "receiver": "Viewport"
+                },
+                {
+                  "column": 14,
+                  "line": 326,
+                  "name": "new",
+                  "receiver": "Sprite"
+                },
+                {
+                  "column": 14,
+                  "line": 327,
+                  "name": "new",
+                  "receiver": "Sprite"
+                },
+                {
+                  "column": 13,
+                  "line": 328,
+                  "name": "new",
+                  "receiver": "Sprite"
+                },
+                {
+                  "column": 13,
+                  "line": 329,
+                  "name": "new",
+                  "receiver": "Sprite"
+                },
+                {
+                  "column": 13,
+                  "line": 330,
+                  "name": "new",
+                  "receiver": "Sprite"
+                },
+                {
+                  "column": 15,
+                  "line": 331,
+                  "name": "new",
+                  "receiver": "Sprite"
+                },
+                {
+                  "column": 12,
+                  "line": 334,
+                  "name": "set_face",
+                  "receiver": ""
+                },
+                {
+                  "column": 12,
+                  "line": 337,
+                  "name": "set_name",
+                  "receiver": ""
+                },
+                {
+                  "column": 10,
+                  "line": 341,
+                  "name": "split",
+                  "receiver": ""
+                },
+                {
+                  "column": 19,
+                  "line": 342,
+                  "name": "new",
+                  "receiver": "TextRow"
+                },
+                {
+                  "column": 10,
+                  "line": 344,
+                  "name": "set_text",
+                  "receiver": ""
+                }
+              ],
+              "definitions": [
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "class",
+                  "line": 7,
+                  "name": "Message::HintBox",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 155,
+                    "name": "Message::HintBox 2",
+                    "script_id": 90186964,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0155",
+                  "version_id": "mirror_0155:7:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 11,
+                  "name": "set_face",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 155,
+                    "name": "Message::HintBox 2",
+                    "script_id": 90186964,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0155",
+                  "version_id": "mirror_0155:11:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 19,
+                  "name": "set_name",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 155,
+                    "name": "Message::HintBox 2",
+                    "script_id": 90186964,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0155",
+                  "version_id": "mirror_0155:19:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 40,
+                  "name": "set_text",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 155,
+                    "name": "Message::HintBox 2",
+                    "script_id": 90186964,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0155",
+                  "version_id": "mirror_0155:40:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 65,
+                  "name": "update",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 155,
+                    "name": "Message::HintBox 2",
+                    "script_id": 90186964,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0155",
+                  "version_id": "mirror_0155:65:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 261,
+                  "name": "update_pageon",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 155,
+                    "name": "Message::HintBox 2",
+                    "script_id": 90186964,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0155",
+                  "version_id": "mirror_0155:261:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 273,
+                  "name": "setup",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 155,
+                    "name": "Message::HintBox 2",
+                    "script_id": 90186964,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0155",
+                  "version_id": "mirror_0155:273:7"
+                }
+              ],
+              "features": [
+                {
+                  "column": 27,
+                  "feature": "currency",
+                  "line": 215,
+                  "token": "gold"
+                },
+                {
+                  "column": 58,
+                  "feature": "currency",
+                  "line": 215,
+                  "token": "gold"
+                },
+                {
+                  "column": 22,
+                  "feature": "display",
+                  "line": 12,
+                  "token": "Bitmap"
+                },
+                {
+                  "column": 20,
+                  "feature": "display",
+                  "line": 21,
+                  "token": "Bitmap"
+                },
+                {
+                  "column": 20,
+                  "feature": "display",
+                  "line": 45,
+                  "token": "Bitmap"
+                },
+                {
+                  "column": 14,
+                  "feature": "display",
+                  "line": 326,
+                  "token": "Sprite"
+                },
+                {
+                  "column": 14,
+                  "feature": "display",
+                  "line": 327,
+                  "token": "Sprite"
+                },
+                {
+                  "column": 13,
+                  "feature": "display",
+                  "line": 328,
+                  "token": "Sprite"
+                },
+                {
+                  "column": 13,
+                  "feature": "display",
+                  "line": 329,
+                  "token": "Sprite"
+                },
+                {
+                  "column": 13,
+                  "feature": "display",
+                  "line": 330,
+                  "token": "Sprite"
+                },
+                {
+                  "column": 15,
+                  "feature": "display",
+                  "line": 331,
+                  "token": "Sprite"
+                }
+              ],
+              "globals": [
+                {
+                  "column": 11,
+                  "line": 156,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 15,
+                  "line": 215,
+                  "name": "$game_party"
+                },
+                {
+                  "column": 39,
+                  "line": 215,
+                  "name": "$data_system"
+                }
+              ],
+              "limits": "词法候选；未解析完整作用域、正则/heredoc、动态分派、alias绑定或可达性，不代表功能已迁移"
+            },
+            "mirror_path": "legacy/ruby_scripts/[group] 0017 ▼ 信息相关/0155_Message__HintBox 2.rb",
+            "mirror_sha256": "036d9b2610ed1847fa8a60ef134e467a266a274205ffe72d5dead0eb06f9fa87",
+            "name": "Message::HintBox 2",
+            "rxdata_sha256": "14943ebbb2ad3f2faf4d843380904a5897611d2e53580af7cf05606cf5cc7df8"
+          },
+          {
+            "load_order": 191,
+            "mirror_analysis": {
+              "calls": [
+                {
+                  "column": 12,
+                  "line": 24,
+                  "name": "message_text",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 10,
+                  "line": 25,
+                  "name": "event_id",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 15,
+                  "line": 26,
+                  "name": "new",
+                  "receiver": "Message::TextBox"
+                },
+                {
+                  "column": 23,
+                  "line": 29,
+                  "name": "push",
+                  "receiver": ""
+                },
+                {
+                  "column": 8,
+                  "line": 31,
+                  "name": "choice_max",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 11,
+                  "line": 32,
+                  "name": "choice_max",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 18,
+                  "line": 33,
+                  "name": "split",
+                  "receiver": ""
+                },
+                {
+                  "column": 7,
+                  "line": 41,
+                  "name": "message_list",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 42,
+                  "line": 41,
+                  "name": "message_list",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 7,
+                  "line": 42,
+                  "name": "message_list",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 33,
+                  "line": 42,
+                  "name": "push",
+                  "receiver": ""
+                },
+                {
+                  "column": 7,
+                  "line": 50,
+                  "name": "message_list",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 42,
+                  "line": 50,
+                  "name": "message_list",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 7,
+                  "line": 51,
+                  "name": "message_list",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 33,
+                  "line": 51,
+                  "name": "push",
+                  "receiver": ""
+                },
+                {
+                  "column": 7,
+                  "line": 54,
+                  "name": "message_list",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 42,
+                  "line": 54,
+                  "name": "message_list",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 7,
+                  "line": 55,
+                  "name": "message_list",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 33,
+                  "line": 55,
+                  "name": "push",
+                  "receiver": ""
+                },
+                {
+                  "column": 5,
+                  "line": 61,
+                  "name": "event_id",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 12,
+                  "line": 65,
+                  "name": "unblocking_text",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 10,
+                  "line": 66,
+                  "name": "event_id",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 15,
+                  "line": 67,
+                  "name": "new",
+                  "receiver": "Message::HintBox"
+                },
+                {
+                  "column": 26,
+                  "line": 70,
+                  "name": "push",
+                  "receiver": ""
+                },
+                {
+                  "column": 5,
+                  "line": 72,
+                  "name": "ub_message_list",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 43,
+                  "line": 72,
+                  "name": "ub_message_list",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 5,
+                  "line": 73,
+                  "name": "ub_message_list",
+                  "receiver": "$game_system"
+                },
+                {
+                  "column": 34,
+                  "line": 73,
+                  "name": "push",
+                  "receiver": ""
+                },
+                {
+                  "column": 5,
+                  "line": 76,
+                  "name": "event_id",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 5,
+                  "line": 84,
+                  "name": "update_tick",
+                  "receiver": "Message"
+                },
+                {
+                  "column": 8,
+                  "line": 96,
+                  "name": "message_text",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 7,
+                  "line": 98,
+                  "name": "message_text",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 8,
+                  "line": 102,
+                  "name": "unblocking_text",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 7,
+                  "line": 104,
+                  "name": "unblocking_text",
+                  "receiver": "$game_temp"
+                },
+                {
+                  "column": 29,
+                  "line": 112,
+                  "name": "delete",
+                  "receiver": ""
+                },
+                {
+                  "column": 32,
+                  "line": 123,
+                  "name": "delete",
+                  "receiver": ""
+                },
+                {
+                  "column": 27,
+                  "line": 137,
+                  "name": "delete",
+                  "receiver": ""
+                },
+                {
+                  "column": 30,
+                  "line": 143,
+                  "name": "delete",
+                  "receiver": ""
+                },
+                {
+                  "column": 12,
+                  "line": 158,
+                  "name": "message_text",
+                  "receiver": "$game_temp"
+                }
+              ],
+              "definitions": [
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "class",
+                  "line": 6,
+                  "name": "Message_Controller",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 191,
+                    "name": "Message_Controller",
+                    "script_id": 946774,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0191",
+                  "version_id": "mirror_0191:6:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 13,
+                  "name": "initialize",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 191,
+                    "name": "Message_Controller",
+                    "script_id": 946774,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0191",
+                  "version_id": "mirror_0191:13:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 23,
+                  "name": "create_message_text",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 191,
+                    "name": "Message_Controller",
+                    "script_id": 946774,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0191",
+                  "version_id": "mirror_0191:23:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 64,
+                  "name": "create_unblocking_text",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 191,
+                    "name": "Message_Controller",
+                    "script_id": 946774,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0191",
+                  "version_id": "mirror_0191:64:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 82,
+                  "name": "update",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 191,
+                    "name": "Message_Controller",
+                    "script_id": 946774,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0191",
+                  "version_id": "mirror_0191:82:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 133,
+                  "name": "dispose",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 191,
+                    "name": "Message_Controller",
+                    "script_id": 946774,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0191",
+                  "version_id": "mirror_0191:133:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 150,
+                  "name": "message_window_showing",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 191,
+                    "name": "Message_Controller",
+                    "script_id": 946774,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0191",
+                  "version_id": "mirror_0191:150:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 172,
+                  "name": "insert_message_record",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 191,
+                    "name": "Message_Controller",
+                    "script_id": 946774,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0191",
+                  "version_id": "mirror_0191:172:7"
+                },
+                {
+                  "alias_target": "",
+                  "column": 7,
+                  "kind": "method",
+                  "line": 187,
+                  "name": "interpreter_waiting?",
+                  "origin": {
+                    "kind": "mirror_reference",
+                    "load_order": 191,
+                    "name": "Message_Controller",
+                    "script_id": 946774,
+                    "source_file": "Data/Scripts.rxdata"
+                  },
+                  "unit_id": "mirror_0191",
+                  "version_id": "mirror_0191:187:7"
+                }
+              ],
+              "features": [],
+              "globals": [
+                {
+                  "column": 12,
+                  "line": 24,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 10,
+                  "line": 25,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 8,
+                  "line": 31,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 11,
+                  "line": 32,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 7,
+                  "line": 41,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 42,
+                  "line": 41,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 7,
+                  "line": 42,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 7,
+                  "line": 50,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 42,
+                  "line": 50,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 7,
+                  "line": 51,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 7,
+                  "line": 54,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 42,
+                  "line": 54,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 7,
+                  "line": 55,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 5,
+                  "line": 61,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 12,
+                  "line": 65,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 10,
+                  "line": 66,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 5,
+                  "line": 72,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 43,
+                  "line": 72,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 5,
+                  "line": 73,
+                  "name": "$game_system"
+                },
+                {
+                  "column": 5,
+                  "line": 76,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 8,
+                  "line": 96,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 7,
+                  "line": 98,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 8,
+                  "line": 102,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 7,
+                  "line": 104,
+                  "name": "$game_temp"
+                },
+                {
+                  "column": 12,
+                  "line": 158,
+                  "name": "$game_temp"
+                }
+              ],
+              "limits": "词法候选；未解析完整作用域、正则/heredoc、动态分派、alias绑定或可达性，不代表功能已迁移"
+            },
+            "mirror_path": "legacy/ruby_scripts/[group] 0021 ▼ 控制信息/0191_Message_Controller.rb",
+            "mirror_sha256": "36f46a97589262016d7f14f4032d34c9ecbd651a94f1769ab4904912567959cc",
+            "name": "Message_Controller",
+            "rxdata_sha256": "b5bc97d86b5ef9603d0700bc8ed86895ec4c5e5e2e0b821cada45d4aaa9a8e1a"
+          }
+        ],
+        "matching": 265,
+        "note": "镜像匹配仅按编号候选；不推断未匹配文件的实际加载顺序",
+        "ruby_files": 271,
+        "unmatched_files": []
+      },
+      "ok": true,
+      "summary": {
+        "definitions": 2976,
+        "dependency_candidates": 8075,
+        "event_integrated_units": 144,
+        "fragments": 144,
+        "generated_units": 166,
+        "parsed_units": 457,
+        "retry_units": 0,
+        "scripts": 339
+      }
+    },
+    "source": "D:/Dev/Godot_Trans/rm_template/魔塔样板7630·改",
+    "title_native_artwork": true,
+    "ui_foundation": true,
+    "version": "ver0.59"
+  },
+  "suites": {
+    "runtime": [
+      {
+        "name": "RuntimeCompileTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.91,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-RuntimeCompileTests.log",
+        "markers": [
+          "RUNTIME COMPILE: PASSED / 197 scripts"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "IntegrationV059Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 9.82,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-IntegrationV059Tests.log",
+        "markers": [
+          "INTEGRATION V059: PASSED / 310 checks / 0 GPU states"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "NativeMigrationV052Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.47,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-NativeMigrationV052Tests.log",
+        "markers": [
+          "V052 FINGERPRINT: 6bd0e10f60f79b11a5f6206b465d82fa0f5342aaa3832f3786a8f163a7d80eb1",
+          "NATIVE MIGRATION V052: PASSED / 553 / records=145"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "BattleCatalogTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.18,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-BattleCatalogTests.log",
+        "markers": [
+          "FLASH BATTLE CATALOG: PASSED / 18 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "BattleColdCatalogTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.09,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-BattleColdCatalogTests.log",
+        "markers": [
+          "FLASH BATTLE COLD CATALOG: PASSED / 7 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "BattleCoreTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.1,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-BattleCoreTests.log",
+        "markers": [
+          "FLASH BATTLE CORE: PASSED / 64 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "PersistenceTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 10.15,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-PersistenceTests.log",
+        "markers": [
+          "FLASH PERSISTENCE TESTS: PASSED / 25 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "PersistenceFlowTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 10.52,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-PersistenceFlowTests.log",
+        "markers": [
+          "FLASH PERSISTENCE FLOW: PASSED / 18 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "LoadAndSharedBarTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 9.7,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-LoadAndSharedBarTests.log",
+        "markers": [
+          "LOAD AND SHARED BAR: PASSED / 27 checks / 0 GPU states"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "StructureV051Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 3.94,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-StructureV051Tests.log",
+        "markers": [
+          "FLASH STRUCTURE V051: PASSED / 665 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "ReadableEventV052Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.47,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-ReadableEventV052Tests.log",
+        "markers": [
+          "READABLE EVENT V052: PASSED / 445"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "SourceEventTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 3.21,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-SourceEventTests.log",
+        "markers": [
+          "FLASH SOURCE EVENTS: PASSED / 23 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "ScreenEffectsTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.57,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-ScreenEffectsTests.log",
+        "markers": [
+          "FLASH SCREEN EFFECTS: PASSED / 33 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "GameplayRuntimeTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.75,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-GameplayRuntimeTests.log",
+        "markers": [
+          "FLASH GAMEPLAY RUNTIME: PASSED / 45 checks"
+        ],
+        "evidence": {}
+      }
+    ],
+    "editor": [
+      {
+        "name": "Editor_CompileTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 4.32,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-Editor_CompileTests.log",
+        "markers": [
+          "EDITOR COMPILE: PASSED / 51 scripts"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "Editor_CommandBlockTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.84,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-Editor_CommandBlockTests.log",
+        "markers": [
+          "COMMAND BLOCK TESTS: PASSED / 123 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "Editor_NativeEventV052Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 6.45,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-Editor_NativeEventV052Tests.log",
+        "markers": [
+          "EDITOR NATIVE V052: PASSED / 18",
+          "SCRIPT ERROR: Parse Error: Expected variable name after \"var\"."
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "Editor_UIContrastV053Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.11,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-Editor_UIContrastV053Tests.log",
+        "markers": [
+          "EDITOR UI CONTRAST V053: PASSED / 6"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "Editor_MigrationAuditV058Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 17.89,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-Editor_MigrationAuditV058Tests.log",
+        "markers": [
+          "EDITOR MIGRATION AUDIT V058: PASSED / 15 checks / 0 GPU states"
+        ],
+        "evidence": {}
+      }
+    ],
+    "fatal": [
+      {
+        "name": "NativeFatalV052Probe-runtime",
+        "ok": true,
+        "exit": 1,
+        "seconds": 2.42,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-NativeFatalV052Probe-runtime.log",
+        "markers": [
+          "SCRIPT ERROR: Invalid call. Nonexistent function 'absent' in base 'Nil'."
+        ],
+        "evidence": {
+          "case": "runtime",
+          "message": "Invalid call. Nonexistent function 'absent' in base 'Nil'.\nres://runtime/events/native_5b4e532860f8ae12e9f9963a18d57829_fff550c03e52_-9223371938389293486.gd:5 / run\n原生事件：{\"invocation\":{\"command_index\":1,\"common_event_id\":0,\"event_id\":87,\"map_id\":1,\"page\":1},\"kind\":\"native_event\",\"migration_origin\":{}}",
+          "ok": true,
+          "variables": {
+            "8500": 73
+          }
+        }
+      },
+      {
+        "name": "NativeFatalV052Probe-semantic",
+        "ok": true,
+        "exit": 1,
+        "seconds": 2.38,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-NativeFatalV052Probe-semantic.log",
+        "markers": [],
+        "evidence": {
+          "case": "semantic",
+          "message": "native intended failure / {\"invocation\":{\"command_index\":1,\"common_event_id\":0,\"event_id\":87,\"map_id\":1,\"page\":1},\"kind\":\"native_event\",\"migration_origin\":{}}",
+          "ok": true,
+          "variables": {
+            "8500": 73
+          }
+        }
+      },
+      {
+        "name": "NativeFatalV052Probe-compile",
+        "ok": true,
+        "exit": 1,
+        "seconds": 2.37,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-NativeFatalV052Probe-compile.log",
+        "markers": [
+          "SCRIPT ERROR: Parse Error: Expected variable name after \"var\"."
+        ],
+        "evidence": {
+          "case": "compile",
+          "message": "GDScript 编译失败。 Parse Error: Expected variable name after \"var\". / 源码 {\"invocation\":{\"command_index\":1,\"common_event_id\":0,\"event_id\":87,\"map_id\":1},\"kind\":\"native_event\",\"migration_origin\":{},\"native_id\":\"native_b01cd67061a66c1d674f57aa58bc905e\"} / L3:C1",
+          "ok": true,
+          "variables": {}
+        }
+      },
+      {
+        "name": "NativeFatalV052Probe-condition",
+        "ok": true,
+        "exit": 1,
+        "seconds": 2.37,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-NativeFatalV052Probe-condition.log",
+        "markers": [],
+        "evidence": {
+          "case": "condition",
+          "message": "GDScript 条件必须返回 bool。 / 源码 {\"invocation\":{\"command_index\":1,\"common_event_id\":0,\"event_id\":87,\"map_id\":1,\"page\":1},\"kind\":\"native_event\",\"migration_origin\":{}} / L0:C0",
+          "ok": true,
+          "variables": {}
+        }
+      },
+      {
+        "name": "NativeFatalV052Probe-binding",
+        "ok": true,
+        "exit": 1,
+        "seconds": 2.38,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-NativeFatalV052Probe-binding.log",
+        "markers": [],
+        "evidence": {
+          "case": "binding",
+          "message": "事件 GDScript 与保存的绑定不同步。 / 源码 {\"invocation\":{\"command_index\":1,\"common_event_id\":0,\"event_id\":87,\"map_id\":1},\"kind\":\"native_event\",\"migration_origin\":{},\"native_id\":\"native_1f6fc2a3432484d847652215f61c40fa\"} / L0:C0",
+          "ok": true,
+          "variables": {}
+        }
+      },
+      {
+        "name": "NativeFatalV052Probe-body_runtime",
+        "ok": true,
+        "exit": 1,
+        "seconds": 2.37,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-NativeFatalV052Probe-body_runtime.log",
+        "markers": [
+          "SCRIPT ERROR: Invalid call. Nonexistent function 'absent' in base 'Nil'."
+        ],
+        "evidence": {
+          "case": "body_runtime",
+          "message": "Invalid call. Nonexistent function 'absent' in base 'Nil'.\nres://runtime/events/native_7c5e3b37c21be3215c5f8061d72cd5e0_1f08aaafa4ea_-9223371938389293486.gd:3 / run\n原生事件：{\"invocation\":{\"command_index\":1,\"common_event_id\":0,\"event_id\":87,\"map_id\":1,\"page\":1},\"kind\":\"native_event\",\"migration_origin\":{}}",
+          "ok": true,
+          "variables": {
+            "8500": 73
+          }
+        }
+      },
+      {
+        "name": "NativeFatalV052Probe-body_compile",
+        "ok": true,
+        "exit": 1,
+        "seconds": 2.37,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-NativeFatalV052Probe-body_compile.log",
+        "markers": [
+          "SCRIPT ERROR: Parse Error: Expected variable name after \"var\"."
+        ],
+        "evidence": {
+          "case": "body_compile",
+          "message": "GDScript 编译失败。 Parse Error: Expected variable name after \"var\". / 源码 {\"invocation\":{\"command_index\":1,\"common_event_id\":0,\"event_id\":87,\"map_id\":1},\"kind\":\"native_event\",\"migration_origin\":{},\"native_id\":\"native_05036c392d0929540f881454e3caad55\"} / L3:C1",
+          "ok": true,
+          "variables": {}
+        }
+      },
+      {
+        "name": "NativeFatalV052Probe-body_api",
+        "ok": true,
+        "exit": 1,
+        "seconds": 2.39,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-NativeFatalV052Probe-body_api.log",
+        "markers": [],
+        "evidence": {
+          "case": "body_api",
+          "message": "Map001 / 事件87 / 公共事件0 / 第1条\n除数不能为0。 / 源码 {\"invocation\":{\"command_index\":1,\"common_event_id\":0,\"event_id\":87,\"map_id\":1,\"page\":1},\"kind\":\"native_event\",\"migration_origin\":{}} / L2:C1",
+          "ok": true,
+          "variables": {
+            "8500": 73
+          }
+        }
+      }
+    ],
+    "restart": [
+      {
+        "name": "GameSaveRestartTests-write",
+        "ok": true,
+        "exit": 0,
+        "seconds": 11.46,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-GameSaveRestartTests-write.log",
+        "markers": [
+          "FLASH SAVE RESTART: PASSED / write / 3 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "GameSaveRestartTests-read",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.42,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-catalog-final-GameSaveRestartTests-read.log",
+        "markers": [
+          "FLASH SAVE RESTART: PASSED / read / 6 checks"
+        ],
+        "evidence": {}
+      }
+    ],
+    "initial_filename_integration_runtime": [
+      {
+        "name": "RuntimeCompileTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.88,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-RuntimeCompileTests.log",
+        "markers": [
+          "RUNTIME COMPILE: PASSED / 197 scripts"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "ScriptSemanticsRuntimeTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 7.76,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-ScriptSemanticsRuntimeTests.log",
+        "markers": [
+          "SCRIPT SEMANTICS RUNTIME: PASSED / 174 checks / generated=166"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "ScriptEventSourceTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.85,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-ScriptEventSourceTests.log",
+        "markers": [
+          "SCRIPT EVENT SOURCE: PASSED / 4 checks / [\"event_000106\"]"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "UICommonV053Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 3.11,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-UICommonV053Tests.log",
+        "markers": [
+          "UI COMMON V053: PASSED / 57"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "NativeMigrationV052Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.83,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-NativeMigrationV052Tests.log",
+        "markers": [
+          "V052 FINGERPRINT: 6bd0e10f60f79b11a5f6206b465d82fa0f5342aaa3832f3786a8f163a7d80eb1",
+          "NATIVE MIGRATION V052: PASSED / 553 / records=145"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "ReadableEventV052Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.67,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-ReadableEventV052Tests.log",
+        "markers": [
+          "READABLE EVENT V052: PASSED / 445"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "NativeEventV052Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.84,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-NativeEventV052Tests.log",
+        "markers": [
+          "NATIVE EVENT V052: PASSED / 26"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "GraphicsCacheTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.57,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-GraphicsCacheTests.log",
+        "markers": [
+          "GRAPHICS CACHE TESTS: PASSED (65 checks)"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "SupportUIPreviewTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.57,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-SupportUIPreviewTests.log",
+        "markers": [
+          "SUPPORT UI PREVIEW: PASSED / 24 checks / 0 GPU states"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "LoadAndSharedBarTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 9.79,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-LoadAndSharedBarTests.log",
+        "markers": [
+          "LOAD AND SHARED BAR: PASSED / 27 checks / 0 GPU states"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "IntegrationV059Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.4,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-IntegrationV059Tests.log",
+        "markers": [
+          "INTEGRATION V059: PASSED / 307 checks / 0 GPU states"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "ArchiveTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 9.33,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-ArchiveTests.log",
+        "markers": [
+          "FLASH ARCHIVE/KEYBOARD: PASSED / 20 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "AudioTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.56,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-AudioTests.log",
+        "markers": [
+          "FLASH AUDIO: PASSED / 21 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "BattleCatalogTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.18,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-BattleCatalogTests.log",
+        "markers": [
+          "FLASH BATTLE CATALOG: PASSED / 18 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "BattleColdCatalogTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.09,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-BattleColdCatalogTests.log",
+        "markers": [
+          "FLASH BATTLE COLD CATALOG: PASSED / 7 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "BattleCoreTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.09,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-BattleCoreTests.log",
+        "markers": [
+          "FLASH BATTLE CORE: PASSED / 64 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "BattleDatabaseTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.29,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-BattleDatabaseTests.log",
+        "markers": [
+          "FLASH BATTLE DATABASE: PASSED / 31 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "BattlerTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.66,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-BattlerTests.log",
+        "markers": [
+          "FLASH BATTLER: PASSED / 40 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "BusinessTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.94,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-BusinessTests.log",
+        "markers": [
+          "FLASH BUSINESS: PASSED / 25 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "CommonFlowTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.77,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-CommonFlowTests.log",
+        "markers": [
+          "FLASH COMMON FLOWS: PASSED / 18 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "ConfigPageTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.67,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-ConfigPageTests.log",
+        "markers": [
+          "FLASH CONFIG PAGES: PASSED / 30 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "DirectExecutionTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.1,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-DirectExecutionTests.log",
+        "markers": [
+          "FLASH DIRECT EXECUTION: PASSED / 16 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "EventBudgetTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 11.53,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-EventBudgetTests.log",
+        "markers": [
+          "FLASH EVENT BUDGET: PASSED / 46 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FloorRegionTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.0,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-FloorRegionTests.log",
+        "markers": [
+          "FLASH FLOOR/REGION: PASSED / 14 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FollowerTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.58,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-FollowerTests.log",
+        "markers": [
+          "FLASH FOLLOWERS: PASSED / 17 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "FunctionalWindowsV057Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 9.14,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-FunctionalWindowsV057Tests.log",
+        "markers": [
+          "FUNCTION WINDOWS V057: PASSED / 86 checks / 0 GPU states"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "GameplayRuntimeTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.76,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-GameplayRuntimeTests.log",
+        "markers": [
+          "FLASH GAMEPLAY RUNTIME: PASSED / 45 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "GiantKeyFlowTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.1,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-GiantKeyFlowTests.log",
+        "markers": [
+          "FLASH GIANT KEY FLOW: PASSED / 8 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "IntegrationV049Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 13.95,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-IntegrationV049Tests.log",
+        "markers": [
+          "FLASH V049 INTEGRATION: PASSED / 49 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "ItemPageTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.49,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-ItemPageTests.log",
+        "markers": [
+          "FLASH ITEM PAGE: PASSED / 19 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "LegacyFlowTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 3.11,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-LegacyFlowTests.log",
+        "markers": [
+          "FLASH LEGACY FLOW: PASSED / 33 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "MapDamageTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.37,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-MapDamageTests.log",
+        "markers": [
+          "FLASH MAP DAMAGE: PASSED / 9 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "MapFlowTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 9.78,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-MapFlowTests.log",
+        "markers": [
+          "FLASH MAP FLOW: PASSED / 17 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "MapItemTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.75,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-MapItemTests.log",
+        "markers": [
+          "FLASH MAP ITEMS: PASSED / 12 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "MapLabelTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.38,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-MapLabelTests.log",
+        "markers": [
+          "FLASH MAP LABELS: PASSED / 20 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "MapSystemTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.09,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-MapSystemTests.log",
+        "markers": [
+          "FLASH MAP SYSTEM: PASSED / 30 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "MenuArchiveV056Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 11.72,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-MenuArchiveV056Tests.log",
+        "markers": [
+          "MENU ARCHIVE V056: PASSED / 57 checks / 0 GPU states"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "MenuNavigationTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 4.7,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-MenuNavigationTests.log",
+        "markers": [
+          "FLASH MENU NAVIGATION: PASSED / 26 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "MessageBoxStateTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.0,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-MessageBoxStateTests.log",
+        "markers": [
+          "FLASH MESSAGE BOX STATE: PASSED / 18 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "MessageControllerTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.74,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-MessageControllerTests.log",
+        "markers": [
+          "FLASH MESSAGE CONTROLLER: PASSED / 31 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "MessageTextTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.19,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-MessageTextTests.log",
+        "markers": [
+          "FLASH MESSAGE TEXT: PASSED / 24 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "MessageV054Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.29,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-MessageV054Tests.log",
+        "markers": [
+          "FLASH MESSAGE V054: PASSED / 52 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "MigrationGapsV058Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.37,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-MigrationGapsV058Tests.log",
+        "markers": [
+          "MIGRATION GAPS V058: PASSED / 68 checks / 0 GPU states"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "MotionTimingTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.01,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-MotionTimingTests.log",
+        "markers": [
+          "FLASH MOTION TIMING: PASSED / 18 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "ObjectTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.09,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-ObjectTests.log",
+        "markers": [
+          "FLASH OBJECTS: PASSED / 21 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "PerformanceRegressionTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 9.14,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-PerformanceRegressionTests.log",
+        "markers": [
+          "FLASH PERFORMANCE REGRESSION: PASSED / 26 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "PersistenceFlowTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 10.7,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-PersistenceFlowTests.log",
+        "markers": [
+          "FLASH PERSISTENCE FLOW: PASSED / 18 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "PersistenceTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 10.25,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-PersistenceTests.log",
+        "markers": [
+          "FLASH PERSISTENCE TESTS: PASSED / 25 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "PluginTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.75,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-PluginTests.log",
+        "markers": [
+          "FLASH PLUGIN TESTS: PASSED / 16 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "GamePresentationTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.59,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-GamePresentationTests.log",
+        "markers": [
+          "FLASH PRESENTATION: PASSED / 34 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "QueryTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.23,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-QueryTests.log",
+        "markers": [
+          "FLASH QUERY: PASSED / 15 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "SceneShopBusinessTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.38,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-SceneShopBusinessTests.log",
+        "markers": [
+          "FLASH SCENE/SHOP BUSINESS: PASSED / 25 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "ScreenEffectsTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.47,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-ScreenEffectsTests.log",
+        "markers": [
+          "FLASH SCREEN EFFECTS: PASSED / 33 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "SightTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.31,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-SightTests.log",
+        "markers": [
+          "FLASH SIGHT: PASSED / 24 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "SnapshotV050Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.46,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-SnapshotV050Tests.log",
+        "markers": [
+          "FLASH V050 SNAPSHOTS: PASSED / 14 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "SourceEventTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 3.2,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-SourceEventTests.log",
+        "markers": [
+          "FLASH SOURCE EVENTS: PASSED / 23 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "StandaloneTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.48,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-StandaloneTests.log",
+        "markers": [
+          "FLASH STANDALONE: PASSED / 18 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "StorageDispatchTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 8.03,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-StorageDispatchTests.log",
+        "markers": [
+          "FLASH STORAGE DISPATCH: PASSED / 19 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "StructureV051Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 3.67,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-StructureV051Tests.log",
+        "markers": [
+          "FLASH STRUCTURE V051: PASSED / 665 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "TextRowEventTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.56,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-TextRowEventTests.log",
+        "markers": [
+          "FLASH TEXT ROW EVENT: PASSED / 3 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "TextStreamTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.01,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-TextStreamTests.log",
+        "markers": [
+          "FLASH TEXT STREAM: PASSED / 7 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "TitleNoteTests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 2.65,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-TitleNoteTests.log",
+        "markers": [
+          "FLASH TITLE/NOTE: PASSED / 18 checks"
+        ],
+        "evidence": {}
+      },
+      {
+        "name": "TitleV055Tests",
+        "ok": true,
+        "exit": 0,
+        "seconds": 9.89,
+        "log": "D:\\Dev\\Godot_Trans\\RGMigrator\\.godot\\test-logs\\v059-release-TitleV055Tests.log",
+        "markers": [
+          "FLASH TITLE V055: PASSED / 59 checks / 0 GPU states"
+        ],
+        "evidence": {}
+      }
+    ],
+    "service_error_boundaries": [
+      {
+        "name": "FailureIsolationProbe-actor",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.76,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"actor\",\"fatal\":\"deliberate actor failure / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"source\\\":\\\"v049 actor failure\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"deliberate actor failure\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "actor",
+          "fatal": "deliberate actor failure / 源码 {\"kind\":\"explicit_action\",\"source\":\"v049 actor failure\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "deliberate actor failure",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-motion",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.39,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"motion\",\"fatal\":\"人物参数无效：opacity / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"source\\\":\\\"v049 motion failure\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"人物参数无效：opacity\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "motion",
+          "fatal": "人物参数无效：opacity / 源码 {\"kind\":\"explicit_action\",\"source\":\"v049 motion failure\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "人物参数无效：opacity",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-effect",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.13,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"effect\",\"fatal\":\"deliberate effect failure / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"source\\\":\\\"v049 effect failure\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"deliberate effect failure\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "effect",
+          "fatal": "deliberate effect failure / 源码 {\"kind\":\"explicit_action\",\"source\":\"v049 effect failure\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "deliberate effect failure",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-keyboard",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.11,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"keyboard\",\"fatal\":\"deliberate keyboard failure / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"source\\\":\\\"v049 keyboard failure\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"deliberate keyboard failure\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "keyboard",
+          "fatal": "deliberate keyboard failure / 源码 {\"kind\":\"explicit_action\",\"source\":\"v049 keyboard failure\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "deliberate keyboard failure",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-floor",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.22,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"floor\",\"fatal\":\"该楼层不在原窗口当前区域的已发现列表中。 / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"source\\\":\\\"0254.update_item/0117.item\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"该楼层不在原窗口当前区域的已发现列表中。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "floor",
+          "fatal": "该楼层不在原窗口当前区域的已发现列表中。 / 源码 {\"kind\":\"explicit_action\",\"source\":\"0254.update_item/0117.item\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "该楼层不在原窗口当前区域的已发现列表中。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-fractional-floor",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.12,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"fractional-floor\",\"fatal\":\"楼层选择必须为整数。 / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"source\\\":\\\"0254.update_item/0117.item\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"楼层选择必须为整数。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "fractional-floor",
+          "fatal": "楼层选择必须为整数。 / 源码 {\"kind\":\"explicit_action\",\"source\":\"0254.update_item/0117.item\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "楼层选择必须为整数。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-character",
+        "ok": true,
+        "exit": 1,
+        "seconds": 9.0,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"character\",\"fatal\":\"角色不在原选择窗口的队伍列表中。 / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"source\\\":\\\"0255.update_item/0118.item\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"角色不在原选择窗口的队伍列表中。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "character",
+          "fatal": "角色不在原选择窗口的队伍列表中。 / 源码 {\"kind\":\"explicit_action\",\"source\":\"0255.update_item/0118.item\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "角色不在原选择窗口的队伍列表中。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-support-skill",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.4,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"support-skill\",\"fatal\":\"该角色当前不能配置此技能。 / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"source\\\":\\\"0209.setSkill/0202.update_skill_category\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"该角色当前不能配置此技能。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "support-skill",
+          "fatal": "该角色当前不能配置此技能。 / 源码 {\"kind\":\"explicit_action\",\"source\":\"0209.setSkill/0202.update_skill_category\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "该角色当前不能配置此技能。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-down-switch",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.11,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"down-switch\",\"fatal\":\"战斗不能时不能切换角色。 / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"source\\\":\\\"0209.update.Tab\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"战斗不能时不能切换角色。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "down-switch",
+          "fatal": "战斗不能时不能切换角色。 / 源码 {\"kind\":\"explicit_action\",\"source\":\"0209.update.Tab\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "战斗不能时不能切换角色。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-debug",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.21,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"debug\",\"fatal\":\"当前变量包含非数值数据，不能用数值按键修改。 / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"source\\\":\\\"0260.Scene_Debug\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"当前变量包含非数值数据，不能用数值按键修改。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "debug",
+          "fatal": "当前变量包含非数值数据，不能用数值按键修改。 / 源码 {\"kind\":\"explicit_action\",\"source\":\"0260.Scene_Debug\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "当前变量包含非数值数据，不能用数值按键修改。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-deputy",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.13,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"deputy\",\"fatal\":\"原闪翼缺少Game_Deputy定义及Deputy.exdata，副手对象无法实例化。 / 源码 {\\\"class\\\":\\\"Game_Deputy\\\",\\\"kind\\\":\\\"explicit_constructor\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"原闪翼缺少Game_Deputy定义及Deputy.exdata，副手对象无法实例化。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "deputy",
+          "fatal": "原闪翼缺少Game_Deputy定义及Deputy.exdata，副手对象无法实例化。 / 源码 {\"class\":\"Game_Deputy\",\"kind\":\"explicit_constructor\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "原闪翼缺少Game_Deputy定义及Deputy.exdata，副手对象无法实例化。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-unsafe-object",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.02,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"unsafe-object\",\"fatal\":\"对象数据文件必须属于目标工程资源。 / 源码 {\\\"class\\\":\\\"Game_Object\\\",\\\"kind\\\":\\\"explicit_constructor\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"对象数据文件必须属于目标工程资源。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "unsafe-object",
+          "fatal": "对象数据文件必须属于目标工程资源。 / 源码 {\"class\":\"Game_Object\",\"kind\":\"explicit_constructor\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "对象数据文件必须属于目标工程资源。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-gem-id",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.03,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"gem-id\",\"fatal\":\"原物品ID表未定义该效果编号：7 / 源码 {\\\"kind\\\":\\\"explicit_method\\\",\\\"method\\\":\\\"gem\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"原物品ID表未定义该效果编号：7\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "gem-id",
+          "fatal": "原物品ID表未定义该效果编号：7 / 源码 {\"kind\":\"explicit_method\",\"method\":\"gem\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "原物品ID表未定义该效果编号：7",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-gem-expression",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.3,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"gem-expression\",\"fatal\":\"Map010 / 事件70 / 公共事件0 / 第43条\\n宝石名称表达式尚未迁移：Game_System.new / 源码 {\\\"command_code\\\":355,\\\"command_index\\\":28,\\\"common_event_id\\\":23,\\\"database\\\":\\\"CommonEvents\\\",\\\"event_name\\\":\\\"事件名驱动\\\",\\\"kind\\\":\\\"common_event\\\",\\\"page\\\":0,\\\"source_command_indices\\\":[28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43],\\\"source_line_commands\\\":[28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43]} / L10:C1\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"宝石名称表达式尚未迁移：Game_System.new\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "gem-expression",
+          "fatal": "Map010 / 事件70 / 公共事件0 / 第43条\n宝石名称表达式尚未迁移：Game_System.new / 源码 {\"command_code\":355,\"command_index\":28,\"common_event_id\":23,\"database\":\"CommonEvents\",\"event_name\":\"事件名驱动\",\"kind\":\"common_event\",\"page\":0,\"source_command_indices\":[28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43],\"source_line_commands\":[28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43]} / L10:C1",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "宝石名称表达式尚未迁移：Game_System.new",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-window",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.38,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"window\",\"fatal\":\"deliberate window failure / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"source\\\":\\\"v049 window failure\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"deliberate window failure\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "window",
+          "fatal": "deliberate window failure / 源码 {\"kind\":\"explicit_action\",\"source\":\"v049 window failure\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "deliberate window failure",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-shop-catalog",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.22,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"shop-catalog\",\"fatal\":\"闪翼普通战斗技能注册表未加载（缺少 0073 的普攻）。 / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"operation\\\":\\\"buy\\\",\\\"source\\\":\\\"0259.update_number\\\"} / L0:C0\",\"gold\":90,\"handbook\":1,\"ok\":true,\"result\":\"闪翼普通战斗技能注册表未加载（缺少 0073 的普攻）。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "shop-catalog",
+          "fatal": "闪翼普通战斗技能注册表未加载（缺少 0073 的普攻）。 / 源码 {\"kind\":\"explicit_action\",\"operation\":\"buy\",\"source\":\"0259.update_number\"} / L0:C0",
+          "gold": 90,
+          "handbook": 1,
+          "ok": true,
+          "result": "闪翼普通战斗技能注册表未加载（缺少 0073 的普攻）。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-shop-quantity",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.02,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"shop-quantity\",\"fatal\":\"数量超出可交易范围；未进行交易。 / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"operation\\\":\\\"buy\\\",\\\"source\\\":\\\"0259.update_number\\\"} / L0:C0\",\"gold\":100,\"handbook\":0,\"ok\":true,\"result\":\"数量超出可交易范围；未进行交易。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "shop-quantity",
+          "fatal": "数量超出可交易范围；未进行交易。 / 源码 {\"kind\":\"explicit_action\",\"operation\":\"buy\",\"source\":\"0259.update_number\"} / L0:C0",
+          "gold": 100,
+          "handbook": 0,
+          "ok": true,
+          "result": "数量超出可交易范围；未进行交易。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-shop-zero",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.02,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"shop-zero\",\"fatal\":\"没有可出售数量或原商品价格为0。 / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"operation\\\":\\\"sell\\\",\\\"source\\\":\\\"0259.update_number\\\"} / L0:C0\",\"gold\":100,\"handbook\":0,\"ok\":true,\"result\":\"没有可出售数量或原商品价格为0。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "shop-zero",
+          "fatal": "没有可出售数量或原商品价格为0。 / 源码 {\"kind\":\"explicit_action\",\"operation\":\"sell\",\"source\":\"0259.update_number\"} / L0:C0",
+          "gold": 100,
+          "handbook": 0,
+          "ok": true,
+          "result": "没有可出售数量或原商品价格为0。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-shop-buy-only",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.11,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"shop-buy-only\",\"fatal\":\"原商店只允许购买。 / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"operation\\\":\\\"sell\\\",\\\"source\\\":\\\"0259.update_number\\\"} / L0:C0\",\"gold\":100,\"handbook\":0,\"ok\":true,\"result\":\"原商店只允许购买。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "shop-buy-only",
+          "fatal": "原商店只允许购买。 / 源码 {\"kind\":\"explicit_action\",\"operation\":\"sell\",\"source\":\"0259.update_number\"} / L0:C0",
+          "gold": 100,
+          "handbook": 0,
+          "ok": true,
+          "result": "原商店只允许购买。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-shop-sell-only",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.02,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"shop-sell-only\",\"fatal\":\"原商店只允许出售。 / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"operation\\\":\\\"buy\\\",\\\"source\\\":\\\"0259.update_number\\\"} / L0:C0\",\"gold\":100,\"handbook\":0,\"ok\":true,\"result\":\"原商店只允许出售。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "shop-sell-only",
+          "fatal": "原商店只允许出售。 / 源码 {\"kind\":\"explicit_action\",\"operation\":\"buy\",\"source\":\"0259.update_number\"} / L0:C0",
+          "gold": 100,
+          "handbook": 0,
+          "ok": true,
+          "result": "原商店只允许出售。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-crystal-duplicate",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.14,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"crystal-duplicate\",\"fatal\":\"不能装备同类型的结晶回路。 / 源码 {\\\"kind\\\":\\\"explicit_method\\\",\\\"method\\\":\\\"exchange_crystal\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"不能装备同类型的结晶回路。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "crystal-duplicate",
+          "fatal": "不能装备同类型的结晶回路。 / 源码 {\"kind\":\"explicit_method\",\"method\":\"exchange_crystal\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "不能装备同类型的结晶回路。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-crystal-element",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.11,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"crystal-element\",\"fatal\":\"结晶属性不符合孔位限制。 / 源码 {\\\"kind\\\":\\\"explicit_method\\\",\\\"method\\\":\\\"exchange_crystal\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"结晶属性不符合孔位限制。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "crystal-element",
+          "fatal": "结晶属性不符合孔位限制。 / 源码 {\"kind\":\"explicit_method\",\"method\":\"exchange_crystal\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "结晶属性不符合孔位限制。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-crystal-locked",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.3,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"crystal-locked\",\"fatal\":\"该孔位尚未解锁。 / 源码 {\\\"kind\\\":\\\"explicit_method\\\",\\\"method\\\":\\\"exchange_crystal\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"该孔位尚未解锁。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "crystal-locked",
+          "fatal": "该孔位尚未解锁。 / 源码 {\"kind\":\"explicit_method\",\"method\":\"exchange_crystal\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "该孔位尚未解锁。",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-missing-scan",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.33,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"missing-scan\",\"fatal\":\"剧情演出原SE缺失：静电声2.mp3 / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"source\\\":\\\"GameEngine::Screen.Scanline\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"剧情演出原SE缺失：静电声2.mp3\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "missing-scan",
+          "fatal": "剧情演出原SE缺失：静电声2.mp3 / 源码 {\"kind\":\"explicit_action\",\"source\":\"GameEngine::Screen.Scanline\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "剧情演出原SE缺失：静电声2.mp3",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-missing-noise",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.23,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"missing-noise\",\"fatal\":\"剧情演出原SE缺失：静电声.mp3 / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"source\\\":\\\"GameEngine::Screen.Flashback\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"剧情演出原SE缺失：静电声.mp3\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "missing-noise",
+          "fatal": "剧情演出原SE缺失：静电声.mp3 / 源码 {\"kind\":\"explicit_action\",\"source\":\"GameEngine::Screen.Flashback\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "剧情演出原SE缺失：静电声.mp3",
+          "retained": true
+        }
+      },
+      {
+        "name": "FailureIsolationProbe-invalid-effect",
+        "ok": true,
+        "exit": 1,
+        "seconds": 8.03,
+        "markers": [
+          "V049 FAILURE CHECK: {\"case\":\"invalid-effect\",\"fatal\":\"GameEngine::Screen.Voiceover参数无效或接口尚未定义。 / 源码 {\\\"kind\\\":\\\"explicit_action\\\",\\\"source\\\":\\\"GameEngine::Screen.Voiceover\\\"} / L0:C0\",\"gold\":0,\"handbook\":0,\"ok\":true,\"result\":\"GameEngine::Screen.Voiceover参数无效或接口尚未定义。\",\"retained\":true}"
+        ],
+        "evidence": {
+          "case": "invalid-effect",
+          "fatal": "GameEngine::Screen.Voiceover参数无效或接口尚未定义。 / 源码 {\"kind\":\"explicit_action\",\"source\":\"GameEngine::Screen.Voiceover\"} / L0:C0",
+          "gold": 0,
+          "handbook": 0,
+          "ok": true,
+          "result": "GameEngine::Screen.Voiceover参数无效或接口尚未定义。",
+          "retained": true
+        }
+      }
+    ]
+  },
+  "gpu": [
+    {
+      "name": "integration",
+      "ok": true,
+      "exit": 0,
+      "seconds": 14.41,
+      "markers": [
+        "INTEGRATION V059: PASSED / 313 checks / 3 GPU states"
+      ]
+    },
+    {
+      "name": "load",
+      "ok": true,
+      "exit": 0,
+      "seconds": 12.62,
+      "markers": [
+        "LOAD TIMING: {\"animated_text_states\":8,\"case\":\"legacy\",\"frames\":350,\"maximum_frame_ms\":335.781,\"total_ms\":6188.685}",
+        "LOAD TIMING: {\"animated_text_states\":5,\"case\":\"silence\",\"frames\":9,\"maximum_frame_ms\":442.773,\"total_ms\":700.98}",
+        "LOAD TIMING: {\"animated_text_states\":4,\"case\":\"saved-track\",\"frames\":9,\"maximum_frame_ms\":415.541,\"total_ms\":605.713}",
+        "LOAD AND SHARED BAR: PASSED / 32 checks / 5 GPU states"
+      ]
+    },
+    {
+      "name": "support",
+      "ok": true,
+      "exit": 0,
+      "seconds": 10.38,
+      "markers": [
+        "SUPPORT UI PREVIEW: PASSED / 29 checks / 5 GPU states"
+      ]
+    },
+    {
+      "name": "gaps",
+      "ok": true,
+      "exit": 0,
+      "seconds": 4.38,
+      "markers": [
+        "MIGRATION GAPS V058: PASSED / 76 checks / 6 GPU states"
+      ]
+    },
+    {
+      "name": "functional",
+      "ok": true,
+      "exit": 0,
+      "seconds": 11.79,
+      "markers": [
+        "FUNCTION WINDOWS V057: PASSED / 110 checks / 22 GPU states"
+      ]
+    },
+    {
+      "name": "menu",
+      "ok": true,
+      "exit": 0,
+      "seconds": 17.82,
+      "markers": [
+        "MENU ARCHIVE V056: PASSED / 73 checks / 15 GPU states"
+      ]
+    },
+    {
+      "name": "title",
+      "ok": true,
+      "exit": 0,
+      "seconds": 16.69,
+      "markers": [
+        "FLASH TITLE V055: PASSED / 74 checks / 14 GPU states"
+      ]
+    },
+    {
+      "name": "message",
+      "ok": true,
+      "exit": 0,
+      "seconds": 10.68,
+      "markers": [
+        "FLASH MESSAGE V054: PASSED / 63 checks"
+      ]
+    },
+    {
+      "name": "common",
+      "ok": true,
+      "exit": 0,
+      "seconds": 5.37,
+      "markers": [
+        "UI COMMON V053: PASSED / 61"
+      ]
+    },
+    {
+      "name": "flow-load",
+      "ok": true,
+      "exit": 0,
+      "seconds": 8.76,
+      "markers": [
+        "MENU ARCHIVE V056: PASSED / 2 checks / 0 GPU states"
+      ]
+    },
+    {
+      "name": "flow-backup",
+      "ok": true,
+      "exit": 0,
+      "seconds": 9.42,
+      "markers": [
+        "MENU ARCHIVE V056: PASSED / 4 checks / 0 GPU states"
+      ]
+    },
+    {
+      "name": "flow-title",
+      "ok": true,
+      "exit": 0,
+      "seconds": 8.22,
+      "markers": [
+        "MENU ARCHIVE V056: PASSED / 1 checks / 0 GPU states"
+      ]
+    },
+    {
+      "name": "editor-plugin",
+      "ok": true,
+      "exit": 0,
+      "seconds": 159.46,
+      "markers": [
+        "UI PLUGIN V053: PASSED / 13"
+      ]
+    },
+    {
+      "name": "soak",
+      "ok": true,
+      "exit": 0,
+      "seconds": 336.68,
+      "markers": [
+        "FLASH V049 SOAK: PASSED / 54 checks"
+      ]
+    }
+  ],
+  "gpu_runtime_totals": {
+    "checks": 831,
+    "states": 80
+  },
+  "actual_editor_plugin": {
+    "checks": 13,
+    "failures": [],
+    "ok": true
+  },
+  "soak": {
+    "checks": 54,
+    "cycles": 11,
+    "elapsed_seconds": 318.380741,
+    "failures": [],
+    "frame_max_ms": 91.695,
+    "frame_median_ms": 65.887,
+    "frame_p95_ms": 78.925,
+    "interactive_frames": 6086,
+    "note": "Explicit save/load and undo handlers are reported separately; this finite run is not a whole-game or hours-long stability claim.",
+    "ok": true,
+    "resources": [
+      {
+        "cycle": 0,
+        "nodes": 226,
+        "objects": 2644.0,
+        "resources": 391.0,
+        "static_bytes": 212615708.0
+      },
+      {
+        "cycle": 1,
+        "nodes": 207,
+        "objects": 2624.0,
+        "resources": 391.0,
+        "static_bytes": 212588449.0
+      },
+      {
+        "cycle": 2,
+        "nodes": 226,
+        "objects": 2650.0,
+        "resources": 393.0,
+        "static_bytes": 212685308.0
+      },
+      {
+        "cycle": 3,
+        "nodes": 207,
+        "objects": 2621.0,
+        "resources": 391.0,
+        "static_bytes": 212607485.0
+      },
+      {
+        "cycle": 4,
+        "nodes": 226,
+        "objects": 2650.0,
+        "resources": 393.0,
+        "static_bytes": 212717832.0
+      },
+      {
+        "cycle": 5,
+        "nodes": 207,
+        "objects": 2624.0,
+        "resources": 391.0,
+        "static_bytes": 212642789.0
+      },
+      {
+        "cycle": 6,
+        "nodes": 226,
+        "objects": 2646.0,
+        "resources": 393.0,
+        "static_bytes": 212757464.0
+      },
+      {
+        "cycle": 7,
+        "nodes": 207,
+        "objects": 2624.0,
+        "resources": 391.0,
+        "static_bytes": 212688853.0
+      },
+      {
+        "cycle": 8,
+        "nodes": 226,
+        "objects": 2650.0,
+        "resources": 393.0,
+        "static_bytes": 212766536.0
+      },
+      {
+        "cycle": 9,
+        "nodes": 207,
+        "objects": 2622.0,
+        "resources": 391.0,
+        "static_bytes": 212754549.0
+      },
+      {
+        "cycle": 10,
+        "nodes": 226,
+        "objects": 2650.0,
+        "resources": 393.0,
+        "static_bytes": 212834224.0
+      }
+    ],
+    "stages": [
+      {
+        "cycle": 0,
+        "event": 70,
+        "event_ms": 1890.269,
+        "load_ms": 182.102,
+        "save_ms": 341.607
+      },
+      {
+        "cycle": 1,
+        "event": 56,
+        "event_ms": 2024.929
+      },
+      {
+        "cycle": 2,
+        "event": 70,
+        "event_ms": 1589.493
+      },
+      {
+        "cycle": 3,
+        "event": 56,
+        "event_ms": 1815.081,
+        "load_ms": 199.622,
+        "save_ms": 495.317
+      },
+      {
+        "cycle": 4,
+        "event": 70,
+        "event_ms": 1603.199
+      },
+      {
+        "cycle": 5,
+        "event": 56,
+        "event_ms": 1906.582
+      },
+      {
+        "cycle": 6,
+        "event": 70,
+        "event_ms": 1604.684,
+        "load_ms": 184.171,
+        "save_ms": 487.568
+      },
+      {
+        "cycle": 7,
+        "event": 56,
+        "event_ms": 1928.704
+      },
+      {
+        "cycle": 8,
+        "event": 70,
+        "event_ms": 1604.337
+      },
+      {
+        "cycle": 9,
+        "event": 56,
+        "event_ms": 1835.326,
+        "load_ms": 190.887,
+        "save_ms": 482.985
+      },
+      {
+        "cycle": 10,
+        "event": 70,
+        "event_ms": 1659.194
+      }
+    ],
+    "steps": 3493
+  },
+  "old058_save_and_message_reads": [
+    {
+      "name": "GameSaveRestartTests",
+      "ok": true,
+      "markers": [
+        "FLASH SAVE RESTART: PASSED / read / 6 checks"
+      ]
+    },
+    {
+      "name": "MessageRestartV054Tests",
+      "ok": true,
+      "markers": [
+        "MESSAGE RESTART V054: PASSED / read / 4 checks"
+      ]
+    }
+  ],
+  "old058_write_baseline": [
+    {
+      "name": "import",
+      "ok": true,
+      "exit": 0,
+      "markers": []
+    },
+    {
+      "name": "FlashSaveRestartTests",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "FLASH SAVE RESTART: PASSED / write / 3 checks"
+      ]
+    },
+    {
+      "name": "FlashMessageRestartV054Tests",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "MESSAGE RESTART V054: PASSED / write / 2 checks"
+      ]
+    }
+  ],
+  "definition_fingerprint": "6bd0e10f60f79b11a5f6206b465d82fa0f5342aaa3832f3786a8f163a7d80eb1",
+  "renamed_files": 172,
+  "maintained_gd": 454,
+  "documentation": {
+    "checks": 1614,
+    "production_scripts": 266,
+    "public_methods": 1640
+  },
+  "runtime_editor_byte_parity": true,
+  "screenshots": [
+    "v059-common-ui-menu.png",
+    "v059-common-ui-scroll-last-page.png",
+    "v059-common-ui-text-first-page.png",
+    "v059-common-ui-title.png",
+    "v059-editor-v053-ui-plugin-selected.png",
+    "v059-editor-v053-ui-plugin.png",
+    "v059-functional-blastic-preview.png",
+    "v059-functional-blastic.png",
+    "v059-functional-equipment.png",
+    "v059-functional-item-category.png",
+    "v059-functional-item-presets.png",
+    "v059-functional-item-scroll.png",
+    "v059-functional-item-target.png",
+    "v059-functional-map-system.png",
+    "v059-functional-notes.png",
+    "v059-functional-shop-buy.png",
+    "v059-functional-shop-number.png",
+    "v059-functional-shop-sell.png",
+    "v059-functional-sight-actions.png",
+    "v059-functional-sight-buff.png",
+    "v059-functional-sight-enemy.png",
+    "v059-functional-sight-free.png",
+    "v059-functional-sight-items.png",
+    "v059-functional-sight-list.png",
+    "v059-functional-sight-skill.png",
+    "v059-functional-skill-configured.png",
+    "v059-functional-skills-768.png",
+    "v059-functional-skills.png",
+    "v059-gaps-occlusion-before.png",
+    "v059-gaps-occlusion-exit.png",
+    "v059-gaps-occlusion-under.png",
+    "v059-gaps-source-roof-before.png",
+    "v059-gaps-source-roof-exit.png",
+    "v059-gaps-source-roof-under.png",
+    "v059-integration-broken-finish.png",
+    "v059-integration-broken-middle.png",
+    "v059-integration-broken-start.png",
+    "v059-load-loading-legacy.png",
+    "v059-load-loading-saved-track.png",
+    "v059-load-loading-silence.png",
+    "v059-load-map-music.png",
+    "v059-load-shared-bar.png",
+    "v059-menu-archive-half.png",
+    "v059-menu-archive-load.png",
+    "v059-menu-archive-new.png",
+    "v059-menu-archive-save.png",
+    "v059-menu-archive-scroll.png",
+    "v059-menu-config.png",
+    "v059-menu-cursor-half.png",
+    "v059-menu-load-failure.png",
+    "v059-menu-locked.png",
+    "v059-menu-map.png",
+    "v059-menu-menu-half.png",
+    "v059-menu-menu.png",
+    "v059-menu-overwrite.png",
+    "v059-menu-return-map.png",
+    "v059-menu-title-continue.png",
+    "v059-message-choice.png",
+    "v059-message-dialogue.png",
+    "v059-message-hint.png",
+    "v059-message-history.png",
+    "v059-message-number.png",
+    "v059-message-pages.png",
+    "v059-soak-map.png",
+    "v059-support-items.png",
+    "v059-support-off.png",
+    "v059-support-skills.png",
+    "v059-support-solo.png",
+    "v059-support-support.png",
+    "v059-title-carousel-half.png",
+    "v059-title-continue.png",
+    "v059-title-difficulty-ex.png",
+    "v059-title-difficulty-hard.png",
+    "v059-title-disabled-command.png",
+    "v059-title-merit-book.png",
+    "v059-title-merit.png",
+    "v059-title-music-half.png",
+    "v059-title-music.png",
+    "v059-title-return-title.png",
+    "v059-title-settings-1.png",
+    "v059-title-settings-2.png",
+    "v059-title-settings-3.png",
+    "v059-title-title.png"
+  ],
+  "scope": "Final fresh original-RM export;63 initial filename-integration runtime groups plus14 final catalog-path checks and5 editor groups,8 native fatal and26 service failure cases, actualEditorPlugin, GPU and finite five-minute soak. Complete-story playthrough and all-map long-term stability remain unproven.",
+  "harness_adjustment": "The first new test incorrectly called sha256_text on a PackedByteArray; corrected to exact byte equality and rerun. The existing audit probe now compares the actual RuntimeVersion rather than a literal0.58. The native migration test also recognizes the exact generated-catalog navigation alias while retaining exact native/legacy byte checks. Editor authoring checks intentionally save a changed map; isolated definitions are reset before old-save and restart phases.",
+  "limits": [
+    "Window positions at the new resolution remain deferred.",
+    "Generated mask is new art with explicit provenance, not a recovered original; original480px/160px crop and90tick behavior retained.",
+    "Cold resource compilation and save/undo/load handlers may produce frame spikes; see measured reports, no blanket60FPS claim.",
+    "Audio uses real player/stream state withDummy driver; listening acceptance remains with the user.",
+    "Source unfinished systems and previously excludedRM battle/BOSS/RTP/RM saves remain outside this completion statement."
+  ]
+}

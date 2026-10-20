@@ -1,3 +1,22 @@
+## 职责：回归验证：验证脚本盘点、编译、诊断与迁移报告。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func expect(ok: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 ok（bool；必填）：本项检查是否通过。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 接口说明结束。
+
 extends SceneTree
 const Compiler = preload("res://scripts/importer/RubySubsetCompiler.gd")
 const Inventory = preload("res://scripts/importer/ScriptMigrationInventory.gd")

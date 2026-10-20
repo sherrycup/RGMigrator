@@ -1,3 +1,37 @@
+## 职责：回归验证：验证格子移动、人物方向与地图滚动的实际渲染。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func render_frames(count: int) -> void
+##     用途：等待指定数量的真实渲染帧。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func close(first: Color, second: Color) -> bool
+##     参数 first（Color；必填）：第一个值、对象或起始位置。
+##     参数 second（Color；必填）：第二个值或参与操作的对象。
+##     返回：布尔结果；true/false 的条件以本方法的判断逻辑为准。
+##
+##   func expect(condition: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 condition（bool；必填）：是否创建须返回布尔值的脚本条件模板。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 var failures: Array[String] = []
 var captures := ""
@@ -23,12 +57,12 @@ func run() -> void:
 	viewport.canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
 	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	root.add_child(viewport)
-	var fixture: Dictionary = load("res://runtime/scripts/MovementFixture.gd").build()
-	var map: Node2D = load("res://runtime/scripts/MapRuntime.gd").new()
+	var fixture: Dictionary = load("res://runtime/scripts/11_Development/MovementFixture.gd").build()
+	var map: Node2D = load("res://runtime/scripts/03_Map/MapRuntime.gd").new()
 	viewport.add_child(map)
 	map.load_definition(fixture.map, fixture.tileset)
 	map.set_process(false)
-	var avatar: Node2D = load("res://runtime/scripts/MapCharacter.gd").new()
+	var avatar: Node2D = load("res://runtime/scripts/03_Map/MapCharacter.gd").new()
 	avatar.map_runtime = map
 	map.ensure_character_layer().add_child(avatar)
 	avatar.set_process(false)
@@ -65,7 +99,7 @@ func run() -> void:
 	await render_frames(3)
 	expect(avatar._sprite.frame == 10, "four-frame selection advances using real sprite")
 	viewport.get_texture().get_image().save_png(captures.path_join("native-step-frame.png"))
-	var resources: Script = load("res://runtime/scripts/UIResources.gd")
+	var resources: Script = load("res://runtime/scripts/04_UI_Common/UIResources.gd")
 	var colors := Image.create(128, 128, false, Image.FORMAT_RGBA8)
 	for row in 4:
 		for frame in 4: colors.fill_rect(Rect2i(frame * 32, row * 32, 32, 32), Color(float(frame) / 3, float(row) / 3, 0.25))
@@ -109,7 +143,7 @@ func run() -> void:
 	expect(close(image.get_pixel(avatar.tile_position.x * 32 + 16, avatar.tile_position.y * 32 + 16), Color("405c70")), "transparent character leaves map visible")
 	avatar.configure_motion({"transparent": false})
 	var tile_fixture := fixture.duplicate(true)
-	var tile_event: Dictionary = load("res://runtime/scripts/MovementFixture.gd").event(6, 6, "", 0, "图块排序")
+	var tile_event: Dictionary = load("res://runtime/scripts/11_Development/MovementFixture.gd").event(6, 6, "", 0, "图块排序")
 	tile_event.pages[0].graphic.tile_id = 386
 	tile_fixture.map.events["4"] = tile_event
 	map.load_definition(tile_fixture.map, tile_fixture.tileset)

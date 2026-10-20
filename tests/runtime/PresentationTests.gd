@@ -1,3 +1,42 @@
+## 职责：回归验证：验证原动画、音频、过渡与场景演出的运行接入。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func expect(value: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 value（bool；必填）：需要读取、校验或写入的值。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func frames(count: int = 2) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；默认值 2）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func integration() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func audio_test() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 var failures: Array[String] = []
 var checks := 0
@@ -12,9 +51,9 @@ func frames(count: int = 2) -> void:
 func run() -> void:
 	create_timer(90).timeout.connect(func() -> void: printerr("FAIL: presentation timeout"); quit(1))
 	state = root.get_node("RuntimeState")
-	data = load("res://runtime/scripts/RuntimeData.gd")
-	var view_script: Script = load("res://runtime/scripts/MapViewState.gd")
-	var effects_script: Script = load("res://runtime/scripts/MapEffectsState.gd")
+	data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	var view_script: Script = load("res://runtime/scripts/00_Game/MapViewState.gd")
+	var effects_script: Script = load("res://runtime/scripts/00_Game/MapEffectsState.gd")
 	for resolution in [Vector2(640, 480), Vector2(800, 480), Vector2(768, 768)]:
 		var view: RefCounted = view_script.new()
 		view.advance(0, Vector2(800, 600), Vector2(2048, 1536), resolution)
@@ -44,7 +83,7 @@ func run() -> void:
 	expect(view.scroll_remaining == 0 and view.options.follow_enabled, "explicit follow resumes")
 	for rate in [30, 40, 60, 120]:
 		var effects: RefCounted = effects_script.new()
-		var weather: RefCounted = load("res://runtime/scripts/WeatherState.gd").new()
+		var weather: RefCounted = load("res://runtime/scripts/00_Game/WeatherState.gd").new()
 		effects.configure({"fog_sx": 2, "fog_sy": -1, "fog_opacity": 128})
 		effects.tint_fog([100, -20, 40, 80], 1)
 		effects.fade_fog(0, 1)
@@ -55,14 +94,14 @@ func run() -> void:
 		expect(is_equal_approx(effects.data.fog_ox, -10) and is_equal_approx(effects.data.fog_oy, 5), "RM fog speeds mapped to seconds FPS%d" % rate)
 		expect(is_equal_approx(effects.data.fog_opacity, 0) and is_equal_approx(weather.data.weather_power, 8) and is_equal_approx(effects.data.fog_tone[0], 100), "effect endpoints FPS%d" % rate)
 	var effects: RefCounted = effects_script.new()
-	var weather: RefCounted = load("res://runtime/scripts/WeatherState.gd").new()
+	var weather: RefCounted = load("res://runtime/scripts/00_Game/WeatherState.gd").new()
 	var tileset := {"panorama_name": "sky", "fog_name": "mist", "fog_zoom": 150, "fog_sx": 2}
 	var immutable := tileset.duplicate(true)
 	expect(effects.setup_map(1, tileset).ok and tileset == immutable and effects.data.fog_zoom == 150, "tileset definition is read-only")
 	effects.fade_fog(0, 2)
 	weather.weather(1, 7)
 	effects.advance(1); weather.advance(1)
-	expect(effects_script.decode(effects.snapshot()).ok and load("res://runtime/scripts/WeatherState.gd").decode(weather.snapshot()).ok, "fog/weather save halfway")
+	expect(effects_script.decode(effects.snapshot()).ok and load("res://runtime/scripts/00_Game/WeatherState.gd").decode(weather.snapshot()).ok, "fog/weather save halfway")
 	var before: Dictionary = effects.snapshot()
 	for invalid in [{"fog_zoom": 0}, {"fog_blend_type": 1.5}, {"panorama_name": "../outside"}, {"fog_opacity": INF}]:
 		expect(not effects.configure(invalid).ok and effects.snapshot() == before, "invalid effects rejected atomically")
@@ -75,7 +114,7 @@ func run() -> void:
 	expect(weather.data.weather_type == 1 and weather.data.weather_density == 4, "RM power0 is minimum weather, not disabled")
 	effects.setup_map(2, {})
 	expect(effects.data.fog_name.is_empty() and effects.data.fog_ox == 0, "new map resets tileset fog, not source data")
-	var timer_script: Script = load("res://runtime/scripts/GameTimer.gd")
+	var timer_script: Script = load("res://runtime/scripts/00_Game/GameTimer.gd")
 	var timer: RefCounted = timer_script.new()
 	var expiries := [0]
 	timer.expired.connect(func() -> void: expiries[0] += 1)
@@ -95,7 +134,7 @@ func run() -> void:
 func integration() -> void:
 	state.begin_new_game(data.system())
 	state.resume_from_save = true
-	var game: Node = load("res://scenes/Game.tscn").instantiate()
+	var game: Node = load("res://scenes/03_Map/Game.tscn").instantiate()
 	root.add_child(game)
 	current_scene = game
 	await frames(3)
@@ -132,7 +171,7 @@ func integration() -> void:
 	expect(state.timer.remaining == remaining and state.map_effects.data.fog_opacity_remaining == fog_remaining and Vector2i(state.player_x, state.player_y) == position, "preview leaves live state paused")
 	game._menus.close_menu()
 	expect([game._map.get_instance_id(), game._player.get_instance_id()] == ids and state.map_id == map_id, "same live instances after close")
-	var codec: Script = load("res://runtime/scripts/SaveCodec.gd")
+	var codec: Script = load("res://runtime/scripts/10_Support/Persistence/SaveCodec.gd")
 	var saved: Dictionary = codec.capture(state)
 	var parsed: Dictionary = codec.prepare(saved)
 	expect(parsed.ok and parsed.map_view.options.follow_center == [180.0, 160.0] and parsed.timer.remaining > 0 and parsed.screen.weather_snapshot().weather_type == 1, "native view/effects/timer save validated detached")

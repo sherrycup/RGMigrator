@@ -1,4 +1,5 @@
 .godot/
 *.uid
 test_exports_*/
+__pycache__/
 

@@ -21,14 +21,14 @@ if ($CaptureName -notmatch '^[a-zA-Z0-9_-]+$') { throw 'Invalid capture name.' }
 $taskCaptures = Join-Path $taskRepository ".godot/test-logs/$CaptureName"
 New-Item -ItemType Directory -Path $taskCaptures -Force | Out-Null
 $taskProbe = Join-Path $taskProject '.godot/editor_probe.gd'
-Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorPluginProbe.gd') -Destination $taskProbe
-Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorMapEditingScenario.gd') -Destination (Join-Path $taskProject '.godot/EditorMapEditingScenario.gd')
-Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorEventAuthoringScenario.gd') -Destination (Join-Path $taskProject '.godot/EditorEventAuthoringScenario.gd')
-Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorTilesetLayersScenario.gd') -Destination (Join-Path $taskProject '.godot/EditorTilesetLayersScenario.gd')
-Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorDatabaseAuthoringScenario.gd') -Destination (Join-Path $taskProject '.godot/EditorDatabaseAuthoringScenario.gd')
-Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorFeedbackScenario.gd') -Destination (Join-Path $taskProject '.godot/EditorFeedbackScenario.gd')
-Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorFinalUiScenario.gd') -Destination (Join-Path $taskProject '.godot/EditorFinalUiScenario.gd')
-Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorStructureGuideScenario.gd') -Destination (Join-Path $taskProject '.godot/EditorStructureGuideScenario.gd')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_PluginProbe.gd') -Destination $taskProbe
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_MapEditingScenario.gd') -Destination (Join-Path $taskProject '.godot/Editor_MapEditingScenario.gd')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_EventAuthoringScenario.gd') -Destination (Join-Path $taskProject '.godot/Editor_EventAuthoringScenario.gd')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_TilesetLayersScenario.gd') -Destination (Join-Path $taskProject '.godot/Editor_TilesetLayersScenario.gd')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_DatabaseAuthoringScenario.gd') -Destination (Join-Path $taskProject '.godot/Editor_DatabaseAuthoringScenario.gd')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_FeedbackScenario.gd') -Destination (Join-Path $taskProject '.godot/Editor_FeedbackScenario.gd')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_FinalUiScenario.gd') -Destination (Join-Path $taskProject '.godot/Editor_FinalUiScenario.gd')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_StructureGuideScenario.gd') -Destination (Join-Path $taskProject '.godot/Editor_StructureGuideScenario.gd')
 $taskLog = Join-Path $taskCaptures 'render.log'
 $taskArguments = @('--editor', '--path', ('"{0}"' -f $taskProject), '--rendering-method', 'gl_compatibility', '--rendering-driver', 'opengl3',
     '--audio-driver', 'Dummy', '--position', '-10000,-10000', '--disable-vsync', '--log-file', ('"{0}"' -f $taskLog),

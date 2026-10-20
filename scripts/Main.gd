@@ -1,3 +1,15 @@
+## 职责：构建迁移器主界面，接收源工程与输出选项，并协调迁移进度和报告展示。
+##
+## 调用方式：
+##   脚本由所属场景或插件挂载；下列回调由 Godot 调用。
+##
+## 调用接口：
+##   本文件未声明额外公开方法；使用常量、继承接口或下列场景树回调。
+## 场景树回调（Godot 自动调用）：
+##   func _ready() -> void
+##
+## 接口说明结束。
+
 extends Control
 
 const RGMigratorVersion = preload("res://scripts/Version.gd")

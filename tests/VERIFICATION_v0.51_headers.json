@@ -1,0 +1,210 @@
+{
+  "version": "ver0.51",
+  "change": "script headers and Editor_ names",
+  "status": "passed",
+  "source_gd": 397,
+  "source_editor_renames": 68,
+  "delivery": "D:\\Dev\\Godot_Trans\\output\\0.51\\script-comments-release\\黎之闪翼（开发中）_Godot",
+  "audit": {
+    "delivery_headers": 453,
+    "delivery_editor_names": 48,
+    "generated_bodies_identical": 175,
+    "source_map_offsets_verified": 1117,
+    "source_bodies_preserved_except_reviewed_generators_compatibility_and_test": 390
+  },
+  "documentation_checks": 1439,
+  "actual_plugin_checks": 10,
+  "template_parity": 210,
+  "runtime": [
+    {
+      "name": "RuntimeCompileTests",
+      "ok": true,
+      "exit": 0,
+      "seconds": 11.36,
+      "markers": [
+        "RUNTIME COMPILE: PASSED / 172 scripts"
+      ],
+      "evidence": {}
+    },
+    {
+      "name": "ScriptSemanticsRuntimeTests",
+      "ok": true,
+      "exit": 0,
+      "seconds": 9.93,
+      "markers": [
+        "SCRIPT SEMANTICS RUNTIME: PASSED / 174 checks / generated=166"
+      ],
+      "evidence": {}
+    },
+    {
+      "name": "ScriptEventSourceTests",
+      "ok": true,
+      "exit": 0,
+      "seconds": 3.34,
+      "markers": [
+        "SCRIPT EVENT SOURCE: PASSED / 4 checks / [\"event_000106\"]"
+      ],
+      "evidence": {}
+    },
+    {
+      "name": "FlashStructureV051Tests",
+      "ok": true,
+      "exit": 0,
+      "seconds": 4.26,
+      "markers": [
+        "FLASH STRUCTURE V051: PASSED / 583 checks"
+      ],
+      "evidence": {}
+    }
+  ],
+  "final_runtime": [
+    {
+      "name": "RuntimeCompileTests",
+      "ok": true,
+      "exit": 0,
+      "seconds": 8.8,
+      "markers": [
+        "RUNTIME COMPILE: PASSED / 172 scripts"
+      ],
+      "evidence": {}
+    },
+    {
+      "name": "FlashStructureV051Tests",
+      "ok": true,
+      "exit": 0,
+      "seconds": 4.08,
+      "markers": [
+        "FLASH STRUCTURE V051: PASSED / 587 checks"
+      ],
+      "evidence": {}
+    }
+  ],
+  "editor": [
+    {
+      "name": "Editor_CompileTests",
+      "ok": true,
+      "exit": 0,
+      "seconds": 6.53,
+      "markers": [
+        "EDITOR COMPILE: PASSED / 48 scripts"
+      ],
+      "evidence": {}
+    },
+    {
+      "name": "Editor_ReadabilityTests",
+      "ok": true,
+      "exit": 0,
+      "seconds": 4.83,
+      "markers": [
+        "EDITOR READABILITY TESTS: PASSED / 2235 checks"
+      ],
+      "evidence": {}
+    },
+    {
+      "name": "Editor_CommandBlockTests",
+      "ok": true,
+      "exit": 0,
+      "seconds": 3.62,
+      "markers": [
+        "COMMAND BLOCK TESTS: PASSED / 123 checks"
+      ],
+      "evidence": {}
+    },
+    {
+      "name": "Editor_StructureGuideTests",
+      "ok": true,
+      "exit": 0,
+      "seconds": 3.17,
+      "markers": [
+        "STRUCTURE GUIDE TESTS: PASSED / 8 checks"
+      ],
+      "evidence": {}
+    },
+    {
+      "name": "Editor_CustomDataTests",
+      "ok": true,
+      "exit": 0,
+      "seconds": 4.18,
+      "markers": [
+        "EDITOR CUSTOM DATA: PASSED / 13 checks"
+      ],
+      "evidence": {}
+    },
+    {
+      "name": "Editor_ScriptUiTests",
+      "ok": true,
+      "exit": 0,
+      "seconds": 10.2,
+      "markers": [
+        "EDITOR SCRIPT UI: PASSED / 18 checks"
+      ],
+      "evidence": {}
+    },
+    {
+      "name": "Editor_ScriptWorkspaceTests",
+      "ok": true,
+      "exit": 0,
+      "seconds": 4.63,
+      "markers": [
+        "EDITOR SCRIPT WORKSPACE: PASSED / 41 checks"
+      ],
+      "evidence": {}
+    },
+    {
+      "name": "Editor_ScriptSourceFlowTests",
+      "ok": true,
+      "exit": 0,
+      "seconds": 89.41,
+      "markers": [
+        "EDITOR SCRIPT SOURCE FLOW: PASSED / 348 checks"
+      ],
+      "evidence": {}
+    }
+  ],
+  "upgrade_from_051": [
+    {
+      "phase": "write",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "FLASH SAVE RESTART: PASSED / write / 3 checks"
+      ]
+    },
+    {
+      "phase": "read",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "FLASH SAVE RESTART: PASSED / read / 6 checks"
+      ]
+    }
+  ],
+  "upgrade_from_05": [
+    {
+      "phase": "write",
+      "version": "0.5",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "FLASH SAVE RESTART: PASSED / write / 3 checks"
+      ]
+    },
+    {
+      "phase": "read",
+      "version": "0.51",
+      "ok": true,
+      "exit": 0,
+      "markers": [
+        "FLASH SAVE RESTART: PASSED / read / 6 checks"
+      ]
+    }
+  ],
+  "formal_export": {
+    "version": "ver0.51",
+    "ok": true,
+    "maps": 36,
+    "assets": 4097,
+    "errors": []
+  },
+  "source_scripts_sha256": "22763e029aa1b52a96ac24355909e3daf4a5c9c23940ae1c36cfbff2fe6233cf"
+}

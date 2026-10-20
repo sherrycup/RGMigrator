@@ -1,4 +1,4 @@
-﻿param(
+param(
     [Parameter(Mandatory = $true)][string]$GodotPath,
     [Parameter(Mandatory = $true)][string]$ProjectPath,
     [string]$CaptureName = 'v026-event-actor-scene-render'

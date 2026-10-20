@@ -1,3 +1,27 @@
+## 职责：回归验证：验证 Ruby 值、运算、方法调用与正式游戏状态的语义接入。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func expect(ok: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 ok（bool；必填）：本项检查是否通过。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 接口说明结束。
+
 extends SceneTree
 var failures: Array[String] = []
 var checks := 0
@@ -7,8 +31,8 @@ func _init() -> void:
 
 func run() -> void:
 	var state: Node = root.get_node("RuntimeState")
-	var data: Script = load("res://runtime/scripts/RuntimeData.gd")
-	var runtime: Script = load("res://runtime/scripts/ScriptRuntime.gd")
+	var data: Script = load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	var runtime: Script = load("res://runtime/scripts/10_Support/Scripting/ScriptRuntime.gd")
 	state.begin_new_game(data.system())
 	var registry: Dictionary = data.read_json("res://data/script_units.json",{})
 	var library := ""; var generated := 0
@@ -33,7 +57,7 @@ func run() -> void:
 		expect(missing.ok and missing.value==true,"fully migrated declaration library can reload lazily after new game")
 	var mapping: Dictionary = data.read_json("res://data/script_source_map.json",{})
 	expect(not mapping.get("entries",[]).is_empty(),"Ruby to GDScript source mapping is exported")
-	var codec: Script = load("res://runtime/scripts/SaveCodec.gd")
+	var codec: Script = load("res://runtime/scripts/10_Support/Persistence/SaveCodec.gd")
 	var saved: Dictionary = codec.capture(state); var prepared: Dictionary = codec.prepare(saved)
 	expect(prepared.ok,"native save format remains valid with script session present")
 	if prepared.ok: state.restore_prepared(prepared)

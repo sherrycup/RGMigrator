@@ -1,3 +1,16 @@
+## 职责：正式导出验收：从原 RM 工程执行 0.50 迁移，检查生成配置、报告及必需交付文件。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+## 接口说明结束。
+
 extends SceneTree
 const Validator=preload("res://scripts/importer/RmxpValidator.gd")
 const Pipeline=preload("res://scripts/importer/MigrationPipeline.gd")
@@ -30,7 +43,7 @@ func _init() -> void:
 		if not conversions is Dictionary or conversions.get("entries",[]).size()!=1: summary.ok=false; summary.errors.append("标题MP2转换记录缺失。")
 		var config=ConfigFile.new()
 		summary.ok=summary.ok and config.load(output.path_join("project.godot"))==OK and config.get_value("rendering","renderer/rendering_method","")=="gl_compatibility" and config.get_value("display","window/size/viewport_height",0)==640 and config.get_value("application","run/max_fps",0)==60
-		for path in ["addons/rgm_editor/plugin.cfg","runtime/generated/flash_skill_catalog.gd","runtime/scripts/FlashArchivePage.gd","runtime/scripts/FlashScreenEffects.gd","data/source_corrections.json","migration_docs/SCRIPT_MIGRATION_v0.47.md","migration_docs/FLASH_LIFECYCLE_AUDIT_v0.47.json","runtime/scripts/SaveGraph.gd","runtime/scripts/FlashHistory.gd","runtime/scripts/FlashMapSnapshot.gd","runtime/scripts/FlashMoviePlayer.gd","addons/rgm_editor/EditorScriptDialog.gd","addons/rgm_editor/compiler/ScriptMigrationInventory.gd","data/script_workspace.json","data/script_coverage.json","script_coverage.md","migration_docs/SCRIPT_MIGRATION_v0.48.md","migration_docs/PERFORMANCE_v0.5.md","tests/VERIFICATION_v0.5.md","tests/runtime/FlashIntegrationV049Tests.gd","tests/runtime/FlashFailureIsolationProbe.gd","runtime/scripts/FlashDamageWorker.gd","migration_docs/PERFORMANCE_v0.5.md","tests/runtime/FlashSnapshotV050Tests.gd","tests/runtime/FlashDamageOrderV050Probe.gd"]:
+		for path in ["addons/rgm_editor/plugin.cfg","runtime/generated/skill_catalog.gd","runtime/scripts/07_Archive/ArchivePage.gd","runtime/scripts/09_Effects/ScreenEffects.gd","data/source_corrections.json","migration_docs/SCRIPT_MIGRATION_v0.47.md","migration_docs/FLASH_LIFECYCLE_AUDIT_v0.47.json","runtime/scripts/10_Support/Persistence/SaveGraph.gd","runtime/scripts/10_Support/Persistence/History.gd","runtime/scripts/10_Support/Persistence/MapSnapshot.gd","runtime/scripts/10_Support/Utilities/MoviePlayer.gd","addons/rgm_editor/06_Scripts/Editor_ScriptDialog.gd","addons/rgm_editor/compiler/Editor_ScriptMigrationInventory.gd","data/script_workspace.json","data/script_coverage.json","script_coverage.md","migration_docs/SCRIPT_MIGRATION_v0.48.md","migration_docs/PERFORMANCE_v0.5.md","tests/VERIFICATION_v0.5.md","tests/runtime/IntegrationV049Tests.gd","tests/runtime/FailureIsolationProbe.gd","runtime/scripts/01_Battle/DamageWorker.gd","migration_docs/PERFORMANCE_v0.5.md","tests/runtime/SnapshotV050Tests.gd","tests/runtime/DamageOrderV050Probe.gd"]:
 			if not FileAccess.file_exists(output.path_join(path)): summary.ok=false; summary.errors.append("正式输出缺少："+path)
 	var suffix="" if delivery_subdir=="final" else "-"+delivery_subdir
 	var file=FileAccess.open("res://.godot/test-logs/v050-release-export"+suffix+".json",FileAccess.WRITE); file.store_string(JSON.stringify(summary,"\t")); file.close()

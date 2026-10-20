@@ -1,3 +1,46 @@
+## 职责：回归验证：验证存档结构、非法数据拒绝、资源和恢复原子性。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func malformed_cases(source: Dictionary) -> void
+##     参数 source（Dictionary；必填）：待处理的原始文本、数据或状态。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func standard_fixture() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func frames(count: int) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(value: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 value（bool；必填）：需要读取、校验或写入的值。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func finish() -> void
+##     用途：结束本次处理并返回结果。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 var data: Script
 var saves: Script
@@ -15,9 +58,9 @@ func _initialize() -> void:
 
 func run() -> void:
 	create_timer(45.0).timeout.connect(func() -> void: printerr("FAIL: save tests timeout"); quit(1))
-	data = load("res://runtime/scripts/RuntimeData.gd")
-	saves = load("res://runtime/scripts/SaveService.gd")
-	codec = load("res://runtime/scripts/SaveCodec.gd")
+	data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	saves = load("res://runtime/scripts/10_Support/Persistence/SaveService.gd")
+	codec = load("res://runtime/scripts/10_Support/Persistence/SaveCodec.gd")
 	state = root.get_node("RuntimeState")
 	location = ProjectSettings.globalize_path("res://.godot/save_tests_%d" % Time.get_ticks_usec())
 	saves.directory_override = location
@@ -68,7 +111,7 @@ func run() -> void:
 	expect(saves.write_text(saves.slot_path(1), "broken JSON") == OK, "damage only our disposable test slot")
 	result = saves.read_slot(1)
 	expect(result.ok and result.recovered and result.prepared.state.gold == 123, "bad primary selects previous backup")
-	var backup_view: Control = load("res://runtime/scripts/SaveSlots.gd").new()
+	var backup_view: Control = load("res://runtime/scripts/07_Archive/SaveSlots.gd").new()
 	backup_view.mode = "load"
 	root.add_child(backup_view)
 	var requests := {"count": 0}
@@ -128,7 +171,7 @@ func run() -> void:
 	var quiet_map: Dictionary = data.map(int(system.start_map_id)).duplicate(true)
 	quiet_map.events = {}
 	data._cache["res://data/maps/Map%03d.json" % int(system.start_map_id)] = quiet_map
-	var game: Node = load("res://scenes/Game.tscn").instantiate()
+	var game: Node = load("res://scenes/03_Map/Game.tscn").instantiate()
 	state.resume_from_save = true
 	root.add_child(game)
 	current_scene = game

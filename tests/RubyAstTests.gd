@@ -1,3 +1,26 @@
+## 职责：回归验证：验证 Ruby 词法、语句与表达式 AST 及错误位置。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func parse_ok(source: String) -> Dictionary
+##     参数 source（String；必填）：待处理的原始文本、数据或状态。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func expect(ok: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 ok（bool；必填）：本项检查是否通过。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 接口说明结束。
+
 extends SceneTree
 const Parser = preload("res://scripts/importer/RubyParser.gd")
 var failures: Array[String] = []

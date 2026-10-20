@@ -11,7 +11,7 @@ $taskRepository = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 if ($CaptureName -notmatch '^[a-zA-Z0-9_-]+$') { throw 'Invalid capture name.' }
 $taskLog = Join-Path $taskRepository ".godot/test-logs/$CaptureName.log"
 # The caller supplies a disposable project; the probe never runs game events.
-Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorScriptPluginProbe.gd') -Destination (Join-Path $taskProject '.godot/editor_probe.gd') -Force
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_ScriptPluginProbe.gd') -Destination (Join-Path $taskProject '.godot/editor_probe.gd') -Force
 $taskArguments = @('--editor', '--path', ('"{0}"' -f $taskProject), '--audio-driver', 'Dummy',
     '--position', '-10000,-10000', '--log-file', ('"{0}"' -f $taskLog))
 if ($Headless) { $taskArguments += '--headless' }

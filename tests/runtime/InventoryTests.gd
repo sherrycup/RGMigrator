@@ -1,3 +1,63 @@
+## 职责：回归验证：验证背包增减、装备、物品目标和公共事件预约。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func run_suite() -> void
+##     用途：执行本脚本组织的回归检查。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func reset() -> void
+##     用途：重置本服务持有的状态。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_items() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_equipment() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_keyboard() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func make_fixture() -> Dictionary
+##     用途：构建与正式工程隔离的测试现场。
+##     参数：无。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func frames(count: int) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func press(key: Key) -> void
+##     用途：模拟一次按键输入。
+##     参数 key（Key；必填）：Godot 按键码，例如 KEY_UP、KEY_DOWN、KEY_ENTER 或 KEY_ESCAPE。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(condition: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 condition（bool；必填）：是否创建须返回布尔值的脚本条件模板。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 接口说明结束。
+
 extends SceneTree
 
 var data: Script
@@ -13,7 +73,7 @@ func _init() -> void:
 
 func run_suite() -> void:
 	create_timer(45.0).timeout.connect(func() -> void: printerr("FAIL: inventory timeout"); quit(1))
-	data = load("res://runtime/scripts/RuntimeData.gd")
+	data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
 	state = root.get_node("RuntimeState")
 	# Exercise the actual exported configuration first, without changing files.
 	var setup: Dictionary = data.test_config()
@@ -138,7 +198,7 @@ func test_equipment() -> void:
 
 func test_keyboard() -> void:
 	# Real Title -> Map; standard fixture overrides remain process-only.
-	var title: Node = load("res://scenes/Title.tscn").instantiate()
+	var title: Node = load("res://scenes/05_Title/Title.tscn").instantiate()
 	root.add_child(title)
 	current_scene = title
 	title.call("_on_new_game")

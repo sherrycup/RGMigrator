@@ -1,3 +1,63 @@
+## 职责：回归验证：验证事件变量操作数、数据查询与数值规则。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func c(code: int, p: Array = [], indent: int = 0) -> Dictionary
+##     参数 code（int；必填）：对应指令、按键或操作的编码。
+##     参数 p（Array；默认值 []）：对应事件指令的参数数组。
+##     参数 indent（int；默认值 0）：事件指令的结构缩进层级。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func value(id: int) -> int
+##     参数 id（int；必填）：本接口所处理对象的编号。
+##     返回：数值结果；编号、单位与计算含义由本接口用途决定。
+##
+##   func expect(condition: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 condition（bool；必填）：是否创建须返回布尔值的脚本条件模板。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func frames(count: int = 2) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；默认值 2）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func test_variables() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_conditions() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_validation() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_persistence() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_ui_and_game() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 var failures: Array[String] = []
 var checks := 0
@@ -13,11 +73,11 @@ func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	create_timer(60).timeout.connect(func() -> void: printerr("FAIL: value tests timeout"); quit(1))
 	state = root.get_node("RuntimeState")
-	data = load("res://runtime/scripts/RuntimeData.gd")
-	fixture = load("res://runtime/scripts/EventFixture.gd")
-	values = load("res://runtime/scripts/EventValueResolver.gd")
-	catalog = load("res://runtime/scripts/EventCommandCatalog.gd")
-	interpreter = load("res://runtime/scripts/EventInterpreter.gd")
+	data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	fixture = load("res://runtime/scripts/11_Development/EventFixture.gd")
+	values = load("res://runtime/scripts/02_Event/EventValueResolver.gd")
+	catalog = load("res://runtime/scripts/02_Event/EventCommandCatalog.gd")
+	interpreter = load("res://runtime/scripts/02_Event/EventInterpreter.gd")
 	state.begin_new_game(data.system())
 	test_variables()
 	test_conditions()
@@ -66,7 +126,7 @@ func test_variables() -> void:
 		expect(result.ok and result.value == [state.map_id, state.party.size(), 456, 23, 83, 8, 5][subtype], "other operand %d" % subtype)
 	# Independent hand-authored armor/state fixture; native eva has additive states.
 	var records := {"Classes:1": {"name": "test", "learnings": []}, "Armors:1": {"eva": 7, "auto_state_id": 2}, "States:1": {"eva": -3}, "States:2": {"eva": 5}}
-	var actor_test: RefCounted = load("res://runtime/scripts/ActorState.gd").new()
+	var actor_test: RefCounted = load("res://runtime/scripts/00_Game/ActorState.gd").new()
 	actor_test.configure(1, {"class_id": 1, "initial_level": 1, "final_level": 1, "armor1_id": 1, "parameters": {"x_size": 6, "y_size": 2, "values": [0, 0, 0, 0, 0, 0, 100, 50, 10, 10, 10, 10]}}, func(db: String, id: int) -> Dictionary: return records.get("%s:%d" % [db, id], {}))
 	actor_test.add_state(1)
 	expect(actor_test.get_parameter("eva") == 9, "eva sums armor, ordinary state, equipment state once")
@@ -98,7 +158,7 @@ func test_conditions() -> void:
 			if record is Dictionary and int(record.get("id", 0)) > 0: id = int(record.id); break
 		state.inventory["%s:%d" % [entry[1], id]] = 1
 		expect(values.condition([entry[0], id], null, 0).value, "item/weapon/armor ownership")
-	var buttons: Script = load("res://runtime/scripts/EventInput.gd")
+	var buttons: Script = load("res://runtime/scripts/02_Event/EventInput.gd")
 	buttons.configure()
 	for code in buttons.ACTIONS:
 		Input.action_press(buttons.ACTIONS[code])
@@ -125,8 +185,8 @@ func test_validation() -> void:
 	expect(state.inventory["item:%d" % item] == 99, "inventory upper cap")
 
 func test_persistence() -> void:
-	var codec: Script = load("res://runtime/scripts/SaveCodec.gd")
-	var saves: Script = load("res://runtime/scripts/SaveService.gd")
+	var codec: Script = load("res://runtime/scripts/10_Support/Persistence/SaveCodec.gd")
+	var saves: Script = load("res://runtime/scripts/10_Support/Persistence/SaveService.gd")
 	state.message_position = 0; state.message_frame = 1; state.save_count = 7
 	var snapshot: Dictionary = codec.capture(state)
 	var old := snapshot.duplicate(true)
@@ -148,7 +208,7 @@ func test_persistence() -> void:
 
 func test_ui_and_game() -> void:
 	state.resume_from_save = true
-	var game: Node2D = load("res://scenes/Game.tscn").instantiate()
+	var game: Node2D = load("res://scenes/03_Map/Game.tscn").instantiate()
 	root.add_child(game); current_scene = game
 	await frames(3)
 	game.set_process(false); game._scheduler.cancel_all(); game._event_ui.cancel_all()
@@ -157,7 +217,7 @@ func test_ui_and_game() -> void:
 	var ui: Node = game._dialogue
 	var actor: RefCounted = state.actor(int(state.party[0]))
 	state.set_event_variable(8180, 12)
-	var message: Script = load("res://runtime/scripts/EventMessage.gd")
+	var message: Script = load("res://runtime/scripts/02_Event/EventMessage.gd")
 	var formatted: Dictionary = message.format("V=\\V[8180]; N=\\N[%d]; \\C[2]红\\C[0]; \\G; \\\\V[8180]; [color=red]literal" % actor.id)
 	expect(formatted.text.contains("V=12") and formatted.text.contains(actor.actor_name) and formatted.text.contains("\\V[8180]") and formatted.text.contains("[color=red]literal") and formatted.gold, "native escapes and literal slash/BBCode")
 	expect(formatted.pieces.any(func(piece: Dictionary) -> bool: return piece.color == 2 and piece.text.contains("红")), "color escape produces colored pieces")
@@ -195,7 +255,7 @@ func test_ui_and_game() -> void:
 	expect(style.bg_color.a == 0, "transparent frame keeps text only")
 	ui._continue()
 	expect(game._interpreter.wait_kind() == "button:9013", "105 waits for new key")
-	var buttons: Script = load("res://runtime/scripts/EventInput.gd")
+	var buttons: Script = load("res://runtime/scripts/02_Event/EventInput.gd")
 	await frames(2)
 	Input.action_press("rm_c")
 	ui._process(0)

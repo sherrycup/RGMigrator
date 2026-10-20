@@ -1,3 +1,39 @@
+## 职责：回归验证：执行原推箱子事件链并验证路线、通行和结果。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func expect(ok: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 ok（bool；必填）：本项检查是否通过。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func test_original(data: Script, original: Dictionary) -> void
+##     参数 data（Script；必填）：待读取、转换或恢复的数据。
+##     参数 original（Dictionary；必填）：修改前的原始记录或文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func test_classification() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+## 接口说明结束。
+
 extends SceneTree
 var _checks = 0
 var _failures: Array[String] = []
@@ -10,7 +46,7 @@ func expect(ok: bool, message: String) -> void:
 	if not ok: _failures.append(message)
 
 func run() -> void:
-	var data = load("res://runtime/scripts/RuntimeData.gd")
+	var data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
 	var state: Node = root.get_node("RuntimeState")
 	state.begin_new_game(data.system())
 	var original: Dictionary = data.map(1)
@@ -24,17 +60,17 @@ func run() -> void:
 	quit(0 if _failures.is_empty() else 1)
 
 func test_original(data: Script, original: Dictionary) -> void:
-	var map = load("res://runtime/scripts/MapRuntime.gd").new()
+	var map = load("res://runtime/scripts/03_Map/MapRuntime.gd").new()
 	root.add_child(map)
 	map.load_definition(original, data.record("Tilesets", int(original.tileset_id)))
 	map.set_process(false)
 	for context in map.event_contexts(): context.node.set_process(false)
-	var player = load("res://runtime/scripts/PlayerController.gd").new()
+	var player = load("res://runtime/scripts/03_Map/PlayerController.gd").new()
 	map.ensure_character_layer().add_child(player)
 	player.configure(map); player.set_process(false); map.player_character = player
 	var box = map.event_node(17)
 	var start: Vector2i = box.tile_position
-	var owner = load("res://runtime/scripts/EventInterpreter.gd").new()
+	var owner = load("res://runtime/scripts/02_Event/EventInterpreter.gd").new()
 	owner.map_runtime = map
 	var errors: Array[String] = []
 	owner.diagnostic_requested.connect(func(message: String) -> void: errors.append(message))
@@ -59,13 +95,13 @@ func test_original(data: Script, original: Dictionary) -> void:
 	map.queue_free(); await process_frame
 
 func test_classification() -> void:
-	var resources: Dictionary = load("res://runtime/scripts/MovementFixture.gd").build()
+	var resources: Dictionary = load("res://runtime/scripts/11_Development/MovementFixture.gd").build()
 	var tileset: Dictionary = resources.tileset.duplicate(true)
 	tileset.passages.values[385] = 15
 	tileset.priorities.values[385] = 0
 	var values: Array = []; values.resize(25); values.fill(384)
 	var page = {"condition": {}, "graphic": {"tile_id": 385, "character_name": ""}, "list": [{"code": 108, "parameters": ["touch"], "indent": 0}, {"code": 0, "parameters": [], "indent": 0}], "trigger": 1}
-	var map = load("res://runtime/scripts/MapRuntime.gd").new(); root.add_child(map)
+	var map = load("res://runtime/scripts/03_Map/MapRuntime.gd").new(); root.add_child(map)
 	map.load_definition({"width": 5, "height": 5, "data": {"x_size": 5, "y_size": 5, "z_size": 1, "values": values}, "events": {"1": {"x": 2, "y": 2, "pages": [page]}}}, tileset)
 	var event = map.event_node(1)
 	expect(event.front_interaction(), "priority-zero solid tile is front trigger")

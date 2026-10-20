@@ -1,3 +1,25 @@
+## 职责：回归验证：通过独立写入和读取进程检查原生事件与音频存档恢复。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func restart_audio_fixture(data: Script, mode: String) -> void
+##     参数 data（Script；必填）：待读取、转换或恢复的数据。
+##     参数 mode（String；必填）：当前操作或显示模式。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 
 
@@ -15,8 +37,8 @@ func run() -> void:
 		printerr("FAIL: restart test requires a disposable project-local save directory")
 		quit(1)
 		return
-	var saves: Script = load("res://runtime/scripts/SaveService.gd")
-	var data: Script = load("res://runtime/scripts/RuntimeData.gd")
+	var saves: Script = load("res://runtime/scripts/10_Support/Persistence/SaveService.gd")
+	var data: Script = load("res://runtime/scripts/00_Game/RuntimeData.gd")
 	var state: Node = root.get_node("RuntimeState")
 	restart_audio_fixture(data, mode)
 	saves.directory_override = directory
@@ -104,7 +126,7 @@ func run() -> void:
 			printerr("FAIL: restarted transitions did not reach exact endpoints")
 			quit(1)
 			return
-		var game: Node = load("res://scenes/Game.tscn").instantiate()
+		var game: Node = load("res://scenes/03_Map/Game.tscn").instantiate()
 		root.add_child(game)
 		current_scene = game
 		for _index in 3: await process_frame

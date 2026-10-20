@@ -1,0 +1,1002 @@
+{
+  "format": "rgm-migration-audit-rules-v1",
+  "version": "ver0.58",
+  "source_sha256": "22763e029aa1b52a96ac24355909e3daf4a5c9c23940ae1c36cfbff2fe6233cf",
+  "groups": [
+    {
+      "id": "host",
+      "slots": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "targets": [
+        "ScriptSemantics",
+        "CustomDataState",
+        "Preferences",
+        "Keyboard",
+        "ValueExtensions"
+      ],
+      "tests": [
+        "PluginTests",
+        "StorageDispatchTests",
+        "DirectExecutionTests"
+      ],
+      "entry": "原全局别名、项目变量及Godot输入/配置服务",
+      "boundary": "不提供任意DLL调用或原生地址；已知用途由Godot服务替代。"
+    },
+    {
+      "id": "drawing",
+      "slots": [
+        9,
+        12,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "targets": [
+        "Bitmap",
+        "TextDrawing",
+        "Shape",
+        "Color",
+        "Palette",
+        "ValueExtensions",
+        "ScriptSemantics",
+        "RmxpCache",
+        "MapRuntime",
+        "MapTileRow",
+        "MapOcclusion",
+        "MapSnapshot",
+        "Preferences"
+      ],
+      "tests": [
+        "PluginTests",
+        "MapSystemTests",
+        "GamePresentationTests",
+        "MigrationGapsV058Tests"
+      ],
+      "entry": "标题/功能页/Message/地图实际绘制、缓存及图片工具",
+      "boundary": "原进程地址、DLL、窗口助手替换为Godot；闭源模糊不声称逐像素相同；0026上层遮挡在0.58补齐。"
+    },
+    {
+      "id": "database",
+      "slots": [
+        37
+      ],
+      "targets": [
+        "Floor",
+        "Region",
+        "RuntimeData"
+      ],
+      "tests": [
+        "FloorRegionTests",
+        "MapSystemTests"
+      ],
+      "entry": "迁移器提取常量；运行楼层与区域读取同一数据",
+      "boundary": ""
+    },
+    {
+      "id": "preferences",
+      "slots": [
+        40,
+        46,
+        47
+      ],
+      "targets": [
+        "Preferences",
+        "FileStore",
+        "ConfigPage",
+        "TitleExtrasPage",
+        "AudioRuntime"
+      ],
+      "tests": [
+        "TitleNoteTests",
+        "AudioTests",
+        "StorageDispatchTests",
+        "PersistenceTests"
+      ],
+      "entry": "标题设置、音乐解锁及跨启动偏好",
+      "boundary": "音乐实际切曲和成就奖励在原源为空；不新增。"
+    },
+    {
+      "id": "system",
+      "slots": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        48,
+        49
+      ],
+      "targets": [
+        "RuntimeState",
+        "CustomDataState",
+        "AudioRuntime",
+        "ScreenState",
+        "PictureState",
+        "ScreenRenderer",
+        "GameTimer",
+        "CharacterBridge",
+        "MapBridge"
+      ],
+      "tests": [
+        "ObjectTests",
+        "PersistenceTests",
+        "AudioTests",
+        "GamePresentationTests"
+      ],
+      "entry": "RuntimeState、地图/事件指令及保存现场",
+      "boundary": ""
+    },
+    {
+      "id": "items",
+      "slots": [
+        52,
+        53,
+        54,
+        55,
+        56,
+        57
+      ],
+      "targets": [
+        "ItemEffects",
+        "ObjectCatalog",
+        "Actions",
+        "ItemPresets",
+        "CustomDataState"
+      ],
+      "tests": [
+        "BusinessTests",
+        "MapItemTests",
+        "GiantKeyFlowTests",
+        "ItemPageTests"
+      ],
+      "entry": "物品页/九格快捷栏/公共事件9及同一背包",
+      "boundary": "原无Deputy定义及部分exdata；不存在的数据明确拒绝，不伪造副手。"
+    },
+    {
+      "id": "battlers",
+      "slots": [
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71
+      ],
+      "targets": [
+        "Game_ActorState",
+        "EnemyState",
+        "BattlerRules",
+        "ObjectCatalog",
+        "BattleRegistry",
+        "BattleSimulator",
+        "SkillConfig",
+        "Blastic"
+      ],
+      "tests": [
+        "BattlerTests",
+        "BattleCatalogTests",
+        "BattleCoreTests",
+        "BattleDatabaseTests",
+        "ObjectTests"
+      ],
+      "entry": "普通魔塔计算、角色/敌人属性与技能配置",
+      "boundary": "原缺exdata及未实现魔法分类保留。"
+    },
+    {
+      "id": "battle",
+      "slots": [
+        72,
+        73,
+        74,
+        75,
+        76
+      ],
+      "targets": [
+        "BattleRegistry",
+        "BattleSimulator",
+        "Gameplay",
+        "Actions",
+        "Game_ActorState",
+        "EnemyState",
+        "ActionOrder"
+      ],
+      "tests": [
+        "BattleCoreTests",
+        "BattleCatalogTests",
+        "BattleColdCatalogTests",
+        "MapDamageTests",
+        "IntegrationV049Tests"
+      ],
+      "entry": "公共事件1→普通魔塔战斗与地图显伤/灵视同一预测",
+      "boundary": "0075/0076旧战斗数据接口保留兼容；特殊BOSS与RM回合制战斗排除。"
+    },
+    {
+      "id": "party",
+      "slots": [
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88
+      ],
+      "targets": [
+        "RuntimeState",
+        "CustomDataState",
+        "Game_ActorState",
+        "EnemyState",
+        "ObjectCatalog",
+        "Followers",
+        "Floor",
+        "Blastic"
+      ],
+      "tests": [
+        "ObjectTests",
+        "FollowerTests",
+        "BusinessTests",
+        "PersistenceTests"
+      ],
+      "entry": "唯一角色注册表、队伍、货币及地图敌人",
+      "boundary": ""
+    },
+    {
+      "id": "characters",
+      "slots": [
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99
+      ],
+      "targets": [
+        "CharacterMotion",
+        "CharacterRoute",
+        "MapCharacter",
+        "MapEvent",
+        "PlayerController",
+        "EventScheduler",
+        "CharacterBridge",
+        "MapBridge",
+        "Followers",
+        "EnemyMapLabels"
+      ],
+      "tests": [
+        "MotionTimingTests",
+        "MapFlowTests",
+        "FollowerTests",
+        "SourceEventTests",
+        "MapLabelTests",
+        "IntegrationV049Tests"
+      ],
+      "entry": "地图人物运动、事件刷新/覆盖、跟随与显伤",
+      "boundary": ""
+    },
+    {
+      "id": "maps",
+      "slots": [
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109
+      ],
+      "targets": [
+        "MapRuntime",
+        "MapTileRow",
+        "MapOcclusion",
+        "MapCamera",
+        "MapEffectsState",
+        "MapEffectsRenderer",
+        "MapBridge",
+        "Floor",
+        "Region"
+      ],
+      "tests": [
+        "MapFlowTests",
+        "FloorRegionTests",
+        "MapSystemTests",
+        "MigrationGapsV058Tests"
+      ],
+      "entry": "地图加载/通行/镜头/雾、图块覆盖和楼层链接",
+      "boundary": ""
+    },
+    {
+      "id": "base-windows",
+      "slots": [
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136
+      ],
+      "targets": [
+        "WindowBase",
+        "WindowSelectable",
+        "WindowCommand",
+        "WindowDrawing",
+        "PageSurface",
+        "ItemPage",
+        "CastingPage",
+        "EquipmentPage",
+        "SelectionPage",
+        "ArchivePage",
+        "ShopScene",
+        "NameInput",
+        "DialogueOverlay",
+        "MessageController",
+        "DebugPage"
+      ],
+      "tests": [
+        "UICommonV053Tests",
+        "FunctionalWindowsV057Tests",
+        "StandaloneTests",
+        "SceneShopBusinessTests",
+        "MessageV054Tests"
+      ],
+      "entry": "最终功能窗口/事件名称数字输入及兼容独立页",
+      "boundary": "0115/0116/0119/0126后续被同名窗口重开；旧五槽装备改用最终六槽兼容业务；旧0134由最终Message实际入口替代。"
+    },
+    {
+      "id": "title",
+      "slots": [
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145
+      ],
+      "targets": [
+        "TitleScreen",
+        "TitleLayout",
+        "ConfigPage",
+        "TitleExtrasPage",
+        "Preferences"
+      ],
+      "tests": [
+        "TitleV055Tests",
+        "TitleNoteTests"
+      ],
+      "entry": "Title→七命令、四难度、设置、音乐/成就附页",
+      "boundary": "音乐切曲/奖励原为空；成就仅原固定样例。"
+    },
+    {
+      "id": "message",
+      "slots": [
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        191,
+        193
+      ],
+      "targets": [
+        "MessageText",
+        "MessageLayout",
+        "MessageView",
+        "MessageController",
+        "MessageBoxState",
+        "TextRow",
+        "MessageMemoryPage",
+        "ItemEffects"
+      ],
+      "tests": [
+        "MessageTextTests",
+        "MessageBoxStateTests",
+        "MessageControllerTests",
+        "TextRowEventTests",
+        "MessageV054Tests"
+      ],
+      "entry": "事件消息与选项/数字/并行提示/历史，普通地图L入口",
+      "boundary": "源40Hz编写时间通过边界换秒，表现只有一个控制时钟。"
+    },
+    {
+      "id": "interpreter",
+      "slots": [
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166
+      ],
+      "targets": [
+        "EventInterpreter",
+        "EventExecutionContext",
+        "EventScheduler",
+        "EventUIBroker",
+        "NativeEventContext",
+        "NativeEventTask",
+        "NativeScriptSource",
+        "ScriptRuntime",
+        "MenuCoordinator"
+      ],
+      "tests": [
+        "ScriptEventSourceTests",
+        "NativeEventV052Tests",
+        "NativeMigrationV052Tests",
+        "ReadableEventV052Tests",
+        "IntegrationV049Tests"
+      ],
+      "entry": "真实355/655、111条件、路线45正文及非战斗事件指令",
+      "boundary": "301/601—603及331—340原生回合制战斗指令按既有范围排除；旧Scene_Menu的有效菜单职责由最终地图菜单承担。"
+    },
+    {
+      "id": "archive",
+      "slots": [
+        169,
+        170,
+        171,
+        172,
+        173,
+        174
+      ],
+      "targets": [
+        "ArchiveData",
+        "ArchivePage",
+        "ArchiveView",
+        "SaveService",
+        "SaveCodec",
+        "SaveGraph",
+        "FileStore",
+        "SaveLoadProgress"
+      ],
+      "tests": [
+        "ArchiveTests",
+        "MenuArchiveV056Tests",
+        "PersistenceTests",
+        "LoadAndSharedBarTests"
+      ],
+      "entry": "标题继续、地图/事件存读档、备份确认",
+      "boundary": "不读RM Marshal旧档；图结构校验后才恢复。"
+    },
+    {
+      "id": "inventory",
+      "slots": [
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183
+      ],
+      "targets": [
+        "ItemPage",
+        "ItemView",
+        "ItemPresets",
+        "MapShortcuts",
+        "PlayerHUD",
+        "ItemEffects"
+      ],
+      "tests": [
+        "ItemPageTests",
+        "FunctionalWindowsV057Tests",
+        "MapItemTests"
+      ],
+      "entry": "最终0183九格预设与菜单物品；0182旧八格不是当前入口",
+      "boundary": ""
+    },
+    {
+      "id": "hud",
+      "slots": [
+        186,
+        187,
+        188,
+        196,
+        197,
+        198
+      ],
+      "targets": [
+        "PlayerHUD",
+        "MapHUD",
+        "Topic",
+        "MenuScreen",
+        "MenuModel",
+        "MenuPages",
+        "WindowDrawing"
+      ],
+      "tests": [
+        "GamePresentationTests",
+        "MenuArchiveV056Tests",
+        "FunctionalWindowsV057Tests"
+      ],
+      "entry": "地图HUD、地图名、菜单状态/五色货币与锁定",
+      "boundary": "BUFF显示空区按原样保留；0196废弃实现不作为最终入口。"
+    },
+    {
+      "id": "map-coordination",
+      "slots": [
+        199,
+        200,
+        201,
+        202,
+        203
+      ],
+      "targets": [
+        "Game",
+        "MenuCoordinator",
+        "MapShortcuts",
+        "PlayerHUD",
+        "SceneBackdrop",
+        "SightPage",
+        "MapScreen",
+        "SceneRegistry"
+      ],
+      "tests": [
+        "MenuNavigationTests",
+        "FunctionalWindowsV057Tests",
+        "MenuArchiveV056Tests",
+        "IntegrationV049Tests"
+      ],
+      "entry": "真实地图输入→菜单/功能页/灵视/地图/独立事件页→同一地图",
+      "boundary": "装备/成就/合成主菜单最终分支为空，不新增业务。"
+    },
+    {
+      "id": "skill-ui",
+      "slots": [
+        206,
+        207,
+        208,
+        209
+      ],
+      "targets": [
+        "SkillPage",
+        "SkillConfig",
+        "SkillView",
+        "PlayerHUD"
+      ],
+      "tests": [
+        "ConfigPageTests",
+        "FunctionalWindowsV057Tests"
+      ],
+      "entry": "技能分类、回合装配、Tab角色、技能组和退出角色顺序",
+      "boundary": "魔法分类原未实现；0206旧窗口未在最终地图创建。"
+    },
+    {
+      "id": "orbment",
+      "slots": [
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221
+      ],
+      "targets": [
+        "Blastic",
+        "BlasticPage",
+        "BlasticView",
+        "Actions"
+      ],
+      "tests": [
+        "ConfigPageTests",
+        "FunctionalWindowsV057Tests",
+        "ObjectTests"
+      ],
+      "entry": "原地之魔盘、两链/孔位/锁定/属性与候选预览确认",
+      "boundary": "原缺部分圆盘预设；0220标题refresh为空，回响描述硬编码减少0%保留。"
+    },
+    {
+      "id": "notes",
+      "slots": [
+        224,
+        225,
+        226,
+        227,
+        228
+      ],
+      "targets": [
+        "NotePage",
+        "NoteView"
+      ],
+      "tests": [
+        "TitleNoteTests",
+        "FunctionalWindowsV057Tests"
+      ],
+      "entry": "五笔记分类及锁定/条目/富文本说明",
+      "boundary": "原空分类保持为空。"
+    },
+    {
+      "id": "sight",
+      "slots": [
+        231,
+        232,
+        233,
+        234,
+        235,
+        236,
+        237,
+        238,
+        239,
+        240
+      ],
+      "targets": [
+        "SightModel",
+        "SightPage",
+        "SightView",
+        "ActionOrder",
+        "BattleSimulator"
+      ],
+      "tests": [
+        "SightTests",
+        "FunctionalWindowsV057Tests"
+      ],
+      "entry": "地图A四聚焦、敌人/物品、技能详情、行动顺序",
+      "boundary": "BUFF源空钩子及手动轮播实际边界保留；0234废弃块注释不执行。"
+    },
+    {
+      "id": "map-system",
+      "slots": [
+        243,
+        244,
+        245,
+        246,
+        247,
+        248,
+        249,
+        250,
+        251
+      ],
+      "targets": [
+        "MapConfig",
+        "MapSystem",
+        "MapBlock",
+        "MapCursor",
+        "MapPreview",
+        "MapScreen"
+      ],
+      "tests": [
+        "MapSystemTests",
+        "FunctionalWindowsV057Tests"
+      ],
+      "entry": "地图M→实际0248/0251发现、连接、区域及预览",
+      "boundary": "0244/0249/0250是旧未衔接半成品，不伪造已不存在的字段或Spriteset_MapSystem旧构造。"
+    },
+    {
+      "id": "standalone",
+      "slots": [
+        253,
+        254,
+        255,
+        256,
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263
+      ],
+      "targets": [
+        "SceneRegistry",
+        "SelectionPage",
+        "ItemPage",
+        "CastingPage",
+        "EquipmentPage",
+        "EquipmentView",
+        "ShopScene",
+        "ShopView",
+        "DebugPage",
+        "ItemEffects"
+      ],
+      "tests": [
+        "StandaloneTests",
+        "SceneShopBusinessTests",
+        "FunctionalWindowsV057Tests",
+        "BusinessTests"
+      ],
+      "entry": "Game.show_flash_scene或原事件$scene请求；事件302/303",
+      "boundary": "0257旧技能页调用最终不存在的skill_can_use?/skill_effect，只接既有公共事件浏览业务；0262无外部创建且draw_item为空，源未完成。"
+    },
+    {
+      "id": "version-keyboard",
+      "slots": [
+        265,
+        266,
+        267,
+        268,
+        269
+      ],
+      "targets": [
+        "RuntimeVersion",
+        "Keyboard",
+        "TitleScreen"
+      ],
+      "tests": [
+        "PluginTests",
+        "TitleV055Tests"
+      ],
+      "entry": "Godot实际输入快照和标题版本",
+      "boundary": "0267/0268/0269均为注释/废弃稿，不当作待实现功能。"
+    },
+    {
+      "id": "textstream",
+      "slots": [
+        270,
+        271,
+        272
+      ],
+      "targets": [
+        "TextStream",
+        "MessageController",
+        "MessageMemoryPage",
+        "EnemyMapLabels"
+      ],
+      "tests": [
+        "TextStreamTests",
+        "MessageControllerTests",
+        "MapLabelTests"
+      ],
+      "entry": "UTF8文本流、Message及地图伤害表现",
+      "boundary": ""
+    },
+    {
+      "id": "effects",
+      "slots": [
+        310,
+        311,
+        312,
+        315
+      ],
+      "targets": [
+        "ScreenEffects",
+        "EffectView",
+        "BrokenScreen",
+        "Unravel",
+        "HelpMessage",
+        "Utils",
+        "Bitmap"
+      ],
+      "tests": [
+        "ScreenEffectsTests",
+        "PluginTests",
+        "GamePresentationTests",
+        "PersistenceFlowTests",
+        "IntegrationV059Tests"
+      ],
+      "entry": "真实演出请求、等待/取消、位图消散和保存恢复",
+      "boundary": "静电、冻结及Crash音效在当前可导入索引中存在，文件名大小写按运行时索引别名解析；默认sptx蒙版原缺失，0.59使用单独标记的程序生成480×480分区图，原图优先；其他自定义缺图明确拒绝。0312帮助set_text/update原为空；不接任意Ruby回调。"
+    },
+    {
+      "id": "startup-history",
+      "slots": [
+        316,
+        317,
+        318,
+        319,
+        320,
+        321,
+        322
+      ],
+      "targets": [
+        "Game_ActorInit",
+        "History",
+        "MapSnapshot",
+        "Gameplay",
+        "Preferences",
+        "AudioRuntime",
+        "ScriptRuntime"
+      ],
+      "tests": [
+        "ReadableEventV052Tests",
+        "SnapshotV050Tests",
+        "PersistenceTests",
+        "AudioTests"
+      ],
+      "entry": "初始化/成长、原事件前记录和BackSpace撤回",
+      "boundary": ""
+    },
+    {
+      "id": "movie",
+      "slots": [
+        323
+      ],
+      "targets": [
+        "MoviePlayer",
+        "Game"
+      ],
+      "tests": [
+        "PluginTests",
+        "PersistenceTests"
+      ],
+      "entry": "Godot视频工具play/pause/resume/resize/stop",
+      "boundary": "源没有视频素材或事件调用；无原片播放验收，MCI/DLL由Godot替代。"
+    },
+    {
+      "id": "vendor",
+      "slots": [
+        326,
+        329,
+        330,
+        331,
+        332,
+        333
+      ],
+      "targets": [
+        "MapSnapshot",
+        "ScreenEffects",
+        "Unravel",
+        "Followers",
+        "Bitmap",
+        "Utils",
+        "ScriptSemantics"
+      ],
+      "tests": [
+        "PluginTests",
+        "FollowerTests",
+        "ScreenEffectsTests",
+        "PersistenceFlowTests"
+      ],
+      "entry": "地图航拍、消散、四跟随者和调试计时",
+      "boundary": "原0330.run_img写入未定义字段且缺图片编号，使用明确Game.unravel_picture；任意回调诊断拒绝。"
+    },
+    {
+      "id": "boot",
+      "slots": [
+        336,
+        337,
+        338,
+        339
+      ],
+      "targets": [
+        "Title",
+        "Game",
+        "Gameover",
+        "RuntimeState",
+        "RuntimeVersion"
+      ],
+      "tests": [
+        "TitleV055Tests",
+        "IntegrationV049Tests"
+      ],
+      "entry": "Godot入口→标题→新游戏/继续→地图",
+      "boundary": "原生RM战斗测试排除；0338/0339的注释草稿不执行。"
+    }
+  ],
+  "source_unfinished_slots": {
+    "244": "旧右下地图窗口依赖已不存在的最终对象",
+    "249": "旧地图选择窗口未接入最终0248/0251",
+    "250": "旧地图块精灵使用已不存在的字段",
+    "257": "旧结算调用在最终角色中不存在；保留受限兼容入口",
+    "262": "无外部创建，draw_item为空",
+    "312": "set_text与update原为空",
+    "166": "旧独立菜单仍引用最终不存在的Scene_Save/Scene_Load2/Scene_EnemyView；实际事件351和地图输入由最终地图菜单承担，不声称旧类可独立运行。"
+  },
+  "excluded_slots": [
+    274,
+    275,
+    276,
+    277,
+    278,
+    279,
+    280,
+    281,
+    282,
+    283,
+    284,
+    285,
+    286,
+    287,
+    288,
+    289,
+    290,
+    291,
+    292,
+    293,
+    294,
+    295,
+    296,
+    297,
+    298,
+    299,
+    300,
+    301,
+    302,
+    303,
+    304,
+    305,
+    306,
+    307,
+    308
+  ],
+  "excluded_interpreter_methods": [
+    "command_301",
+    "command_601",
+    "command_602",
+    "command_603",
+    "command_331",
+    "command_332",
+    "command_333",
+    "command_334",
+    "command_335",
+    "command_336",
+    "command_337",
+    "command_338",
+    "command_339",
+    "command_340"
+  ],
+  "missing_media": [
+    "Audio/SE/静电声2",
+    "Audio/SE/静电声",
+    "Audio/SE/m魔法-爆气-重-005",
+    "Audio/SE/crash",
+    "Graphics/Pictures/sptx"
+  ],
+  "status_labels": {
+    "implemented": "已实现",
+    "source_unfinished": "源未完成",
+    "source_empty": "源空槽/注释",
+    "missing_asset": "缺素材",
+    "excluded": "已排除",
+    "superseded": "被后续同名定义覆盖"
+  }
+}

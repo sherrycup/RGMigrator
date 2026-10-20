@@ -1,3 +1,42 @@
+## 职责：回归验证：验证屏幕、图片和天气状态及真实游戏接入。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func check_live_game() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func frames(count: int) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(condition: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 condition（bool；必填）：是否创建须返回布尔值的脚本条件模板。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func equivalent(first: Variant, second: Variant) -> bool
+##     参数 first（Variant；必填）：第一个值、对象或起始位置。
+##     参数 second（Variant；必填）：第二个值或参与操作的对象。
+##     返回：布尔结果；true/false 的条件以本方法的判断逻辑为准。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 var failures: Array[String] = []
 var checks := 0
@@ -14,9 +53,9 @@ func _initialize() -> void:
 func run() -> void:
 	create_timer(50).timeout.connect(func() -> void: printerr("FAIL: screen test timeout"); quit(1))
 	state = root.get_node("RuntimeState")
-	picture_script = load("res://runtime/scripts/PictureState.gd")
-	screen_script = load("res://runtime/scripts/ScreenState.gd")
-	codec = load("res://runtime/scripts/SaveCodec.gd")
+	picture_script = load("res://runtime/scripts/00_Game/PictureState.gd")
+	screen_script = load("res://runtime/scripts/00_Game/ScreenState.gd")
+	codec = load("res://runtime/scripts/10_Support/Persistence/SaveCodec.gd")
 	var screen: RefCounted = screen_script.new()
 	expect(screen.picture_ids().is_empty() and screen.effects_snapshot().shake == 0, "neutral initial state")
 	expect(screen.show_picture(1, "测试图", {"x": 20, "y": 40}).ok and screen.show_picture(50, "尾图").ok, "map IDs 1..50")
@@ -100,7 +139,7 @@ func run() -> void:
 
 
 func check_live_game() -> void:
-	var data: Script = load("res://runtime/scripts/RuntimeData.gd")
+	var data: Script = load("res://runtime/scripts/00_Game/RuntimeData.gd")
 	state.begin_new_game(data.system())
 	expect(state.show_picture(1, "@test_picture", {"x": 100, "y": 400, "origin": 1}).ok, "native test asset available without RTP")
 	var before: Dictionary = state.screen.snapshot()
@@ -128,7 +167,7 @@ func check_live_game() -> void:
 	expect(older.ok and older.screen.picture_ids().is_empty() and older.screen.effects_snapshot().shake == 0, "older native schema-1 save defaults neutral")
 	state.restore_prepared(prepared)
 	expect(JSON.stringify(state.screen.snapshot()) == JSON.stringify(before), "restore keeps pose/effects/in-flight transitions")
-	var game: Node = load("res://scenes/Game.tscn").instantiate()
+	var game: Node = load("res://scenes/03_Map/Game.tscn").instantiate()
 	root.add_child(game)
 	current_scene = game
 	await frames(4)
@@ -177,7 +216,7 @@ func check_live_game() -> void:
 	before = state.screen.snapshot()
 	expect(game._map.transfer(state.map_id, state.player_x, state.player_y) and state.screen.snapshot() == before, "map transfer keeps screen state")
 	# Existing erase-picture command still works; show/move/tone are not newly connected.
-	var interpreter: RefCounted = load("res://runtime/scripts/EventInterpreter.gd").new()
+	var interpreter: RefCounted = load("res://runtime/scripts/02_Event/EventInterpreter.gd").new()
 	interpreter.map_runtime = game._map
 	interpreter.start([{"code": 235, "indent": 0, "parameters": [2]}, {"code": 0, "indent": 0, "parameters": []}], 1)
 	await frames(2)
@@ -189,7 +228,7 @@ func check_live_game() -> void:
 		expect(not interpreter.running and not messages.is_empty() and messages.back().contains("指令 %d" % code) and not state.variables.has("999"), "deferred event remains diagnosed and stops: %d" % code)
 	menus.return_to_title()
 	await frames(4)
-	expect(not state.playing and current_scene.get_script() == load("res://runtime/scripts/Title.gd"), "title leaves renderer lifecycle")
+	expect(not state.playing and current_scene.get_script() == load("res://runtime/scripts/05_Title/Title.gd"), "title leaves renderer lifecycle")
 	state.begin_new_game(data.system(), {"enabled": false})
 	expect(state.screen.picture_ids().is_empty() and state.screen.effects_snapshot().tone[0] == 0 and not state.show_picture(1, "@test_picture").ok, "new game resets screen and formal mode blocks synthetic test asset")
 	current_scene.queue_free()

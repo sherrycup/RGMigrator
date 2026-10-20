@@ -1,0 +1,30 @@
+## 职责：回归验证：运行事件结构指引交互场景并汇总结果。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+## 接口说明结束。
+
+extends SceneTree
+func _init() -> void: call_deferred("run")
+
+func run() -> void:
+	root.size=Vector2i(1280,800); root.gui_embed_subwindows=true
+	var docs: RefCounted=load("res://addons/rgm_editor/01_Documents/Editor_Documents.gd").new()
+	var scenario: RefCounted=load("res://.godot/Editor_StructureGuideScenario.gd").new()
+	await scenario.run(root,docs)
+	for failure in scenario.failures: printerr("FAIL: ",failure)
+	print("STRUCTURE GUIDE TESTS: ","PASSED" if scenario.failures.is_empty() else "FAILED"," / ",scenario.checks," checks")
+	quit(0 if scenario.failures.is_empty() else 1)

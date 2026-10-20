@@ -1,6 +1,33 @@
+## 职责：回归验证：验证 Ruby 到 GDScript 的实际编译、执行及失败诊断。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func execute(source: String, env: RefCounted, expected: Variant, should_pass: bool = true) -> Dictionary
+##     用途：执行该脚本或已准备的操作。
+##     参数 source（String；必填）：待处理的原始文本、数据或状态。
+##     参数 env（RefCounted；必填）：当前脚本调用共享的 ScriptSemantics 会话。
+##     参数 expected（Variant；必填）：测试预期的结果值。
+##     参数 should_pass（bool；默认值 true）：当前测试是否预期执行成功。
+##     返回：结果字典；ok 表示成功与否，失败原因及其他数据按实际返回分支提供。
+##
+##   func expect(ok: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 ok（bool；必填）：本项检查是否通过。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 接口说明结束。
+
 extends SceneTree
 const Compiler = preload("res://scripts/importer/RubyGDScriptCompiler.gd")
-const Semantics = preload("res://templates/runtime/scripts/ScriptSemantics.gd")
+const Semantics = preload("res://templates/runtime/scripts/10_Support/Scripting/ScriptSemantics.gd")
 class State extends RefCounted:
  var variables: Dictionary = {}
  var switches: Dictionary = {}
@@ -107,7 +134,7 @@ func execute(source: String, env: RefCounted, expected: Variant, should_pass: bo
  expect(result.ok,"compile: "+source.get_slice("\n",0)+" / "+JSON.stringify(result.diagnostics))
  if not result.ok: return {"ok":false}
  var file := FileAccess.open(path,FileAccess.WRITE)
- file.store_string(result.generated_source.replace("res://runtime/scripts/ScriptSemantics.gd","res://templates/runtime/scripts/ScriptSemantics.gd"));file.close()
+ file.store_string(result.generated_source.replace("res://runtime/scripts/10_Support/Scripting/ScriptSemantics.gd","res://templates/runtime/scripts/10_Support/Scripting/ScriptSemantics.gd"));file.close()
  var script: GDScript = load(path)
  expect(script!=null and script.can_instantiate(),"generated GDScript compiles")
  if script==null or not script.can_instantiate(): return {"ok":false}

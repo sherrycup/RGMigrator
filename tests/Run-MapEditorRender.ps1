@@ -11,9 +11,9 @@ $taskRepository = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 if ($CaptureName -notmatch '^[a-zA-Z0-9_-]+$') { throw 'Invalid capture name.' }
 $taskCaptures = Join-Path $taskRepository ".godot/test-logs/$CaptureName"
 New-Item -ItemType Directory -Path $taskCaptures -Force | Out-Null
-Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorMapEditingScenario.gd') -Destination (Join-Path $taskProject '.godot/EditorMapEditingScenario.gd')
-Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/EditorTilesetLayersScenario.gd') -Destination (Join-Path $taskProject '.godot/EditorTilesetLayersScenario.gd')
-$taskTest = if ($TilesetLayers) { 'EditorTilesetLayersTests.gd' } else { 'EditorMapEditingTests.gd' }
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_MapEditingScenario.gd') -Destination (Join-Path $taskProject '.godot/Editor_MapEditingScenario.gd')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'editor/Editor_TilesetLayersScenario.gd') -Destination (Join-Path $taskProject '.godot/Editor_TilesetLayersScenario.gd')
+$taskTest = if ($TilesetLayers) { 'Editor_TilesetLayersTests.gd' } else { 'Editor_MapEditingTests.gd' }
 $taskMarker = if ($TilesetLayers) { 'TILESET LAYERS TESTS: PASSED' } else { 'MAP EDITING TESTS: PASSED' }
 $taskLog = Join-Path $taskCaptures 'render.log'
 $taskArguments = @('--path', ('"{0}"' -f $taskProject), '--rendering-method', 'gl_compatibility', '--rendering-driver', 'opengl3',

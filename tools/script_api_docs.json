@@ -1,0 +1,2127 @@
+{
+  "parameters": {
+    "value": "需要读取、校验或写入的值",
+    "message": "提示或诊断文本",
+    "id": "本接口所处理对象的编号",
+    "name": "对象、资源或字段名称",
+    "key": "查询或写入使用的键名",
+    "state": "正式游戏运行状态；沿用现有 RuntimeState 实例",
+    "actor_id": "角色的原数据库编号",
+    "code": "对应指令、按键或操作的编码",
+    "x": "横向坐标",
+    "y": "纵向坐标",
+    "documents": "编辑器文档服务，持有独立草稿与保存接口",
+    "custom": "自定义数据运行服务或当前自定义配置",
+    "ok": "本项检查是否通过",
+    "map": "当前接口使用的地图数据或地图对象",
+    "args": "按调用顺序排列的参数值",
+    "count": "处理数量或重复次数",
+    "source": "待处理的原始文本、数据或状态",
+    "owner": "持有此对象的调用方或运行状态",
+    "kind": "消息、操作或对象的种类标识",
+    "rect": "目标矩形的位置与尺寸",
+    "index": "集合或列表中的位置索引",
+    "seconds": "以秒计的时长",
+    "category": "数据库、素材或界面的分类名称",
+    "map_id": "地图的原编号",
+    "path": "待读取、写入或定位的文件路径",
+    "p": "对应事件指令的参数数组",
+    "delta": "本次推进的时间差，单位为秒",
+    "event_id": "当前地图上的事件编号；0 的具体含义由调用入口约定",
+    "amount": "需要增加、扣除或应用的数量",
+    "slot": "存档、装备或回路的槽位编号",
+    "type": "当前操作的类型标识",
+    "condition": "是否创建须返回布尔值的脚本条件模板",
+    "skill_id": "技能的原数据库编号",
+    "request_id": "用于匹配响应、取消和等待的请求编号",
+    "parameters": "按对应接口或事件指令约定排列的参数",
+    "target": "操作或效果作用的目标",
+    "width": "区域或画布宽度",
+    "number": "当前操作使用的数值或编号",
+    "name_value": "待设置的名称文本",
+    "first": "第一个值、对象或起始位置",
+    "color": "绘制或效果使用的颜色",
+    "origin": "原脚本、地图或数据库字段的来源信息",
+    "database": "数据库分类或当前数据库定义",
+    "opacity": "透明度参数，取值按对应显示接口约定",
+    "height": "区域或画布高度",
+    "parent": "父节点、父对象或继承关系的上级",
+    "indent": "事件指令的结构缩进层级",
+    "output_root": "生成工程的输出根目录",
+    "commands": "保持原顺序的事件指令列表",
+    "route": "人物移动路线数据",
+    "maximum": "允许值的上限",
+    "layer": "图块或显示层编号",
+    "definition": "对象的只读定义或原数据库记录",
+    "hue": "素材色相参数",
+    "ref": "待查询或修改的脚本对象引用",
+    "a": "第一个操作数或参与比较的值",
+    "b": "第二个操作数或参与比较的值",
+    "side": "当前对象或行动所属的一方",
+    "item_id": "物品的原数据库编号",
+    "changes": "待应用的字段变化集合",
+    "tone": "红、绿、蓝与灰度构成的色调参数",
+    "list": "待编辑或处理的有序记录列表",
+    "cell": "图块、动画或表格的单元记录",
+    "last": "最后一个值或结束位置",
+    "receiver": "方法调用的接收者",
+    "original": "修改前的原始记录或文本",
+    "state_id": "状态的原数据库编号",
+    "values": "待处理的一组值",
+    "turn": "当前战斗回合或行动轮次",
+    "tiles": "地图或图块集的图块数据",
+    "speed": "移动、播放或推进速度",
+    "token": "词法单元或用于匹配请求的标识",
+    "offset": "相对基准的偏移量",
+    "area": "待查询或绘制的区域",
+    "label": "界面或检查项的说明文本",
+    "before": "操作前的状态或比较基准",
+    "capture": "已捕获的现场数据或画面",
+    "root": "数据根、节点根或工程根位置",
+    "lookup": "按分类与编号查找只读数据库记录的回调",
+    "target_id": "目标对象的编号",
+    "force": "是否请求强制执行；仍受接口自身校验约束",
+    "equipment_id": "装备的原数据库编号",
+    "window_size": "窗口的宽度与高度",
+    "point": "位置或几何点",
+    "pose": "人物或图形当前姿态",
+    "goods": "商店商品记录列表",
+    "pattern": "匹配模式或图形帧编号",
+    "canvas": "用于绘制或预览的画布对象",
+    "second": "第二个值或参与操作的对象",
+    "size": "对象、画布或区域尺寸",
+    "raw": "尚未解释的原始值或文本",
+    "characters": "当前地图中可供选择的人物名称与编号信息",
+    "scripts": "原脚本来源或脚本记录集合",
+    "states": "状态记录或状态集合",
+    "initialize": "是否执行初始化步骤",
+    "depth": "遍历深度或绘制层次",
+    "quantity": "本次购买、出售或使用的数量",
+    "record": "数据库、来源或运行记录",
+    "text": "需要解析、显示或保存的文本",
+    "game": "当前游戏场景实例",
+    "from": "起始值、对象或位置",
+    "audio": "音频名称、音量及音调等参数",
+    "red": "红色通道值",
+    "green": "绿色通道值",
+    "blue": "蓝色通道值",
+    "colors": "绘制使用的颜色集合",
+    "align": "文本或元素的对齐方式",
+    "style": "显示或绘制样式",
+    "rectangle": "绘制矩形的位置与尺寸",
+    "viewport_size": "当前视口的宽度与高度，单位为像素",
+    "source_root": "只读 RM 源工程的根目录",
+    "progress": "接收阶段进度或说明文本的回调",
+    "minimum": "允许值的下限",
+    "base": "计算前的基础值",
+    "prepared": "已经过准备或校验的数据",
+    "event": "输入事件或当前游戏事件对象，类型见签名",
+    "seen": "遍历中已访问的容器，用于保留共享与循环关系",
+    "fields": "字段名称或字段值集合",
+    "tileset": "当前地图使用的图块集定义或对象",
+    "extent": "区域边界或可用尺寸",
+    "adding": "是否处于新增模式",
+    "enemy": "敌人定义、引用或运行对象",
+    "ids": "待处理对象的编号集合",
+    "result": "已完成操作的结果数据",
+    "actor": "角色实例、引用或记录",
+    "animation_id": "动画的原数据库编号",
+    "radius": "效果或查询范围的半径",
+    "options": "本次操作的附加选项",
+    "caption": "界面标题或说明文字",
+    "singleton": "是否访问单例方法或单例作用域",
+    "pos": "目标位置或当前位置",
+    "z": "图块层或显示深度坐标",
+    "text_codec": "处理原工程文本编码的解码服务",
+    "locals": "当前脚本调用的局部变量表",
+    "enabled": "是否启用对应功能",
+    "include_equipment": "计算时是否包含装备影响",
+    "character": "地图人物对象或原人物参数",
+    "fallback": "变量缺失或调用已取消时的默认值",
+    "power": "效果强度或计算倍率",
+    "registry": "类、方法、技能或绑定的登记表",
+    "builder": "构造目标数据或界面的回调",
+    "plus": "附加的属性增量",
+    "current": "当前值、对象或状态",
+    "main": "主角色或主操作对象",
+    "support": "辅助角色或支援对象",
+    "atk_rate": "攻击效果的倍率参数",
+    "rate": "比例或倍率",
+    "definitions": "只读定义及对应查询服务",
+    "page": "事件页或界面页数据",
+    "operation": "需要执行的操作类型",
+    "hp": "生命值或生命变化量，具体语义由接口名称决定",
+    "turn_on_failure": "移动失败时是否仍改变朝向",
+    "through": "是否允许穿透通行限制",
+    "ignore_event_id": "通行或目标查询中排除的事件编号",
+    "current_event_id": "执行这条指令的当前事件编号",
+    "mode": "当前操作或显示模式",
+    "view": "显示对象或视图配置",
+    "center": "区域或效果的中心位置",
+    "corners": "区域角点集合",
+    "callback": "完成或处理中调用的回调",
+    "hint": "是否按非阻塞短提示处理消息",
+    "model": "持有业务数据或显示状态的模型",
+    "region": "地图区域对象或区域记录",
+    "classes": "脚本类定义和继承关系表",
+    "graph": "保留共享与循环关系的对象图",
+    "descriptor": "描述资源、动作或对象的结构化数据",
+    "filename": "带扩展名的稳定脚本文件名",
+    "command": "单条事件、界面或路线指令",
+    "px": "以像素计的横向坐标",
+    "py": "以像素计的纵向坐标",
+    "to": "目标值、对象或结束位置",
+    "start": "起始位置或起始索引",
+    "fixture": "独立测试夹具或其数据",
+    "after": "操作后状态或比较目标",
+    "gray": "色调的灰度分量",
+    "elapsed": "已经过的时间，单位为秒",
+    "data": "待读取、转换或恢复的数据",
+    "maps": "地图编号到地图数据的集合",
+    "common": "公共事件记录集合",
+    "bytes": "原始字节数据",
+    "requested_codepage": "用户指定的原工程代码页",
+    "n": "当前计算使用的整数或计数",
+    "generated_path": "生成 GDScript 的目标资源路径",
+    "known_methods": "此前加载顺序中已经登记的方法名",
+    "ast": "带来源范围的 Ruby 抽象语法树",
+    "entries": "待处理的有序条目集合",
+    "bindings": "原事件与生成脚本之间的绑定集合",
+    "allow_death": "是否允许该操作将生命值降为零",
+    "zero_hp_ids": "本次需要按零生命处理的角色编号集合",
+    "saved": "从存档读取、尚待完整验证的数据",
+    "equipment_override": "本次计算临时采用的装备配置",
+    "level_override": "本次计算临时采用的角色等级",
+    "bonuses_override": "本次计算临时采用的属性加成",
+    "draft": "调用方持有的独立编辑草稿",
+    "type_name": "原脚本类名或数据类型名",
+    "snap": "已捕获的状态快照",
+    "degrees_per_second": "每秒旋转的角度",
+    "letter": "独立开关字母，只接受 A/B/C/D",
+    "system": "原系统数据库或系统配置",
+    "vague": "过渡遮罩的模糊范围参数",
+    "crystal_id": "回路晶石的物品编号",
+    "action": "战斗行动或当前操作的数据",
+    "catalog": "对象或技能的只读目录服务",
+    "actions": "待处理的行动列表",
+    "threshold": "触发条件的阈值",
+    "on_error": "接收错误信息的回调",
+    "detached_nodes": "已经脱离现场的对象图节点",
+    "destination": "输出目标、目标对象或位置",
+    "edits": "待发布的文本或数据修改集合",
+    "damage": "伤害数值或伤害计算结果",
+    "player": "当前玩家人物实例",
+    "position": "地图、屏幕或音频中的目标位置",
+    "character_id": "事件接口中的人物编号，沿用原指令约定",
+    "hit": "本次命中或点击的目标数据",
+    "blend": "图像的混合模式或混合参数",
+    "loader": "读取目标资源或数据的回调",
+    "mask": "过渡或绘制使用的遮罩",
+    "vertical": "是否按垂直方向处理",
+    "margin": "界面边距或额外留白",
+    "shadow": "阴影颜色或阴影选项",
+    "font_size": "字体尺寸",
+    "selected": "当前选中的条目编号或状态",
+    "choices": "按显示顺序排列的选项文本",
+    "variable_id": "原游戏变量编号",
+    "payload": "消息或调用请求的结构化内容",
+    "script": "已通过编译的 GDScript 资源，不在编辑器调用事件入口",
+    "seed_value": "随机数生成器的种子值",
+    "row": "当前列表行、文本行或记录",
+    "requests": "待处理的请求集合",
+    "trigger": "事件触发方式或触发条件",
+    "graphic": "人物或图块图形配置",
+    "position_seconds": "音频起播位置，单位为秒",
+    "source_name": "用于显示或诊断的来源名称",
+    "owned_snapshot": "是否已独立持有脱离现场的快照",
+    "pulse": "分帧让出及取消检查回调，返回是否继续",
+    "pairs": "键值对或对应关系集合",
+    "left": "左侧操作数或区域左边界",
+    "right": "右侧操作数或区域右边界",
+    "flags": "组合标志位或选项标志集合",
+    "unit": "脚本迁移或执行单元的记录",
+    "binding": "事件入口的 GDScript 身份、源码校验值、来源与策略",
+    "context": "当前事件或脚本执行上下文",
+    "arguments": "按声明顺序传入的参数列表",
+    "source_origin": "原工程中对应脚本或事件的来源信息",
+    "operator": "原脚本运算符名称",
+    "vk": "原 Windows 虚拟键码",
+    "tiles_x": "以格子计的水平偏移或尺寸",
+    "tiles_y": "以格子计的垂直偏移或尺寸",
+    "step": "步长或单次推进量",
+    "tick": "原逻辑帧或当前效果帧计数",
+    "frame": "动画帧、逻辑帧或渲染帧数据",
+    "empty": "是否允许或保留空值",
+    "expected": "测试预期的结果值",
+    "cells": "动画或表格的单元集合",
+    "brush": "当前地图画笔的图块与形状数据",
+    "read_only": "是否仅允许查看",
+    "labels": "控件或字段的显示名称集合",
+    "settings": "当前编辑或运行使用的设置数据",
+    "volume": "音频音量参数",
+    "pitch": "音频音调参数",
+    "env": "当前脚本调用共享的 ScriptSemantics 会话",
+    "editor": "当前编辑器或编辑控件实例",
+    "plugin": "Godot EditorPlugin 插件实例",
+    "panel": "魔塔编辑器主面板实例",
+    "unicode": "Unicode 字符码值",
+    "repeat": "是否重复播放或重复执行",
+    "alpha": "颜色或图像的透明分量",
+    "atk": "攻击能力值",
+    "defense": "防御能力值",
+    "period": "动作或效果的周期",
+    "iteration": "当前测试或循环轮次",
+    "resolution": "绘制或采样分辨率",
+    "codec": "当前使用的文本或数据编解码服务",
+    "preflight": "迁移预检通过后得到的输入配置",
+    "project_title": "生成工程显示的游戏标题",
+    "ini": "从原 Game.ini 读取的配置",
+    "source_id": "用于标识原工程的来源字符串",
+    "asset_index": "已复制素材的分类与路径索引",
+    "export_scripts_from_data": "是否从 Scripts.rxdata 导出脚本来源",
+    "source_path": "原工程或原文件的只读来源路径",
+    "export_root": "已生成工程的根目录",
+    "requested_encoding": "用户指定的原工程文本编码",
+    "units": "脚本编译或迁移单元集合",
+    "errors": "需要收集或展示的错误列表",
+    "body": "脚本语句体或处理内容",
+    "singleton_scope": "是否处于单例方法定义作用域",
+    "map_name": "地图名称",
+    "events": "地图事件记录集合",
+    "equipment": "角色当前装备配置",
+    "bonuses": "角色属性加成集合",
+    "invalid_equipment": "是否存在无效装备引用",
+    "bonus": "需要应用的附加值",
+    "rates": "按原规则依次应用的倍率集合",
+    "previous_auto": "操作前由装备附加的自动状态集合",
+    "battler": "战斗单位对象或原战斗图名称",
+    "battler_color": "战斗图的颜色或色相参数",
+    "copy_values": "是否复制字段值以隔离可变数据",
+    "record_id": "原数据库条目编号",
+    "first_id": "第一个角色或对象编号",
+    "second_id": "第二个角色或对象编号",
+    "first_turn": "第一方行动轮次",
+    "second_turn": "第二方行动轮次",
+    "rest_count": "剩余次数或额外位置参数数量",
+    "attacker": "当前行动的攻击方",
+    "floor_entry": "楼层与敌人相关的原数据条目",
+    "entry": "当前需要处理的条目",
+    "field": "需要读取、修改或校验的字段名",
+    "show": "是否显示提示或操作结果",
+    "focus": "是否取得界面焦点",
+    "partial": "是否按部分数据处理",
+    "override": "本次调用使用的覆盖值",
+    "records": "待处理的记录集合",
+    "rmxp_path": "RM 素材或工程内的原始路径",
+    "budget_usec": "单次执行时间预算，单位为微秒",
+    "testing_override": "测试模式下使用的独立配置覆盖层",
+    "learning": "等级与技能编号组成的技能学习条目",
+    "reset": "是否重置已有状态",
+    "controller": "消息、输入或人物控制器实例",
+    "instance": "待操作的实际对象实例",
+    "map_value": "需要设置或显示的地图值",
+    "preserve_audio": "恢复现场时是否保留当前音频播放状态",
+    "writes": "待发布的文件路径与文本内容集合",
+    "main_id": "主角色的原编号",
+    "support_id": "辅助角色的原编号",
+    "floor_number": "楼层编号或楼层序号",
+    "provider": "提供数据或对象的回调",
+    "party": "按队伍顺序排列的角色编号",
+    "skills": "技能定义或技能配置集合",
+    "skill_revision": "技能配置的修订标识",
+    "parameter_getter": "读取角色指定属性的回调",
+    "rules": "当前计算使用的只读规则集合",
+    "patience": "原战斗行动等待参数",
+    "description": "用于界面或报告的说明文本",
+    "hit_count": "技能或行动的命中次数",
+    "stiffness": "行动后的硬直或延迟参数",
+    "duration": "持续时间，单位按该原接口约定",
+    "effects": "需要应用的效果列表",
+    "status": "当前状态或处理状态标识",
+    "elements": "属性或元素编号集合",
+    "preview": "是否使用预览结果或预览数据",
+    "job": "已经脱离运行现场的后台任务数据",
+    "constants": "脚本常量表或计算使用的常量集合",
+    "initialize_main": "是否初始化主角色数据",
+    "synchronize": "是否同步队伍或当前现场",
+    "frequency": "原人物自主移动频率",
+    "page_number": "来源事件页的序号",
+    "choice": "用户选中的选项编号",
+    "budget": "本次执行允许的步骤或时间预算",
+    "common_override": "本次调用采用的公共事件数据覆盖",
+    "defer_run": "是否延后开始执行事件",
+    "allow_autorun": "是否允许触发自动事件",
+    "available": "当前允许使用的对象或功能集合",
+    "operand_value": "已解析的变量运算操作数",
+    "expected_token": "用于确认请求仍有效的期望标识",
+    "complete": "是否已达到完整结束状态",
+    "character_name": "人物行走图名称",
+    "floor_id": "楼层的原编号",
+    "variant": "当前处理的变体或扩展值",
+    "tile_id": "RM 图块编号",
+    "stop_autonomous": "是否同时停止人物自主移动",
+    "event_data": "原地图事件的完整记录",
+    "current_map_id": "当前正在运行的地图编号",
+    "tileset_definition": "当前图块集的只读数据库定义",
+    "rebuild": "是否重新构建显示或索引",
+    "facing": "当前或目标朝向",
+    "blocked": "是否因通行限制而被阻挡",
+    "runtime": "当前运行服务或运行对象",
+    "degrees": "角度，单位为度",
+    "outer": "外层范围或外框参数",
+    "blend_type": "原图像混合模式编号",
+    "points": "绘制或路径使用的点集合",
+    "third": "第三个位置参数",
+    "fourth": "第四个位置参数",
+    "coordinate": "地图或绘制坐标",
+    "show_turn_box": "是否显示回合或行动提示框",
+    "rectangles": "绘制区域或分块矩形集合",
+    "bitmap": "图像画布或 Bitmap 适配实例",
+    "phase_value": "演出或动画的阶段值",
+    "angle": "旋转角度参数",
+    "memory": "消息历史记录或当前历史数据",
+    "active": "当前活动状态或活动对象",
+    "lines": "按顺序排列的文章行或文本行",
+    "cancel_type": "原选择指令的取消处理类型",
+    "digits": "数字输入允许的位数",
+    "is_hint": "是否按短提示样式处理文本",
+    "consume_field": "消息成功记录后需要消耗或清空的源字段名",
+    "blocking": "是否等待该请求完成后继续事件",
+    "frame_rate": "原脚本使用的每秒逻辑帧数",
+    "box_setup": "消息框的样式与布局配置",
+    "parameter": "需要查询或修改的属性名称",
+    "reload": "是否重新读取已有定义或资源",
+    "length": "文本、序列或处理区域的长度",
+    "reload_catalog": "是否同时重新载入对象或技能目录",
+    "top": "上边界或列表首个可见位置",
+    "request_ids": "需要保留、取消或匹配的请求编号集合",
+    "d": "原接口使用的方向值或数据值",
+    "co": "原绘制接口传入的颜色值",
+    "shape": "需要绘制或检查的形状数据",
+    "clear_source": "处理成功后是否清理原来源值",
+    "part": "当前对象的子部分或分块编号",
+    "target_provider": "按请求提供实际目标的回调",
+    "target_index": "目标在当前对象列表中的位置",
+    "position_value": "原位置参数或位置类型",
+    "actors": "角色记录或角色实例集合",
+    "ignore_checkpoint": "是否跳过本次事件的额外撤回记录入口",
+    "fade": "淡入淡出或音频渐变参数",
+    "validator": "完整检查目标数据的回调",
+    "serial": "用于区分请求或记录的连续编号",
+    "graph_check": "校验脱离现场对象图与类链接的回调，返回空串表示通过",
+    "content": "需要写入或显示的文本内容",
+    "limit": "允许的最大条数、数量或范围",
+    "unit_id": "编译单元的稳定标识，如 script_0006 或 event_000001",
+    "method": "需要查询、登记或调用的方法名称",
+    "class_name_value": "需要操作的原脚本类名",
+    "runtime_state": "本工程当前唯一 RuntimeState 运行状态",
+    "plan": "已经生成的执行或查询分析计划",
+    "location": "当前文档及递归字段路径，用于定位编译失败",
+    "function": "生成 GDScript 中的实际函数名称",
+    "module": "原脚本模块名称或模块对象",
+    "indexes": "需要处理的索引集合",
+    "exclusive": "是否采用排他选择或排他模式",
+    "previous": "该入口原有绑定；编辑保留身份，复制时另换新身份",
+    "block": "语句块或原脚本块调用描述",
+    "operations": "按原顺序执行的操作集合",
+    "wait": "是否等待当前操作完成",
+    "allow_skip": "是否允许用户跳过当前演出",
+    "rich": "是否使用富文本格式",
+    "ext": "资源或文件扩展名",
+    "mask_name": "过渡遮罩的原素材名称",
+    "sprite": "需要操作的绘制精灵实例",
+    "item": "物品、列表项或树节点，具体类型见签名",
+    "save_callback": "请求保存时调用的回调",
+    "done": "异步操作结束时调用的回调",
+    "dx": "水平移动或偏移量",
+    "dy": "垂直移动或偏移量",
+    "max_x": "允许的最大横向坐标",
+    "max_y": "允许的最大纵向坐标",
+    "distance": "移动、滚动或范围查询的距离",
+    "table": "RM Table 的维度与整数单元数据",
+    "layout": "已计算的界面或文本布局",
+    "link": "对象或区块之间的连接信息",
+    "buying": "是否为购买流程；否则按出售流程处理",
+    "goods_index": "当前商品在原商店列表中的位置",
+    "skill_set": "角色当前技能组或技能槽配置",
+    "skill": "技能定义或技能对象",
+    "input": "输入事件、输入状态或待处理的原始值",
+    "root_path": "当前生成工程或独立测试工程的根目录",
+    "palette": "绘制使用的颜色表",
+    "visible_brush": "需要显示的画笔预览数据",
+    "scale_value": "缩放倍率或缩放参数",
+    "origins": "与记录对应的来源信息集合",
+    "anchor": "窗口、气泡或图形的锚点位置",
+    "end": "结束位置或结束索引",
+    "tree": "树形控件或语法树数据",
+    "unsupported": "未支持的指令、字段或来源集合",
+    "c": "当前检查的指令或颜色值，类型见签名",
+    "texture": "用于显示的纹理资源",
+    "fill": "是否填充形状内部",
+    "learnings": "按等级登记的技能学习记录",
+    "names": "按原编号排列的名称列表",
+    "ordered": "是否使用已排列的输入顺序",
+    "hints": "字段说明或界面提示集合",
+    "asset_name": "原素材名称",
+    "sheet": "动画或图集的素材页",
+    "editable": "是否允许用户修改当前内容",
+    "replace": "是否替换已有内容",
+    "inventory": "脚本迁移盘点或背包数据，类型见签名",
+    "workspace": "脚本工作副本与覆盖登记数据",
+    "report": "需要显示或写出的迁移报告",
+    "source_map": "原脚本范围到生成代码行号的对应表",
+    "source_events": "来自原工程的地图或公共事件记录",
+    "doc": "当前核对的开发接口文档文本",
+    "signatures": "用于检查函数签名的正则表达式或签名集合",
+    "should_pass": "当前测试是否预期执行成功",
+    "double_click": "是否模拟双击操作",
+    "members": "字段或成员名称集合",
+    "skip": "需要跳过的条目数或步骤",
+    "r": "红色通道或当前测试记录，类型见签名",
+    "g": "绿色通道值",
+    "suffix": "文件名或名称后缀",
+    "new_game": "是否处于新游戏初始化流程",
+    "audible": "是否检查实际音频播放状态",
+    "interpreter": "当前事件解释器实例",
+    "followers": "当前跟随者状态或显示集合",
+    "frames": "需要推进或采样的帧数",
+    "ratio": "比例系数",
+    "rating": "原技能或行动的评价参数",
+    "node": "场景节点或语法节点，类型见签名",
+    "fraction": "当前进度在一个完整周期中的比例",
+    "viewport": "实际渲染使用的视口实例",
+    "details": "迁移各阶段汇总的统计、来源与诊断信息",
+    "direction": "当前操作使用的方向或选择移动量",
+    "session": "已经存在的脚本语义会话；null 表示由执行入口创建",
+    "program": "同步执行迁移 GDScript 的 Callable，参数为现有语义会话",
+    "span": "原语句的 line、column、end_line、end_column 来源范围",
+    "generated_line": "来源记录中登记的生成语句行号",
+    "what": "Godot 发出的通知编号",
+    "policy": "原解释器的返回值重试及执行策略，沿用迁移记录",
+    "execution": "当前事件或路线的调用归属、代次、地图、指令位置和字段",
+    "legacy": "只读原 Ruby 迁移来源，不能作为运行代码发布",
+    "stats": "按类型累计原生/历史绑定与源码不匹配数的审计结果",
+    "argument": "命令行传入的选项文本",
+    "separator": "字符串分隔文本或已编译的正则描述",
+    "api": "当前事件的业务接口服务，持有同一上下文的弱引用",
+    "level": "本接口处理的level参数，含义见方法用途"
+  },
+  "methods": {
+    "configure": "配置本实例使用的数据和依赖",
+    "refresh": "按当前状态刷新显示或缓存",
+    "handle_key": "处理页面或控件的键盘输入",
+    "advance": "推进当前动作、等待或演出的时间状态",
+    "activate": "确认当前选择并执行对应操作",
+    "back": "从当前页面或操作返回",
+    "snapshot": "取得状态快照或当前计算视图",
+    "validate": "检查输入数据是否符合该服务的约定",
+    "invoke": "按给定名称和参数分派对应调用",
+    "navigate": "移动当前页面的选中项",
+    "decode": "解析编码数据并返回对应原值或结构",
+    "open": "打开页面、对话框或目标记录",
+    "reset": "重置本服务持有的状态",
+    "record": "记录当前操作或运行现场",
+    "stop": "停止当前播放、动作或服务",
+    "execute": "执行该脚本或已准备的操作",
+    "finish": "结束本次处理并返回结果",
+    "draft": "取得可交给调用方的独立编辑草稿",
+    "generate": "从已校验输入生成目标数据或工程文件",
+    "persistent_data": "导出参与保存与恢复的状态数据",
+    "restore_persistent": "从持久化数据恢复本实例状态",
+    "apply": "应用已选定或已准备的修改",
+    "parse": "解析原文本并保留来源与诊断",
+    "compile": "编译原脚本并返回生成代码与诊断",
+    "compile_ast": "将已解析的 AST 编译为生成代码与来源映射",
+    "build": "构造该模块所需的数据或显示对象",
+    "integer": "检查数值是否为允许范围内的有效整数",
+    "restore": "恢复已经保存或捕获的状态",
+    "cancel": "取消当前请求、操作或等待",
+    "dispose": "释放本实例管理的资源及引用",
+    "clear": "清空当前内容或状态",
+    "sync": "把当前状态同步到关联对象",
+    "play": "开始播放指定音频、动画或演出",
+    "write": "写入指定文件或目标数据",
+    "read": "读取指定文件或记录",
+    "get_parameter": "按名称取得角色计算后的属性值",
+    "clear_states": "清除当前对象的状态集合",
+    "has_skill": "检查角色是否已学会指定技能",
+    "learn_skill": "使角色学会指定技能并报告变化结果",
+    "forget_skill": "移除角色已学会的指定技能",
+    "has_state": "检查对象是否具有指定状态",
+    "get_state_ids": "取得当前有效的状态编号集合",
+    "get_parameter_plus": "读取指定属性的附加值",
+    "set_parameter_plus": "设置指定属性的附加值",
+    "recover_all": "恢复角色生命与精神并清理对应异常状态",
+    "detached_copy": "创建脱离当前运行现场的对象副本",
+    "commit_event_state": "将经过该接口校验的事件状态写入当前对象",
+    "set_experience": "设置角色总经验并更新相应等级状态",
+    "add_experience": "按增量修改角色总经验",
+    "set_level": "设置角色等级并更新派生状态",
+    "add_level": "按增量修改角色等级",
+    "set_vital": "设置角色生命或精神等当前资源值",
+    "add_vital": "按增量修改角色当前资源值",
+    "rename": "修改对象的显示名称",
+    "set_graphic": "修改角色行走图及战斗图配置",
+    "use_item": "检查并执行物品使用效果",
+    "use_skill": "检查并执行技能使用效果",
+    "equip": "执行角色装备变更",
+    "gain_currency": "按原上限规则增减对应货币",
+    "save_slot": "捕获并完整校验当前游戏现场后写入存档位",
+    "load_slot": "读取并完整验证存档位后恢复正式游戏现场",
+    "fingerprint": "计算当前工程定义的存档兼容性指纹",
+    "script_data": "导出当前脚本会话的可保存类、方法及源码校验信息",
+    "execute_unit": "校验并执行已登记的生成脚本单元",
+    "validate_saved_data": "验证存档中的脚本定义、方法归属与生成源码",
+    "validate_saved_objects": "验证存档对象与已登记脚本类的关系",
+    "begin_new_game": "按原系统数据和测试覆盖初始化正式游戏状态",
+    "actor": "按原编号取得当前运行角色实例",
+    "preflight": "检查原工程和输出目录并建立正式迁移输入",
+    "recompile": "从工作源码重新转换并在冲突校验通过后发布结果",
+    "set_source": "更新指定脚本单元的工作源码草稿",
+    "add_script": "在原加载顺序末尾新增脚本工作单元",
+    "entries": "取得供界面或调用方使用的条目列表",
+    "coverage": "取得脚本解析、生成、绑定和服务适配的覆盖记录",
+    "initial": "从现有迁移登记建立初始脚本工作区数据",
+    "run": "执行当前迁移流程或回归场景",
+    "run_suite": "执行本脚本组织的回归检查",
+    "expect": "记录一项断言及失败说明",
+    "make_fixture": "构建与正式工程隔离的测试现场",
+    "frames": "让测试现场推进指定帧数",
+    "render_frames": "等待指定数量的真实渲染帧",
+    "press": "模拟一次按键输入",
+    "fail": "构造或登记带原因的失败结果"
+  },
+  "files": {
+    "RuntimeState.gd": {
+      "usage": [
+        "本脚本作为 RuntimeState Autoload 使用，游戏场景和服务共享这一实例。",
+        "例如 RuntimeState.actor(角色编号)、RuntimeState.set_event_variable(变量编号, 值)。"
+      ],
+      "notes": [
+        "角色、背包、开关、变量和地图状态由同一实例持有；调用业务接口让原有通知与校验生效。"
+      ],
+      "methods": {
+        "set_event_switch": {
+          "description": "写入原游戏开关并发送事件状态变化通知",
+          "returns": "true 表示写入成功，false 表示编号或状态校验失败",
+          "parameters": {
+            "id": "原开关编号，使用正整数",
+            "value": "该开关新的开启状态"
+          }
+        },
+        "set_event_variable": {
+          "description": "写入原游戏变量并通知依赖它的事件页刷新",
+          "returns": "true 表示写入成功，false 表示编号或值不被当前运行规则接受",
+          "parameters": {
+            "id": "原变量编号，使用正整数",
+            "value": "新的变量值；自定义脚本允许的类型由运行服务验证"
+          }
+        },
+        "set_event_self_switch": {
+          "description": "写入指定地图事件的独立开关",
+          "returns": "是否成功完成写入",
+          "parameters": {
+            "map": "原地图编号",
+            "event": "该地图内的事件编号",
+            "letter": "独立开关字母，如 A、B、C、D",
+            "value": "新的开启状态"
+          }
+        },
+        "actor": {
+          "description": "取得已注册角色，必要时按原数据初始化",
+          "returns": "同一编号对应的运行角色实例；无效引用按当前诊断规则处理",
+          "parameters": {
+            "actor_id": "角色的原数据库编号",
+            "reset": "true 时重新按定义初始化该角色；通常保持 false"
+          }
+        },
+        "begin_new_game": {
+          "description": "初始化正式新游戏状态",
+          "returns": "无返回值；建立角色、地图和各运行服务",
+          "parameters": {
+            "system": "RuntimeData.system() 返回的原系统定义",
+            "testing_override": "独立测试配置覆盖层；正常游戏使用默认值"
+          }
+        },
+        "set_actor_level": {
+          "description": "更新指定角色的对应状态",
+          "returns": "操作结果字典；先检查 ok，失败时读取 message",
+          "parameters": {
+            "value": "目标等级"
+          }
+        },
+        "set_actor_experience": {
+          "description": "更新指定角色的对应状态",
+          "returns": "操作结果字典；先检查 ok，失败时读取 message",
+          "parameters": {
+            "value": "目标总经验"
+          }
+        },
+        "rename_actor": {
+          "description": "更新指定角色的对应状态",
+          "returns": "操作结果字典；先检查 ok，失败时读取 message",
+          "parameters": {
+            "value": "新的角色名字"
+          }
+        },
+        "set_actor_graphic": {
+          "description": "更新指定角色的对应状态",
+          "returns": "操作结果字典；先检查 ok，失败时读取 message",
+          "parameters": {
+            "value": "新的行走图名称"
+          }
+        },
+        "restore_prepared": {
+          "parameters": {
+            "restore_live_events": "true在当前地图恢复事件现场；切换到新Game场景的读档使用false，将现场保留给新场景，避免在旧图重复恢复"
+          }
+        }
+      }
+    },
+    "ActorState.gd": {
+      "usage": [
+        "通常通过 RuntimeState.actor(actor_id) 取得并操作角色。",
+        "独立计算或测试时才用脚本 .new()，再 configure(actor_id, definition, lookup)。"
+      ],
+      "parameters": {
+        "key": "角色属性键，例如 maxhp、maxsp、str、dex、agi、int、atk、pdef、mdef"
+      },
+      "notes": [
+        "角色数据库记录只读；变更通过当前角色实例与业务接口完成。"
+      ],
+      "methods": {
+        "configure": {
+          "description": "根据角色定义初始化等级、装备、技能和当前生命精神",
+          "returns": "无返回值；修改当前角色实例",
+          "parameters": {
+            "actor_id": "该角色的原数据库编号",
+            "definition": "Actors 中该角色的原始定义",
+            "lookup": "回调签名 lookup(database_name, id) -> Dictionary，读取只读数据库记录"
+          }
+        },
+        "set_level": {
+          "description": "设置角色等级并更新经验与派生状态",
+          "returns": "含 ok、changed、message 等实际分支字段的操作结果；先检查 ok",
+          "parameters": {
+            "value": "新的目标等级"
+          }
+        },
+        "set_experience": {
+          "description": "设置总经验并更新相应等级",
+          "returns": "含 ok、changed、message 等实际分支字段的操作结果；先检查 ok",
+          "parameters": {
+            "value": "新的总经验"
+          }
+        },
+        "set_parameter_plus": {
+          "description": "设置指定属性的附加值",
+          "returns": "含 ok、changed、message 等实际分支字段的操作结果；先检查 ok",
+          "parameters": {
+            "value": "该属性新的附加值"
+          }
+        },
+        "set_parameter": {
+          "description": "设置指定属性的目标值",
+          "returns": "含 ok、changed、message 等实际分支字段的操作结果；先检查 ok",
+          "parameters": {
+            "value": "该属性的目标值"
+          }
+        },
+        "set_vital": {
+          "description": "设置当前生命或精神",
+          "returns": "含 ok、changed、message 等实际分支字段的操作结果；先检查 ok",
+          "parameters": {
+            "value": "新的当前资源值"
+          }
+        },
+        "rename": {
+          "description": "修改角色名称",
+          "returns": "含 ok、changed、message 等实际分支字段的操作结果；先检查 ok",
+          "parameters": {
+            "value": "新的角色名字"
+          }
+        },
+        "snapshot": {
+          "description": "按临时覆盖计算角色属性及来源",
+          "returns": "角色计算视图，包含 parameters 等字段；不把临时配置写回角色",
+          "parameters": {
+            "equipment_override": "临时装备编号数组；空数组使用当前装备",
+            "level_override": "临时等级；-1 使用当前等级",
+            "bonuses_override": "临时属性加成；空字典使用当前加成"
+          }
+        },
+        "restore_persistent": {
+          "description": "完整检查后恢复角色持久化字段",
+          "returns": "空字符串表示通过，非空字符串为失败原因",
+          "parameters": {
+            "saved": "角色持久化字典，不是整个存档信封"
+          }
+        },
+        "change_hp_native": {
+          "description": "执行原事件的生命增减并处理禁止死亡规则",
+          "returns": "操作结果字典",
+          "parameters": {
+            "amount": "生命变化量，正数增加、负数扣除",
+            "allow_death": "是否允许降至 0 HP",
+            "zero_hp_ids": "参与同一原事件生命处理的零 HP 角色编号集合"
+          }
+        }
+      }
+    },
+    "ActorParameters.gd": {
+      "usage": [
+        "纯静态计算：preload(运行路径).calculate(...) 或 apply_bonus(...)。"
+      ],
+      "notes": [
+        "计算不保存角色现场；返回值用于角色模型或预览。"
+      ]
+    },
+    "RuntimeData.gd": {
+      "usage": [
+        "通过 preload(运行路径).system()、map(id)、record(name, id) 读取定义。"
+      ],
+      "parameters": {
+        "name": "原数据库分类名称，如 Actors、Items、Skills"
+      },
+      "notes": [
+        "source_record 读取原定义；record 可包含当前自定义覆盖。调用方按只读数据使用。"
+      ],
+      "methods": {
+        "read_json": {
+          "description": "读取并缓存 JSON 资源",
+          "returns": "解析值；文件缺失或不合法时返回 fallback",
+          "parameters": {
+            "path": "工程内 JSON 资源路径",
+            "fallback": "读取或解析失败时返回的值"
+          }
+        },
+        "record": {
+          "description": "按分类与原编号取得当前有效记录",
+          "returns": "只读记录视图；缺失时返回空字典",
+          "parameters": {
+            "id": "该分类下的原记录编号"
+          }
+        }
+      }
+    },
+    "SaveService.gd": {
+      "usage": [
+        "静态服务：preload(运行路径).save_slot(slot, RuntimeState) 或 load_slot(slot, RuntimeState)。",
+        "界面先用 slot_info(slot) 展示摘要，实际读取仍走完整验证。"
+      ],
+      "parameters": {
+        "slot": "存档位正整数；有效上限通过 maximum_slots() 查询"
+      },
+      "notes": [
+        "directory_override 仅供独立测试使用；正常游戏使用工程自己的用户存档目录。"
+      ],
+      "methods": {
+        "save_slot": {
+          "description": "捕获现场、完整校验并以临时文件和备份写入档位",
+          "returns": "成功返回 ok、message、path；失败返回 ok=false 与 message",
+          "parameters": {
+            "state": "需要保存的正式 RuntimeState 实例"
+          }
+        },
+        "load_slot": {
+          "description": "验证存档后恢复正式游戏现场",
+          "returns": "读取结果字典，成功含 prepared、saved_at、path，并可能带 recovered；失败含 message",
+          "parameters": {
+            "state": "需要恢复到的正式 RuntimeState 实例"
+          }
+        },
+        "read_slot": {
+          "description": "读取主档，必要时验证并回退备份",
+          "returns": "读取结果字典；recovered 表示是否使用备份，不立即改写正式状态"
+        },
+        "slot_info": {
+          "description": "读取经过校验的存档摘要并复用相同字节缓存",
+          "returns": "摘要字典，包括 ok、exists，以及成功时的 party、map_id、play_seconds 等"
+        },
+        "read_slot_cooperatively": {
+          "description": "在主线程分帧完整校验存档及备份，规则来自规范SavePreparation",
+          "parameters": {
+            "slot": "实际存档编号",
+            "definitions": "当前只读自定义数据定义服务",
+            "pulse": "异步pulse() -> bool，按帧让出并检查归属和取消"
+          },
+          "returns": "与read_slot相同的结果字典，取消时ok=false"
+        }
+      }
+    },
+    "SaveCodec.gd": {
+      "usage": [
+        "由 SaveService 统一调用；独立检查可使用 capture(state) 和 prepare(value)。"
+      ],
+      "notes": [
+        "capture 的结果仍需 prepare 完整验证；恢复使用校验结果，不把原始 JSON 直接写入状态。"
+      ],
+      "methods": {
+        "capture": {
+          "description": "捕获当前游戏、脚本、消息、人物及事件现场",
+          "returns": "待准备和校验的现场字典；不表示已经可直接保存",
+          "parameters": {
+            "state": "正式 RuntimeState，包含关联游戏场景和运行服务"
+          }
+        },
+        "prepare": {
+          "description": "完整检查存档结构、资源和对象关系并构建恢复数据",
+          "returns": "成功含 ok=true 及准备后的恢复数据；失败含 ok=false 和 message",
+          "parameters": {
+            "value": "已解析或解码的现场对象图",
+            "definitions": "独立定义查询服务；null 时使用正式 RuntimeData",
+            "owned_snapshot": "true 表示调用方已持有独立快照，仍保留完整数据校验"
+          }
+        }
+      }
+    },
+    "SavePreparation.gd": {
+      "usage": [
+        "由撤回记录等异步调用方使用 await prepare_cooperatively(...)。"
+      ],
+      "notes": [
+        "此文件由 tools/sync_save_preparation.py 从 SaveCodec.prepare 派生，修改规范逻辑后重新生成。"
+      ],
+      "methods": {
+        "prepare_cooperatively": {
+          "description": "以可分帧方式执行与 SaveCodec.prepare 相同的完整校验",
+          "returns": "与规范准备接口一致的结果字典；取消时返回失败原因",
+          "parameters": {
+            "value": "待检查的现场对象图",
+            "definitions": "只读数据库及资源定义查询服务",
+            "owned_snapshot": "是否已独立持有脱离现场的快照",
+            "pulse": "异步回调 pulse() -> bool；让出当前帧并检查调用是否仍有效",
+            "graph_check": "可选异步回调 graph_check(value, classes) -> String；空串表示完整图及类链接通过"
+          }
+        }
+      }
+    },
+    "SaveGraph.gd": {
+      "usage": [
+        "使用静态 encode/decode 处理共享与循环图；用 reason 检查，clone_checked 同时脱离和检查。"
+      ],
+      "notes": [
+        "这些接口处理数据图，不访问游戏节点；调用方负责保持主线程与后台数据的归属。"
+      ],
+      "methods": {
+        "reason": {
+          "description": "检查对象图的类型、预算与类链接",
+          "returns": "空字符串表示有效，非空字符串为具体拒绝原因"
+        },
+        "reason_cooperatively": {
+          "description": "检查对象图的类型、预算与类链接",
+          "returns": "空字符串表示有效，非空字符串为具体拒绝原因"
+        }
+      }
+    },
+    "ScriptRuntime.gd": {
+      "usage": [
+        "普通事件通过已登记绑定进入本服务；独立单元可调用 execute_unit(unit_id, RuntimeState)。"
+      ],
+      "notes": [
+        "执行的是生成 GDScript；原 Ruby 仅用于来源与绑定校验。闪翼路径直接修改正式状态，首错停止。"
+      ],
+      "methods": {
+        "execute_unit": {
+          "description": "按登记加载并执行生成单元",
+          "returns": "包含 ok 与执行结果或来源诊断的字典；失败按当前首错策略处理",
+          "parameters": {
+            "unit_id": "script_units 或 custom_units 中的稳定单元标识",
+            "state": "当前正式 RuntimeState，复用其脚本会话"
+          }
+        },
+        "validate_saved_data": {
+          "description": "检查存档类、方法归属、实际方法及完整源码哈希",
+          "returns": "空串表示通过，非空串为拒绝原因",
+          "parameters": {
+            "value": "存档中由 script_data 导出的脚本会话记录"
+          }
+        }
+      }
+    },
+    "ScriptSemantics.gd": {
+      "usage": [
+        "由 ScriptRuntime 与生成程序持有的语义会话，生成方法接收 env 参数调用本类。",
+        "state 指向正式游戏现场；生成调用沿用同一会话和原类方法登记。"
+      ],
+      "notes": [
+        "闪翼直接执行路径保留已发生的状态修改；发生首错后停止，不承诺自动回滚。"
+      ]
+    },
+    "EventInterpreter.gd": {
+      "usage": [
+        "由 Game 与 EventScheduler 创建和调度；用 start 安装指令列表，advance 推进托管解释器。",
+        "界面响应通过 resume_* 回传当前 wait_token()，避免过期输入恢复错误请求。"
+      ],
+      "parameters": {
+        "token": "当前 wait_token() 返回的等待身份；-1 使用入口兼容约定"
+      },
+      "methods": {
+        "start": {
+          "description": "安装新事件指令并初始化执行上下文",
+          "returns": "无返回值；更新 running 和等待状态",
+          "parameters": {
+            "commands": "原事件指令数组，包含 code、indent、parameters 等字段",
+            "event_id": "当前地图事件编号；公共事件场景按调度器传入",
+            "page": "来源事件页序号，默认从 1 开始"
+          }
+        },
+        "advance": {
+          "description": "推进托管解释器，遇到等待、失败或预算边界停止本次推进",
+          "returns": "本次推进执行的指令数",
+          "parameters": {
+            "delta": "本次时间推进量，单位秒",
+            "budget": "本次允许执行的最大指令步数"
+          }
+        },
+        "resume_choice": {
+          "description": "将选择结果交回当前有效等待",
+          "returns": "无返回值；只恢复匹配等待身份的请求",
+          "parameters": {
+            "choice": "选项索引；原取消分支允许时可使用 -1"
+          }
+        }
+      }
+    },
+    "MessageController.gd": {
+      "usage": [
+        "使用 RuntimeState.flash_messages 这一消息控制器；由消息覆盖层负责绘制。",
+        "事件请求通常经 EventUIBroker 进入；present 返回消息框 id，用户响应通过信号回传。"
+      ],
+      "notes": [
+        "控制器持有活动消息状态，视图只读取绘制；不要另建脱离事件身份的消息现场。"
+      ],
+      "methods": {
+        "_init": {
+          "description": "记录持有消息现场的运行状态",
+          "returns": "通过 .new(owner) 获得控制器实例",
+          "parameters": {
+            "owner": "正式 RuntimeState；内部通过 WeakRef 保持归属"
+          }
+        },
+        "present": {
+          "description": "校验消息请求并创建文章、选择或数字输入框",
+          "returns": "成功返回 {ok:true, id:消息框编号}；失败返回 {ok:false, message:原因}",
+          "parameters": {
+            "payload": "kind 为 message/choice/number；lines 为文本数组；choice 另需 choices、cancel，number 另需 variable、digits",
+            "request_id": "事件请求身份；-1 表示调用方没有绑定等待请求",
+            "event_id": "关联地图事件编号，用于人物锚点和等待判定",
+            "hint": "true 按提示消息处理，仅接受 message",
+            "consume_field": "消息成功记录后需要清理的临时来源字段；空串表示没有"
+          }
+        },
+        "tick": {
+          "description": "推进一次原 60 Hz 消息逻辑帧",
+          "returns": "无返回值；可能发出 responded、rejected 或 changed"
+        },
+        "history": {
+          "description": "读取消息历史条目",
+          "returns": "历史条目数组",
+          "parameters": {
+            "hint": "false 读取文章历史，true 读取短提示历史"
+          }
+        },
+        "relayout": {
+          "description": "视口尺寸变化时重排活动气泡，保留已绘制词元、分页状态及分支选择",
+          "parameters": {
+            "next_size": "新的Viewport逻辑像素宽高；尺寸相同则不重排"
+          }
+        }
+      }
+    },
+    "Editor_CommandList.gd": {
+      "usage": [
+        "var list_editor = preload(编辑器路径).new()，加入编辑器节点后调用 configure(...)。",
+        "连接 changed(list) 接收完整草稿；用 draft() 取出深复制结果，再交给文档服务保存。"
+      ],
+      "notes": [
+        "地图事件和公共事件共用该控件；configure 不写回游戏数据。"
+      ],
+      "methods": {
+        "configure": {
+          "description": "安装独立指令草稿并建立名称显示所需的文档连接",
+          "returns": "无返回值；刷新当前列表",
+          "parameters": {
+            "list": "完整原指令数组；控件会深复制，续行和结构记录保留",
+            "documents": "当前 Editor_Documents 实例，用于查询名称与发出编辑通知",
+            "characters": "可选的人物编号与名称信息，用于指令参数显示"
+          }
+        },
+        "draft": {
+          "description": "返回当前完整事件指令草稿",
+          "returns": "与控件内部状态隔离的深复制 Array"
+        }
+      },
+      "signals": {
+        "changed": "列表草稿变化时发出；list 是当前完整指令数组，外层可据此更新文档草稿"
+      }
+    },
+    "Editor_Documents.gd": {
+      "usage": [
+        "var docs = preload(编辑器路径).new(root_path)，所有编辑页面共享此文档服务。",
+        "read 读取草稿副本，apply/apply_batch 只修改文档历史，save_all 才向工程 data 写入。"
+      ],
+      "parameters": {
+        "path": "相对工程根的 data/... JSON 路径；服务会检查允许范围",
+        "label": "显示在撤销历史中的本次编辑说明"
+      },
+      "notes": [
+        "编辑器文档不访问 RuntimeState，不在编辑时执行游戏事件。"
+      ],
+      "methods": {
+        "read": {
+          "description": "读取当前文档的独立草稿副本",
+          "returns": "Dictionary 或 Array 的副本；读取失败返回 null，并可读取 error_message()"
+        },
+        "apply": {
+          "description": "校验并记录单文档草稿变化",
+          "returns": "含 ok 及操作信息的结果字典；不写入磁盘",
+          "parameters": {
+            "value": "当前文档的新完整草稿值"
+          }
+        },
+        "apply_batch": {
+          "description": "把多份文档变化作为一次编辑历史应用",
+          "returns": "批量校验结果字典",
+          "parameters": {
+            "changes": "相对 data 路径到新完整草稿值的字典"
+          }
+        },
+        "save_all": {
+          "description": "保存已修改的允许文档并更新保存基线",
+          "returns": "保存结果字典，失败时保留说明及可恢复状态"
+        },
+        "validate": {
+          "description": "检查目标草稿是否保持原记录约定",
+          "returns": "空串为通过，非空串为失败原因",
+          "parameters": {
+            "value": "待检查的新草稿",
+            "before": "修改前的文档值，用于检查编号及扩展数据保留"
+          }
+        }
+      }
+    },
+    "Editor_ScriptWorkspace.gd": {
+      "usage": [
+        "由脚本窗口使用同一 Editor_Documents 实例创建只读迁移来源模型。",
+        "0.52 工程中的 set_source、add_script 和 recompile 返回只读说明，防止 Ruby 重新转换覆盖事件 GDScript。",
+        "事件代码在事件编辑器修改并保存；旧版本工程的历史工作副本接口仍保留用于旧格式维护。"
+      ],
+      "parameters": {
+        "id": "脚本工作区条目的稳定 unit_id，例如 script_0006"
+      },
+      "notes": [
+        "原 Ruby 仅作只读迁移来源；0.52 的实际事件源码存放在事件数据中。"
+      ],
+      "methods": {
+        "source": {
+          "description": "读取指定单元的工作源码或原来源",
+          "returns": "源码文本",
+          "parameters": {
+            "original": "true 读取只读原来源，false 读取工作副本"
+          }
+        },
+        "set_source": {
+          "description": "旧格式工作副本入口；0.52 返回只读说明",
+          "returns": "操作结果字典；修改成功仍需 save 或重新转换发布",
+          "parameters": {
+            "text": "新的完整工作源码文本"
+          }
+        },
+        "recompile": {
+          "description": "旧格式重新转换入口；0.52 阻止覆盖原生 GDScript",
+          "returns": "结果字典，成功含 summary，失败含 message 和对应诊断"
+        }
+      }
+    },
+    "ProjectGenerator.gd": {
+      "usage": [
+        "迁移管线在数据转换后创建该服务并调用 generate(...)。",
+        "正式迁移使用全新非空检查通过的输出目录，历史用户工程保留。"
+      ],
+      "methods": {
+        "generate": {
+          "description": "安装运行模板、编辑器、工程配置和开发说明",
+          "returns": "包含 warnings、width、height 的生成结果字典",
+          "parameters": {
+            "output_root": "全新生成工程的绝对输出根目录",
+            "project_title": "从原工程读取的游戏标题",
+            "ini": "原 INI 配置，包含可识别的窗口参数",
+            "progress": "阶段提示回调；不提供时使用默认空回调",
+            "source_id": "原工程的稳定来源标识，用于项目存档归属"
+          }
+        }
+      }
+    },
+    "RubyGDScriptCompiler.gd": {
+      "usage": [
+        "迁移器及编辑器重新转换使用的严格编译服务；原 Ruby 只读解析，不执行。"
+      ],
+      "methods": {
+        "compile": {
+          "description": "解析原脚本并生成可执行 GDScript",
+          "returns": "包含 ok、generated_source、diagnostics、AST/IR 或来源映射等本编译器实际提供的字段",
+          "parameters": {
+            "source": "完整原 Ruby 工作源码",
+            "origin": "脚本槽位或事件/路线来源记录",
+            "generated_path": "生成程序的资源路径，用于诊断和方法归属",
+            "known_methods": "按此前加载顺序已知的方法名称，用于解决调用解析"
+          }
+        }
+      }
+    },
+    "RubySubsetCompiler.gd": {
+      "usage": [
+        "迁移器及编辑器重新转换使用的严格编译服务；原 Ruby 只读解析，不执行。"
+      ],
+      "methods": {
+        "compile": {
+          "description": "解析原脚本并生成可执行 GDScript",
+          "returns": "包含 ok、generated_source、diagnostics、AST/IR 或来源映射等本编译器实际提供的字段",
+          "parameters": {
+            "source": "完整原 Ruby 工作源码",
+            "origin": "脚本槽位或事件/路线来源记录"
+          }
+        }
+      }
+    },
+    "Actions.gd": {
+      "usage": [
+        "静态业务入口接收同一正式 RuntimeState；例如 equip(state, actor_id, slot, equipment_id)。"
+      ],
+      "notes": [
+        "各业务使用已有角色、背包和地图服务；原数值公式及失败策略保持。"
+      ],
+      "methods": {
+        "exchange_crystal": {
+          "description": "交换指定回路槽与背包中的晶石",
+          "returns": "操作结果字典",
+          "parameters": {
+            "id": "需要修改回路的角色编号",
+            "index": "原回路配置中的槽位索引",
+            "crystal_id": "要装入的晶石物品编号，卸下规则由回路服务校验"
+          }
+        }
+      }
+    },
+    "ShopService.gd": {
+      "usage": [
+        "先通过 catalog/quote_* 查询商品及价格，再调用 buy/sell 执行实际交易。"
+      ],
+      "parameters": {
+        "kind": "商品数据库种类，使用服务接受的物品、武器或防具分类",
+        "id": "该商品在对应数据库中的原编号",
+        "quantity": "本次交易的正整数数量；余额、容量与商品条件仍完整校验"
+      }
+    },
+    "RuntimeVersion.gd": {
+      "usage": [
+        "preload(运行路径).VERSION 返回当前生成游戏的运行时版本字符串。"
+      ]
+    },
+    "Version.gd": {
+      "usage": [
+        "preload(\"res://scripts/Version.gd\").VERSION 读取版本；DISPLAY_NAME 用于界面和报告。"
+      ]
+    },
+    "ScriptPaths.gd": {
+      "usage": [
+        "静态查询 runtime(filename)，例如 runtime(\"RuntimeState.gd\")。"
+      ],
+      "parameters": {
+        "filename": "运行脚本的稳定文件名，包含 .gd 扩展名"
+      },
+      "methods": {
+        "runtime": {
+          "description": "将稳定文件名映射到当前分组后的运行资源路径",
+          "returns": "已登记的 res:// 路径；未知文件名返回空字符串"
+        }
+      }
+    },
+    "ProgramDocumentation.gd": {
+      "usage": [
+        "由生成器和运行时共用固定程序说明及其历史版本，统一来源行号与旧存档归一化。"
+      ],
+      "notes": [
+        "只识别代码中明确登记的文件头文本；手工修改文件头不会被当作兼容别名。"
+      ],
+      "methods": {
+        "header_info": {
+          "description": "识别完整生成程序使用的已知文件头",
+          "returns": "包含 body 和 lines 的字典；未知说明保留完整源码并返回 lines=0",
+          "parameters": {
+            "source": "完整生成程序原文"
+          }
+        },
+        "source_hashes": {
+          "description": "计算当前文件及已登记历史文件头和导入路径的精确哈希别名",
+          "returns": "允许用于旧存档核对的 SHA256 字符串数组；正文和其他注释继续保留",
+          "parameters": {
+            "source": "当前完整生成程序原文"
+          }
+        },
+        "canonical_line": {
+          "description": "核对实际 tick 与来源范围后还原未加说明时的导航行号",
+          "returns": "可精确归一化时返回原始行号，否则返回 -1",
+          "parameters": {
+            "program": "当前完整生成 GDScript 文本",
+            "span": "待定位原语句的四个整数来源范围字段",
+            "generated_line": "当前或已登记旧文件头对应的导航行号"
+          }
+        }
+      }
+    },
+    "Editor_Plugin.gd": {
+      "usage": [
+        "由 addons/rgm_editor/plugin.cfg 注册到 Godot 编辑器。",
+        "_enter_tree 安装魔塔主面板和脚本工作区，_exit_tree 释放插件控件。"
+      ]
+    },
+    "NativeEventContext.gd": {
+      "usage": [
+        "仅由 ScriptRuntime 为一次事件或路线调用创建；事件源码定义 static func run(ctx)。",
+        "ctx.state、ctx.map、ctx.character 为同一运行现场；map_id/event_id/common_event_id 为当前调用编号。",
+        "变量和开关使用原编号；ctx.fields 在当前解释器或路线脚本重试间保留。",
+        "异步等待使用 if not await ctx.wait(秒): return；返回 false 表示已取消。",
+        "普通 return false 正常结束；return ctx.retry(秒) 显式重试。"
+      ],
+      "notes": [
+        "ctx.migrated(program) 同步执行当前模块中的迁移 GDScript，沿用原公式及语义会话，不执行 Ruby。",
+        "await 期间不支持存档，完成并由调度器接收结果后可保存；需要可保存的重试等待时使用 ctx.retry。",
+        "取消、重开事件、路线覆盖或换图后上下文失效；异步调用应检查 wait 返回值。"
+      ],
+      "methods": {
+        "wait": {
+          "description": "按游戏推进时间非阻塞等待，菜单暂停期间不累计",
+          "returns": "true 表示等待完成且调用仍有效，false 表示取消；调用方必须 await"
+        },
+        "retry": {
+          "description": "结束当前调用，并由原解释器或路线调度器在指定秒数后重新运行本条脚本",
+          "returns": "false；调用方写 return ctx.retry(seconds)，字段通过 ctx.fields 保存"
+        },
+        "migrated": {
+          "description": "同步调用当前模块的迁移 program(env)，保留原 GDScript 语义和返回值",
+          "returns": "迁移程序返回值；效果和失败记录在 result 中"
+        },
+        "gain_item": {
+          "description": "与原生126—128共用背包增减，通知同一运行状态",
+          "parameters": {
+            "kind": "item、weapon或armor；对应原物品、武器或防具",
+            "amount": "有符号整数，正数增加、负数扣减；最终数量限0—99"
+          },
+          "returns": "true为成功；失败记录首错并停止，不建立独立背包"
+        }
+      }
+    },
+    "NativeScriptSource.gd": {
+      "usage": [
+        "事件参数保存实际 GDScript 业务正文；包装和 Actor_Init 接口绑定由本服务在编译时生成。",
+        "兼容0.52早期完整模块；新增事件无需填写 extends、run 或完整文件头。",
+        "编译诊断扣除包装行偏移，始终指向编辑框中的业务正文。"
+      ],
+      "notes": [
+        "源码和绑定哈希不匹配时禁止执行或发布；编译失败保留磁盘旧文件。"
+      ],
+      "parameters": {
+        "count": "此绑定消耗的原事件记录数量；普通新GDScript为1",
+        "id": "编译诊断中使用的稳定原生身份，默认draft；不从该编号读取其它记录的源码"
+      }
+    },
+    "Editor_EventScript.gd": {
+      "usage": [
+        "在事件、脚本条件或路线对话框中 configure(source, legacy)；source 是实际运行 GDScript，legacy 为可选只读来源。",
+        "check 返回编译结果并定位编辑器中的真实 GDScript 行；source() 返回当前草稿，持有对话框负责应用与保存。"
+      ]
+    },
+    "NativeEventImporter.gd": {
+      "usage": [
+        "迁移器在绑定成功后调用 record_upgrade，输出实际GDScript、只读原数据和精确前后校验值。",
+        "编辑器打开旧格式文档时只调用 upgrade 生成内存草稿；保存前不写回。"
+      ],
+      "parameters": {
+        "indent": "输出 JSON 的缩进字符串；空串为紧凑格式，制表符为原宏定义格式",
+        "path": "工程根目录下的 data/... 相对数据路径",
+        "root": "导出或待升级 Godot 工程的根目录",
+        "policy": "原解释器的 false 返回重试、合并和帧率规则",
+        "trailing_newline": "最终写入器是否保留末尾换行；地图/公共事件为true，开门配置为false；新旧哈希与实际写入字节一致"
+      }
+    },
+    "Game_ActorInit.gd": {
+      "usage": [
+        "事件正文直接写 Actor_Init.load(角色编号, 预设编号)，无需 extends 或 run。",
+        "Actor_Init 由执行框架绑定到当前事件上下文；修改当前正式角色，不创建独立角色副本。"
+      ],
+      "methods": {
+        "load": {
+          "description": "应用该角色在原工程定义的完整初始化预设",
+          "parameters": {
+            "actor_id": "角色原数据库编号，例如2",
+            "index": "从0开始的原预设序号，默认0"
+          },
+          "returns": "原接口返回null；失败沿用首错停止规则"
+        }
+      }
+    },
+    "UILayout.gd": {
+      "usage": [
+        "所有坐标均为逻辑画布像素；原闪翼画布640×640，地图HUD宽224。",
+        "usable_rect按实际Viewport返回可用区域；fit_rect限制矩形而不改变地图或输入坐标。"
+      ],
+      "parameters": {
+        "viewport_size": "当前Viewport的逻辑像素尺寸，不是操作系统窗口尺寸",
+        "reserve_hud": "是否为左侧地图HUD保留224像素；窄画布至少保留48像素可用宽度",
+        "window_size": "窗口的逻辑像素宽高",
+        "margin": "四边内容留白，逻辑像素；默认16",
+        "bounds": "容纳目标矩形的可用逻辑区域"
+      },
+      "methods": {
+        "usable_rect": {
+          "description": "计算当前画布的可用区域",
+          "returns": "非负可用矩形；保留HUD时从其右侧开始"
+        },
+        "fit_rect": {
+          "description": "缩小并平移矩形使其位于可用区域内",
+          "returns": "宽高非负且包含在bounds中的矩形"
+        },
+        "content_rect": {
+          "description": "计算扣除四边留白后的窗口内容区域"
+        }
+      }
+    },
+    "UITextLayout.gd": {
+      "usage": [
+        "字体按字体列表、粗体及斜体共享，只读复用；缓存最多128组。",
+        "layout按原生塑形结果换行，按像素高度分页；\\f显式分页，换行保留；不按RM事件编辑器四行容量截断。",
+        "pages中的TextParagraph仅用于UI绘制，不属于可保存游戏状态；单字超过可用区域时标记overflow并交由控件裁切。"
+      ],
+      "parameters": {
+        "style": "字体样式：font_name或font_names、font_size、bold、italic；layout另支持align及非负line_space",
+        "maximum_width": "可用文字宽度，必须为有限正数，单位为逻辑像素",
+        "maximum_height": "每页可用高度，单位为逻辑像素；默认INF表示不限制页高",
+        "value": "待度量或排版的原始正文；行的start/end按原字符串Unicode码点编号"
+      },
+      "methods": {
+        "font": {
+          "description": "取得同一样式的共享字体",
+          "returns": "带系统后备字体的SystemFont，不应由调用方修改"
+        },
+        "measure": {
+          "description": "用实际绘制字体度量单行文本",
+          "returns": "原生字体度量的宽高Vector2"
+        },
+        "layout": {
+          "description": "塑形文本并按可用宽高生成绘制行及页面",
+          "returns": "{ok,pages,overflow}；pages各含lines及height，行含paragraph、line、原字符串start/end和y/width/height；无效宽高返回ok=false和message"
+        }
+      }
+    },
+    "UITextBlock.gd": {
+      "usage": [
+        "设置控件position/size后configure(text,style)；窗口resize时自动重排，绘制受自身矩形裁切。",
+        "set_page仅切换文本显示页，不推进游戏事件或Message控制器；无自动计时。"
+      ],
+      "parameters": {
+        "text_style": "UITextLayout字体样式，另可用font_color设置文字颜色",
+        "value": "要显示的原始正文",
+        "page": "从0开始的当前显示页编号",
+        "total": "当前排版总页数"
+      },
+      "methods": {
+        "configure": {
+          "description": "设置显示正文及独立样式副本，并重新排版"
+        },
+        "set_page": {
+          "description": "切换显示页并限制在现有页范围内",
+          "parameters": {
+            "index": "从0开始的显示页编号"
+          }
+        },
+        "page_count": {
+          "description": "读取当前排版的总页数",
+          "returns": "页数；控件没有可用面积时为0"
+        }
+      }
+    },
+    "UITransition.gd": {
+      "usage": [
+        "页面持有一个实例，play(target,goals,seconds)开始；所属页面每次_process只需advance(delta)。",
+        "同一实例在同一引擎帧只累计一次时间；再次play从当前属性开始替换旧目标，cancel保持当前画面。",
+        "目标使用弱引用；目标释放、移出场景树或排队删除后停止，不修改旧页面。"
+      ],
+      "parameters": {
+        "goals": "目标属性字典；仅支持position/scale的Vector2及modulate的Color",
+        "target": "仍有效的Control界面节点",
+        "seconds": "过渡时长或本次推进量，秒；play为0立即到达，负数或非有限值不推进"
+      },
+      "methods": {
+        "play": {
+          "description": "替换当前过渡并记录目标的当前属性"
+        },
+        "advance": {
+          "description": "由页面时钟推进当前过渡",
+          "returns": "true表示仍在过渡；false表示完成、取消或目标失效"
+        },
+        "cancel": {
+          "description": "取消过渡并清除旧目标引用，保留当前属性"
+        },
+        "active": {
+          "description": "查询是否仍有活动过渡"
+        }
+      }
+    },
+    "UIInput.gd": {
+      "usage": [
+        "界面控制器先accepts(event)再转发key(event)，并由所属Viewport标记输入已处理。",
+        "确认和取消不接受echo重复；导航按客户端指定列表接受重复，Message允许方向导航；数字输入用左右选位、上下调整。"
+      ],
+      "parameters": {
+        "event": "Godot输入事件；非按键、释放及空键码会被拒绝",
+        "navigation": "允许echo重复的Godot导航键列表；默认方向键及PageUp/PageDown"
+      },
+      "methods": {
+        "key": {
+          "description": "读取逻辑键码，缺失时使用物理键码",
+          "returns": "Godot Key数值；非按键输入返回KEY_NONE"
+        },
+        "accepts": {
+          "description": "判断本次界面按键是否应转发",
+          "returns": "首次按下或允许重复的导航按下返回true，其余返回false"
+        }
+      }
+    },
+    "WindowSelectable.gd": {
+      "methods": {
+        "visible_rows": {
+          "description": "计算当前内容区能完整显示的行数",
+          "returns": "至少1行，按row_height与窗口留白计算"
+        },
+        "item_rect": {
+          "description": "计算指定项目在当前滚动视口中的矩形",
+          "parameters": {
+            "value": "从0开始的项目编号；按column_count排列"
+          }
+        }
+      }
+    },
+    "MessageLayout.gd": {
+      "usage": [
+        "控制器在创建或视口尺寸变化时构造；所有尺寸均为逻辑像素。排版不推进时间、事件或历史。",
+        "source_tokens保留原行/MR信息；tokens为实际执行顺序，positions/rows和page_breaks使用同一词元下标。",
+        "geometry一次计算边框、箭头及缩放支点，视图读取同一快照；模式3保留原允许出屏行为。"
+      ],
+      "parameters": {
+        "choice_source_lines": "每个选项在原始文章中的行号范围Vector2i，左闭右开；由choice_lines(payload)生成",
+        "footer": "为数字输入预留的底部像素高度，普通消息0、数字输入32"
+      },
+      "methods": {
+        "_init": {
+          "description": "解析气泡元数据并按实际可用宽高布局文字和分页"
+        },
+        "geometry": {
+          "returns": "{rect,point,upper,arrow}：未缩放气泡局部区域、画布人物锚点、朝向和局部箭头矩形"
+        },
+        "choice_lines": {
+          "description": "计算每个分支在原始文章中的行号范围",
+          "returns": "Array[Vector2i]，用于多行/自动换行后仍按分支定位光标"
+        }
+      }
+    },
+    "MessageBoxState.gd": {
+      "usage": [
+        "由RuntimeState.flash_messages持有，tick由唯一覆盖层按60Hz推进；W/T/ML/MU沿用正式rxdata的40帧编写换算。",
+        "自动分页停在下一行词元之前；confirm只开始滚动，滚动期间不会关闭或返回事件结果。",
+        "page_pending_token/page_resume_state/page_start_token及source_tokens随FlashPresentationState保存；提示自动滚页，不阻塞地图。"
+      ]
+    },
+    "TitleLayout.gd": {
+      "usage": [
+        "静态纯计算接口，由FlashTitleScreen绘制时调用；不读取运行现场，也不推进时钟。",
+        "坐标以原640×640逻辑画布为基准；visibility为0—16帧，movement为选项移动的槽位插值。"
+      ],
+      "parameters": {
+        "relative": "相对旧选中命令的槽位，通常为-2—2",
+        "movement": "本次轮播已移动的槽位量，正值向右选中、图片向左移动",
+        "visibility": "入场或退场已显示的帧数，取0—16",
+        "canvas": "当前逻辑画布的宽高，单位为像素",
+        "selection": "难度索引的连续插值，0—3分别为四张原卡片",
+        "id": "原难度卡片编号，0—3分别为Normal、Hard、Lunatic、EX"
+      },
+      "methods": {
+        "command_pose": {
+          "returns": "position为中心像素坐标；zoom为缩放倍数；opacity为0—1透明度",
+          "description": "计算命令中心坐标、缩放和透明度"
+        },
+        "mode_pose": {
+          "returns": "position为中心像素坐标，opacity为0—1透明度",
+          "description": "计算难度卡片斜向位置和透明度，EX沿用原半透明规则"
+        },
+        "tag_rect": {
+          "description": "计算从画布右边进入的原320×48页签矩形"
+        }
+      }
+    },
+    "ConfigPage.gd": {
+      "methods": {
+        "set_title_progress": {
+          "parameters": {
+            "value": "原16帧过渡的已显示帧数，夹取到0—16"
+          },
+          "returns": "无返回值；更新绘制位置与透明度",
+          "description": "由标题唯一入场时钟设置显示进度；地图单独使用时默认完成入场"
+        }
+      },
+      "usage": [
+        "Title或菜单创建并加入场景树；直接使用RuntimeState.flash_preferences，不复制另一套选项。",
+        "单独在地图菜单使用时entrance默认16；标题通过set_title_progress设置0—16入场和返回帧，页面不重复推进父过渡。",
+        "方向键选择与调整，Q/E切原三页，Esc/X发出back_requested；后两页未完成设置沿用源行为。"
+      ],
+      "signals": {
+        "back_requested": "请求持有方关闭设置页并恢复原入口光标"
+      }
+    },
+    "TitleExtrasPage.gd": {
+      "methods": {
+        "set_title_progress": {
+          "parameters": {
+            "value": "原16帧过渡的已显示帧数，夹取到0—16"
+          },
+          "returns": "无返回值；更新绘制位置与透明度",
+          "description": "由标题唯一入场时钟设置显示进度；地图单独使用时默认完成入场"
+        }
+      },
+      "usage": [
+        "创建后在加入场景树之前设置kind为music或merit；Title连接back_requested并通过set_title_progress推进父入场。",
+        "音乐页自身按60Hz推进28帧唱片过渡；成就页自身推进16帧分类和书本显示，父入场由标题唯一时钟负责。",
+        "原音乐曲目查找为空，成就书仅示例；不切换正式BGM，不发奖，不额外解锁内容。"
+      ],
+      "signals": {
+        "back_requested": "附页请求返回标题；成就书打开时先在本页关闭书本，不立即离开分类"
+      }
+    },
+    "TitleScreen.gd": {
+      "usage": [
+        "Title场景创建并连接new_game_requested与load_requested；本节点只负责显示和请求，状态初始化与读档仍由Title处理。",
+        "标题主命令、难度和其它附页使用16帧；档案与Load Data页签按原8帧、40像素/帧与32透明度/帧推进；本节点拥有唯一父时钟，确认后拒绝重复提交。",
+        "主命令采用原图；独立副本和无有效存档的继续游戏可选中但灰显且不可确认。"
+      ],
+      "methods": {
+        "ready_for_input": {
+          "returns": "true表示可路由一次按键；false表示过渡、返回或已提交请求",
+          "description": "查询标题是否完成当前过渡且尚未提交开始或退出请求"
+        },
+        "resume_after_failed_load": {
+          "description": "正式Title读取失败时调用，恢复当前档案页面的输入；成功切换场景不调用"
+        }
+      },
+      "parameters": {
+        "difficulty": "四档原难度索引0—3，由Title写入原DIFFCULTY_MODE变量",
+        "slot": "已经在正式档案页选中的存档编号；读档仍由Title/SaveService完整校验"
+      },
+      "signals": {
+        "new_game_requested": "一次确认后发出，由Title初始化正式游戏并写入原难度变量",
+        "load_requested": "一次确认后发出，由Title调用正式SaveService；失败时回调resume_after_failed_load释放输入"
+      },
+      "notes": [
+        "本页面不自行加载存档或切换地图；成功提交后禁用重复输入，失败恢复仍由所属Title负责。"
+      ]
+    },
+    "WindowDrawing.gd": {
+      "usage": [
+        "由原图页面的_draw回调调用静态方法；面板缓存最多32种尺寸，调用方拥有输入和时钟。",
+        "text保留字号高度，将过宽行按RM draw_text水平适配；每次绘制后恢复单位变换，rect为目标节点本地坐标。"
+      ],
+      "parameters": {
+        "font": "当前页面通过UIResources.font取得的正式字体",
+        "font_size": "字号，单位为逻辑像素",
+        "opacity": "0—1透明度",
+        "inset": "四角光标在矩形内的横纵缩进，单位像素",
+        "type": "FrameM_01—03皮肤编号；档案为3、普通选择为1"
+      },
+      "methods": {
+        "panel": {
+          "description": "生成或复用0111原四色线框及17层深色渐变面板",
+          "returns": "只读面板纹理；调用方只调整绘制位置与透明度"
+        },
+        "text": {
+          "description": "按真实字体宽度绘制一行及原阴影，避免方法尾字或数值被截断"
+        },
+        "cursor": {
+          "description": "用原FrameM图片的四个9×8角分别绘制独立光标"
+        }
+      }
+    },
+    "MenuScreen.gd": {
+      "usage": [
+        "MenuCoordinator在正式地图创建本页并保持暂停，save_callback仍绑定Game.save_slot。",
+        "window_process/child_process是0—8逻辑帧；每秒60帧，由本页唯一推进；关闭动画结束才发出close_requested。",
+        "菜单变量5的锁定规则保持，原装备/成就/合成空分支仍不创建新业务。"
+      ],
+      "parameters": {
+        "command": "0—9原命令索引，按COMMANDS两行错位排列",
+        "slot": "所选正式存档编号，由所属协调器校验和恢复"
+      },
+      "methods": {
+        "ready_for_input": {
+          "description": "检查入场/子页过渡是否完成、关闭或提交请求是否占用输入"
+        },
+        "resume_after_failed_load": {
+          "description": "所属协调器在真实读档失败时恢复输入；成功切场景不调用"
+        }
+      },
+      "signals": {
+        "close_requested": "原8帧关闭完成，通知协调器恢复同一地图和事件调用者",
+        "title_requested": "用户确认返回标题，交由正式场景切换处理",
+        "load_requested": "请求校验并恢复真实存档；一次提交期间不重复发出"
+      }
+    },
+    "ArchiveView.gd": {
+      "usage": [
+        "FlashArchivePage创建并设置page；本节点只读取目录和选择快照，不调用存档写入或读取安装。",
+        "标题档案和地图档案采用各自原章节位置；卡片使用240×256裁切视口和独立120×64光标。"
+      ],
+      "methods": {
+        "positions": {
+          "description": "计算原窗口进入/退出时的本地坐标",
+          "returns": "kind/chapter/files/snapshot/players五个窗口的左上坐标"
+        },
+        "draw_cards": {
+          "description": "由卡片裁切子画布绘制当前可见原卡片与插值光标"
+        },
+        "draw_confirmation": {
+          "description": "由最上层画布绘制原图风格的覆盖/备份确认"
+        }
+      }
+    },
+    "ArchivePage.gd": {
+      "usage": [
+        "标题、菜单或事件存档创建本页；设置mode及save_callback后加入场景树。SaveService是唯一存读档实现。",
+        "独立页面自己推进0—8帧入退；标题通过set_title_progress、菜单通过set_menu_progress提供唯一父过渡，避免重复推进。",
+        "选择/截图各按原8帧推进；目录仅在显式refresh时读取摘要；光标导航不重新解码存档或重建页面。",
+        "成功提交后等待所属页面关闭或切图；读取失败由持有方resume_after_failed_load恢复输入。"
+      ],
+      "parameters": {
+        "reload_catalog": "true重新核对槽位摘要并恢复可用输入；false只刷新当前绘制与选择",
+        "direction": "上下为-1/+1，左右为-4/+4；左右按原列及剩余行数循环",
+        "value": "父页面给出的原档案过渡进度；标题和菜单均为0—8"
+      },
+      "methods": {
+        "set_title_progress": {
+          "description": "由标题唯一时钟推进原8帧档案过渡，与标题其它页16帧进退分开"
+        },
+        "set_menu_progress": {
+          "description": "由菜单唯一8帧时钟驱动入退，停止本页重复推进父过渡"
+        },
+        "ready_for_input": {
+          "description": "检查入场、选择、模式切换和提交是否允许当前按键"
+        },
+        "resume_after_failed_load": {
+          "description": "在正式读档失败后释放一次提交保护，不改变游戏状态"
+        },
+        "cursor_position": {
+          "description": "计算未扣除横向滚动的插值卡片光标位置",
+          "returns": "以120×64原网格为单位的本地像素坐标"
+        },
+        "back": {
+          "description": "先取消确认框，否则请求父页面退场或自行完成原8帧退出"
+        }
+      }
+    },
+    "PageSurface.gd": {
+      "usage": [
+        "页面只创建一份Surface；refresh时依次begin、window配置区域、finish，隐藏页保留节点与绘图缓存。区域clip_contents=true，坐标均为父区域内的逻辑像素。",
+        "window返回的Region：line(rect,value,font_size=18,color=白,align=0,bold=false)画原文字；image(texture,rect,source=空,tint=白)画素材/图集；select(rect,type=1)推进8帧四角光标。",
+        "Region.rich(raw,rect,font_size=18,scroll=0,align=0,line_height=0)只解释原富文本样式、换行与只读插值，使用白色窗口默认字，不执行Message等待/声音/事件；scroll为像素偏移。",
+        "Region.portrait(key,name,hue,rect,direction=2)复用CharacterSprite及色相；label(key,rect,value,font_size=18,color=白)用于需要单独透明度的HP文字。",
+        "父菜单/灵视通过set_progress提供唯一0—8入退进度；Surface自身只推进区域切换和光标，各区有效进度取父/自身最小值，避免重复位移。"
+      ],
+      "parameters": {
+        "key": "稳定的绘图区域键名；同名区域复用同一节点",
+        "rect": "区域在父节点内的位置和尺寸；内容按这个矩形裁切",
+        "offset": "完全退出时相对静止位置的位移；八帧内归零",
+        "parent_key": "父绘图区域键名；空字符串表示Surface直接子节点",
+        "panel": "true绘制原17层渐变面板；false仅提供裁切视口",
+        "selected": "当前角色选择索引；-1表示只显示摘要",
+        "value": "所属页面给出的0—8逻辑帧进度"
+      },
+      "methods": {
+        "begin": {
+          "description": "开始一次绘制内容更新，不重建节点或推进时钟"
+        },
+        "window": {
+          "description": "取得或创建持久的绘图/裁切区域并记录本次内容",
+          "returns": "Region控件，提供上述line/image/select/rich/portrait/label绘制接口"
+        },
+        "finish": {
+          "description": "提交本次区域更新；未使用的窗口按原八帧退场"
+        },
+        "party": {
+          "description": "用当前正式角色绘制原Window_State摘要和独立选择光标",
+          "returns": "对应摘要Region；不捕获或写入存档"
+        },
+        "set_progress": {
+          "description": "接收所属页面的父过渡，不自行补推进父时钟"
+        },
+        "navigation_ready": {
+          "description": "检查当前使用区域的独立光标是否完成八帧移动，供父菜单消费过快的重复方向键",
+          "returns": "true允许本次方向移动；确认和取消仍由所属页面单独路由"
+        }
+      }
+    },
+    "ItemView.gd": {
+      "usage": [
+        "由对应页面refresh调用render(page,surface)，页面拥有输入、业务请求和生命周期；本文件只绘制或读取展示快照。",
+        "surface为该页面长期持有的FlashPageSurface；窗口与文字节点按稳定键复用，不能把显示对象保存到游戏数据。"
+      ],
+      "parameters": {
+        "page": "持有正式选择、快照及业务接口的当前功能页控件",
+        "surface": "当前页面的持久FlashPageSurface实例，接收本次绘图区域与内容"
+      },
+      "methods": {
+        "render": {
+          "description": "按最终有效来源绘制本页当前内容、说明和独立光标"
+        }
+      },
+      "notes": [
+        "物品栏由地图上同一个FlashPlayerHUD.item_canvas绘制，不在本页创建第二份预设窗口。"
+      ]
+    },
+    "EquipmentView.gd": {
+      "usage": [
+        "由对应页面refresh调用render(page,surface)，页面拥有输入、业务请求和生命周期；本文件只绘制或读取展示快照。",
+        "surface为该页面长期持有的FlashPageSurface；窗口与文字节点按稳定键复用，不能把显示对象保存到游戏数据。"
+      ],
+      "parameters": {
+        "page": "持有正式选择、快照及业务接口的当前功能页控件",
+        "surface": "当前页面的持久FlashPageSurface实例，接收本次绘图区域与内容"
+      },
+      "methods": {
+        "render": {
+          "description": "按最终有效来源绘制本页当前内容、说明和独立光标"
+        }
+      }
+    },
+    "SkillView.gd": {
+      "usage": [
+        "由对应页面refresh调用render(page,surface)，页面拥有输入、业务请求和生命周期；本文件只绘制或读取展示快照。",
+        "surface为该页面长期持有的FlashPageSurface；窗口与文字节点按稳定键复用，不能把显示对象保存到游戏数据。"
+      ],
+      "parameters": {
+        "page": "持有正式选择、快照及业务接口的当前功能页控件",
+        "surface": "当前页面的持久FlashPageSurface实例，接收本次绘图区域与内容"
+      },
+      "methods": {
+        "render": {
+          "description": "按最终有效来源绘制本页当前内容、说明和独立光标"
+        }
+      }
+    },
+    "BlasticView.gd": {
+      "usage": [
+        "由对应页面refresh调用render(page,surface)，页面拥有输入、业务请求和生命周期；本文件只绘制或读取展示快照。",
+        "surface为该页面长期持有的FlashPageSurface；窗口与文字节点按稳定键复用，不能把显示对象保存到游戏数据。"
+      ],
+      "parameters": {
+        "page": "持有正式选择、快照及业务接口的当前功能页控件",
+        "surface": "当前页面的持久FlashPageSurface实例，接收本次绘图区域与内容"
+      },
+      "methods": {
+        "render": {
+          "description": "按最终有效来源绘制本页当前内容、说明和独立光标"
+        }
+      }
+    },
+    "NoteView.gd": {
+      "usage": [
+        "由对应页面refresh调用render(page,surface)，页面拥有输入、业务请求和生命周期；本文件只绘制或读取展示快照。",
+        "surface为该页面长期持有的FlashPageSurface；窗口与文字节点按稳定键复用，不能把显示对象保存到游戏数据。"
+      ],
+      "parameters": {
+        "page": "持有正式选择、快照及业务接口的当前功能页控件",
+        "surface": "当前页面的持久FlashPageSurface实例，接收本次绘图区域与内容"
+      },
+      "methods": {
+        "render": {
+          "description": "按最终有效来源绘制本页当前内容、说明和独立光标"
+        }
+      }
+    },
+    "SightView.gd": {
+      "usage": [
+        "由对应页面refresh调用render(page,surface)，页面拥有输入、业务请求和生命周期；本文件只绘制或读取展示快照。",
+        "surface为该页面长期持有的FlashPageSurface；窗口与文字节点按稳定键复用，不能把显示对象保存到游戏数据。"
+      ],
+      "parameters": {
+        "page": "持有正式选择、快照及业务接口的当前功能页控件",
+        "surface": "当前页面的持久FlashPageSurface实例，接收本次绘图区域与内容"
+      },
+      "methods": {
+        "render": {
+          "description": "按最终有效来源绘制本页当前内容、说明和独立光标"
+        }
+      }
+    },
+    "ShopView.gd": {
+      "usage": [
+        "由对应页面refresh调用render(page,surface)，页面拥有输入、业务请求和生命周期；本文件只绘制或读取展示快照。",
+        "surface为该页面长期持有的FlashPageSurface；窗口与文字节点按稳定键复用，不能把显示对象保存到游戏数据。"
+      ],
+      "parameters": {
+        "page": "持有正式选择、快照及业务接口的当前功能页控件",
+        "surface": "当前页面的持久FlashPageSurface实例，接收本次绘图区域与内容"
+      },
+      "methods": {
+        "render": {
+          "description": "按最终有效来源绘制本页当前内容、说明和独立光标"
+        }
+      }
+    },
+    "ItemPage.gd": {
+      "usage": [
+        "通过FlashMenuPages创建并接入同一RuntimeState；输入和业务在本页，绘图由同组View和持久FlashPageSurface负责。",
+        "父FlashMenuScreen通过set_menu_progress(value)提供唯一0—8进退时钟；选择、文本和窗口节点复用，按各自区域裁切。"
+      ],
+      "parameters": {
+        "value": "父菜单给出的0—8逻辑帧进退进度"
+      },
+      "methods": {
+        "set_menu_progress": {
+          "description": "接收父菜单进退，不重复推进位移或透明度"
+        }
+      },
+      "signals": {
+        "sound_requested": "请求原系统光标/确认/取消音效；由父菜单统一播放，不创建第二个音频现场"
+      }
+    },
+    "SkillPage.gd": {
+      "usage": [
+        "通过FlashMenuPages创建并接入同一RuntimeState；输入和业务在本页，绘图由同组View和持久FlashPageSurface负责。",
+        "父FlashMenuScreen通过set_menu_progress(value)提供唯一0—8进退时钟；选择、文本和窗口节点复用，按各自区域裁切。",
+        "Tab仅在配置期间交换前两角色；Esc按0202恢复进入时的角色顺序，保留各角色已经修改的技能。"
+      ],
+      "parameters": {
+        "value": "父菜单给出的0—8逻辑帧进退进度"
+      },
+      "methods": {
+        "set_menu_progress": {
+          "description": "接收父菜单进退，不重复推进位移或透明度"
+        }
+      },
+      "signals": {
+        "sound_requested": "请求原系统光标/确认/取消音效；由父菜单统一播放，不创建第二个音频现场"
+      }
+    },
+    "BlasticPage.gd": {
+      "usage": [
+        "通过FlashMenuPages创建并接入同一RuntimeState；输入和业务在本页，绘图由同组View和持久FlashPageSurface负责。",
+        "父FlashMenuScreen通过set_menu_progress(value)提供唯一0—8进退时钟；选择、文本和窗口节点复用，按各自区域裁切。"
+      ],
+      "parameters": {
+        "value": "父菜单给出的0—8逻辑帧进退进度"
+      },
+      "methods": {
+        "set_menu_progress": {
+          "description": "接收父菜单进退，不重复推进位移或透明度"
+        }
+      },
+      "signals": {
+        "sound_requested": "请求原系统光标/确认/取消音效；由父菜单统一播放，不创建第二个音频现场"
+      }
+    },
+    "NotePage.gd": {
+      "usage": [
+        "通过FlashMenuPages创建并接入同一RuntimeState；输入和业务在本页，绘图由同组View和持久FlashPageSurface负责。",
+        "父FlashMenuScreen通过set_menu_progress(value)提供唯一0—8进退时钟；选择、文本和窗口节点复用，按各自区域裁切。"
+      ],
+      "parameters": {
+        "value": "父菜单给出的0—8逻辑帧进退进度"
+      },
+      "methods": {
+        "set_menu_progress": {
+          "description": "接收父菜单进退，不重复推进位移或透明度"
+        }
+      },
+      "signals": {
+        "sound_requested": "请求原系统光标/确认/取消音效；由父菜单统一播放，不创建第二个音频现场"
+      }
+    },
+    "SkillConfig.gd": {
+      "methods": {
+        "restore_page_actor": {
+          "description": "技能配置取消时按0202恢复进入时的前两角色顺序；不更换存档对象或修改技能",
+          "returns": "原脚本调用结果字典，ok为是否完成；变化沿用同一RuntimeState"
+        }
+      },
+      "parameters": {
+        "actor_id": "进入技能配置时保存的首位角色数据库编号"
+      }
+    },
+    "MapOcclusion.gd": {
+      "usage": [
+        "由MapRuntime创建并持有；地图或优先级重建时reset，地图时钟每次推进时update，绘制层仅消费opacity。",
+        "只处理原1、2层；地面及新增的更高层保持不透明。缓存和透明度属于派生表现，不写入存档。"
+      ],
+      "methods": {
+        "reset": {
+          "description": "从当前图块及优先级重建遮挡掩码，清空旧地图的缓存。",
+          "parameters": {
+            "map": "当前正式MapRuntime；读取宽高、图块及优先级，不修改输入",
+            "enabled": "只对闪翼正式地图启用；false清空缓存并使用原生不透明表现"
+          },
+          "returns": "无返回值。"
+        },
+        "update": {
+          "description": "按玩家格坐标更新连通区，原地或同一区域复用缓存。",
+          "parameters": {
+            "position": "玩家当前逻辑格坐标，不使用平滑像素坐标"
+          },
+          "returns": "透明度发生变化的格子集合（Vector2i键）；空字典表示无需重绘。"
+        },
+        "opacity": {
+          "description": "查询一个图块的派生透明度。",
+          "parameters": {
+            "x": "图块列号",
+            "y": "图块行号",
+            "layer": "从0开始的地图层号；仅1、2层可淡化"
+          },
+          "returns": "1.0为不透明；当前遮挡区的原上层返回160/255。"
+        }
+      }
+    },
+    "MapRuntime.gd": {
+      "methods": {
+        "tile_opacity": {
+          "description": "读取原上层遮挡区的绘制透明度，不更改地图图块。",
+          "parameters": {
+            "x": "地图列号",
+            "y": "地图行号",
+            "layer": "从0开始的地图层号"
+          },
+          "returns": "范围0..1的透明度；地面始终1。"
+        },
+        "draw_tile": {
+          "parameters": {
+            "opacity": "绘制透明度，范围0..1，默认1.0；只影响此次绘制"
+          }
+        }
+      }
+    },
+    "MigrationGapsV058Tests.gd": {
+      "parameters": {
+        "label": "当前GPU取证状态名，输出到独立测试工程.godot中"
+      }
+    },
+    "ScriptMigrationAudit.gd": {
+      "parameters": {
+        "root": "已生成工程的绝对根目录",
+        "source": "只读原RM工程根目录，读取Data/Scripts.rxdata核对SHA256"
+      },
+      "methods": {
+        "generate": {
+          "description": "只在339个原来源和已审阅Godot目标内容全部一致后发布审计；出错返回errors，不发布当前数据。",
+          "returns": "{ok, errors, summary}；失败不冒称服务或行为已验收。"
+        }
+      }
+    },
+    "Editor_MigrationAuditV058Probe.gd": {
+      "parameters": {
+        "plugin": "当前隔离窗口或实际EditorPlugin节点；使用所属SceneTree承载真实工作区窗口"
+      },
+      "notes": [
+        "只在明确可重建的测试工程执行；短暂修改目标文件以测试失效，随后恢复精确字节。"
+      ]
+    },
+    "Editor_ScriptCoverage.gd": {
+      "methods": {
+        "audit_services": {
+          "description": "读取当前来源/目标审计并逐文件检查内容；未提供审计时返回空字典供历史工程沿用旧记录。",
+          "returns": "原加载序号到审计记录；current为false表示来源或实现已变更，不能继续沿用验证状态。"
+        }
+      }
+    },
+    "PlayerHUD.gd": {
+      "usage": [
+        "由Game持有的FlashMapHUD继承，消费当前正式角色数据并绘制；临时F7预览由本HUD持有，不注册或保存角色。",
+        "Godot调试运行中F7切换地图与技能配置页的援护预览，长按不重复；原事件验收地图保留F7退出。新游戏、读档、回标题关闭预览。"
+      ],
+      "methods": {
+        "set_support_preview": {
+          "description": "启用或关闭仅用于查看援护区域的临时显示，缺少正式援护时使用原角色的脱离现场预设",
+          "parameters": {
+            "enabled": "true启用、false关闭；只影响本HUD，不修改正式队伍、开关、战斗或存档"
+          },
+          "returns": "本HUD实际的预览开关状态；非闪翼工程不会启用"
+        },
+        "set_itembar_selection": {
+          "description": "让地图上唯一的物品栏显示预设编辑光标；只改变选择展示",
+          "parameters": {
+            "slot": "-1隐藏光标，0—8选择对应预设格；同一光标按八帧移动"
+          },
+          "returns": "无返回值"
+        },
+        "itembar_navigation_ready": {
+          "description": "检查共享物品栏的八帧光标移动是否结束",
+          "returns": "true允许下一次方向移动"
+        },
+        "draw_itembar": {
+          "description": "在唯一的item_canvas上绘制地图/物品页共用的九格物品栏和八帧选择光标",
+          "parameters": {
+            "target": "本HUD长期持有的ItemCanvas绘图控件"
+          }
+        }
+      },
+      "notes": [
+        "预览关闭时释放私有显示角色；已解锁的正式援护优先使用真实角色，不受预览关闭影响。"
+      ]
+    },
+    "SaveLoadProgress.gd": {
+      "usage": [
+        "由标题或地图菜单创建并加入SceneTree根节点，随后await read_slot(slot,host)，返回完整校验结果后才由持有方安装。",
+        "成功切换场景后调用finish_after_scene，失败调用close；预载资源仅在ResourceLoader后台读取，不在线程执行游戏或安装角色。"
+      ],
+      "methods": {
+        "read_slot": {
+          "description": "异步预载游戏资源并完整校验本槽和必要的备份；结果未通过前不修改正式状态",
+          "parameters": {
+            "slot": "存档编号，范围与SaveService.maximum_slots一致",
+            "host": "发起读取的标题或地图菜单节点，用于取消归属检查"
+          },
+          "returns": "包含ok、prepared、recovered、saved_at和path的结果字典，失败含message"
+        },
+        "finish_after_scene": {
+          "description": "场景切换后保持遮罩至新地图加入，随后恢复运行并释放本进度控件"
+        },
+        "close": {
+          "description": "关闭进度并清理执行重置监听",
+          "parameters": {
+            "restore_pause": "true恢复进入前暂停状态；false恢复正常地图运行"
+          }
+        }
+      },
+      "notes": [
+        "不依赖档案缩略图缓存进行读取，每次均核验当前文件、来源指纹、对象图及角色/事件/资源。"
+      ]
+    },
+    "AudioRuntime.gd": {
+      "methods": {
+        "can_autoplay_after_restore": {
+          "description": "判断读档后某频道能否按地图自动播放；已恢复的曲目和明确停止优先",
+          "parameters": {
+            "kind": "BGM或BGS"
+          },
+          "returns": "true表示该背景频道没有保存的播放记录或明确停止标志"
+        }
+      }
+    }
+  },
+  "signals": {
+    "changed": "当前模型或草稿已经变化，界面可据此刷新",
+    "completed": "当前事件或操作正常完成",
+    "failed": "当前事件或操作失败，原因通过诊断接口提供",
+    "accepted": "用户确认了当前对话框草稿",
+    "closed": "当前窗口或页面关闭",
+    "diagnostic_requested": "请求显示带来源的诊断文本",
+    "state_changed": "正式游戏状态已变化，关联界面可刷新",
+    "responded": "消息请求得到响应，参数携带原请求编号、消息种类和用户结果",
+    "rejected": "消息请求失败，参数携带原请求编号和错误说明"
+  }
+}

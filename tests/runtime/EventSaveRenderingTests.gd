@@ -1,3 +1,33 @@
+## 职责：回归验证：验证事件现场存读档后的实际图形输出。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func frames(count: int) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func capture(size: Vector2i, name_value: String) -> void
+##     参数 size（Vector2i；必填）：对象、画布或区域尺寸。
+##     参数 name_value（String；必填）：待设置的名称文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func changed_pixels(a: Image, b: Image) -> int
+##     参数 a（Image；必填）：第一个操作数或参与比较的值。
+##     参数 b（Image；必填）：第二个操作数或参与比较的值。
+##     返回：数值结果；编号、单位与计算含义由本接口用途决定。
+##
+## 接口说明结束。
+
 extends "EventSaveTests.gd"
 ## Actual Compatibility output, using the same production save fixture.
 var captures := ""
@@ -8,8 +38,8 @@ func run() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--captures="): captures = arg.trim_prefix("--captures=")
 	DirAccess.make_dir_recursive_absolute(captures)
-	state = root.get_node("RuntimeState"); data = load("res://runtime/scripts/RuntimeData.gd")
-	saves = load("res://runtime/scripts/SaveService.gd"); codec = load("res://runtime/scripts/SaveCodec.gd")
+	state = root.get_node("RuntimeState"); data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	saves = load("res://runtime/scripts/10_Support/Persistence/SaveService.gd"); codec = load("res://runtime/scripts/10_Support/Persistence/SaveCodec.gd")
 	saves.directory_override = ProjectSettings.globalize_path("res://.godot/event_save_render_%d" % Time.get_ticks_usec())
 	install_fixture()
 	for size in [Vector2i(640, 480), Vector2i(800, 480), Vector2i(768, 768)]:

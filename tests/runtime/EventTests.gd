@@ -1,3 +1,68 @@
+## 职责：回归验证：验证事件指令执行、分支及真实游戏和菜单生命周期。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func c(code: int, parameters: Array = [], indent: int = 0) -> Dictionary
+##     参数 code（int；必填）：对应指令、按键或操作的编码。
+##     参数 parameters（Array；默认值 []）：按对应接口或事件指令约定排列的参数。
+##     参数 indent（int；默认值 0）：事件指令的结构缩进层级。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func add_variable(id: int, amount: int = 1) -> Dictionary
+##     参数 id（int；必填）：本接口所处理对象的编号。
+##     参数 amount（int；默认值 1）：需要增加、扣除或应用的数量。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func value(id: int) -> int
+##     参数 id（int；必填）：本接口所处理对象的编号。
+##     返回：数值结果；编号、单位与计算含义由本接口用途决定。
+##
+##   func test_waits() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_control_flow() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_scheduler() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_ui_ownership() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_game() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func frames(count: int) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(condition: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 condition（bool；必填）：是否创建须返回布尔值的脚本条件模板。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 ## Deterministic command execution plus the real Game/UI/menu lifecycle.
 var failures: Array[String] = []
@@ -14,10 +79,10 @@ func _initialize() -> void:
 func run() -> void:
 	create_timer(45).timeout.connect(func() -> void: printerr("FAIL: event test timeout"); quit(1))
 	state = root.get_node("RuntimeState")
-	fixture = load("res://runtime/scripts/EventFixture.gd")
-	interpreter_script = load("res://runtime/scripts/EventInterpreter.gd")
-	scheduler_script = load("res://runtime/scripts/EventScheduler.gd")
-	data = load("res://runtime/scripts/RuntimeData.gd")
+	fixture = load("res://runtime/scripts/11_Development/EventFixture.gd")
+	interpreter_script = load("res://runtime/scripts/02_Event/EventInterpreter.gd")
+	scheduler_script = load("res://runtime/scripts/02_Event/EventScheduler.gd")
+	data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
 	state.begin_new_game(data.system())
 	test_waits()
 	test_control_flow()
@@ -57,7 +122,7 @@ func test_waits() -> void:
 	owner.cancel()
 	owner.advance(5)
 	expect(not owner.running, "canceled time wait never resumes")
-	var catalog: Script = load("res://runtime/scripts/EventCommandCatalog.gd")
+	var catalog: Script = load("res://runtime/scripts/02_Event/EventCommandCatalog.gd")
 	for invalid in [-1, 1000, 1.5, NAN, "20", null]:
 		expect(not catalog.supported(106, [invalid]), "catalog rejects invalid wait parameter")
 	expect(catalog.supported(106, [20.0]) and catalog.supported(116), "JSON integer and erase are supported")
@@ -94,12 +159,12 @@ func test_scheduler() -> void:
 	state.variables = {}
 	state.self_switches = {}
 	var spec: Dictionary = fixture.build()
-	var map: Node2D = load("res://runtime/scripts/MapRuntime.gd").new()
+	var map: Node2D = load("res://runtime/scripts/03_Map/MapRuntime.gd").new()
 	root.add_child(map)
 	map.load_definition(spec.map, spec.tileset)
 	map.set_process(false)
 	for node in map._event_nodes: node.set_process(false)
-	var player: Node2D = load("res://runtime/scripts/MapCharacter.gd").new()
+	var player: Node2D = load("res://runtime/scripts/03_Map/MapCharacter.gd").new()
 	map.ensure_character_layer().add_child(player)
 	player.set_process(false)
 	player.map_runtime = map
@@ -223,7 +288,7 @@ func test_scheduler() -> void:
 	map.free()
 
 func test_ui_ownership() -> void:
-	var broker: RefCounted = load("res://runtime/scripts/EventUIBroker.gd").new()
+	var broker: RefCounted = load("res://runtime/scripts/02_Event/EventUIBroker.gd").new()
 	var first: RefCounted = interpreter_script.new()
 	var second: RefCounted = interpreter_script.new()
 	broker.bind_interpreter(first)
@@ -251,7 +316,7 @@ func test_ui_ownership() -> void:
 func test_game() -> void:
 	state.begin_new_game(data.system())
 	state.resume_from_save = true
-	var game: Node2D = load("res://scenes/Game.tscn").instantiate()
+	var game: Node2D = load("res://scenes/03_Map/Game.tscn").instantiate()
 	root.add_child(game)
 	current_scene = game
 	await frames(3)
@@ -270,7 +335,7 @@ func test_game() -> void:
 	var remaining: float = original_owner.wait_state.remaining
 	state.set_event_variable(8041, 75)
 	game._player.move_to(5, 6)
-	expect(not load("res://runtime/scripts/SaveService.gd").save_slot(1, state).ok, "direct save rejects unpersisted event runtime before writing")
+	expect(not load("res://runtime/scripts/10_Support/Persistence/SaveService.gd").save_slot(1, state).ok, "direct save rejects unpersisted event runtime before writing")
 	expect(game._menus.open_menu(), "ordinary menu remains available with time-only parallels")
 	await frames(4)
 	expect(original_owner.wait_state.remaining == remaining, "menu pauses event wait with the map")

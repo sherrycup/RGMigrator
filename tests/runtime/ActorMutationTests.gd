@@ -1,3 +1,54 @@
+## 职责：回归验证：验证角色属性、滚动界面与实际角色操作入口。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func test_scrolling(fixture: Dictionary) -> void
+##     参数 fixture（Dictionary；必填）：独立测试夹具或其数据。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func test_real_interface() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func make_fixture() -> Dictionary
+##     用途：构建与正式工程隔离的测试现场。
+##     参数：无。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func press(key: Key, unicode: int = 0) -> void
+##     用途：模拟一次按键输入。
+##     参数 key（Key；必填）：Godot 按键码，例如 KEY_UP、KEY_DOWN、KEY_ENTER 或 KEY_ESCAPE。
+##     参数 unicode（int；默认值 0）：Unicode 字符码值。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func frames(count: int) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(condition: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 condition（bool；必填）：是否创建须返回布尔值的脚本条件模板。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 var data: Script
 var state: Node
@@ -12,8 +63,8 @@ func _initialize() -> void:
 
 func run() -> void:
 	create_timer(50).timeout.connect(func() -> void: printerr("FAIL: actor mutation timeout"); quit(1))
-	data = load("res://runtime/scripts/RuntimeData.gd")
-	codec = load("res://runtime/scripts/SaveCodec.gd")
+	data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	codec = load("res://runtime/scripts/10_Support/Persistence/SaveCodec.gd")
 	state = root.get_node("RuntimeState")
 	var cached: Dictionary = data._cache.duplicate(true)
 	var fixture := make_fixture()
@@ -78,7 +129,7 @@ func run() -> void:
 	expect(actor.hp == 10, "raising cap never heals")
 	actor.name = "成长测试"
 	expect(actor.actor_name == "成长测试" and state.rename_actor(1, "原生角色").ok, "native name alias and registry rename")
-	var resources: Script = load("res://runtime/scripts/UIResources.gd")
+	var resources: Script = load("res://runtime/scripts/04_UI_Common/UIResources.gd")
 	resources._textures["Graphics/Characters/__actor_test__"] = ImageTexture.create_from_image(Image.create(128, 128, false, Image.FORMAT_RGBA8))
 	expect(state.set_actor_graphic(1, "__actor_test__", 120).ok and actor.character_hue == 120, "shared graphic + hue validation")
 	expect(not state.set_actor_graphic(1, "__actor_missing__", 0).ok and actor.character_name == "__actor_test__", "missing graphic cannot partly replace identity")
@@ -121,7 +172,7 @@ func run() -> void:
 	expect(state.actor(1).atk_plus == 0 and state.actor(1).actor_name == "测试角色", "initialized rejoin resets all mutations")
 	var broken: Dictionary = fixture.Actors[1].duplicate(true)
 	broken.parameters.values[3 * 6] = "bad"
-	var detached: RefCounted = load("res://runtime/scripts/ActorState.gd").new()
+	var detached: RefCounted = load("res://runtime/scripts/00_Game/ActorState.gd").new()
 	detached.configure(1, broken, data.record)
 	before = detached.persistent_data()
 	expect(not detached.set_level(3).ok and detached.persistent_data() == before, "missing target level parameters reject growth without partial updates")
@@ -151,7 +202,7 @@ func test_scrolling(fixture: Dictionary) -> void:
 		state.inventory["item:%d" % id] = 1
 		goods.append([0, id])
 		actor.learn_skill(id)
-	var shop: Control = load("res://runtime/scripts/ShopScene.gd").new()
+	var shop: Control = load("res://runtime/scripts/08_Menu/Shop/ShopScene.gd").new()
 	shop.goods = goods
 	root.add_child(shop)
 	shop.activate()
@@ -171,14 +222,14 @@ func test_scrolling(fixture: Dictionary) -> void:
 	shop.navigate(-1)
 	expect(row > 0 and shop._list.scroll_row == row, "sell retains viewport on upward cursor movement")
 	shop.queue_free()
-	var inventory: Control = load("res://runtime/scripts/InventoryScene.gd").new()
+	var inventory: Control = load("res://runtime/scripts/08_Menu/Item/InventoryScene.gd").new()
 	root.add_child(inventory)
 	for _i in 15: inventory.navigate(1)
 	row = inventory._selection.scroll_row
 	inventory.navigate(-1)
 	expect(row > 0 and inventory._selection.scroll_row == row, "inventory retained viewport across rebuild")
 	inventory.queue_free()
-	var skills: Control = load("res://runtime/scripts/SkillScene.gd").new()
+	var skills: Control = load("res://runtime/scripts/08_Menu/Skill/SkillScene.gd").new()
 	skills.actor_id = 1
 	root.add_child(skills)
 	for _i in 15: skills.navigate(1)
@@ -204,7 +255,7 @@ func test_real_interface() -> void:
 	state.resume_from_save = true
 	var actor_id := int(state.party[0])
 	var actor: RefCounted = state.actor(actor_id)
-	var game: Node = load("res://scenes/Game.tscn").instantiate()
+	var game: Node = load("res://scenes/03_Map/Game.tscn").instantiate()
 	root.add_child(game)
 	current_scene = game
 	await frames(3)
@@ -245,7 +296,7 @@ func test_real_interface() -> void:
 		menu.handle_back()
 	await press(KEY_ESCAPE)
 	expect(menu.page == "menu", "hub returns to original command menu")
-	var saves: Script = load("res://runtime/scripts/SaveService.gd")
+	var saves: Script = load("res://runtime/scripts/10_Support/Persistence/SaveService.gd")
 	saves.directory_override = ProjectSettings.globalize_path("res://.godot/actor_mutation_%d" % Time.get_ticks_usec())
 	expect(saves.save_slot(1, state).ok, "file save accepts real new actor mutation data")
 	var expected: Dictionary = codec.capture(state)
@@ -260,7 +311,7 @@ func test_real_interface() -> void:
 	expect(loaded.ok and JSON.stringify(restored, "", true) == JSON.stringify(expected, "", true), "file load restores actor mutations without regrant")
 	# Graphic changes must update the retained map player, not just a menu snapshot.
 	var graphic: String = state.actor(actor_id).character_name
-	if not graphic.is_empty() and load("res://runtime/scripts/UIResources.gd").texture("Graphics/Characters/" + graphic) != null:
+	if not graphic.is_empty() and load("res://runtime/scripts/04_UI_Common/UIResources.gd").texture("Graphics/Characters/" + graphic) != null:
 		expect(state.set_actor_graphic(actor_id, graphic, 120).ok and game._player.material is ShaderMaterial, "map player observes shared runtime hue immediately")
 	await press(KEY_ESCAPE)
 	expect(game._map.get_instance_id() == identity and Vector2i(state.player_x, state.player_y) == position_before and game._player.facing == facing and not paused, "mutations/menu roundtrip retain original map coordinates/facing")
@@ -268,7 +319,7 @@ func test_real_interface() -> void:
 	current_scene = null
 	await frames(3)
 	state.begin_new_game(system, {"enabled": false})
-	menu = load("res://scenes/Menu.tscn").instantiate()
+	menu = load("res://scenes/08_Menu/Menu.tscn").instantiate()
 	root.add_child(menu)
 	menu.open_test_tools()
 	menu.open_actor_tools()

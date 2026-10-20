@@ -1,3 +1,33 @@
+## 职责：回归验证：验证素材分类查询、缓存共享及实例材质隔离。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_source_catalog() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_fixture() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func expect(condition: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 condition（bool；必填）：是否创建须返回布尔值的脚本条件模板。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 var failures: Array[String] = []
 var checks := 0
@@ -11,9 +41,9 @@ func _initialize() -> void:
 
 
 func run() -> void:
-	cache = load("res://runtime/scripts/RmxpCache.gd")
-	data = load("res://runtime/scripts/RuntimeData.gd")
-	resources = load("res://runtime/scripts/UIResources.gd")
+	cache = load("res://runtime/scripts/10_Support/Cache/RmxpCache.gd")
+	data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	resources = load("res://runtime/scripts/04_UI_Common/UIResources.gd")
 	if cache == null or not cache.can_instantiate():
 		printerr("FAIL: graphics cache did not compile")
 		quit(1)
@@ -103,9 +133,10 @@ func test_fixture() -> void:
 		expect(cache.asset_key("Pictures", name).is_empty() and cache.picture(name) == null, "reject cross-category or malformed name: " + name.replace("\n", "[newline]"))
 	expect(not cache.exists("Pictures", "不存在") and not cache.exists("Pictures", "同名"), "missing indexed file query fails without loading")
 	var categories: Array = cache.categories()
+	var category_snapshot: Array = categories.duplicate()
 	categories.clear()
 	names.clear()
-	expect(cache.categories().size() == 13 and cache.list_names("Pictures").size() == 5, "returned arrays do not mutate catalog")
+	expect(cache.categories() == category_snapshot and category_snapshot.has("Faces") and category_snapshot.has("Skills") and cache.list_names("Pictures").size() == 5, "returned arrays do not mutate the current catalog including faces and skill graphics")
 	var retained := Sprite2D.new()
 	retained.texture = picture
 	cache.clear()

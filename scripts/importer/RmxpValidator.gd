@@ -1,3 +1,18 @@
+## 职责：预检 RM 源工程、必需数据和输出路径，为正式迁移建立经过校验的输入。
+##
+## 调用方式：
+##   实例接口：先用 preload("res://scripts/importer/RmxpValidator.gd").new(...) 构造，再调用下列方法。
+##
+## 调用接口：
+##   func preflight(source_path: String, export_root: String, requested_encoding: int) -> Dictionary
+##     用途：检查原工程和输出目录并建立正式迁移输入。
+##     参数 source_path（String；必填）：原工程或原文件的只读来源路径。
+##     参数 export_root（String；必填）：已生成工程的根目录。
+##     参数 requested_encoding（int；必填）：用户指定的原工程文本编码。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+## 接口说明结束。
+
 class_name RmxpValidator
 extends RefCounted
 
@@ -17,7 +32,11 @@ func preflight(source_path: String, export_root: String, requested_encoding: int
 
 	for relative in ["Game.rxproj", "Game.ini", "Data", "Data/System.rxdata"]:
 		var absolute := source_path.path_join(relative)
-		var exists := DirAccess.dir_exists_absolute(absolute) if relative == "Data" else FileAccess.file_exists(absolute)
+		var exists := (
+			DirAccess.dir_exists_absolute(absolute)
+			if relative == "Data"
+			else FileAccess.file_exists(absolute)
+		)
 		if not exists:
 			errors.append("缺少 RMXP 必需项目：%s" % relative)
 	if not errors.is_empty():
@@ -32,9 +51,16 @@ func preflight(source_path: String, export_root: String, requested_encoding: int
 		messages.append("[color=#f7d37b]Game.ini 未提供标题，使用目录名：%s[/color]" % title)
 	var proposed_name := _safe_project_name(title) + "_Godot"
 	var output_path := export_root.path_join(proposed_name)
-	var normalized_source := source_path.replace("\\", "/").simplify_path().trim_suffix("/").to_lower()
-	var normalized_output := output_path.replace("\\", "/").simplify_path().trim_suffix("/").to_lower()
-	if normalized_output == normalized_source or normalized_output.begins_with(normalized_source + "/"):
+	var normalized_source := (
+		source_path.replace("\\", "/").simplify_path().trim_suffix("/").to_lower()
+	)
+	var normalized_output := (
+		output_path.replace("\\", "/").simplify_path().trim_suffix("/").to_lower()
+	)
+	if (
+		normalized_output == normalized_source
+		or normalized_output.begins_with(normalized_source + "/")
+	):
 		errors.append("导出位置不能位于源工程内部，源工程必须保持只读。")
 	if FileAccess.file_exists(output_path):
 		errors.append("目标路径已被文件占用：%s" % output_path)
@@ -60,21 +86,34 @@ func preflight(source_path: String, export_root: String, requested_encoding: int
 		messages.append("[color=#f7d37b]未发现 MapInfos.rxdata，地图层级名称将不可用。[/color]")
 	messages.append("编码：%s" % codec.label())
 	messages.append("工程标题：%s" % title)
-	messages.append("数据文件：%d；地图：%d；图像：%d；音频：%d；脚本镜像文件：%d" % [database_files.size(), map_files.size(), graphics_count, audio_count, script_mirror_count])
+	messages.append(
+		(
+			"数据文件：%d；地图：%d；图像：%d；音频：%d；脚本镜像文件：%d"
+			% [
+				database_files.size(),
+				map_files.size(),
+				graphics_count,
+				audio_count,
+				script_mirror_count
+			]
+		)
+	)
 
 	var result := _result(errors.is_empty(), messages, errors)
-	result.merge({
-		"source_path": source_path,
-		"export_root": export_root,
-		"output_path": output_path,
-		"project_title": title,
-		"encoding": codec.codepage,
-		"ini": ini,
-		"map_files": map_files,
-		"database_files": database_files,
-		"graphics_count": graphics_count,
-		"audio_count": audio_count
-	})
+	result.merge(
+		{
+			"source_path": source_path,
+			"export_root": export_root,
+			"output_path": output_path,
+			"project_title": title,
+			"encoding": codec.codepage,
+			"ini": ini,
+			"map_files": map_files,
+			"database_files": database_files,
+			"graphics_count": graphics_count,
+			"audio_count": audio_count
+		}
+	)
 	return result
 
 
@@ -88,7 +127,7 @@ func _result(ok: bool, messages: Array[String], errors: Array[String] = []) -> D
 
 func _safe_project_name(value: String) -> String:
 	var name := value.strip_edges()
-	for illegal in ["\\", "/", ":", "*", "?", "\"", "<", ">", "|"]:
+	for illegal in ["\\", "/", ":", "*", "?", '"', "<", ">", "|"]:
 		name = name.replace(illegal, "_")
 	while name.ends_with(".") or name.ends_with(" "):
 		name = name.left(name.length() - 1)

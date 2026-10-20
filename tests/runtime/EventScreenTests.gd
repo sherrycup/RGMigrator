@@ -1,3 +1,68 @@
+## 职责：回归验证：验证屏幕事件参数、时间线、天气与存档恢复。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func parameters_and_atomicity() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func timelines() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func weather_and_saves() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func integration() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func c(code: int, p: Array = []) -> Dictionary
+##     参数 code（int；必填）：对应指令、按键或操作的编码。
+##     参数 p（Array；默认值 []）：对应事件指令的参数数组。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func tone(red: float, green: float, blue: float, gray: float) -> Dictionary
+##     参数 red（float；必填）：红色通道值。
+##     参数 green（float；必填）：绿色通道值。
+##     参数 blue（float；必填）：蓝色通道值。
+##     参数 gray（float；必填）：色调的灰度分量。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func color(red: float, green: float, blue: float, alpha: float) -> Dictionary
+##     参数 red（float；必填）：红色通道值。
+##     参数 green（float；必填）：绿色通道值。
+##     参数 blue（float；必填）：蓝色通道值。
+##     参数 alpha（float；必填）：颜色或图像的透明分量。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func frames(count: int) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(value: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 value（bool；必填）：需要读取、校验或写入的值。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 var failures: Array[String] = []
 var checks := 0
@@ -10,9 +75,9 @@ func _initialize() -> void: call_deferred("run")
 
 func run() -> void:
 	state = root.get_node("RuntimeState")
-	data = load("res://runtime/scripts/RuntimeData.gd")
-	interpreter_script = load("res://runtime/scripts/EventInterpreter.gd")
-	catalog = load("res://runtime/scripts/EventCommandCatalog.gd")
+	data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	interpreter_script = load("res://runtime/scripts/02_Event/EventInterpreter.gd")
+	catalog = load("res://runtime/scripts/02_Event/EventCommandCatalog.gd")
 	state.begin_new_game(data.system())
 	parameters_and_atomicity()
 	timelines()
@@ -62,7 +127,7 @@ func parameters_and_atomicity() -> void:
 
 func timelines() -> void:
 	for rate in [30, 40, 60, 120]:
-		state.screen = load("res://runtime/scripts/ScreenState.gd").new()
+		state.screen = load("res://runtime/scripts/00_Game/ScreenState.gd").new()
 		var owner: RefCounted = interpreter_script.new()
 		state.set_event_variable(41, -100); state.set_event_variable(42, 80)
 		var commands := [c(231, [1, "@test_picture", 0, 0, 100, 40, 100, 100, 255, 0]),
@@ -106,7 +171,7 @@ func timelines() -> void:
 func weather_and_saves() -> void:
 	state.begin_new_game(data.system())
 	state.screen.weather(3, 9, 2); state.screen.advance(0.5)
-	var codec: Script = load("res://runtime/scripts/SaveCodec.gd")
+	var codec: Script = load("res://runtime/scripts/10_Support/Persistence/SaveCodec.gd")
 	var saved: Dictionary = codec.capture(state)
 	expect(saved.screen.has("weather") and not saved.map_effects.has("weather_type"), "save has one screen-owned weather state")
 	var parsed: Dictionary = codec.prepare(JSON.parse_string(JSON.stringify(saved)))
@@ -139,11 +204,11 @@ func weather_and_saves() -> void:
 
 func integration() -> void:
 	state.begin_new_game(data.system()); state.resume_from_save = true
-	var game: Node = load("res://scenes/Game.tscn").instantiate()
+	var game: Node = load("res://scenes/03_Map/Game.tscn").instantiate()
 	root.add_child(game); current_scene = game
 	await frames(3)
 	game.reset_event_execution()
-	var fixture: Dictionary = load("res://runtime/scripts/MovementFixture.gd").build()
+	var fixture: Dictionary = load("res://runtime/scripts/11_Development/MovementFixture.gd").build()
 	game._map.load_definition(fixture.map, fixture.tileset)
 	game._events_enabled = true
 	for node in [game, game._map, game._player, game._camera, game._screen_renderer, game._effects, game._transition]: node.set_process(false)

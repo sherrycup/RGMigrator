@@ -1,3 +1,35 @@
+## 职责：回归验证：验证自定义数据运行覆盖、脚本访问及存档恢复。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func execute(name: String,state: Node,env: RefCounted) -> Dictionary
+##     用途：执行该脚本或已准备的操作。
+##     参数 name（String；必填）：对象、资源或字段名称。
+##     参数 state（Node；必填）：正式游戏运行状态；沿用现有 RuntimeState 实例。
+##     参数 env（RefCounted；必填）：当前脚本调用共享的 ScriptSemantics 会话。
+##     返回：结果字典；ok 表示成功与否，失败原因及其他数据按实际返回分支提供。
+##
+##   func expect(value: bool,message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 value（bool；必填）：需要读取、校验或写入的值。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 接口说明结束。
+
 extends SceneTree
 var checks=0
 var failures: Array[String]=[]
@@ -12,10 +44,10 @@ class FloorGame extends Node:
 func _init() -> void: call_deferred("run")
 func run() -> void:
 	var state: Node=root.get_node("RuntimeState")
-	var data: Script=load("res://runtime/scripts/RuntimeData.gd")
-	var runtime: Script=load("res://runtime/scripts/ScriptRuntime.gd")
-	var decimal: Script=load("res://runtime/scripts/DecimalInteger.gd")
-	var codec: Script=load("res://runtime/scripts/SaveCodec.gd")
+	var data: Script=load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	var runtime: Script=load("res://runtime/scripts/10_Support/Scripting/ScriptRuntime.gd")
+	var decimal: Script=load("res://runtime/scripts/10_Support/Utilities/DecimalInteger.gd")
+	var codec: Script=load("res://runtime/scripts/10_Support/Persistence/SaveCodec.gd")
 	state.begin_new_game(data.system(),{"enabled":false})
 	for source_unit in data.read_json("res://data/custom_units.json",{"units":{}}).units.values():
 		var compiled: Script=load(source_unit.generated_path)
@@ -90,7 +122,7 @@ func run() -> void:
 		expect(not codec.prepare(corrupt).ok,"unknown currency in save is rejected before restore")
 		corrupt=saved.duplicate(true); corrupt.custom_data.actors["1"]=[]
 		expect(not codec.prepare(corrupt).ok,"malformed custom actor state is rejected before restore")
-	var menu: Control=load("res://runtime/scripts/MenuScene.gd").new(); root.add_child(menu); await process_frame
+	var menu: Control=load("res://runtime/scripts/08_Menu/Main/MenuScene.gd").new(); root.add_child(menu); await process_frame
 	menu.show_currency_details()
 	expect(menu._data_details.get_node("Data").text.contains(str(state.gold)),"menu currency detail reads the committed exact balance")
 	if state.custom_data.manifest.profile=="flash": expect("\n".join(menu._attribute_lines(state.custom_actor_attributes(2))).contains("物攻：37"),"menu attribute labels read the committed original actor field")

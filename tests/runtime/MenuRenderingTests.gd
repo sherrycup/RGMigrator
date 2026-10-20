@@ -1,3 +1,95 @@
+## 职责：回归验证：验证菜单动画、人物图形和屏幕布局的实际像素。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func run_suite() -> void
+##     用途：执行本脚本组织的回归检查。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func check_source_animation(data: Script) -> void
+##     参数 data（Script；必填）：待读取、转换或恢复的数据。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func check_character_graphics() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func check_screen_pixels() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func benchmark() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func prepare_benchmark_walk() -> bool
+##     参数：无。
+##     返回：布尔结果；true/false 的条件以本方法的判断逻辑为准。
+##
+##   func safe_walk_cell(map: Node, cell: Vector2i) -> bool
+##     参数 map（Node；必填）：当前接口使用的地图数据或地图对象。
+##     参数 cell（Vector2i；必填）：图块、动画或表格的单元记录。
+##     返回：布尔结果；true/false 的条件以本方法的判断逻辑为准。
+##
+##   func request_benchmark_menu(iteration: int) -> void
+##     参数 iteration（int；必填）：当前测试或循环轮次。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func advance_benchmark_walk() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func benchmark_uncapped() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func percentile(values: Array[float], fraction: float) -> float
+##     参数 values（Array[float]；必填）：待处理的一组值。
+##     参数 fraction（float；必填）：当前进度在一个完整周期中的比例。
+##     返回：数值结果；编号、单位与计算含义由本接口用途决定。
+##
+##   func benchmark_page(iteration: int) -> void
+##     参数 iteration（int；必填）：当前测试或循环轮次。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func resource_counts() -> Dictionary
+##     参数：无。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func capture(name: String, resolution: Vector2i) -> void
+##     参数 name（String；必填）：对象、资源或字段名称。
+##     参数 resolution（Vector2i；必填）：绘制或采样分辨率。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func render_frames(count: int) -> void
+##     用途：等待指定数量的真实渲染帧。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(condition: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 condition（bool；必填）：是否创建须返回布尔值的脚本条件模板。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 接口说明结束。
+
 extends SceneTree
 
 var failures: Array[String] = []
@@ -30,16 +122,16 @@ func run_suite() -> void:
 		return
 	create_timer(240.0).timeout.connect(func() -> void: printerr("FAIL: menu rendering timeout"); quit(1))
 	DirAccess.make_dir_recursive_absolute(capture_directory)
-	load("res://runtime/scripts/SaveService.gd").directory_override = capture_directory.path_join("disposable-saves")
+	load("res://runtime/scripts/10_Support/Persistence/SaveService.gd").directory_override = capture_directory.path_join("disposable-saves")
 	Engine.max_fps = 60
-	var data := load("res://runtime/scripts/RuntimeData.gd")
+	var data := load("res://runtime/scripts/00_Game/RuntimeData.gd")
 	var system: Dictionary = data.system().duplicate(true)
 	if FileAccess.file_exists("res://data/maps/Map585.json"):
 		system.start_map_id = 585
 		system.start_x = 13
 		system.start_y = 6
 	data._cache["res://data/system.json"] = system
-	var title: Node = load("res://scenes/Title.tscn").instantiate()
+	var title: Node = load("res://scenes/05_Title/Title.tscn").instantiate()
 	root.add_child(title)
 	current_scene = title
 	await render_frames(3)
@@ -204,7 +296,7 @@ func run_suite() -> void:
 		menu.open_test_shop()
 		shop = menu._commerce
 		for definition in data.database("Items"):
-			if definition is Dictionary and int(definition.get("id", 0)) > 0 and load("res://runtime/scripts/ShopService.gd").catalog([[0, int(definition.id)]]).ok:
+			if definition is Dictionary and int(definition.get("id", 0)) > 0 and load("res://runtime/scripts/08_Menu/Shop/ShopService.gd").catalog([[0, int(definition.id)]]).ok:
 				shop.goods.append([0, int(definition.id)])
 				if shop.goods.size() >= 32: break
 		shop.refresh()
@@ -353,7 +445,7 @@ func run_suite() -> void:
 
 func check_source_animation(data: Script) -> void:
 	var definitions: Array = data.database("Animations")
-	var decoder: Script = load("res://runtime/scripts/RmxpAnimationData.gd")
+	var decoder: Script = load("res://runtime/scripts/09_Effects/RmxpAnimationData.gd")
 	for definition in definitions:
 		if not definition is Dictionary or str(definition.get("animation_name", "")).is_empty():
 			continue
@@ -373,7 +465,7 @@ func check_source_animation(data: Script) -> void:
 
 
 func check_character_graphics() -> void:
-	var resources := load("res://runtime/scripts/UIResources.gd")
+	var resources := load("res://runtime/scripts/04_UI_Common/UIResources.gd")
 	var source := Image.create(128, 128, false, Image.FORMAT_RGBA8)
 	for y in 4:
 		for x in 4:
@@ -384,7 +476,7 @@ func check_character_graphics() -> void:
 	viewport.size = Vector2i(32, 32)
 	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	root.add_child(viewport)
-	var character: TextureRect = load("res://runtime/scripts/CharacterSprite.gd").new()
+	var character: TextureRect = load("res://runtime/scripts/03_Map/CharacterSprite.gd").new()
 	character.size = Vector2(32, 32)
 	viewport.add_child(character)
 	character.call("configure", "__test__", 0, 8, 3)
@@ -402,8 +494,8 @@ func check_character_graphics() -> void:
 
 func check_screen_pixels() -> void:
 	var state: Node = root.get_node("RuntimeState")
-	var screen_script: Script = load("res://runtime/scripts/ScreenState.gd")
-	var resources: Script = load("res://runtime/scripts/UIResources.gd")
+	var screen_script: Script = load("res://runtime/scripts/00_Game/ScreenState.gd")
+	var resources: Script = load("res://runtime/scripts/04_UI_Common/UIResources.gd")
 	var previous: RefCounted = state.screen
 	state.screen = screen_script.new()
 	# Isolate compositing from source artwork; still use the actual OpenGL renderer.
@@ -423,7 +515,7 @@ func check_screen_pixels() -> void:
 	marker.size = Vector2(8, 8)
 	marker.color = Color.YELLOW
 	viewport.add_child(marker)
-	var renderer: Node = load("res://runtime/scripts/ScreenRenderer.gd").new()
+	var renderer: Node = load("res://runtime/scripts/03_Map/ScreenRenderer.gd").new()
 	renderer.camera = camera
 	viewport.add_child(renderer)
 	var ui_layer := CanvasLayer.new()
@@ -694,7 +786,7 @@ func benchmark_page(iteration: int) -> void:
 		menu.navigate(-1)
 		menu.activate()
 		menu.activate()
-		var setup: Dictionary = load("res://runtime/scripts/RuntimeData.gd").test_config()
+		var setup: Dictionary = load("res://runtime/scripts/00_Game/RuntimeData.gd").test_config()
 		menu._commerce._selection_id = int(setup.learn_skills[0])
 		menu._commerce.refresh()
 		if iteration % 10 == 4:

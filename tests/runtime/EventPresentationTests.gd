@@ -1,3 +1,81 @@
+## 职责：回归验证：验证地图、系统与音频演出事件参数及持久化。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func fixtures() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func parameters() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func skin_and_map() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func audio_commands() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func save_contract() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func integration() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func execute(commands: Array) -> Dictionary
+##     用途：执行该脚本或已准备的操作。
+##     参数 commands（Array；必填）：保持原顺序的事件指令列表。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func c(code: int, p: Array = []) -> Dictionary
+##     参数 code（int；必填）：对应指令、按键或操作的编码。
+##     参数 p（Array；默认值 []）：对应事件指令的参数数组。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func audio(volume: int = 100, pitch: int = 100) -> Dictionary
+##     参数 volume（int；默认值 100）：音频音量参数。
+##     参数 pitch（int；默认值 100）：音频音调参数。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func tone(r: float, g: float, b: float, gray: float) -> Dictionary
+##     参数 r（float；必填）：红色通道或当前测试记录，类型见签名。
+##     参数 g（float；必填）：绿色通道值。
+##     参数 b（float；必填）：第二个操作数或参与比较的值。
+##     参数 gray（float；必填）：色调的灰度分量。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func frames(count: int) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(value: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 value（bool；必填）：需要读取、校验或写入的值。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 var failures: Array[String] = []
 var checks := 0
@@ -12,9 +90,9 @@ func _initialize() -> void: call_deferred("run")
 
 func run() -> void:
 	state = root.get_node("RuntimeState")
-	data = load("res://runtime/scripts/RuntimeData.gd")
-	catalog = load("res://runtime/scripts/EventCommandCatalog.gd")
-	interpreter = load("res://runtime/scripts/EventInterpreter.gd")
+	data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	catalog = load("res://runtime/scripts/02_Event/EventCommandCatalog.gd")
+	interpreter = load("res://runtime/scripts/02_Event/EventInterpreter.gd")
 	state.begin_new_game(data.system())
 	fixtures()
 	parameters()
@@ -66,7 +144,7 @@ func parameters() -> void:
 
 func skin_and_map() -> void:
 	var definitions: Dictionary = data.system().duplicate(true)
-	var window: Control = load("res://runtime/scripts/WindowBase.gd").new()
+	var window: Control = load("res://runtime/scripts/04_UI_Common/WindowBase.gd").new()
 	root.add_child(window)
 	window.label("Keep content", Rect2(0, 0, 150, 30))
 	window.select_rect(Rect2(0, 0, 100, 32))
@@ -89,7 +167,7 @@ func skin_and_map() -> void:
 		expect(is_equal_approx(state.map_effects.data.fog_tone[0], -40) and is_equal_approx(state.map_effects.data.fog_opacity, 150), "fog halfway at FPS%d" % rate)
 		for step in int(rate / 2): state.map_effects.advance(1.0 / rate)
 		expect(state.map_effects.data.fog_tone_remaining == 0 and state.map_effects.data.fog_opacity == 200, "fog endpoints at FPS%d" % rate)
-		var view: RefCounted = load("res://runtime/scripts/MapViewState.gd").new()
+		var view: RefCounted = load("res://runtime/scripts/00_Game/MapViewState.gd").new()
 		view.advance(0, Vector2(320, 240), Vector2(1600, 1200), Vector2(640, 480), true)
 		expect(view.scroll_native(6, 5, 4, Vector2(1600, 1200), Vector2(640, 480)).ok, "native scroll starts")
 		for step in int(rate / 2): view.advance(1.0 / rate, Vector2(320, 240), Vector2(1600, 1200), Vector2(640, 480))
@@ -102,14 +180,14 @@ func skin_and_map() -> void:
 		view.display.x = 940; view.scroll_native(6, 5, 4, Vector2(1600, 1200), Vector2(640, 480))
 		view.advance(0.1, Vector2(288, 240), Vector2(1600, 1200), Vector2(640, 480))
 		expect(is_equal_approx(view.display.x, 956), "edge scroll keeps native speed rather than stretching clipped distance")
-	var moving_view: RefCounted = load("res://runtime/scripts/MapViewState.gd").new()
+	var moving_view: RefCounted = load("res://runtime/scripts/00_Game/MapViewState.gd").new()
 	moving_view.advance(0, Vector2(320, 240), Vector2(1600, 1200), Vector2(640, 480), true)
 	moving_view.scroll_native(6, 5, 4, Vector2(1600, 1200), Vector2(640, 480))
 	moving_view.advance(0.25, Vector2(400, 240), Vector2(1600, 1200), Vector2(640, 480))
 	var moving_start: float = moving_view.display.x
 	moving_view.advance(0.25, Vector2(400, 240), Vector2(1600, 1200), Vector2(640, 480))
 	expect(is_equal_approx(moving_view.display.x - moving_start, 40), "player movement cannot change native scroll velocity")
-	var restored_view: Dictionary = load("res://runtime/scripts/MapViewState.gd").decode(moving_view.snapshot())
+	var restored_view: Dictionary = load("res://runtime/scripts/00_Game/MapViewState.gd").decode(moving_view.snapshot())
 	expect(restored_view.ok and restored_view.value.native_velocity == Vector2(160, 0), "native scroll velocity survives snapshot")
 	result = execute([c(131, [""]), c(0)])
 	expect(state.windowskin_name().is_empty() and window._skin_root.get_child_count() == 0, "explicit empty skin clears frame")
@@ -156,7 +234,7 @@ func audio_commands() -> void:
 	await frames(2)
 
 func save_contract() -> void:
-	var codec: Script = load("res://runtime/scripts/SaveCodec.gd")
+	var codec: Script = load("res://runtime/scripts/10_Support/Persistence/SaveCodec.gd")
 	state.set_windowskin("@skin")
 	state.audio.play("BGM", audio(80, 120), 2.5)
 	state.audio.memorize(); state.audio.fade_out("BGM", 4); state.audio._process(1)
@@ -184,14 +262,14 @@ func save_contract() -> void:
 
 func integration() -> void:
 	state.resume_from_save = true
-	var game: Node = load("res://scenes/Game.tscn").instantiate()
+	var game: Node = load("res://scenes/03_Map/Game.tscn").instantiate()
 	root.add_child(game); current_scene = game; await frames(3)
 	game.reset_event_execution()
-	var fixture: Dictionary = load("res://runtime/scripts/MovementFixture.gd").build()
+	var fixture: Dictionary = load("res://runtime/scripts/11_Development/MovementFixture.gd").build()
 	game._map.load_definition(fixture.map, fixture.tileset)
 	for node in [game, game._map, game._player, game._camera, game._screen_renderer, game._effects]: node.set_process(false)
 	for event in game._map.event_contexts(): event.node.set_process(false)
-	state.map_view = load("res://runtime/scripts/MapViewState.gd").new()
+	state.map_view = load("res://runtime/scripts/00_Game/MapViewState.gd").new()
 	game._camera.model = state.map_view; game._camera.sync(0, true)
 	var owner: RefCounted = interpreter.new(); owner.map_runtime = game._map
 	owner.start([c(203, [6, 1, 4]), c(203, [8, 1, 4]), c(122, [98, 98, 0, 0, 3]), c(0)], 7)

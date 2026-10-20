@@ -1,3 +1,65 @@
+## 职责：回归验证：验证窗口皮肤、地图显示和音频演出的实际渲染。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func skin() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func commands(list: Array) -> void
+##     参数 list（Array；必填）：待编辑或处理的有序记录列表。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func refresh() -> void
+##     用途：按当前状态刷新显示或缓存。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func frames(count: int) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func pixel(point: Vector2i) -> Color
+##     参数 point（Vector2i；必填）：位置或几何点。
+##     返回：Color 类型的对象或值，供调用方继续使用。
+##
+##   func capture(name: String) -> void
+##     参数 name（String；必填）：对象、资源或字段名称。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func changed_pixels(before: Image, after: Image) -> int
+##     参数 before（Image；必填）：操作前的状态或比较基准。
+##     参数 after（Image；必填）：操作后状态或比较目标。
+##     返回：数值结果；编号、单位与计算含义由本接口用途决定。
+##
+##   func c(code: int, p: Array = []) -> Dictionary
+##     参数 code（int；必填）：对应指令、按键或操作的编码。
+##     参数 p（Array；默认值 []）：对应事件指令的参数数组。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func expect(value: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 value（bool；必填）：需要读取、校验或写入的值。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 var failures: Array[String] = []
 var checks := 0
@@ -16,7 +78,7 @@ func run() -> void:
 	if DisplayServer.get_name() == "headless": printerr("FAIL: actual renderer required"); quit(1); return
 	create_timer(60).timeout.connect(func() -> void: printerr("FAIL: presentation render timeout"); quit(1))
 	DirAccess.make_dir_recursive_absolute(captures)
-	state = root.get_node("RuntimeState"); data = load("res://runtime/scripts/RuntimeData.gd")
+	state = root.get_node("RuntimeState"); data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
 	var index: Dictionary = data.read_json("res://data/asset_index.json")
 	var original := index.duplicate(true)
 	var image := Image.create(192, 128, false, Image.FORMAT_RGBA8)
@@ -31,14 +93,14 @@ func run() -> void:
 	for resolution in [Vector2i(640, 480), Vector2i(800, 480), Vector2i(768, 768)]:
 		size = resolution; root.content_scale_size = size; DisplayServer.window_set_size(size)
 		state.begin_new_game(data.system()); state.resume_from_save = true
-		game = load("res://scenes/Game.tscn").instantiate(); root.add_child(game); current_scene = game
+		game = load("res://scenes/03_Map/Game.tscn").instantiate(); root.add_child(game); current_scene = game
 		await frames(3); game.reset_event_execution()
-		var fixture: Dictionary = load("res://runtime/scripts/MovementFixture.gd").build()
+		var fixture: Dictionary = load("res://runtime/scripts/11_Development/MovementFixture.gd").build()
 		fixture.map.width = 48; fixture.map.height = 36; fixture.map.events = {}
 		var values: Array = []; values.resize(48 * 36 * 3); values.fill(0)
 		for y in 36:
 			for x in 48: values[x + y * 48] = 384 + x % 6
-		fixture.map.data = load("res://runtime/scripts/MovementFixture.gd").table(values, 48, 36, 3)
+		fixture.map.data = load("res://runtime/scripts/11_Development/MovementFixture.gd").table(values, 48, 36, 3)
 		game._map.load_definition(fixture.map, fixture.tileset)
 		for node in [game, game._map, game._player, game._camera, game._screen_renderer, game._effects]: node.set_process(false)
 		game._player.move_to(4, 8); game._camera.sync(0, true)
@@ -81,7 +143,7 @@ func run() -> void:
 
 func skin() -> void:
 	var layer := CanvasLayer.new(); layer.layer = 10; game.add_child(layer)
-	var window: Control = load("res://runtime/scripts/WindowBase.gd").new()
+	var window: Control = load("res://runtime/scripts/04_UI_Common/WindowBase.gd").new()
 	layer.add_child(window); window.position = Vector2(20, 20); window.size = Vector2(240, 140)
 	window.label("Skin", Rect2(0, 0, 100, 24)); window.select_rect(Rect2(0, 30, 100, 28))
 	commands([c(131, ["@render_skin"])]); await refresh()
@@ -97,7 +159,7 @@ func skin() -> void:
 	layer.queue_free(); await frames(2)
 
 func commands(list: Array) -> void:
-	var owner: RefCounted = load("res://runtime/scripts/EventInterpreter.gd").new(); owner.map_runtime = game._map
+	var owner: RefCounted = load("res://runtime/scripts/02_Event/EventInterpreter.gd").new(); owner.map_runtime = game._map
 	owner.diagnostic_requested.connect(func(message: String) -> void: failures.append(message))
 	owner.start(list + [c(0)], 1)
 	expect(not owner.running, "native event command continues without artificial waiting")

@@ -1,3 +1,50 @@
+## 职责：回归验证：验证角色事件及菜单场景切换的实际渲染。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func commands(list: Array) -> void
+##     参数 list（Array；必填）：待编辑或处理的有序记录列表。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func frames(count: int) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func c(code: int, p: Array = []) -> Dictionary
+##     参数 code（int；必填）：对应指令、按键或操作的编码。
+##     参数 p（Array；默认值 []）：对应事件指令的参数数组。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func capture(name: String) -> void
+##     参数 name（String；必填）：对象、资源或字段名称。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func changed_pixels(before: Image, after: Image) -> int
+##     参数 before（Image；必填）：操作前的状态或比较基准。
+##     参数 after（Image；必填）：操作后状态或比较目标。
+##     返回：数值结果；编号、单位与计算含义由本接口用途决定。
+##
+##   func expect(value: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 value（bool；必填）：需要读取、校验或写入的值。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 var failures: Array[String] = []
 var checks := 0
@@ -16,7 +63,7 @@ func run() -> void:
 	if DisplayServer.get_name() == "headless": printerr("FAIL: actual renderer required"); quit(1); return
 	create_timer(60).timeout.connect(func() -> void: printerr("FAIL: actor render timeout"); quit(1))
 	DirAccess.make_dir_recursive_absolute(captures)
-	state = root.get_node("RuntimeState"); data = load("res://runtime/scripts/RuntimeData.gd")
+	state = root.get_node("RuntimeState"); data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
 	var cached: Dictionary = data._cache.duplicate(true)
 	var fixture: Dictionary = load(get_script().resource_path.get_base_dir().path_join("EventActorSceneTests.gd")).definitions()
 	for database in fixture: data._cache["res://data/database/%s.json" % database] = fixture[database]
@@ -30,9 +77,9 @@ func run() -> void:
 		size = resolution; root.content_scale_size = size; DisplayServer.window_set_size(size)
 		var system: Dictionary = data.system().duplicate(true); system.party_members = [1, 2]
 		state.begin_new_game(system, {"enabled": false}); state.resume_from_save = true
-		game = load("res://scenes/Game.tscn").instantiate(); root.add_child(game); current_scene = game
+		game = load("res://scenes/03_Map/Game.tscn").instantiate(); root.add_child(game); current_scene = game
 		await frames(3); game.reset_event_execution()
-		var map_fixture: Dictionary = load("res://runtime/scripts/MovementFixture.gd").build(); map_fixture.map.events = {}
+		var map_fixture: Dictionary = load("res://runtime/scripts/11_Development/MovementFixture.gd").build(); map_fixture.map.events = {}
 		game._map.load_definition(map_fixture.map, map_fixture.tileset); game._scheduler.cancel_all(); game._scheduler.common_events = []
 		game.set_process(false); game._player.move_to(6, 5); game._camera.sync(0, true); game._events_enabled = true
 		await frames(3)

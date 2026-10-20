@@ -1,3 +1,50 @@
+## 职责：回归验证：验证动画、音频和过渡演出的实际图形输出。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func expect(value: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 value（bool；必填）：需要读取、校验或写入的值。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func frames(count: int = 3) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；默认值 3）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func capture(name_value: String, viewport: Viewport = null) -> Image
+##     参数 name_value（String；必填）：待设置的名称文本。
+##     参数 viewport（Viewport；默认值 null）：实际渲染使用的视口实例。
+##     返回：Image 类型的对象或值，供调用方继续使用。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func measure(game: Node) -> void
+##     参数 game（Node；必填）：当前游戏场景实例。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func masked_transition(resolution: Vector2i) -> void
+##     参数 resolution（Vector2i；必填）：绘制或采样分辨率。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+## 接口说明结束。
+
 extends SceneTree
 var failures: Array[String] = []
 var checks := 0
@@ -28,7 +75,7 @@ func run() -> void:
 	DirAccess.make_dir_recursive_absolute(captures)
 	Engine.max_fps = 60
 	var state: Node = root.get_node("RuntimeState")
-	var data: Script = load("res://runtime/scripts/RuntimeData.gd")
+	var data: Script = load("res://runtime/scripts/00_Game/RuntimeData.gd")
 	var system: Dictionary = data.system().duplicate(true)
 	if FileAccess.file_exists("res://data/maps/Map585.json"):
 		system.start_map_id = 585
@@ -36,7 +83,7 @@ func run() -> void:
 		system.start_y = 2
 	state.begin_new_game(system)
 	state.resume_from_save = true
-	var game: Node = load("res://scenes/Game.tscn").instantiate()
+	var game: Node = load("res://scenes/03_Map/Game.tscn").instantiate()
 	root.add_child(game)
 	current_scene = game
 	await frames()
@@ -196,7 +243,7 @@ func masked_transition(resolution: Vector2i) -> void:
 	var mask := Image.create(64, 64, false, Image.FORMAT_RGBA8)
 	mask.fill(Color.WHITE)
 	mask.fill_rect(Rect2i(0, 0, 32, 64), Color.BLACK)
-	load("res://runtime/scripts/UIResources.gd")._textures["Graphics/Transitions/@test_mask"] = ImageTexture.create_from_image(mask)
+	load("res://runtime/scripts/04_UI_Common/UIResources.gd")._textures["Graphics/Transitions/@test_mask"] = ImageTexture.create_from_image(mask)
 	expect(tool.transition.transition(1, "@test_mask", 0).ok, "original-format grayscale mask")
 	tool.transition._process(0.5)
 	await frames()

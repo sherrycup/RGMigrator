@@ -1,14 +1,41 @@
+## 职责：把 RM 数据库和地图对象转换成保留原编号与扩展字段的 JSON 数据。
+##
+## 调用方式：
+##   实例接口：先用 preload("res://scripts/importer/RmxpDataConverter.gd").new(...) 构造，再调用下列方法。
+##
+## 调用接口：
+##   func _init(text_codec: RmxpTextCodec) -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数 text_codec（RmxpTextCodec；必填）：处理原工程文本编码的解码服务。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func set_asset_index(asset_index: Dictionary) -> void
+##     参数 asset_index（Dictionary；必填）：已复制素材的分类与路径索引。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func convert( source_root: String, output_root: String, progress: Callable = Callable(), export_scripts_from_data: bool = true ) -> Dictionary
+##     参数 source_root（String；必填）：只读 RM 源工程的根目录。
+##     参数 output_root（String；必填）：生成工程的输出根目录。
+##     参数 progress（Callable；默认值 Callable()）：接收阶段进度或说明文本的回调。
+##     参数 export_scripts_from_data（bool；默认值 true）：是否从 Scripts.rxdata 导出脚本来源。
+##     返回：结果字典；ok 表示成功与否，失败原因及其他数据按实际返回分支提供。
+##
+## 公开常量：RAW_STRING_KEY。
+## 接口说明结束。
+
 class_name RmxpDataConverter
 extends RefCounted
 
-const EditorScripts = preload("res://templates/editor/addons/rgm_editor/EditorScriptAdapter.gd")
+const EditorScripts = preload(
+	"res://templates/editor/addons/rgm_editor/03_Event/Editor_ScriptAdapter.gd"
+)
 const ScriptInventory = preload("res://scripts/importer/ScriptMigrationInventory.gd")
 
 const RmxpMarshalReader = preload("res://scripts/importer/RmxpMarshalReader.gd")
 const RmxpTableDecoder = preload("res://scripts/importer/RmxpTableDecoder.gd")
 const RmxpTextCodec = preload("res://scripts/importer/RmxpTextCodec.gd")
 const RAW_STRING_KEY := "_rmxp_raw_string"
-const EventCommands = preload("res://templates/runtime/scripts/EventCommandCatalog.gd")
+const EventCommands = preload("res://templates/runtime/scripts/02_Event/EventCommandCatalog.gd")
 
 var _codec: RmxpTextCodec
 var _asset_index: Dictionary = {}
@@ -31,7 +58,12 @@ func set_asset_index(asset_index: Dictionary) -> void:
 	_asset_index = asset_index
 
 
-func convert(source_root: String, output_root: String, progress: Callable = Callable(), export_scripts_from_data: bool = true) -> Dictionary:
+func convert(
+	source_root: String,
+	output_root: String,
+	progress: Callable = Callable(),
+	export_scripts_from_data: bool = true
+) -> Dictionary:
 	warnings.clear()
 	errors.clear()
 	_missing_assets.clear()
@@ -49,12 +81,11 @@ func convert(source_root: String, output_root: String, progress: Callable = Call
 	var files := _list_rxdata(data_root)
 	# Read ordered scripts first so raw event grouping can respect the source
 	# Interpreter's known contiguous355 override before editor adaptation.
-	if files.has("Scripts.rxdata"): files.erase("Scripts.rxdata"); files.push_front("Scripts.rxdata")
+	if files.has("Scripts.rxdata"):
+		files.erase("Scripts.rxdata")
+		files.push_front("Scripts.rxdata")
 	var manifest := {
-		"format": "rgmigrator-rmxp-v1",
-		"encoding": _codec.label(),
-		"maps": [],
-		"database": []
+		"format": "rgmigrator-rmxp-v1", "encoding": _codec.label(), "maps": [], "database": []
 	}
 	for filename in files:
 		if progress.is_valid():
@@ -66,7 +97,9 @@ func convert(source_root: String, output_root: String, progress: Callable = Call
 			errors.append("无法解析 Data/%s：%s" % [filename, reader.error_message])
 			continue
 		if filename == "Scripts.rxdata":
-			var destination := output_root.path_join("legacy/ruby_scripts" if export_scripts_from_data else "legacy/ordered_scripts")
+			var destination := output_root.path_join(
+				"legacy/ruby_scripts" if export_scripts_from_data else "legacy/ordered_scripts"
+			)
 			DirAccess.make_dir_recursive_absolute(destination)
 			_export_scripts(raw, destination)
 			script_inventory.configure_scripts(script_sources)
@@ -91,20 +124,30 @@ func convert(source_root: String, output_root: String, progress: Callable = Call
 				manifest["system"] = "system.json"
 			else:
 				if output_name in ["CommonEvents", "CommonEvent"] and converted is Array:
-					script_inventory.collect_common(converted,output_name)
+					script_inventory.collect_common(converted, output_name)
 					converted = EditorScripts.adapt_common(converted)
-				_write_json(output_data.path_join("database").path_join("%s.json" % output_name), converted)
+				_write_json(
+					output_data.path_join("database").path_join("%s.json" % output_name), converted
+				)
 				manifest["database"].append(output_name)
 				if output_name in ["CommonEvents", "CommonEvent"] and converted is Array:
 					for event in converted:
 						if event is Dictionary:
-							_scan_command_list(event.get("list", []), "公共事件", str(event.get("id", 0)), 0)
+							_scan_command_list(
+								event.get("list", []), "公共事件", str(event.get("id", 0)), 0
+							)
 				if output_name == "Troops" and converted is Array:
 					for troop in converted:
-						if not troop is Dictionary: continue
+						if not troop is Dictionary:
+							continue
 						var pages: Array = troop.get("pages", [])
 						for index in pages.size():
-							_scan_command_list(pages[index].get("list", []), "敌群（回合制战斗不迁移）", str(troop.get("id", 0)), index + 1)
+							_scan_command_list(
+								pages[index].get("list", []),
+								"敌群（回合制战斗不迁移）",
+								str(troop.get("id", 0)),
+								index + 1
+							)
 		converted_files += 1
 	for missing in _missing_assets:
 		warnings.append("缺少非 RTP 素材或仍依赖 RTP：%s" % missing)
@@ -157,7 +200,14 @@ func _convert_value(value: Variant) -> Variant:
 	if value.get("_rmxp_user_defined", "") in ["Color", "Tone"]:
 		var bytes: PackedByteArray = value.get("payload", PackedByteArray())
 		if bytes.size() == 32:
-			return {"_class": value["_rmxp_user_defined"], "red": bytes.decode_double(0), "green": bytes.decode_double(8), "blue": bytes.decode_double(16), "alpha" if value["_rmxp_user_defined"] == "Color" else "gray": bytes.decode_double(24)}
+			return {
+				"_class": value["_rmxp_user_defined"],
+				"red": bytes.decode_double(0),
+				"green": bytes.decode_double(8),
+				"blue": bytes.decode_double(16),
+				"alpha" if value["_rmxp_user_defined"] == "Color" else "gray":
+				bytes.decode_double(24)
+			}
 	if value.has("_rmxp_hash"):
 		return _convert_hash(value)
 	if value.has("_rmxp_object"):
@@ -177,7 +227,10 @@ func _convert_value(value: Variant) -> Variant:
 	if value.has("_rmxp_bignum") or value.has("_rmxp_float"):
 		return value
 	if value.has("_rmxp_regexp"):
-		return {"_rmxp_regexp_hex": value["_rmxp_regexp"].hex_encode(), "options": value.get("options", 0)}
+		return {
+			"_rmxp_regexp_hex": value["_rmxp_regexp"].hex_encode(),
+			"options": value.get("options", 0)
+		}
 	if value.has("_rmxp_user_defined"):
 		return {
 			"_class": value["_rmxp_user_defined"],
@@ -207,7 +260,9 @@ func _convert_hash(value: Dictionary) -> Variant:
 		return result
 	var serialized_entries: Array = []
 	for pair in entries:
-		serialized_entries.append({"key": _convert_value(pair[0]), "value": _convert_value(pair[1])})
+		serialized_entries.append(
+			{"key": _convert_value(pair[0]), "value": _convert_value(pair[1])}
+		)
 	return {"_rmxp_hash_entries": serialized_entries}
 
 
@@ -225,9 +280,16 @@ func _export_scripts(raw: Variant, destination: String) -> void:
 		if packed.is_empty():
 			warnings.append("脚本 %d（%s）缺少压缩源码。" % [index, title])
 			continue
-		var source_bytes := packed.decompress_dynamic(128 * 1024 * 1024, FileAccess.COMPRESSION_DEFLATE)
+		var source_bytes := packed.decompress_dynamic(
+			128 * 1024 * 1024, FileAccess.COMPRESSION_DEFLATE
+		)
 		# A valid zlib stream can contain an empty separator script.
-		if source_bytes.is_empty() and packed != PackedByteArray([120,156,3,0,0,0,0,1]) and packed != PackedByteArray([120,218,3,0,0,0,0,1]) and packed != PackedByteArray([120,1,3,0,0,0,0,1]):
+		if (
+			source_bytes.is_empty()
+			and packed != PackedByteArray([120, 156, 3, 0, 0, 0, 0, 1])
+			and packed != PackedByteArray([120, 218, 3, 0, 0, 0, 0, 1])
+			and packed != PackedByteArray([120, 1, 3, 0, 0, 0, 0, 1])
+		):
 			warnings.append("脚本 %d（%s）无法用 zlib 解压。" % [index, title])
 			continue
 		var safe_title := _safe_filename(title)
@@ -239,7 +301,21 @@ func _export_scripts(raw: Variant, destination: String) -> void:
 		var source := _codec.decode(source_bytes)
 		file.store_string(source)
 		file.close()
-		script_sources.append({"unit_id": "script_%04d" % (index+1), "source": source, "source_path": "legacy/%s/%s" % [destination.get_file(),path.get_file()], "origin": {"kind": "script", "source_file": "Data/Scripts.rxdata", "load_order": index+1, "script_id": _convert_value(entry[0]), "name": title}})
+		script_sources.append(
+			{
+				"unit_id": "script_%04d" % (index + 1),
+				"source": source,
+				"source_path": "legacy/%s/%s" % [destination.get_file(), path.get_file()],
+				"origin":
+				{
+					"kind": "script",
+					"source_file": "Data/Scripts.rxdata",
+					"load_order": index + 1,
+					"script_id": _convert_value(entry[0]),
+					"name": title
+				}
+			}
+		)
 		exported_scripts += 1
 
 
@@ -257,7 +333,7 @@ func _bytes_from_value(value: Variant) -> PackedByteArray:
 
 func _safe_filename(value: String) -> String:
 	var result := value.strip_edges()
-	for illegal in ["\\", "/", ":", "*", "?", "\"", "<", ">", "|"]:
+	for illegal in ["\\", "/", ":", "*", "?", '"', "<", ">", "|"]:
 		result = result.replace(illegal, "_")
 	return result if not result.is_empty() else "unnamed"
 
@@ -295,29 +371,49 @@ func _scan_command_list(commands: Variant, map_name: String, event_id: String, p
 		var parameters: Array = raw if raw is Array else []
 		var reason := EventCommands.reason(code, parameters) if raw is Array else "事件参数不是数组"
 		if not reason.is_empty():
-			unsupported_commands.append({
-				"map": map_name,
-				"event_id": event_id,
-				"page": page,
-				"command_index": command_index + 1,
-				"code": code,
-				"reason": reason
-			})
-		if code == 209 and parameters.size() > 1: _scan_route(parameters[1], map_name, event_id, page, command_index + 1)
+			unsupported_commands.append(
+				{
+					"map": map_name,
+					"event_id": event_id,
+					"page": page,
+					"command_index": command_index + 1,
+					"code": code,
+					"reason": reason
+				}
+			)
+		if code == 209 and parameters.size() > 1:
+			_scan_route(parameters[1], map_name, event_id, page, command_index + 1)
 
 
-func _scan_route(route: Variant, map_name: String, event_id: String, page: int, command_index: int) -> void:
-	if not route is Dictionary: return
+func _scan_route(
+	route: Variant, map_name: String, event_id: String, page: int, command_index: int
+) -> void:
+	if not route is Dictionary:
+		return
 	var raw: Variant = route.get("list", [])
-	if not raw is Array: return
+	if not raw is Array:
+		return
 	var commands: Array = raw
 	for index in commands.size():
-		if not commands[index] is Dictionary: continue
+		if not commands[index] is Dictionary:
+			continue
 		var code := int(commands[index].get("code", 0))
 		var p: Variant = commands[index].get("parameters", [])
 		var reason := EventCommands.route_reason(code, p) if p is Array else "路线参数不是数组"
-		if reason.is_empty(): continue
-		unsupported_commands.append({"map": map_name, "event_id": event_id, "page": page, "command_index": command_index, "code": 209, "route_index": index + 1, "route_code": code, "reason": reason})
+		if reason.is_empty():
+			continue
+		unsupported_commands.append(
+			{
+				"map": map_name,
+				"event_id": event_id,
+				"page": page,
+				"command_index": command_index,
+				"code": 209,
+				"route_index": index + 1,
+				"route_code": code,
+				"reason": reason
+			}
+		)
 
 
 func _unsupported_reason(code: int) -> String:
@@ -378,12 +474,20 @@ func _audit_asset_references(value: Variant) -> void:
 				var asset_name := str(name)
 				if not asset_name.is_empty():
 					var expected := "%s/%s" % [categories[key], asset_name]
-					if not _asset_index.has(expected) and not _asset_index.has(expected.get_basename()):
+					if (
+						not _asset_index.has(expected)
+						and not _asset_index.has(expected.get_basename())
+					):
 						_missing_assets[expected] = true
 	var audio_categories := {
-		"title_bgm": "Audio/BGM", "battle_bgm": "Audio/BGM", "battle_end_me": "Audio/ME",
-		"gameover_me": "Audio/ME", "bgm": "Audio/BGM", "bgs": "Audio/BGS",
-		"me": "Audio/ME", "se": "Audio/SE"
+		"title_bgm": "Audio/BGM",
+		"battle_bgm": "Audio/BGM",
+		"battle_end_me": "Audio/ME",
+		"gameover_me": "Audio/ME",
+		"bgm": "Audio/BGM",
+		"bgs": "Audio/BGS",
+		"me": "Audio/ME",
+		"se": "Audio/SE"
 	}
 	for key in audio_categories:
 		if value.has(key) and value[key] is Dictionary:

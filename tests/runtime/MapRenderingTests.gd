@@ -1,3 +1,28 @@
+## 职责：回归验证：通过实际图形驱动检查地图图块、层级与人物像素。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func run_suite() -> void
+##     用途：执行本脚本组织的回归检查。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(condition: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 condition（bool；必填）：是否创建须返回布尔值的脚本条件模板。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 接口说明结束。
+
 extends SceneTree
 
 # Run with a real rendering driver, not --headless. An offscreen viewport
@@ -27,7 +52,7 @@ func run_suite() -> void:
 	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	viewport.canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
 	root.add_child(viewport)
-	var map_script := load("res://runtime/scripts/MapRuntime.gd")
+	var map_script := load("res://runtime/scripts/03_Map/MapRuntime.gd")
 	var map: Node2D = map_script.new()
 	viewport.add_child(map)
 	if not map.call("load_map", 585):
@@ -49,7 +74,7 @@ func run_suite() -> void:
 		DirAccess.make_dir_recursive_absolute(capture_path.get_base_dir())
 		expect(rendered.save_png(capture_path) == OK, "render capture must save")
 		print("CAPTURE: ", capture_path)
-	var data := load("res://runtime/scripts/RuntimeData.gd")
+	var data := load("res://runtime/scripts/00_Game/RuntimeData.gd")
 	var floor_path: String = data.asset_path("Graphics/Autotiles/SF_Inside_A4-11")
 	expect(ResourceLoader.has_cached(floor_path), "map must retain its autotile texture between draw calls")
 	# Map585 (13,6) is tile 96 on layer 0 and empty on layers 1/2.
@@ -75,7 +100,7 @@ func run_suite() -> void:
 	startup.start_x = 13
 	startup.start_y = 6
 	data._cache["res://data/system.json"] = startup
-	var title: PackedScene = load("res://scenes/Title.tscn")
+	var title: PackedScene = load("res://scenes/05_Title/Title.tscn")
 	var title_node := title.instantiate()
 	root.add_child(title_node)
 	current_scene = title_node

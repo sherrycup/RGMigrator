@@ -1,3 +1,79 @@
+## 职责：回归验证：验证事件调用栈、等待、人物和界面现场的生产存读档。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(value: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 value（bool；必填）：需要读取、校验或写入的值。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func c(code: int, p: Array = [], indent: int = 0) -> Dictionary
+##     参数 code（int；必填）：对应指令、按键或操作的编码。
+##     参数 p（Array；默认值 []）：对应事件指令的参数数组。
+##     参数 indent（int；默认值 0）：事件指令的结构缩进层级。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func add(id: int, amount: int = 1, indent: int = 0) -> Dictionary
+##     参数 id（int；必填）：本接口所处理对象的编号。
+##     参数 amount（int；默认值 1）：需要增加、扣除或应用的数量。
+##     参数 indent（int；默认值 0）：事件指令的结构缩进层级。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func route(commands: Array, repeat: bool = false) -> Dictionary
+##     参数 commands（Array；必填）：保持原顺序的事件指令列表。
+##     参数 repeat（bool；默认值 false）：是否重复播放或重复执行。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func install_fixture() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func mount(new_game: bool = true) -> void
+##     参数 new_game（bool；默认值 true）：是否处于新游戏初始化流程。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func unmount() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func prepare_restart() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func check_restored() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func save_ui() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func item_skill_use() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func validation() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 ## Production Game/SaveService tests, also used by two independent processes.
 var state: Node
@@ -16,8 +92,8 @@ func _initialize() -> void: call_deferred("run")
 
 func run() -> void:
 	create_timer(65).timeout.connect(func() -> void: printerr("FAIL: event save timeout"); quit(1))
-	state = root.get_node("RuntimeState"); data = load("res://runtime/scripts/RuntimeData.gd")
-	saves = load("res://runtime/scripts/SaveService.gd"); codec = load("res://runtime/scripts/SaveCodec.gd")
+	state = root.get_node("RuntimeState"); data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	saves = load("res://runtime/scripts/10_Support/Persistence/SaveService.gd"); codec = load("res://runtime/scripts/10_Support/Persistence/SaveCodec.gd")
 	var directory := ProjectSettings.globalize_path("res://.godot/event_save_%d" % Time.get_ticks_usec())
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--phase="): phase = arg.trim_prefix("--phase=")
@@ -71,7 +147,7 @@ func install_fixture() -> void:
 	var tiles: Array = []; tiles.resize(18 * 12 * 3); tiles.fill(0)
 	source.data = {"x_size": 18, "y_size": 12, "z_size": 3, "data": tiles}
 	source.events = {}
-	var fixture: Script = load("res://runtime/scripts/EventFixture.gd")
+	var fixture: Script = load("res://runtime/scripts/11_Development/EventFixture.gd")
 	for id in range(1, 6):
 		var event: Dictionary = fixture.event(2 + id, 3 + id % 2, 0, [c(0)], {}, "@persist")
 		event.id = id
@@ -94,13 +170,13 @@ func install_fixture() -> void:
 	skills[skill_id] = {"id": skill_id, "name": "回城术", "occasion": 2, "scope": 0, "common_event_id": 3, "sp_cost": 2, "icon_name": "", "description": "测试公共事件"}
 	data._cache["res://data/database/Skills.json"] = skills
 	var image := Image.create(128, 128, false, Image.FORMAT_RGBA8); image.fill(Color("c07030"))
-	load("res://runtime/scripts/UIResources.gd")._textures["Graphics/Characters/@persist"] = ImageTexture.create_from_image(image)
+	load("res://runtime/scripts/04_UI_Common/UIResources.gd")._textures["Graphics/Characters/@persist"] = ImageTexture.create_from_image(image)
 
 func mount(new_game: bool = true) -> void:
 	if new_game:
 		state.begin_new_game(data.system(), {"enabled": false})
 		state.player_motion.relocate(Vector2i(15, 9)); state.resume_from_save = true
-	game = load("res://scenes/Game.tscn").instantiate()
+	game = load("res://scenes/03_Map/Game.tscn").instantiate()
 	root.add_child(game); current_scene = game
 	game.set_process(false); game._player.set_process(false)
 	for entry in game._map.event_contexts(): entry.node.set_process(false)

@@ -1,4 +1,5 @@
 """Run v0.5 checks only in a disposable generated project, never a user project."""
+from game_test_names import migrated_game_tests
 from pathlib import Path
 import argparse, json, re, shutil, subprocess, time
 
@@ -52,18 +53,18 @@ def run(name, extra=(), fatal=False):
     (logs / f"v050-{args.tag}-{args.suite}.json").write_text(json.dumps(rows, ensure_ascii=False, indent=2), "utf-8")
 
 if args.suite == "runtime":
-    cases = args.cases or ["RuntimeCompileTests", "ScriptSemanticsRuntimeTests", "ScriptEventSourceTests"] + [p.stem for p in sorted((repo / "tests/runtime").glob("Flash*Tests.gd")) if p.stem != "FlashSaveRestartTests"]
+    cases = args.cases or ["RuntimeCompileTests", "ScriptSemanticsRuntimeTests", "ScriptEventSourceTests"] + [p.stem for p in sorted((repo / "tests/runtime").glob("*Tests.gd")) if p.stem in migrated_game_tests(repo) and p.stem != "GameSaveRestartTests"]
     for name in cases:
         run(name)
 elif args.suite == "editor":
-    shutil.copy2(repo / "tests/editor/EditorStructureGuideScenario.gd", fixture / ".godot/EditorStructureGuideScenario.gd")
-    for name in args.cases or ["EditorCompileTests", "EditorReadabilityTests", "EditorCommandBlockTests", "EditorStructureGuideTests", "EditorCustomDataTests", "EditorScriptUiTests", "EditorScriptWorkspaceTests", "EditorScriptSourceFlowTests"]:
+    shutil.copy2(repo / "tests/editor/Editor_StructureGuideScenario.gd", fixture / ".godot/Editor_StructureGuideScenario.gd")
+    for name in args.cases or ["Editor_CompileTests", "Editor_ReadabilityTests", "Editor_CommandBlockTests", "Editor_StructureGuideTests", "Editor_CustomDataTests", "Editor_ScriptUiTests", "Editor_ScriptWorkspaceTests", "Editor_ScriptSourceFlowTests"]:
         run(name)
 elif args.suite == "restart":
     directory = "res://.godot/v050-restart-" + str(time.time_ns())
     for phase in ["write", "read"]:
-        run("FlashSaveRestartTests", ["--save-directory=" + directory, "--phase=" + phase])
+        run("GameSaveRestartTests", ["--save-directory=" + directory, "--phase=" + phase])
 else:
     for mode in args.cases or ["actor", "motion", "effect", "keyboard", "floor", "fractional-floor", "character", "support-skill", "down-switch", "debug", "deputy", "unsafe-object", "gem-id", "gem-expression", "window", "shop-catalog", "shop-quantity", "shop-zero", "shop-buy-only", "shop-sell-only", "crystal-duplicate", "crystal-element", "crystal-locked", "missing-scan", "missing-noise", "invalid-effect", "damage-worker"]:
-        run("FlashFailureIsolationProbe", ["--case=" + mode], True)
+        run("FailureIsolationProbe", ["--case=" + mode], True)
 raise SystemExit(0 if all(row["ok"] for row in rows) else 1)

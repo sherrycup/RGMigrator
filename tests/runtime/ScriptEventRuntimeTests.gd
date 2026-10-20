@@ -1,3 +1,27 @@
+## 职责：回归验证：验证事件脚本绑定、生成程序调用和错误来源。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func expect(ok: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 ok（bool；必填）：本项检查是否通过。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 接口说明结束。
+
 extends SceneTree
 var failures: Array[String] = []
 var checks := 0
@@ -19,11 +43,11 @@ func _init() -> void:
 
 func run() -> void:
 	var state: Node = root.get_node("RuntimeState")
-	var data: Script = load("res://runtime/scripts/RuntimeData.gd")
-	var interpreter: Script = load("res://runtime/scripts/EventInterpreter.gd")
-	var persistence: Script = load("res://runtime/scripts/EventPersistence.gd")
-	var scripts: Script = load("res://runtime/scripts/ScriptRuntime.gd")
-	var route_script: Script = load("res://runtime/scripts/CharacterRoute.gd")
+	var data: Script = load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	var interpreter: Script = load("res://runtime/scripts/02_Event/EventInterpreter.gd")
+	var persistence: Script = load("res://runtime/scripts/02_Event/EventPersistence.gd")
+	var scripts: Script = load("res://runtime/scripts/10_Support/Scripting/ScriptRuntime.gd")
+	var route_script: Script = load("res://runtime/scripts/02_Event/CharacterRoute.gd")
 	state.map_id = 1; state.gold = 100; state.variables = {}; state.switches = {}
 	var registry: Dictionary = data.read_json("res://data/script_units.json",{})
 	var pages: Array = data.map(1).events["7"].pages
@@ -119,7 +143,7 @@ func run() -> void:
 	expect(persistence._interpreter(owner,false).has("script_error"),"cyclic custom field is rejected before snapshot recursion")
 	cyclic.clear(); owner.cancel()
 	state.script_session.globals["$custom_progress"] = 9
-	var codec: Script = load("res://runtime/scripts/SaveCodec.gd")
+	var codec: Script = load("res://runtime/scripts/10_Support/Persistence/SaveCodec.gd")
 	expect(not codec.prepare(codec.capture(state)).ok,"unported custom global state cannot be silently lost on save")
 	state.script_session = null
 	registry.units["script_9999"] = {"origin":{"kind":"script","name":"Unsupported later override"},"status":"unsupported","definitions":{"safe":false,"types":[],"methods":[{"owner":"Object","name":"reward","singleton":false}]}}

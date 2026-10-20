@@ -1,3 +1,53 @@
+## 职责：回归验证：验证实际商店入口、交易校验和背包金币结果。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func test_actual_interface() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func make_fixture() -> Dictionary
+##     用途：构建与正式工程隔离的测试现场。
+##     参数：无。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func command(code: int, parameters: Array = []) -> Dictionary
+##     参数 code（int；必填）：对应指令、按键或操作的编码。
+##     参数 parameters（Array；默认值 []）：按对应接口或事件指令约定排列的参数。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func press(key: Key) -> void
+##     用途：模拟一次按键输入。
+##     参数 key（Key；必填）：Godot 按键码，例如 KEY_UP、KEY_DOWN、KEY_ENTER 或 KEY_ESCAPE。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func frames(count: int) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(condition: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 condition（bool；必填）：是否创建须返回布尔值的脚本条件模板。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 var data: Script
 var state: Node
@@ -12,8 +62,8 @@ func _initialize() -> void:
 
 func run() -> void:
 	create_timer(50).timeout.connect(func() -> void: printerr("FAIL: shop/state tests timed out"); quit(1))
-	data = load("res://runtime/scripts/RuntimeData.gd")
-	service = load("res://runtime/scripts/ShopService.gd")
+	data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	service = load("res://runtime/scripts/08_Menu/Shop/ShopService.gd")
 	state = root.get_node("RuntimeState")
 	var fixture := make_fixture()
 	var cached: Dictionary = data._cache.duplicate(true)
@@ -74,7 +124,7 @@ func run() -> void:
 	state.change_party(1, true, true)
 	expect(not state.has_state(1, 1), "initialized join resets ordinary states")
 	expect(JSON.stringify(fixture) == original, "shop and state operations keep databases immutable")
-	var interpreter: RefCounted = load("res://runtime/scripts/EventInterpreter.gd").new()
+	var interpreter: RefCounted = load("res://runtime/scripts/02_Event/EventInterpreter.gd").new()
 	var diagnostics: Array[String] = []
 	interpreter.diagnostic_requested.connect(func(text: String) -> void: diagnostics.append(text))
 	interpreter.start([command(302, [0, 1]), command(605, [1, 999])], 12, 2)
@@ -99,7 +149,7 @@ func test_actual_interface() -> void:
 	var toggled := int(setup.toggle_state_id)
 	expect(state.has_state(actor_id, initial_state) and not state.has_state(actor_id, toggled), "real test state overlay prepared once")
 	state.resume_from_save = true
-	var game: Node = load("res://scenes/Game.tscn").instantiate()
+	var game: Node = load("res://scenes/03_Map/Game.tscn").instantiate()
 	root.add_child(game)
 	current_scene = game
 	await frames(3)
@@ -185,7 +235,7 @@ func test_actual_interface() -> void:
 			button.pressed.emit()
 			break
 	state.change_state(actor_id, toggled, true)
-	var saves: Script = load("res://runtime/scripts/SaveService.gd")
+	var saves: Script = load("res://runtime/scripts/10_Support/Persistence/SaveService.gd")
 	saves.directory_override = ProjectSettings.globalize_path("res://.godot/shop_save_%d" % Time.get_ticks_usec())
 	var gold: int = state.gold
 	var count: int = state.inventory_count("item", int(setup.stock[0].id))
@@ -196,7 +246,7 @@ func test_actual_interface() -> void:
 	current_scene = null
 	await frames(3)
 	state.begin_new_game(system, {"enabled": false})
-	menu = load("res://scenes/Menu.tscn").instantiate()
+	menu = load("res://scenes/08_Menu/Menu.tscn").instantiate()
 	root.add_child(menu)
 	menu.open_test_shop()
 	menu.open_state_tools()

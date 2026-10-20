@@ -1,0 +1,12 @@
+{
+  "format": "rgm-generated-effect-asset-v1",
+  "origin": "Generated in0.59; original Flash project lacks Graphics/Pictures/sptx.png. Not copied from another RM project.",
+  "algorithm": "6x6 deterministic jittered Voronoi cells;36 distinct opaque grayscale labels, no antialiasing.",
+  "size": [
+    480,
+    480
+  ],
+  "sha256": "3a2d6719748090888f244fed815d418626544c64514036c0d6781223511423a0",
+  "generator": "tools/generate_broken_screen_mask.py",
+  "usage": "Fallback only for missing default sptx/sptx.png; existing source texture always takes priority. Custom missing filenames still fail. Original480px crop/timing remains unchanged."
+}

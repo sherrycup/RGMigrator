@@ -1,0 +1,700 @@
+{
+  "version": "0.59",
+  "policy": "Current filenames omit Flash; old symbols remain navigation aliases, no duplicate runtime scripts. Original RM and published verification reports remain unchanged.",
+  "files": [
+    {
+      "old": "scripts/importer/FlashGameplayImporter.gd",
+      "new": "scripts/importer/GameplayImporter.gd"
+    },
+    {
+      "old": "scripts/importer/FlashSourceCorrections.gd",
+      "new": "scripts/importer/SourceCorrections.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/00_Game/FlashActorFields.gd",
+      "new": "templates/runtime/scripts/00_Game/ActorFields.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/00_Game/FlashActorState.gd",
+      "new": "templates/runtime/scripts/00_Game/Game_ActorState.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/00_Game/FlashEnemyState.gd",
+      "new": "templates/runtime/scripts/00_Game/EnemyState.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/00_Game/FlashObjectCatalog.gd",
+      "new": "templates/runtime/scripts/00_Game/ObjectCatalog.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/00_Game/FlashPreferences.gd",
+      "new": "templates/runtime/scripts/00_Game/Preferences.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/01_Battle/FlashActionOrder.gd",
+      "new": "templates/runtime/scripts/01_Battle/ActionOrder.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/01_Battle/FlashActions.gd",
+      "new": "templates/runtime/scripts/01_Battle/Actions.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/01_Battle/FlashBattleCache.gd",
+      "new": "templates/runtime/scripts/01_Battle/BattleCache.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/01_Battle/FlashBattleCatalog.gd",
+      "new": "templates/runtime/scripts/01_Battle/BattleCatalog.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/01_Battle/FlashBattleRegistry.gd",
+      "new": "templates/runtime/scripts/01_Battle/BattleRegistry.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/01_Battle/FlashBattlerRules.gd",
+      "new": "templates/runtime/scripts/01_Battle/BattlerRules.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/01_Battle/FlashBattleSimulator.gd",
+      "new": "templates/runtime/scripts/01_Battle/BattleSimulator.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/01_Battle/FlashBattleSkillDefinition.gd",
+      "new": "templates/runtime/scripts/01_Battle/BattleSkillDefinition.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/01_Battle/FlashBattleStateContainer.gd",
+      "new": "templates/runtime/scripts/01_Battle/BattleStateContainer.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/01_Battle/FlashBlastic.gd",
+      "new": "templates/runtime/scripts/01_Battle/Blastic.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/01_Battle/FlashDamageWorker.gd",
+      "new": "templates/runtime/scripts/01_Battle/DamageWorker.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/01_Battle/FlashEnemyAbilities.gd",
+      "new": "templates/runtime/scripts/01_Battle/EnemyAbilities.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/01_Battle/FlashGameplay.gd",
+      "new": "templates/runtime/scripts/01_Battle/Gameplay.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/01_Battle/FlashItemEffects.gd",
+      "new": "templates/runtime/scripts/01_Battle/ItemEffects.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/03_Map/FlashCharacterBridge.gd",
+      "new": "templates/runtime/scripts/03_Map/CharacterBridge.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/03_Map/FlashEnemyMapLabels.gd",
+      "new": "templates/runtime/scripts/03_Map/EnemyMapLabels.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/03_Map/FlashFloor.gd",
+      "new": "templates/runtime/scripts/03_Map/Floor.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/03_Map/FlashFollowers.gd",
+      "new": "templates/runtime/scripts/03_Map/Followers.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/03_Map/FlashMapBridge.gd",
+      "new": "templates/runtime/scripts/03_Map/MapBridge.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/03_Map/FlashMapDamage.gd",
+      "new": "templates/runtime/scripts/03_Map/MapDamage.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/03_Map/FlashMapHUD.gd",
+      "new": "templates/runtime/scripts/03_Map/MapHUD.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/03_Map/FlashMapShortcuts.gd",
+      "new": "templates/runtime/scripts/03_Map/MapShortcuts.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/03_Map/FlashPlayerHUD.gd",
+      "new": "templates/runtime/scripts/03_Map/PlayerHUD.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/03_Map/FlashRegion.gd",
+      "new": "templates/runtime/scripts/03_Map/Region.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/03_Map/FlashTilemap.gd",
+      "new": "templates/runtime/scripts/03_Map/Tilemap.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/03_Map/FlashTopic.gd",
+      "new": "templates/runtime/scripts/03_Map/Topic.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/04_UI_Common/FlashBitmap.gd",
+      "new": "templates/runtime/scripts/04_UI_Common/Bitmap.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/04_UI_Common/FlashColor.gd",
+      "new": "templates/runtime/scripts/04_UI_Common/Color.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/04_UI_Common/FlashPageSurface.gd",
+      "new": "templates/runtime/scripts/04_UI_Common/PageSurface.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/04_UI_Common/FlashPalette.gd",
+      "new": "templates/runtime/scripts/04_UI_Common/Palette.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/04_UI_Common/FlashSceneBackdrop.gd",
+      "new": "templates/runtime/scripts/04_UI_Common/SceneBackdrop.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/04_UI_Common/FlashShape.gd",
+      "new": "templates/runtime/scripts/04_UI_Common/Shape.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/04_UI_Common/FlashTextDrawing.gd",
+      "new": "templates/runtime/scripts/04_UI_Common/TextDrawing.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/04_UI_Common/FlashWindowDrawing.gd",
+      "new": "templates/runtime/scripts/04_UI_Common/WindowDrawing.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/05_Title/FlashConfigPage.gd",
+      "new": "templates/runtime/scripts/05_Title/ConfigPage.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/05_Title/FlashTitleExtrasPage.gd",
+      "new": "templates/runtime/scripts/05_Title/TitleExtrasPage.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/05_Title/FlashTitleLayout.gd",
+      "new": "templates/runtime/scripts/05_Title/TitleLayout.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/05_Title/FlashTitleScreen.gd",
+      "new": "templates/runtime/scripts/05_Title/TitleScreen.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/06_Message/FlashHelpMessage.gd",
+      "new": "templates/runtime/scripts/06_Message/HelpMessage.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/06_Message/FlashMessageBoxState.gd",
+      "new": "templates/runtime/scripts/06_Message/MessageBoxState.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/06_Message/FlashMessageController.gd",
+      "new": "templates/runtime/scripts/06_Message/MessageController.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/06_Message/FlashMessageLayout.gd",
+      "new": "templates/runtime/scripts/06_Message/MessageLayout.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/06_Message/FlashMessageMemoryPage.gd",
+      "new": "templates/runtime/scripts/06_Message/MessageMemoryPage.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/06_Message/FlashMessageOverlay.gd",
+      "new": "templates/runtime/scripts/06_Message/MessageOverlay.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/06_Message/FlashMessageText.gd",
+      "new": "templates/runtime/scripts/06_Message/MessageText.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/06_Message/FlashMessageView.gd",
+      "new": "templates/runtime/scripts/06_Message/MessageView.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/06_Message/FlashMessageWords.gd",
+      "new": "templates/runtime/scripts/06_Message/MessageWords.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/06_Message/FlashTextRow.gd",
+      "new": "templates/runtime/scripts/06_Message/TextRow.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/06_Message/FlashTextStream.gd",
+      "new": "templates/runtime/scripts/06_Message/TextStream.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/07_Archive/FlashArchiveData.gd",
+      "new": "templates/runtime/scripts/07_Archive/ArchiveData.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/07_Archive/FlashArchivePage.gd",
+      "new": "templates/runtime/scripts/07_Archive/ArchivePage.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/07_Archive/FlashArchiveView.gd",
+      "new": "templates/runtime/scripts/07_Archive/ArchiveView.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Item/FlashEquipmentPage.gd",
+      "new": "templates/runtime/scripts/08_Menu/Item/EquipmentPage.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Item/FlashEquipmentView.gd",
+      "new": "templates/runtime/scripts/08_Menu/Item/EquipmentView.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Item/FlashItemPage.gd",
+      "new": "templates/runtime/scripts/08_Menu/Item/ItemPage.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Item/FlashItemPresets.gd",
+      "new": "templates/runtime/scripts/08_Menu/Item/ItemPresets.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Item/FlashItemView.gd",
+      "new": "templates/runtime/scripts/08_Menu/Item/ItemView.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Main/FlashMenuModel.gd",
+      "new": "templates/runtime/scripts/08_Menu/Main/MenuModel.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Main/FlashMenuPages.gd",
+      "new": "templates/runtime/scripts/08_Menu/Main/MenuPages.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Main/FlashMenuScreen.gd",
+      "new": "templates/runtime/scripts/08_Menu/Main/MenuScreen.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Main/FlashSceneRegistry.gd",
+      "new": "templates/runtime/scripts/08_Menu/Main/SceneRegistry.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Main/FlashSelectionPage.gd",
+      "new": "templates/runtime/scripts/08_Menu/Main/SelectionPage.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/MapSystem/FlashMapBlock.gd",
+      "new": "templates/runtime/scripts/08_Menu/MapSystem/MapBlock.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/MapSystem/FlashMapConfig.gd",
+      "new": "templates/runtime/scripts/08_Menu/MapSystem/MapConfig.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/MapSystem/FlashMapCursor.gd",
+      "new": "templates/runtime/scripts/08_Menu/MapSystem/MapCursor.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/MapSystem/FlashMapPreview.gd",
+      "new": "templates/runtime/scripts/08_Menu/MapSystem/MapPreview.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/MapSystem/FlashMapScreen.gd",
+      "new": "templates/runtime/scripts/08_Menu/MapSystem/MapScreen.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/MapSystem/FlashMapSystem.gd",
+      "new": "templates/runtime/scripts/08_Menu/MapSystem/MapSystem.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Note/FlashNotePage.gd",
+      "new": "templates/runtime/scripts/08_Menu/Note/NotePage.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Note/FlashNoteView.gd",
+      "new": "templates/runtime/scripts/08_Menu/Note/NoteView.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Orbment/FlashBlasticPage.gd",
+      "new": "templates/runtime/scripts/08_Menu/Orbment/BlasticPage.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Orbment/FlashBlasticView.gd",
+      "new": "templates/runtime/scripts/08_Menu/Orbment/BlasticView.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Shop/FlashShopView.gd",
+      "new": "templates/runtime/scripts/08_Menu/Shop/ShopView.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Sight/FlashSightModel.gd",
+      "new": "templates/runtime/scripts/08_Menu/Sight/SightModel.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Sight/FlashSightPage.gd",
+      "new": "templates/runtime/scripts/08_Menu/Sight/SightPage.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Sight/FlashSightView.gd",
+      "new": "templates/runtime/scripts/08_Menu/Sight/SightView.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Skill/FlashCastingPage.gd",
+      "new": "templates/runtime/scripts/08_Menu/Skill/CastingPage.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Skill/FlashSkillConfig.gd",
+      "new": "templates/runtime/scripts/08_Menu/Skill/SkillConfig.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Skill/FlashSkillPage.gd",
+      "new": "templates/runtime/scripts/08_Menu/Skill/SkillPage.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/08_Menu/Skill/FlashSkillView.gd",
+      "new": "templates/runtime/scripts/08_Menu/Skill/SkillView.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/09_Effects/FlashBrokenScreen.gd",
+      "new": "templates/runtime/scripts/09_Effects/BrokenScreen.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/09_Effects/FlashEffectView.gd",
+      "new": "templates/runtime/scripts/09_Effects/EffectView.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/09_Effects/FlashPresentationState.gd",
+      "new": "templates/runtime/scripts/09_Effects/PresentationState.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/09_Effects/FlashScreenEffects.gd",
+      "new": "templates/runtime/scripts/09_Effects/ScreenEffects.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/09_Effects/FlashUnravel.gd",
+      "new": "templates/runtime/scripts/09_Effects/Unravel.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/10_Support/Persistence/FlashFileStore.gd",
+      "new": "templates/runtime/scripts/10_Support/Persistence/FileStore.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/10_Support/Persistence/FlashHistory.gd",
+      "new": "templates/runtime/scripts/10_Support/Persistence/History.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/10_Support/Persistence/FlashMapSnapshot.gd",
+      "new": "templates/runtime/scripts/10_Support/Persistence/MapSnapshot.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/10_Support/Scripting/FlashValueExtensions.gd",
+      "new": "templates/runtime/scripts/10_Support/Scripting/ValueExtensions.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/10_Support/Utilities/FlashKeyboard.gd",
+      "new": "templates/runtime/scripts/10_Support/Utilities/Keyboard.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/10_Support/Utilities/FlashMoviePlayer.gd",
+      "new": "templates/runtime/scripts/10_Support/Utilities/MoviePlayer.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/10_Support/Utilities/FlashUtils.gd",
+      "new": "templates/runtime/scripts/10_Support/Utilities/Utils.gd"
+    },
+    {
+      "old": "templates/runtime/scripts/11_Development/FlashDebugPage.gd",
+      "new": "templates/runtime/scripts/11_Development/DebugPage.gd"
+    },
+    {
+      "old": "tests/FlashGameplayImporterTests.gd",
+      "new": "tests/GameplayImporterTests.gd"
+    },
+    {
+      "old": "tests/FlashMessageImporterTests.gd",
+      "new": "tests/MessageImporterTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashArchiveTests.gd",
+      "new": "tests/runtime/ArchiveTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashAudioTests.gd",
+      "new": "tests/runtime/AudioTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashBattleCatalogTests.gd",
+      "new": "tests/runtime/BattleCatalogTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashBattleColdCatalogTests.gd",
+      "new": "tests/runtime/BattleColdCatalogTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashBattleCoreTests.gd",
+      "new": "tests/runtime/BattleCoreTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashBattleDatabaseTests.gd",
+      "new": "tests/runtime/BattleDatabaseTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashBattlerTests.gd",
+      "new": "tests/runtime/BattlerTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashBusinessTests.gd",
+      "new": "tests/runtime/BusinessTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashCommonFlowTests.gd",
+      "new": "tests/runtime/CommonFlowTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashConfigPageTests.gd",
+      "new": "tests/runtime/ConfigPageTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashDamageOrderV050Probe.gd",
+      "new": "tests/runtime/DamageOrderV050Probe.gd"
+    },
+    {
+      "old": "tests/runtime/FlashDirectExecutionTests.gd",
+      "new": "tests/runtime/DirectExecutionTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashEncounterPerformanceProbe.gd",
+      "new": "tests/runtime/EncounterPerformanceProbe.gd"
+    },
+    {
+      "old": "tests/runtime/FlashEventBudgetTests.gd",
+      "new": "tests/runtime/EventBudgetTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashEventPerformanceProbe.gd",
+      "new": "tests/runtime/EventPerformanceProbe.gd"
+    },
+    {
+      "old": "tests/runtime/FlashFailureIsolationProbe.gd",
+      "new": "tests/runtime/FailureIsolationProbe.gd"
+    },
+    {
+      "old": "tests/runtime/FlashFloorRegionTests.gd",
+      "new": "tests/runtime/FloorRegionTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashFollowerTests.gd",
+      "new": "tests/runtime/FollowerTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashFunctionalWindowsV057Tests.gd",
+      "new": "tests/runtime/FunctionalWindowsV057Tests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashGameplayRuntimeTests.gd",
+      "new": "tests/runtime/GameplayRuntimeTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashGiantKeyFlowTests.gd",
+      "new": "tests/runtime/GiantKeyFlowTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashHUDRenderProbe.gd",
+      "new": "tests/runtime/HUDRenderProbe.gd"
+    },
+    {
+      "old": "tests/runtime/FlashIntegrationV049Tests.gd",
+      "new": "tests/runtime/IntegrationV049Tests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashItemPageTests.gd",
+      "new": "tests/runtime/ItemPageTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashLegacyFlowTests.gd",
+      "new": "tests/runtime/LegacyFlowTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMapDamageTests.gd",
+      "new": "tests/runtime/MapDamageTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMapFlowTests.gd",
+      "new": "tests/runtime/MapFlowTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMapItemTests.gd",
+      "new": "tests/runtime/MapItemTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMapLabelTests.gd",
+      "new": "tests/runtime/MapLabelTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMapRenderProbe.gd",
+      "new": "tests/runtime/MapRenderProbe.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMapSystemTests.gd",
+      "new": "tests/runtime/MapSystemTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMenuArchiveV056Tests.gd",
+      "new": "tests/runtime/MenuArchiveV056Tests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMenuNavigationTests.gd",
+      "new": "tests/runtime/MenuNavigationTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMenuPerformanceProbe.gd",
+      "new": "tests/runtime/MenuPerformanceProbe.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMessageBoxStateTests.gd",
+      "new": "tests/runtime/MessageBoxStateTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMessageControllerTests.gd",
+      "new": "tests/runtime/MessageControllerTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMessageRenderProbe.gd",
+      "new": "tests/runtime/MessageRenderProbe.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMessageRestartV054Tests.gd",
+      "new": "tests/runtime/MessageRestartV054Tests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMessageTextTests.gd",
+      "new": "tests/runtime/MessageTextTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMessageV054Tests.gd",
+      "new": "tests/runtime/MessageV054Tests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMigrationGapsV058Tests.gd",
+      "new": "tests/runtime/MigrationGapsV058Tests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashMotionTimingTests.gd",
+      "new": "tests/runtime/MotionTimingTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashObjectTests.gd",
+      "new": "tests/runtime/ObjectTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashPagesRenderProbe.gd",
+      "new": "tests/runtime/PagesRenderProbe.gd"
+    },
+    {
+      "old": "tests/runtime/FlashPerformanceProbe.gd",
+      "new": "tests/runtime/PerformanceProbe.gd"
+    },
+    {
+      "old": "tests/runtime/FlashPerformanceRegressionTests.gd",
+      "new": "tests/runtime/PerformanceRegressionTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashPersistenceFlowTests.gd",
+      "new": "tests/runtime/PersistenceFlowTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashPersistenceRenderProbe.gd",
+      "new": "tests/runtime/PersistenceRenderProbe.gd"
+    },
+    {
+      "old": "tests/runtime/FlashPersistenceTests.gd",
+      "new": "tests/runtime/PersistenceTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashPluginTests.gd",
+      "new": "tests/runtime/PluginTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashPresentationTests.gd",
+      "new": "tests/runtime/GamePresentationTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashQueryTests.gd",
+      "new": "tests/runtime/QueryTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashSaveRestartTests.gd",
+      "new": "tests/runtime/GameSaveRestartTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashSceneShopBusinessTests.gd",
+      "new": "tests/runtime/SceneShopBusinessTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashScreenEffectsTests.gd",
+      "new": "tests/runtime/ScreenEffectsTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashScriptFatalProbe.gd",
+      "new": "tests/runtime/ScriptFatalProbe.gd"
+    },
+    {
+      "old": "tests/runtime/FlashSightRenderProbe.gd",
+      "new": "tests/runtime/SightRenderProbe.gd"
+    },
+    {
+      "old": "tests/runtime/FlashSightTests.gd",
+      "new": "tests/runtime/SightTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashSnapshotV050Tests.gd",
+      "new": "tests/runtime/SnapshotV050Tests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashSoakV049Probe.gd",
+      "new": "tests/runtime/SoakV049Probe.gd"
+    },
+    {
+      "old": "tests/runtime/FlashSourceEventTests.gd",
+      "new": "tests/runtime/SourceEventTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashStandaloneTests.gd",
+      "new": "tests/runtime/StandaloneTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashStartupV049Probe.gd",
+      "new": "tests/runtime/StartupV049Probe.gd"
+    },
+    {
+      "old": "tests/runtime/FlashStorageDispatchTests.gd",
+      "new": "tests/runtime/StorageDispatchTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashStructureV051Tests.gd",
+      "new": "tests/runtime/StructureV051Tests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashTextRowEventTests.gd",
+      "new": "tests/runtime/TextRowEventTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashTextStreamTests.gd",
+      "new": "tests/runtime/TextStreamTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashTitleNoteTests.gd",
+      "new": "tests/runtime/TitleNoteTests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashTitleV055Tests.gd",
+      "new": "tests/runtime/TitleV055Tests.gd"
+    },
+    {
+      "old": "tests/runtime/FlashV046RenderProbe.gd",
+      "new": "tests/runtime/V046RenderProbe.gd"
+    }
+  ],
+  "generated_files": [
+    {
+      "old": "runtime/generated/flash_skill_catalog.gd",
+      "new": "runtime/generated/skill_catalog.gd"
+    }
+  ]
+}

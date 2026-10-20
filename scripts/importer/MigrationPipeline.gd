@@ -1,3 +1,17 @@
+## 职责：组织预检、数据转换、素材复制、脚本迁移与工程生成，并汇总阶段进度和错误。
+##
+## 调用方式：
+##   实例接口：先用 preload("res://scripts/importer/MigrationPipeline.gd").new(...) 构造，再调用下列方法。
+##
+## 调用接口：
+##   func run(preflight: Dictionary, progress: Callable = Callable()) -> Dictionary
+##     用途：执行当前迁移流程或回归场景。
+##     参数 preflight（Dictionary；必填）：迁移预检通过后得到的输入配置。
+##     参数 progress（Callable；默认值 Callable()）：接收阶段进度或说明文本的回调。
+##     返回：结果字典；ok 表示成功与否，失败原因及其他数据按实际返回分支提供。
+##
+## 接口说明结束。
+
 class_name MigrationPipeline
 extends RefCounted
 
@@ -9,8 +23,9 @@ const MigrationReportWriter = preload("res://scripts/importer/MigrationReportWri
 const RGMigratorVersion = preload("res://scripts/Version.gd")
 const TestSetupGenerator = preload("res://scripts/importer/TestSetupGenerator.gd")
 const CustomDataImporter = preload("res://scripts/importer/CustomDataImporter.gd")
-const FlashGameplayImporter = preload("res://scripts/importer/FlashGameplayImporter.gd")
+const GameplayImporter = preload("res://scripts/importer/GameplayImporter.gd")
 const ScriptWorkspaceExporter = preload("res://scripts/importer/ScriptWorkspaceExporter.gd")
+const ScriptMigrationAudit = preload("res://scripts/importer/ScriptMigrationAudit.gd")
 
 
 func run(preflight: Dictionary, progress: Callable = Callable()) -> Dictionary:
@@ -27,34 +42,70 @@ func run(preflight: Dictionary, progress: Callable = Callable()) -> Dictionary:
 	_emit(progress, messages, "创建输出工程：%s" % output_path)
 
 	var asset_copier := RmxpAssetCopier.new()
-	var asset_result := asset_copier.copy(source_path, output_path, func(message: String) -> void: _emit(progress, messages, message))
+	var asset_result := asset_copier.copy(
+		source_path, output_path, func(message: String) -> void: _emit(progress, messages, message)
+	)
 	var scripts_mirror := asset_copier.copy_scripts_mirror(source_path, output_path)
 	if scripts_mirror.get("copied", false):
 		_emit(progress, messages, "优先保留 Scripts/ 脚本镜像（%d 个文件）" % scripts_mirror.get("count", 0))
 
 	var converter := RmxpDataConverter.new(codec)
 	converter.set_asset_index(asset_result.get("asset_index", {}))
-	var data_result := converter.convert(source_path, output_path, func(message: String) -> void: _emit(progress, messages, message), not scripts_mirror.get("copied", false))
+	var data_result := converter.convert(
+		source_path,
+		output_path,
+		func(message: String) -> void: _emit(progress, messages, message),
+		not scripts_mirror.get("copied", false)
+	)
 
 	var generator := ProjectGenerator.new()
-	var generator_result := generator.generate(output_path, str(preflight["project_title"]), preflight.get("ini", {}), func(message: String) -> void: _emit(progress, messages, message), source_path)
-	var test_setup := TestSetupGenerator.new().generate(output_path, bool(preflight.get("test_mode", true)))
-	_emit(progress,messages,"迁移项目自定义数据、属性、货币和楼层定义。")
-	var custom_data: Dictionary=CustomDataImporter.new().generate(source_path,output_path,converter.script_sources,converter.script_inventory.raw_maps,codec,converter.script_inventory.raw_common)
-	var flash_gameplay: Dictionary=FlashGameplayImporter.new().generate(output_path,converter.script_sources)
+	var generator_result := generator.generate(
+		output_path,
+		str(preflight["project_title"]),
+		preflight.get("ini", {}),
+		func(message: String) -> void: _emit(progress, messages, message),
+		source_path
+	)
+	var test_setup := TestSetupGenerator.new().generate(
+		output_path, bool(preflight.get("test_mode", true))
+	)
+	_emit(progress, messages, "迁移项目自定义数据、属性、货币和楼层定义。")
+	var custom_data: Dictionary = CustomDataImporter.new().generate(
+		source_path,
+		output_path,
+		converter.script_sources,
+		converter.script_inventory.raw_maps,
+		codec,
+		converter.script_inventory.raw_common
+	)
+	var flash_gameplay: Dictionary = GameplayImporter.new().generate(
+		output_path, converter.script_sources
+	)
 	_emit(progress, messages, "盘点脚本加载顺序、事件片段与依赖，解析并生成已支持的GDScript单元。")
-	var script_migration: Dictionary = converter.script_inventory.generate(output_path, converter.script_sources)
+	var script_migration: Dictionary = converter.script_inventory.generate(
+		output_path, converter.script_sources
+	)
 	generator.write_flash_source_guide(output_path)
-	var workspace_result=ScriptWorkspaceExporter.new().generate(output_path)
+	var audit_result: Dictionary = {"ok": true, "errors": []}
+	if custom_data.get("summary", {}).get("profile", "") == "flash":
+		audit_result = ScriptMigrationAudit.new().generate(output_path, source_path)
+	var workspace_result = ScriptWorkspaceExporter.new().generate(output_path)
 
 	var warnings: Array = []
 	var mirror_differences: Array = script_migration.get("mirror_audit", {}).get("differences", [])
-	if not mirror_differences.is_empty(): warnings.append("Scripts镜像与Scripts.rxdata有%d处内容不同；两份均保留，加载順序及差异见script_inventory.md，本版未静默合并。" % mirror_differences.size())
+	if not mirror_differences.is_empty():
+		warnings.append(
+			(
+				"Scripts镜像与Scripts.rxdata有%d处内容不同；两份均保留，加载順序及差异见script_inventory.md，本版未静默合并。"
+				% mirror_differences.size()
+			)
+		)
 	var errors: Array = data_result.get("errors", []).duplicate()
 	errors.append_array(script_migration.get("errors", []))
-	errors.append_array(custom_data.get("errors",[]))
-	errors.append_array(flash_gameplay.get("errors",[]))
-	errors.append_array(workspace_result.get("errors",[]))
+	errors.append_array(custom_data.get("errors", []))
+	errors.append_array(flash_gameplay.get("errors", []))
+	errors.append_array(workspace_result.get("errors", []))
+	errors.append_array(audit_result.get("errors", []))
 	if not test_setup.get("ok", false):
 		errors.append(test_setup.get("message", "测试配置生成失败"))
 	errors.append_array(asset_result.get("errors", []))
@@ -78,13 +129,23 @@ func run(preflight: Dictionary, progress: Callable = Callable()) -> Dictionary:
 		"maps": data_result.get("converted_maps", 0),
 		"data_files": data_result.get("converted_files", 0),
 		"assets": asset_result.get("copied_assets", 0),
-		"scripts": scripts_mirror.get("count", 0) if scripts_mirror.get("copied", false) else data_result.get("exported_scripts", 0),
-		"window": {"width": generator_result.get("width", 640), "height": generator_result.get("height", 480)},
+		"scripts":
+		(
+			scripts_mirror.get("count", 0)
+			if scripts_mirror.get("copied", false)
+			else data_result.get("exported_scripts", 0)
+		),
+		"window":
+		{
+			"width": generator_result.get("width", 640),
+			"height": generator_result.get("height", 480)
+		},
 		"test_setup": test_setup,
 		"script_migration": script_migration,
-		"script_workspace":workspace_result,
-		"custom_data":custom_data,
-		"flash_gameplay":flash_gameplay,
+		"script_workspace": workspace_result,
+		"migration_audit": audit_result,
+		"custom_data": custom_data,
+		"flash_gameplay": flash_gameplay,
 		"warnings": warnings,
 		"errors": errors,
 		"ok": errors.is_empty(),
@@ -98,7 +159,9 @@ func run(preflight: Dictionary, progress: Callable = Callable()) -> Dictionary:
 		_emit(progress, messages, "[color=#f7d37b]%s[/color]" % warning)
 	for error in errors:
 		_emit(progress, messages, "[color=#ff8585]%s[/color]" % error)
-	return {"ok": errors.is_empty(), "messages": messages, "output_path": output_path, "report": report}
+	return {
+		"ok": errors.is_empty(), "messages": messages, "output_path": output_path, "report": report
+	}
 
 
 func _emit(progress: Callable, messages: Array[String], message: String) -> void:

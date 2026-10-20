@@ -1,3 +1,103 @@
+## 职责：回归验证：验证人物移动、强制路线、碰撞与换图生命周期。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(value: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 value（bool；必填）：需要读取、校验或写入的值。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func c(code: int, p: Array = []) -> Dictionary
+##     参数 code（int；必填）：对应指令、按键或操作的编码。
+##     参数 p（Array；默认值 []）：对应事件指令的参数数组。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func route(commands: Array, repeat: bool = false, skip: bool = false) -> Dictionary
+##     参数 commands（Array；必填）：保持原顺序的事件指令列表。
+##     参数 repeat（bool；默认值 false）：是否重复播放或重复执行。
+##     参数 skip（bool；默认值 false）：需要跳过的条目数或步骤。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func definition() -> Dictionary
+##     参数：无。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func page_event(x: int, y: int, type: int = 0, custom: Dictionary = {}) -> Dictionary
+##     参数 x（int；必填）：横向坐标。
+##     参数 y（int；必填）：纵向坐标。
+##     参数 type（int；默认值 0）：当前操作的类型标识。
+##     参数 custom（Dictionary；默认值 {}）：自定义数据运行服务或当前自定义配置。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func build_map() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func reset_event(x: int = 4, y: int = 4) -> void
+##     参数 x（int；默认值 4）：横向坐标。
+##     参数 y（int；默认值 4）：纵向坐标。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func finish(character: Node, count: int = 80, delta: float = 0.1) -> void
+##     用途：结束本次处理并返回结果。
+##     参数 character（Node；必填）：地图人物对象或原人物参数。
+##     参数 count（int；默认值 80）：处理数量或重复次数。
+##     参数 delta（float；默认值 0.1）：本次推进的时间差，单位为秒。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_validation() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_movement() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_turns_and_properties() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_wait_and_restore() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_autonomous() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_commands() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_parallel_routes() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func test_game() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func frames(count: int) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 ## Targeted native-command tests. No user-facing demonstration scene is added.
 var failures: Array[String] = []
@@ -16,10 +116,10 @@ func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	create_timer(60).timeout.connect(func() -> void: printerr("FAIL: event movement timeout"); quit(1))
 	state = root.get_node("RuntimeState")
-	data = load("res://runtime/scripts/RuntimeData.gd")
-	catalog = load("res://runtime/scripts/EventCommandCatalog.gd")
-	route_script = load("res://runtime/scripts/CharacterRoute.gd")
-	interpreter = load("res://runtime/scripts/EventInterpreter.gd")
+	data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	catalog = load("res://runtime/scripts/02_Event/EventCommandCatalog.gd")
+	route_script = load("res://runtime/scripts/02_Event/CharacterRoute.gd")
+	interpreter = load("res://runtime/scripts/02_Event/EventInterpreter.gd")
 	state.begin_new_game(data.system())
 	build_map()
 	test_validation()
@@ -61,13 +161,13 @@ func page_event(x: int, y: int, type: int = 0, custom: Dictionary = {}) -> Dicti
 		"move_route": route([]) if custom.is_empty() else custom, "graphic": {"character_name": "@movement_character", "direction": 2}, "list": [c(0)]}]}
 
 func build_map() -> void:
-	var resources: Dictionary = load("res://runtime/scripts/MovementFixture.gd").build()
-	map = load("res://runtime/scripts/MapRuntime.gd").new()
+	var resources: Dictionary = load("res://runtime/scripts/11_Development/MovementFixture.gd").build()
+	map = load("res://runtime/scripts/03_Map/MapRuntime.gd").new()
 	root.add_child(map)
 	map.load_definition(definition(), resources.tileset)
 	map.set_process(false)
 	for item in map.event_contexts(): item.node.set_process(false)
-	player = load("res://runtime/scripts/PlayerController.gd").new()
+	player = load("res://runtime/scripts/03_Map/PlayerController.gd").new()
 	map.ensure_character_layer().add_child(player)
 	player.configure(map)
 	player.set_process(false)
@@ -325,7 +425,7 @@ func test_commands() -> void:
 	expect(owner.running and owner.wait_kind() == "routes" and state.diagnostics.any(func(s: String) -> bool: return s.contains("重复强制路线")), "repeat wait warns once and never fabricates completion")
 	map.erase_event(1); owner.advance(0)
 	expect(not owner.running and not map.has_forced_routes(), "erase cancels route and releases wait without stale character reference")
-	map.load_definition(definition(), load("res://runtime/scripts/MovementFixture.gd").build().tileset)
+	map.load_definition(definition(), load("res://runtime/scripts/11_Development/MovementFixture.gd").build().tileset)
 	event = map.event_node(1)
 	for item in map.event_contexts(): item.node.set_process(false)
 	var animation_id: int = data.test_config().definitions.Animations[0].id
@@ -346,9 +446,9 @@ func test_parallel_routes() -> void:
 	custom.events["1"].pages[0].list = [c(209, [0, route([c(15, [10]), c(3)])]), c(210), c(122, [8720, 8720, 1, 0, 1]), c(106, [999]), c(0)]
 	custom.events["2"].pages[0].trigger = 4
 	custom.events["2"].pages[0].list = [c(209, [0, route([c(15, [20]), c(2)])]), c(210), c(122, [8721, 8721, 1, 0, 1]), c(106, [999]), c(0)]
-	map.load_definition(custom, load("res://runtime/scripts/MovementFixture.gd").build().tileset)
+	map.load_definition(custom, load("res://runtime/scripts/11_Development/MovementFixture.gd").build().tileset)
 	for item in map.event_contexts(): item.node.set_process(false)
-	var scheduler: RefCounted = load("res://runtime/scripts/EventScheduler.gd").new()
+	var scheduler: RefCounted = load("res://runtime/scripts/02_Event/EventScheduler.gd").new()
 	scheduler.configure(map, [])
 	scheduler.advance(0)
 	expect(map.has_forced_routes() and scheduler.parallels.size() == 2, "parallel map events own independent character routes")
@@ -366,7 +466,7 @@ func test_parallel_routes() -> void:
 	custom.events["1"].pages[0].move_route = route([c(3)], true)
 	custom.events["1"].pages[0].list = [c(122, [8722, 8722, 1, 0, 1]), c(0)]
 	custom.events["2"].pages[0].trigger = 0
-	map.load_definition(custom, load("res://runtime/scripts/MovementFixture.gd").build().tileset)
+	map.load_definition(custom, load("res://runtime/scripts/11_Development/MovementFixture.gd").build().tileset)
 	for item in map.event_contexts(): item.node.set_process(false)
 	player.move_to(5, 4)
 	var touched: Array[int] = []
@@ -378,11 +478,11 @@ func test_parallel_routes() -> void:
 
 func test_game() -> void:
 	state.begin_new_game(data.system()); state.resume_from_save = true
-	var game: Node2D = load("res://scenes/Game.tscn").instantiate()
+	var game: Node2D = load("res://scenes/03_Map/Game.tscn").instantiate()
 	root.add_child(game); current_scene = game
 	await frames(3)
 	game.reset_event_execution()
-	var tileset: Dictionary = load("res://runtime/scripts/MovementFixture.gd").build().tileset
+	var tileset: Dictionary = load("res://runtime/scripts/11_Development/MovementFixture.gd").build().tileset
 	game._map.load_definition(definition(), tileset)
 	game._scheduler.cancel_all(); game._events_enabled = true
 	game.set_process(false); game._player.set_process(false)

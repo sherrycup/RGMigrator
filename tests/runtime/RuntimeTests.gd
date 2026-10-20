@@ -1,3 +1,46 @@
+## 职责：回归验证：验证基础数据、事件、角色、背包和游戏启动流程。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func run_suite() -> void
+##     用途：执行本脚本组织的回归检查。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func cmd(code: int, parameters: Array = [], indent: int = 0) -> Dictionary
+##     参数 code（int；必填）：对应指令、按键或操作的编码。
+##     参数 parameters（Array；默认值 []）：按对应接口或事件指令约定排列的参数。
+##     参数 indent（int；默认值 0）：事件指令的结构缩进层级。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func table(values: Array, width: int, depth: int = 1) -> Dictionary
+##     参数 values（Array；必填）：待处理的一组值。
+##     参数 width（int；必填）：区域或画布宽度。
+##     参数 depth（int；默认值 1）：遍历深度或绘制层次。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func expect(condition: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 condition（bool；必填）：是否创建须返回布尔值的脚本条件模板。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func finish() -> void
+##     用途：结束本次处理并返回结果。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+## 接口说明结束。
+
 extends SceneTree
 
 var failures: Array[String] = []
@@ -12,9 +55,9 @@ func _init() -> void:
 
 func run_suite() -> void:
 	var state := root.get_node("RuntimeState")
-	var data := load("res://runtime/scripts/RuntimeData.gd")
-	var event_script := load("res://runtime/scripts/EventInterpreter.gd")
-	var title: PackedScene = load("res://scenes/Title.tscn")
+	var data := load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	var event_script := load("res://runtime/scripts/02_Event/EventInterpreter.gd")
+	var title: PackedScene = load("res://scenes/05_Title/Title.tscn")
 	var instance := title.instantiate()
 	root.add_child(instance)
 	current_scene = instance

@@ -1,3 +1,28 @@
+## 职责：回归验证：核对原事件脚本来源与运行绑定的对应关系。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func _init() -> void
+##     用途：构造本实例并记录初始化依赖。
+##     参数：无。
+##     返回：构造函数本身不返回值；通过 .new(...) 获得该脚本的实例。
+##
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(ok: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 ok（bool；必填）：本项检查是否通过。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 接口说明结束。
+
 extends SceneTree
 var checks := 0
 var failures: Array[String] = []
@@ -8,9 +33,9 @@ func _init() -> void:
 
 func run() -> void:
 	var state: Node = root.get_node("RuntimeState")
-	var data: Script = load("res://runtime/scripts/RuntimeData.gd")
-	var scripts: Script = load("res://runtime/scripts/ScriptRuntime.gd")
-	var interpreter: Script = load("res://runtime/scripts/EventInterpreter.gd")
+	var data: Script = load("res://runtime/scripts/00_Game/RuntimeData.gd")
+	var scripts: Script = load("res://runtime/scripts/10_Support/Scripting/ScriptRuntime.gd")
+	var interpreter: Script = load("res://runtime/scripts/02_Event/EventInterpreter.gd")
 	state.begin_new_game(data.system())
 	var registry: Dictionary = data.read_json("res://data/script_units.json",{})
 	var inspected := 0

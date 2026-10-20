@@ -1,3 +1,112 @@
+## 职责：回归验证：验证角色增减、能力修改与场景呼叫等原生事件。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func reset(members: Array = [1, 2]) -> void
+##     用途：重置本服务持有的状态。
+##     参数 members（Array；默认值 [1, 2]）：字段或成员名称集合。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func parameters() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func actor_commands() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func state_links() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func party_and_equipment() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func save_data() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func scene_ui() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func terminal_scenes() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func new_game() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func dispose_game() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func commands(list: Array) -> void
+##     参数 list（Array；必填）：待编辑或处理的有序记录列表。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func execute(list: Array) -> Dictionary
+##     用途：执行该脚本或已准备的操作。
+##     参数 list（Array；必填）：待编辑或处理的有序记录列表。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func apply(code: int, p: Array) -> Dictionary
+##     用途：应用已选定或已准备的修改。
+##     参数 code（int；必填）：对应指令、按键或操作的编码。
+##     参数 p（Array；必填）：对应事件指令的参数数组。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func c(code: int, p: Array = []) -> Dictionary
+##     参数 code（int；必填）：对应指令、按键或操作的编码。
+##     参数 p（Array；默认值 []）：对应事件指令的参数数组。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func actors_snapshot() -> Dictionary
+##     参数：无。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func frames(count: int) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func press(key: Key, unicode: int = 0) -> void
+##     用途：模拟一次按键输入。
+##     参数 key（Key；必填）：Godot 按键码，例如 KEY_UP、KEY_DOWN、KEY_ENTER 或 KEY_ESCAPE。
+##     参数 unicode（int；默认值 0）：Unicode 字符码值。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func expect(condition: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 condition（bool；必填）：是否创建须返回布尔值的脚本条件模板。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   static func definitions() -> Dictionary
+##     参数：无。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 var failures: Array[String] = []
 var checks := 0
@@ -12,13 +121,13 @@ func _initialize() -> void: call_deferred("run")
 
 func run() -> void:
 	create_timer(65).timeout.connect(func() -> void: printerr("FAIL: actor/scene timeout"); quit(1))
-	data = load("res://runtime/scripts/RuntimeData.gd"); state = root.get_node("RuntimeState")
-	catalog = load("res://runtime/scripts/EventCommandCatalog.gd"); interpreter = load("res://runtime/scripts/EventInterpreter.gd")
+	data = load("res://runtime/scripts/00_Game/RuntimeData.gd"); state = root.get_node("RuntimeState")
+	catalog = load("res://runtime/scripts/02_Event/EventCommandCatalog.gd"); interpreter = load("res://runtime/scripts/02_Event/EventInterpreter.gd")
 	var original: Dictionary = data._cache.duplicate(true)
 	fixture = definitions()
 	for database in fixture: data._cache["res://data/database/%s.json" % database] = fixture[database]
 	var immutable := JSON.stringify(fixture)
-	var resources: Script = load("res://runtime/scripts/UIResources.gd")
+	var resources: Script = load("res://runtime/scripts/04_UI_Common/UIResources.gd")
 	var image := Image.create(128, 128, false, Image.FORMAT_RGBA8); image.fill(Color("e09030"))
 	resources._textures["Graphics/Characters/@actor"] = ImageTexture.create_from_image(image)
 	reset(); parameters(); actor_commands(); state_links(); party_and_equipment(); save_data()
@@ -80,7 +189,7 @@ func actor_commands() -> void:
 	expect(apply(316, [1, 0, 0, 99]).ok and actor.level == 5, "316 final level cap")
 	expect(apply(315, [1, 0, 0, 99999999]).ok and actor.exp == 9999999, "315 native EXP cap")
 	for index in 6:
-		var key: String = load("res://runtime/scripts/ActorEventService.gd").PARAMETER_KEYS[index]
+		var key: String = load("res://runtime/scripts/00_Game/ActorEventService.gd").PARAMETER_KEYS[index]
 		expect(apply(317, [1, index, 0, 0, 7]).ok and actor.get_parameter_plus(key) == 7, "317 native six index maps to " + key)
 	expect(actor.atk_plus == 0 and actor.pdef_plus == 0 and actor.mdef_plus == 0, "317 six index does not modify three derived combat stats")
 	expect(apply(317, [1, 2, 0, 0, 99999999]).ok and actor.str_plus == 999, "317 saturates permanent plus instead of rejecting native large increments")
@@ -153,11 +262,11 @@ func party_and_equipment() -> void:
 
 func save_data() -> void:
 	reset(); apply(322, [1, "@actor", 90, "战斗元数据", 180]); apply(320, [1, "已改姓名"])
-	var codec: Script = load("res://runtime/scripts/SaveCodec.gd")
+	var codec: Script = load("res://runtime/scripts/10_Support/Persistence/SaveCodec.gd")
 	var saved: Dictionary = codec.capture(state); var prepared: Dictionary = codec.prepare(saved)
 	expect(prepared.ok and prepared.actors[1].battler_name == "战斗元数据" and prepared.actors[1].character_name == "@actor", "322 both native image overrides survive save preflight")
 	var previous: Dictionary = saved.actors["1"].duplicate(true) if saved.actors is Dictionary else saved.actors[0].duplicate(true)
-	var old: RefCounted = load("res://runtime/scripts/ActorState.gd").new(); old.configure(1, fixture.Actors[1], data.record)
+	var old: RefCounted = load("res://runtime/scripts/00_Game/ActorState.gd").new(); old.configure(1, fixture.Actors[1], data.record)
 	previous.erase("battler_name"); previous.erase("battler_hue")
 	expect(old.restore_persistent(previous).is_empty() and old.battler_name == "原战斗图", "old schema actor without battler overrides uses database defaults")
 	if saved.actors is Dictionary: saved.actors["1"].battler_hue = 361
@@ -257,9 +366,9 @@ func terminal_scenes() -> void:
 
 func new_game() -> void:
 	reset(); state.resume_from_save = true
-	game = load("res://scenes/Game.tscn").instantiate(); root.add_child(game); current_scene = game
+	game = load("res://scenes/03_Map/Game.tscn").instantiate(); root.add_child(game); current_scene = game
 	await frames(3); game.reset_event_execution()
-	var map_fixture: Dictionary = load("res://runtime/scripts/MovementFixture.gd").build(); map_fixture.map.events = {}
+	var map_fixture: Dictionary = load("res://runtime/scripts/11_Development/MovementFixture.gd").build(); map_fixture.map.events = {}
 	game._map.load_definition(map_fixture.map, map_fixture.tileset); game._scheduler.cancel_all(); game._scheduler.common_events = []
 	game.set_process(false); game._player.set_process(false); game._events_enabled = true
 	expect(game._player.move_to(6, 5), "scene fixture positions player inside12x9 map")

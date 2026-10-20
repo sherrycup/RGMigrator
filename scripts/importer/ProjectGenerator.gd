@@ -1,3 +1,26 @@
+## 职责：生成 Godot 工程配置，安装运行时和魔塔编辑器，并附带脚本工作区转换工具及开发说明。
+##
+## 调用方式：
+##   迁移管线在数据转换后创建该服务并调用 generate(...)。
+##   正式迁移使用全新非空检查通过的输出目录，历史用户工程保留。
+##
+## 调用接口：
+##   func generate( output_root: String, project_title: String, ini: Dictionary, progress: Callable = Callable(), source_id: String = "" ) -> Dictionary
+##     用途：安装运行模板、编辑器、工程配置和开发说明。
+##     参数 output_root（String；必填）：全新生成工程的绝对输出根目录。
+##     参数 project_title（String；必填）：从原工程读取的游戏标题。
+##     参数 ini（Dictionary；必填）：原 INI 配置，包含可识别的窗口参数。
+##     参数 progress（Callable；默认值 Callable()）：阶段提示回调；不提供时使用默认空回调。
+##     参数 source_id（String；默认值 ""）：原工程的稳定来源标识，用于项目存档归属。
+##     返回：包含 warnings、width、height 的生成结果字典。
+##
+##   func write_flash_source_guide(output_root: String) -> void
+##     参数 output_root（String；必填）：生成工程的输出根目录。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 公开常量：EXTRA_README。
+## 接口说明结束。
+
 class_name ProjectGenerator
 extends RefCounted
 
@@ -91,7 +114,7 @@ ver0.26接通129/135、311–322及303/351/353/354。角色单个/全体事务�
 
 ## 分类素材接口
 
-const Cache = preload("res://runtime/scripts/RmxpCache.gd")。Cache.picture(name)、icon(name)、title(name)、windowskin(name)、character(name)、animation(name)、tileset(name)、autotile(name)、panorama(name)、fog(name)、battler(name)、gameover(name)、transition(name) 各自只查对应 Graphics 分类；同名文件不跨库匹配，缺失返回 null，不读取 RTP，越界路径拒绝。素材共享纹理，位置/色相/色调等显示参数由各显示实例管理，不修改缓存纹理。
+const Cache = preload("res://runtime/scripts/10_Support/Cache/RmxpCache.gd")。Cache.picture(name)、icon(name)、title(name)、windowskin(name)、character(name)、animation(name)、tileset(name)、autotile(name)、panorama(name)、fog(name)、battler(name)、gameover(name)、transition(name) 各自只查对应 Graphics 分类；同名文件不跨库匹配，缺失返回 null，不读取 RTP，越界路径拒绝。素材共享纹理，位置/色相/色调等显示参数由各显示实例管理，不修改缓存纹理。
 
 为未来编辑器预留 Cache.categories()、list_names(category)、list_assets(category)、resolve(category, name)、exists(category, name)。分类枚举读取 data/asset_index.json，不加载图片，不注入工具测试素材，不混合其他目录；列表用原文件名（含扩展名）去除索引别名，每条包含 category/name/source_key/path，保留中文、子目录及扩展名修正后的映射。F6 图片选择器已使用 Pictures 分类。Cache.clear() 释放缓存引用，不销毁显示节点持有的纹理；编辑文件后仍需 Godot 资源重新导入，clear 不执行磁盘刷新。
 
@@ -127,16 +150,33 @@ set_experience/add_experience、set_level/add_level 更新等级与经验，跨�
 var warnings: Array[String] = []
 
 
-func generate(output_root: String, project_title: String, ini: Dictionary, progress: Callable = Callable(), source_id: String = "") -> Dictionary:
+func generate(
+	output_root: String,
+	project_title: String,
+	ini: Dictionary,
+	progress: Callable = Callable(),
+	source_id: String = ""
+) -> Dictionary:
 	warnings.clear()
 	if progress.is_valid():
 		progress.call("生成 Godot 运行时模板")
 	var template_root := ProjectSettings.globalize_path("res://templates/runtime")
 	_copy_tree(template_root.path_join("scripts"), output_root.path_join("runtime/scripts"))
+	_copy_tree(template_root.path_join("assets"), output_root.path_join("runtime/assets"))
 	_copy_tree(template_root.path_join("scenes"), output_root.path_join("scenes"))
-	_copy_tree(ProjectSettings.globalize_path("res://templates/editor/addons"), output_root.path_join("addons"))
+	_copy_tree(
+		ProjectSettings.globalize_path("res://templates/editor/addons"),
+		output_root.path_join("addons")
+	)
 	_copy_workspace_compiler(output_root)
-	_copy_file(template_root.path_join("MAP_PRESENTATION.md"), output_root.path_join("MAP_PRESENTATION.md"))
+	_copy_file(ProjectSettings.globalize_path("res://tools/script_renames_v059.json"), output_root.path_join("data/script_renames_v059.json"))
+	_copy_file(
+		template_root.path_join("script_layout.json"),
+		output_root.path_join("data/script_layout.json")
+	)
+	_copy_file(
+		template_root.path_join("MAP_PRESENTATION.md"), output_root.path_join("MAP_PRESENTATION.md")
+	)
 	var width := 640
 	var height := 480
 	var window: Dictionary = ini.get("Window", {})
@@ -144,75 +184,386 @@ func generate(output_root: String, project_title: String, ini: Dictionary, progr
 		width = int(window["width"])
 	if int(window.get("height", 0)) > 0:
 		height = int(window["height"])
-	_write_project_file(output_root.path_join("project.godot"), project_title, width, height, (source_id if not source_id.is_empty() else project_title).replace("\\", "/").to_lower().sha256_text())
-	var version_file := FileAccess.open(output_root.path_join("runtime/scripts/RuntimeVersion.gd"), FileAccess.WRITE)
+	_write_project_file(
+		output_root.path_join("project.godot"),
+		project_title,
+		width,
+		height,
+		(
+			(source_id if not source_id.is_empty() else project_title)
+			. replace("\\", "/")
+			. to_lower()
+			. sha256_text()
+		)
+	)
+	var version_file := FileAccess.open(
+		output_root.path_join("runtime/scripts/00_Game/RuntimeVersion.gd"), FileAccess.WRITE
+	)
 	if version_file == null:
 		warnings.append("无法写入运行时版本。")
 	else:
-		version_file.store_string("extends RefCounted\nconst VERSION := \"%s\"\n" % RGMigratorVersion.VERSION)
+		var version_source := FileAccess.get_file_as_string(
+			template_root.path_join("scripts/00_Game/RuntimeVersion.gd")
+		)
+		var version_line := RegEx.new()
+		# Preserve the template's line ending while replacing the declaration.
+		version_line.compile("(?m)^const VERSION := [^\r\n]*")
+		version_file.store_string(
+			version_line.sub(
+				version_source, "const VERSION := " + JSON.stringify(RGMigratorVersion.VERSION)
+			)
+		)
 		version_file.close()
 	_write_readme(output_root.path_join("README.md"), project_title)
+	_copy_file(
+		ProjectSettings.globalize_path("res://docs/SCRIPT_STRUCTURE_v0.51.md"),
+		output_root.path_join("SCRIPT_STRUCTURE.md")
+	)
 	return {"warnings": warnings, "width": width, "height": height}
 
+
 func _copy_workspace_compiler(output_root: String) -> void:
-	var folder=output_root.path_join("addons/rgm_editor/compiler")
+	var folder = output_root.path_join("addons/rgm_editor/compiler")
 	DirAccess.make_dir_recursive_absolute(folder)
-	for name in ["RubyLexer.gd","RubyParser.gd","RubyGDScriptCompiler.gd","RubySubsetCompiler.gd","RubySemanticModel.gd","FlashSourceCorrections.gd","ScriptEventIntegrator.gd","ScriptMigrationInventory.gd"]:
-		var source=FileAccess.get_file_as_string("res://scripts/importer/"+name)
-		source=source.replace('"res://scripts/importer/','"res://addons/rgm_editor/compiler/').replace('"res://scripts/Version.gd"','"res://addons/rgm_editor/compiler/Version.gd"').replace('"res://templates/editor/addons/rgm_editor/EditorScriptAdapter.gd"','"res://addons/rgm_editor/EditorScriptAdapter.gd"')
-		var file=FileAccess.open(folder.path_join(name),FileAccess.WRITE)
-		if file==null: warnings.append("无法附带脚本转换器："+name); continue
-		file.store_string("@tool\n"+source); file.close()
-	var version=FileAccess.open(folder.path_join("Version.gd"),FileAccess.WRITE)
-	if version!=null: version.store_string("@tool\nextends RefCounted\nconst VERSION := \"%s\"\n" % RGMigratorVersion.VERSION); version.close()
+	var compiler_names = [
+		"RubyLexer.gd",
+		"RubyParser.gd",
+		"RubyGDScriptCompiler.gd",
+		"RubySubsetCompiler.gd",
+		"RubySemanticModel.gd",
+		"SourceCorrections.gd",
+		"NativeEventImporter.gd",
+		"EventBodyEmitter.gd",
+		"ScriptEventIntegrator.gd",
+		"ScriptMigrationInventory.gd"
+	]
+	for name in compiler_names:
+		var source = FileAccess.get_file_as_string("res://scripts/importer/" + name).replace(
+			"\r\n", "\n"
+		)
+		source = (
+			source
+			. replace('"res://scripts/importer/', '"res://addons/rgm_editor/compiler/')
+			. replace('"res://scripts/Version.gd"', '"res://addons/rgm_editor/compiler/Version.gd"')
+			. replace(
+				'"res://templates/editor/addons/rgm_editor/03_Event/Editor_ScriptAdapter.gd"',
+				'"res://addons/rgm_editor/03_Event/Editor_ScriptAdapter.gd"'
+			)
+			. replace('"res://templates/runtime/scripts/', '"res://runtime/scripts/')
+		)
+		# Shared importer sources keep their source names; editor copies and all
+		# their imports use the same Editor_ prefix as the rest of the plugin.
+		for dependency in compiler_names + ["Version.gd"]:
+			source = source.replace(dependency, "Editor_" + dependency)
+		var file = FileAccess.open(folder.path_join("Editor_" + name), FileAccess.WRITE)
+		if file == null:
+			warnings.append("无法附带脚本转换器：" + name)
+			continue
+		file.store_string(source.insert(source.find("\n\n") + 2, "@tool\n"))
+		file.close()
+	var version = FileAccess.open(folder.path_join("Editor_Version.gd"), FileAccess.WRITE)
+	if version != null:
+		(
+			version
+			. store_string(
+				(
+					'## 职责：声明魔塔编辑器附带的脚本转换工具版本。\n## 调用方式：通过 preload(本文件路径).VERSION 读取。\n## 调用接口：无公开方法，也没有构造参数。\n## 公开常量：VERSION，字符串形式的迁移器版本号。\n## 接口说明结束。\n\n@tool\nextends RefCounted\nconst VERSION := "%s"\n'
+					% RGMigratorVersion.VERSION
+				)
+			)
+		)
+		version.close()
 
 
 func write_flash_source_guide(output_root: String) -> void:
-	var manifest_path=output_root.path_join("data/custom_data.json")
-	if not FileAccess.file_exists(manifest_path): return
-	var manifest: Variant=JSON.parse_string(FileAccess.get_file_as_string(manifest_path))
-	if not manifest is Dictionary or manifest.get("profile")!="flash": return
+	var manifest_path = output_root.path_join("data/custom_data.json")
+	if not FileAccess.file_exists(manifest_path):
+		return
+	var manifest: Variant = JSON.parse_string(FileAccess.get_file_as_string(manifest_path))
+	if not manifest is Dictionary or manifest.get("profile") != "flash":
+		return
+	_write_flash_readme(output_root)
 	# Source 0337 overrides Game.ini's earlier dimensions and uses 60 Hz.
-	var config=ConfigFile.new()
-	if config.load(output_root.path_join("project.godot"))==OK:
-		config.set_value("display","window/size/viewport_width",640)
-		config.set_value("display","window/size/viewport_height",640)
-		config.set_value("display","window/size/window_width_override",640)
-		config.set_value("display","window/size/window_height_override",640)
-		config.set_value("display","window/stretch/scale_mode","fractional")
-		config.set_value("application","run/max_fps",60)
+	var config = ConfigFile.new()
+	if config.load(output_root.path_join("project.godot")) == OK:
+		config.set_value("display", "window/size/viewport_width", 640)
+		config.set_value("display", "window/size/viewport_height", 640)
+		config.set_value("display", "window/size/window_width_override", 640)
+		config.set_value("display", "window/size/window_height_override", 640)
+		config.set_value("display", "window/stretch/scale_mode", "fractional")
+		config.set_value("application", "run/max_fps", 60)
 		config.save(output_root.path_join("project.godot"))
-	for name in ["SCRIPT_MIGRATION_v0.47.md","FLASH_LIFECYCLE_AUDIT_v0.47.md","FLASH_LIFECYCLE_AUDIT_v0.47.json","SCRIPT_MIGRATION_v0.45.md","SCRIPT_MIGRATION_v0.46.md","FLASH_UI_GDSCRIPT_v0.46.md","FLASH_BATTLE_GDSCRIPT_v0.45.md","FLASH_OBJECTS_AUDIT_v0.45.md","FLASH_LEGACY_AUDIT_v0.45.md","FLASH_LEGACY_AUDIT_v0.45.json","FLASH_SCRIPT_CHECKLIST_v0.45_v0.47.md","FLASH_SCRIPT_CHECKLIST_v0.45_v0.47.json"]:
-		_copy_file(ProjectSettings.globalize_path("res://docs/"+name),output_root.path_join("migration_docs/"+name))
-	_copy_file(ProjectSettings.globalize_path("res://tests/VERIFICATION_v0.45.md"),output_root.path_join("tests/VERIFICATION_v0.45.md"))
-	_copy_file(ProjectSettings.globalize_path("res://tests/VERIFICATION_v0.46.md"),output_root.path_join("tests/VERIFICATION_v0.46.md"))
-	_copy_file(ProjectSettings.globalize_path("res://tests/VERIFICATION_v0.47.md"),output_root.path_join("tests/VERIFICATION_v0.47.md"))
-	_copy_file(ProjectSettings.globalize_path("res://docs/SCRIPT_MIGRATION_v0.48.md"),output_root.path_join("migration_docs/SCRIPT_MIGRATION_v0.48.md"))
-	_copy_file(ProjectSettings.globalize_path("res://docs/PERFORMANCE_FIX_v0.48.md"),output_root.path_join("migration_docs/PERFORMANCE_FIX_v0.48.md"))
-	_copy_file(ProjectSettings.globalize_path("res://docs/EVENT_PERFORMANCE_FIX_v0.48.md"),output_root.path_join("migration_docs/EVENT_PERFORMANCE_FIX_v0.48.md"))
-	_copy_file(ProjectSettings.globalize_path("res://docs/DIRECT_SCRIPT_EXECUTION_v0.48.md"),output_root.path_join("migration_docs/DIRECT_SCRIPT_EXECUTION_v0.48.md"))
-	_copy_file(ProjectSettings.globalize_path("res://docs/ENCOUNTER_DELAY_FIX_v0.48.md"),output_root.path_join("migration_docs/ENCOUNTER_DELAY_FIX_v0.48.md"))
-	_copy_file(ProjectSettings.globalize_path("res://docs/MENU_PERFORMANCE_FIX_v0.48.md"),output_root.path_join("migration_docs/MENU_PERFORMANCE_FIX_v0.48.md"))
-	_copy_file(ProjectSettings.globalize_path("res://docs/UI_OPTIMIZATION_v0.5.md"),output_root.path_join("migration_docs/UI_OPTIMIZATION_v0.5.md"))
-	_copy_file(ProjectSettings.globalize_path("res://docs/EVENT_CONTINUATIONS_FIX_v0.48.md"),output_root.path_join("migration_docs/EVENT_CONTINUATIONS_FIX_v0.48.md"))
-	_copy_file(ProjectSettings.globalize_path("res://docs/AUDIO_FIX_v0.48.md"),output_root.path_join("migration_docs/AUDIO_FIX_v0.48.md"))
-	_copy_file(ProjectSettings.globalize_path("res://tests/VERIFICATION_v0.48.md"),output_root.path_join("tests/VERIFICATION_v0.48.md"))
-	_copy_file(ProjectSettings.globalize_path("res://docs/SCRIPT_MIGRATION_v0.49.md"),output_root.path_join("migration_docs/SCRIPT_MIGRATION_v0.49.md"))
-	_copy_file(ProjectSettings.globalize_path("res://tests/VERIFICATION_v0.49.md"),output_root.path_join("tests/VERIFICATION_v0.49.md"))
-	_copy_file(ProjectSettings.globalize_path("res://docs/PERFORMANCE_v0.5.md"),output_root.path_join("migration_docs/PERFORMANCE_v0.5.md"))
-	_copy_file(ProjectSettings.globalize_path("res://tests/VERIFICATION_v0.5.md"),output_root.path_join("tests/VERIFICATION_v0.5.md"))
-	for name in ["EditorScriptWorkspaceTests.gd","EditorScriptSourceFlowTests.gd","EditorScriptUiTests.gd","EditorCompileTests.gd","EditorCustomDataTests.gd"]:
-		_copy_file(ProjectSettings.globalize_path("res://tests/editor/"+name),output_root.path_join("tests/editor/"+name))
-	var tests=DirAccess.open("res://tests/runtime")
-	if tests!=null:
+	for name in [
+		"SCRIPT_MIGRATION_v0.47.md",
+		"FLASH_LIFECYCLE_AUDIT_v0.47.md",
+		"FLASH_LIFECYCLE_AUDIT_v0.47.json",
+		"SCRIPT_MIGRATION_v0.45.md",
+		"SCRIPT_MIGRATION_v0.46.md",
+		"FLASH_UI_GDSCRIPT_v0.46.md",
+		"FLASH_BATTLE_GDSCRIPT_v0.45.md",
+		"FLASH_OBJECTS_AUDIT_v0.45.md",
+		"MIGRATION_AUDIT_v0.58.md",
+		"MIGRATION_AUDIT_v0.58.json",
+		"MIGRATION_AUDIT_v0.59.md",
+		"MIGRATION_AUDIT_v0.59.json",
+		"INTEGRATION_v0.59.md",
+		"FLASH_LEGACY_AUDIT_v0.45.md",
+		"FLASH_LEGACY_AUDIT_v0.45.json",
+		"FLASH_SCRIPT_CHECKLIST_v0.45_v0.47.md",
+		"FLASH_SCRIPT_CHECKLIST_v0.45_v0.47.json"
+	]:
+		_copy_file(
+			ProjectSettings.globalize_path("res://docs/" + name),
+			output_root.path_join("migration_docs/" + name)
+		)
+	_copy_file(
+		ProjectSettings.globalize_path("res://tests/VERIFICATION_v0.45.md"),
+		output_root.path_join("tests/VERIFICATION_v0.45.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://tests/VERIFICATION_v0.46.md"),
+		output_root.path_join("tests/VERIFICATION_v0.46.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://tests/VERIFICATION_v0.47.md"),
+		output_root.path_join("tests/VERIFICATION_v0.47.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://docs/SCRIPT_MIGRATION_v0.48.md"),
+		output_root.path_join("migration_docs/SCRIPT_MIGRATION_v0.48.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://docs/PERFORMANCE_FIX_v0.48.md"),
+		output_root.path_join("migration_docs/PERFORMANCE_FIX_v0.48.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://docs/EVENT_PERFORMANCE_FIX_v0.48.md"),
+		output_root.path_join("migration_docs/EVENT_PERFORMANCE_FIX_v0.48.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://docs/DIRECT_SCRIPT_EXECUTION_v0.48.md"),
+		output_root.path_join("migration_docs/DIRECT_SCRIPT_EXECUTION_v0.48.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://docs/ENCOUNTER_DELAY_FIX_v0.48.md"),
+		output_root.path_join("migration_docs/ENCOUNTER_DELAY_FIX_v0.48.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://docs/MENU_PERFORMANCE_FIX_v0.48.md"),
+		output_root.path_join("migration_docs/MENU_PERFORMANCE_FIX_v0.48.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://docs/UI_OPTIMIZATION_v0.5.md"),
+		output_root.path_join("migration_docs/UI_OPTIMIZATION_v0.5.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://docs/EVENT_CONTINUATIONS_FIX_v0.48.md"),
+		output_root.path_join("migration_docs/EVENT_CONTINUATIONS_FIX_v0.48.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://docs/AUDIO_FIX_v0.48.md"),
+		output_root.path_join("migration_docs/AUDIO_FIX_v0.48.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://tests/VERIFICATION_v0.48.md"),
+		output_root.path_join("tests/VERIFICATION_v0.48.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://docs/SCRIPT_MIGRATION_v0.49.md"),
+		output_root.path_join("migration_docs/SCRIPT_MIGRATION_v0.49.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://tests/VERIFICATION_v0.49.md"),
+		output_root.path_join("tests/VERIFICATION_v0.49.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://docs/PERFORMANCE_v0.5.md"),
+		output_root.path_join("migration_docs/PERFORMANCE_v0.5.md")
+	)
+	_copy_file(
+		ProjectSettings.globalize_path("res://tests/VERIFICATION_v0.5.md"),
+		output_root.path_join("tests/VERIFICATION_v0.5.md")
+	)
+	for name in [
+		"SCRIPT_STRUCTURE_v0.51.md",
+		"ROADMAP_v0.5.md",
+		"EVENT_GDSCRIPT_v0.52.md",
+		"UI_FOUNDATION_v0.53.md",
+		"MESSAGE_v0.54.md",
+		"TITLE_v0.55.md",
+		"MENU_ARCHIVE_v0.56.md",
+		"FUNCTION_WINDOWS_v0.57.md",
+		"UI_FIXES_v0.58.md",
+		"LOAD_FIXES_v0.58.md"
+	]:
+		_copy_file(
+			ProjectSettings.globalize_path("res://docs/" + name),
+			output_root.path_join("migration_docs/" + name)
+		)
+	for name in [
+		"VERIFICATION_v0.51.md",
+		"VERIFICATION_v0.51.json",
+		"VERIFICATION_v0.52.md",
+		"VERIFICATION_v0.52.json",
+		"VERIFICATION_v0.53.md",
+		"VERIFICATION_v0.53.json",
+		"VERIFICATION_v0.54.md",
+		"VERIFICATION_v0.54.json",
+		"VERIFICATION_v0.55.md",
+		"VERIFICATION_v0.55.json",
+		"VERIFICATION_v0.56.md",
+		"VERIFICATION_v0.56.json",
+		"VERIFICATION_v0.57.md",
+		"VERIFICATION_v0.57.json",
+		"VERIFICATION_v0.58.md",
+		"VERIFICATION_v0.58.json"
+	]:
+		_copy_file(
+			ProjectSettings.globalize_path("res://tests/" + name),
+			output_root.path_join("tests/" + name)
+		)
+	_copy_file(
+		ProjectSettings.globalize_path("res://tests/verification/v052-native-editor.png"),
+		output_root.path_join("tests/verification/v052-native-editor.png")
+	)
+	for name in [
+		"VERIFICATION_v0.58_UI.md",
+		"VERIFICATION_v0.58_UI.json",
+		"VERIFICATION_v0.58_LOAD.md",
+		"VERIFICATION_v0.58_LOAD.json",
+		"VERIFICATION_v0.59.md",
+		"VERIFICATION_v0.59.json"
+	]:
+		var source_path = "res://tests/" + name
+		if FileAccess.file_exists(source_path):
+			_copy_file(
+				ProjectSettings.globalize_path(source_path), output_root.path_join("tests/" + name)
+			)
+	var verification = DirAccess.open("res://tests/verification")
+	if verification != null:
+		for name in verification.get_files():
+			if (name.begins_with("v057-") or name.begins_with("v058-")) and name.ends_with(".png"):
+				_copy_file(
+					ProjectSettings.globalize_path("res://tests/verification/" + name),
+					output_root.path_join("tests/verification/" + name)
+				)
+	for name in [
+		"v053-editor.png",
+		"v053-editor-selected.png",
+		"v053-scroll.png",
+		"v053-text.png",
+		"v053-title.png",
+		"v053-menu.png",
+		"v053-message.png",
+		"v054-dialogue.png",
+		"v054-choice.png",
+		"v054-number.png",
+		"v054-hint.png",
+		"v054-pages.png",
+		"v054-history.png",
+		"v055-carousel-half.png",
+		"v055-continue.png",
+		"v055-difficulty-ex.png",
+		"v055-difficulty-hard.png",
+		"v055-disabled-command.png",
+		"v055-merit-book.png",
+		"v055-merit.png",
+		"v055-music-half.png",
+		"v055-music.png",
+		"v055-return-title.png",
+		"v055-settings-1.png",
+		"v055-settings-2.png",
+		"v055-settings-3.png",
+		"v055-title.png",
+		"v056-archive-half.png",
+		"v056-archive-load.png",
+		"v056-archive-new.png",
+		"v056-archive-save.png",
+		"v056-archive-scroll.png",
+		"v056-config.png",
+		"v056-cursor-half.png",
+		"v056-load-failure.png",
+		"v056-locked.png",
+		"v056-map.png",
+		"v056-menu-half.png",
+		"v056-menu.png",
+		"v056-overwrite.png",
+		"v056-return-map.png",
+		"v056-title-continue.png",
+		"v056-titlecheck-carousel-half.png",
+		"v056-titlecheck-continue.png",
+		"v056-titlecheck-difficulty-ex.png",
+		"v056-titlecheck-difficulty-hard.png",
+		"v056-titlecheck-disabled-command.png",
+		"v056-titlecheck-merit-book.png",
+		"v056-titlecheck-merit.png",
+		"v056-titlecheck-music-half.png",
+		"v056-titlecheck-music.png",
+		"v056-titlecheck-return-title.png",
+		"v056-titlecheck-settings-1.png",
+		"v056-titlecheck-settings-2.png",
+		"v056-titlecheck-settings-3.png",
+		"v056-titlecheck-title.png"
+	]:
+		var source_path = "res://tests/verification/" + name
+		if FileAccess.file_exists(source_path):
+			_copy_file(
+				ProjectSettings.globalize_path(source_path),
+				output_root.path_join("tests/verification/" + name)
+			)
+	for name in [
+		"Editor_ScriptWorkspaceTests.gd",
+		"Editor_ScriptSourceFlowTests.gd",
+		"Editor_ScriptUiTests.gd",
+		"Editor_CompileTests.gd",
+		"Editor_CustomDataTests.gd",
+		"Editor_CommandBlockTests.gd",
+		"Editor_NativeEventV052Tests.gd",
+		"Editor_NativePluginV052Probe.gd",
+		"Editor_UIContrastV053Tests.gd",
+		"Editor_UIV053Probe.gd",
+		"Editor_MigrationAuditV058Tests.gd",
+		"Editor_MigrationAuditV058Probe.gd"
+	]:
+		_copy_file(
+			ProjectSettings.globalize_path("res://tests/editor/" + name),
+			output_root.path_join("tests/editor/" + name)
+		)
+	var tests = DirAccess.open("res://tests/runtime")
+	if tests != null:
 		for name in tests.get_files():
-			if name.begins_with("Flash") and name.ends_with("Tests.gd"): _copy_file(ProjectSettings.globalize_path("res://tests/runtime/"+name),output_root.path_join("tests/runtime/"+name))
-	for name in ["FlashFailureIsolationProbe.gd","FlashStartupV049Probe.gd","FlashSoakV049Probe.gd","FlashDamageOrderV050Probe.gd","FlashEncounterPerformanceProbe.gd"]:
-		_copy_file(ProjectSettings.globalize_path("res://tests/runtime/"+name),output_root.path_join("tests/runtime/"+name))
-	var readme=FileAccess.open(output_root.path_join("README.md"),FileAccess.READ_WRITE)
-	if readme!=null:
+			if name.ends_with("Tests.gd"):
+				_copy_file(
+					ProjectSettings.globalize_path("res://tests/runtime/" + name),
+					output_root.path_join("tests/runtime/" + name)
+				)
+	for name in [
+		"FailureIsolationProbe.gd",
+		"StartupV049Probe.gd",
+		"SoakV049Probe.gd",
+		"DamageOrderV050Probe.gd",
+		"EncounterPerformanceProbe.gd",
+		"NativeEventV052Tests.gd",
+		"ReadableEventV052Tests.gd",
+		"UICommonV053Tests.gd",
+		"SupportUIPreviewTests.gd",
+		"LoadAndSharedBarTests.gd",
+		"NativeMigrationV052Tests.gd",
+		"NativeFatalV052Probe.gd"
+	]:
+		_copy_file(
+			ProjectSettings.globalize_path("res://tests/runtime/" + name),
+			output_root.path_join("tests/runtime/" + name)
+		)
+	var readme = FileAccess.open(output_root.path_join("README.md"), FileAccess.READ_WRITE)
+	if readme != null:
 		readme.seek_end()
-		readme.store_string("\n## 闪翼自定义源码\n\n0.45玩法和0.46页面、消息、地图半成品、演出与跟随使用同一份运行状态。原Ruby到GDScript的对应及开发示例见 [0.46源码入口](migration_docs/FLASH_UI_GDSCRIPT_v0.46.md)，阶段范围见 [0.46说明](migration_docs/SCRIPT_MIGRATION_v0.46.md)。说明中的 templates/runtime/scripts 对应本工程 runtime/scripts。普通技能定义可直接修改 runtime/generated/flash_skill_catalog.gd；[战斗源码说明](migration_docs/FLASH_BATTLE_GDSCRIPT_v0.45.md)提供扩展示例。原公式保持，确认修正见 data/source_corrections.json。原缺失数据/资源和空分支照实记录，特殊BOSS战按用户要求排除。0.47完整关系存档、活动表现恢复、跨启动设置/解锁、自动记录/撤回和剩余插件入口见 [0.47说明](migration_docs/SCRIPT_MIGRATION_v0.47.md)。原依赖与缺口见 [生命周期审计](migration_docs/FLASH_LIFECYCLE_AUDIT_v0.47.md)，整体验收尚未进行。\n")
+		(
+			readme
+			. store_string(
+				"\n## 闪翼自定义源码\n\n0.45玩法和0.46页面、消息、地图半成品、演出与跟随使用同一份运行状态。原Ruby到GDScript的对应及开发示例见 [0.46源码入口](migration_docs/FLASH_UI_GDSCRIPT_v0.46.md)，阶段范围见 [0.46说明](migration_docs/SCRIPT_MIGRATION_v0.46.md)。说明中的 templates/runtime/scripts 对应本工程 runtime/scripts。普通技能定义可直接修改 runtime/generated/skill_catalog.gd；[战斗源码说明](migration_docs/FLASH_BATTLE_GDSCRIPT_v0.45.md)提供扩展示例。原公式保持，确认修正见 data/source_corrections.json。原缺失数据/资源和空分支照实记录，特殊BOSS战按用户要求排除。0.47完整关系存档、活动表现恢复、跨启动设置/解锁、自动记录/撤回和剩余插件入口见 [0.47说明](migration_docs/SCRIPT_MIGRATION_v0.47.md)。原依赖与缺口见 [生命周期审计](migration_docs/FLASH_LIFECYCLE_AUDIT_v0.47.md)，整体验收尚未进行。\n"
+			)
+		)
 		readme.close()
 
 
@@ -255,13 +606,19 @@ func _copy_file(source_path: String, destination_path: String) -> void:
 	source.close()
 
 
-func _write_project_file(path: String, title: String, width: int, height: int, project_id: String) -> void:
+func _write_project_file(
+	path: String, title: String, width: int, height: int, project_id: String
+) -> void:
 	var config := ConfigFile.new()
 	config.set_value("application", "config/name", title)
-	config.set_value("application", "run/main_scene", "res://scenes/Title.tscn")
-	config.set_value("application", "config/features", PackedStringArray(["4.5", "GL Compatibility"]))
-	config.set_value("editor_plugins", "enabled", PackedStringArray(["res://addons/rgm_editor/plugin.cfg"]))
-	config.set_value("autoload", "RuntimeState", "*res://runtime/scripts/RuntimeState.gd")
+	config.set_value("application", "run/main_scene", "res://scenes/05_Title/Title.tscn")
+	config.set_value(
+		"application", "config/features", PackedStringArray(["4.5", "GL Compatibility"])
+	)
+	config.set_value(
+		"editor_plugins", "enabled", PackedStringArray(["res://addons/rgm_editor/plugin.cfg"])
+	)
+	config.set_value("autoload", "RuntimeState", "*res://runtime/scripts/00_Game/RuntimeState.gd")
 	config.set_value("rgmigrator", "project_id", project_id)
 	# Empty arrays mean the complete logical screen and its center. Never parse Ruby UI code.
 	config.set_value("rgmigrator", "map_view_rect", [])
@@ -281,15 +638,70 @@ func _write_project_file(path: String, title: String, width: int, height: int, p
 	if file == null:
 		warnings.append("无法写入 project.godot：%s" % path)
 		return
-	file.store_string("; Generated by %s\nconfig_version=5\n" % RGMigratorVersion.DISPLAY_NAME + config.encode_to_text())
+	file.store_string(
+		(
+			"; Generated by %s\nconfig_version=5\n" % RGMigratorVersion.DISPLAY_NAME
+			+ config.encode_to_text()
+		)
+	)
+	file.close()
+
+
+func _write_flash_readme(output_root: String) -> void:
+	var content = (
+		"""# 黎之闪翼（开发中）
+
+本工程由 %s 从原 RM 重新迁移。当前0.58已进行内部自查，用户人工验收另记。
+
+- 从标题进入新游戏或继续游戏，使用原图形标题、难度卡、主菜单和档案。地图Esc/X打开菜单，方向键选择，空格/Enter确认，Esc/X返回。
+- 物品、技能配置、回路、笔记、灵视和商店使用恢复后的功能窗口。地图A打开灵视，M打开地图系统，L查看消息历史，1—9使用已配置的物品预设。原空装备/成就/合成分支、魔法和BUFF半成品保留。
+- 物品页右侧1—9格快捷栏仅保留格框、图标、数量和光标，去掉外层背景。Godot调试运行时F7开关援护UI预览，显示在地图HUD及技能配置页；仅预览，重新开始或读档关闭，不改变队伍、战斗或存档。详见[本轮UI修正](migration_docs/UI_FIXES_v0.58.md)。
+- 读档显示动态进度，后台预载只读资源，完整校验后只在新地图恢复一次事件现场。旧存档没有音乐记录时按地图自动播放；新存档明确停止的音乐保持静音。物品页直接复用地图右侧同一个物品栏，详情见[读档与物品栏修正](migration_docs/LOAD_FIXES_v0.58.md)。
+- Message保留原特殊控制码、气泡/名字头像、暂停翻页、选项、数字输入、并行提示及历史。事件脚本在事件编辑器直接编辑实际GDScript正文，原Ruby只作迁移来源。
+- 0.58补齐树冠/屋檐遮挡：进入相连上层区域时以160/255透明度显示，离开、改图或换图后恢复。新分辨率的窗口位置按用户安排后续统一调整。
+- 普通魔塔战斗、物品和回路使用同一运行状态及原公式。脚本首错立即停止；已发生的状态变更保留。特殊BOSS、RM回合制战斗、RTP和RM旧存档仍在既有排除范围。
+- 存档是Godot工程自己的进度，包含对象关系与可保存的事件/表现现场；完整校验后恢复。覆盖保留备份，恢复备份需确认。0.57进度兼容性见本版验证记录，不自动覆盖用户存档。
+- 正式闪翼规则在data/flash_gameplay.json及运行GDScript中；data/test_setup.json属于原生兼容测试设置，不是额外迁移出的闪翼物品规则。
+
+开发入口见[SCRIPT_STRUCTURE.md](SCRIPT_STRUCTURE.md)与[0.59后续开发说明](migration_docs/INTEGRATION_v0.59.md)。运行脚本在runtime/scripts，Game对象在前，窗口按功能分组；编辑器在addons/rgm_editor，保留Editor_前缀。每个GDScript文件头包含调用接口及参数说明。0.59已移除Flash文件名前缀；旧名到新名见data/script_renames_v059.json，内部保存字段保留兼容。
+
+[本版缺口与来源审计](migration_docs/MIGRATION_AUDIT_v0.59.md)记录原脚本最终覆盖、服务入口、源未完成及缺素材；机器索引为data/migration_audit.json。脚本工作区区分职责审计与自动转换诊断，代码在审计后变化会显示需复验。历史转换unsupported不等于当前Godot服务未实现。
+
+[0.59整合说明](migration_docs/INTEGRATION_v0.59.md)与[本轮自查](tests/VERIFICATION_v0.59.md)记录验证范围和结果。原资源在assets/rmxp，原Ruby在legacy；二者来源与缺失边界如实保留。完整剧情人工通关及所有地图长期性能不由本轮局部检查代替。
+"""
+		% RGMigratorVersion.DISPLAY_NAME
+	)
+	var file = FileAccess.open(output_root.path_join("README.md"), FileAccess.WRITE)
+	if file == null:
+		warnings.append("无法写入闪翼当前使用说明。")
+		return
+	file.store_string(content)
 	file.close()
 
 
 func _write_readme(path: String, title: String) -> void:
-	var content := "# %s\n\n本工程由 %s 生成。\n\n- 启动后使用 Godot 原生标题界面进入新游戏。\n- 地图空闲时按 Esc/X 打开标准菜单，方向键选择，Enter/Space/Z 确认，Esc/X 返回；支持背包、基础恢复物品、装备更换与预览、角色状态及结束游戏。\n- 物品限菜单可用、确定性、对存活队友的单体/全体 HP/SP 恢复。公共事件已接通预约；复活、状态、永久属性、随机等未知队友效果不部分执行。技能列表可使用公共事件特技并扣SP，未知结算整次拒绝。菜单提供四槽位存档，标题继续游戏可恢复进度；禁止存档状态会禁用入口。\n- 测试准备由 `data/test_setup.json` 控制：`enabled` 为 true 时，新游戏自动准备测试血瓶、魔法药、全队血瓶和装备，HP/SP 默认一半。修改 stock 数量或恢复比例后重新开始游戏即可；设为 false 恢复原始开局。测试记录独立于原数据库，每次新游戏重置，不叠加。\n- 测试装备可供有效职业使用，但不绕过固定槽位；原装备遵守数据库职业限制。\n- 角色标准参数页使用原生数据库规则；0.44已导入的原始扩展属性可在状态详情的“扩展属性”查看，全部货币可点击金币查看。自定义成长、最终属性、魔塔公式与效果按0.45接入；测试物品不是源工程自定义效果的迁移结果。\n- 特技支持学习/遗忘/查询，事件 318、角色已学特技条件分支 111 与显示动画 207 已接通。独立动画播放器不计算伤害、不扣 SP；缺失动画/素材会诊断，不补取 RTP。\n- 测试准备同时授予三个测试特技。进入特技列表可点击预览动画、学习/遗忘测试特技；Esc 先关闭预览再返回。关闭测试模式后不显示这些测试按钮。另有原动画/并发入口，读取原 Animations 数据与素材，支持双位置和同一目标连续追加播放。\n- 新存档位于项目专属 user://rgmigrator_saves/ 子目录，使用格式版本、数据指纹和完整性校验；写入临时文件后替换，覆盖保留上一份备份。损坏文件或不兼容数据不会部分恢复；备份读取需确认。读档不重复发测试物资。数据库/地图或测试定义改变时可能拒绝旧进度。\n- 不读取 RM 旧存档，运行中事件已保存，动画或ME/SE瞬时音效不保存；BGM/BGS位置、记忆与淡出已保存。装备槽统一为武器、盾、头部防具、身体防具、饰品。\n- 输出关闭编辑器并行导入；未通过隔离解码检查的 MP3 或含辅助元数据 PCM WAV 保留至 legacy/unsupported_assets，图像扩展名错误修正导出副本与索引。其他原始音频仍可能需人工处理。\n- 迁移后的标准数据位于 `data/`，非 RTP 素材位于 `assets/rmxp/`。\n- 原始 Ruby 脚本与文件保留于 `legacy/`；已生成的纯GDScript位于 `runtime/generated/`，数据来源与当前覆盖见 `script_inventory.md`、`custom_data_inventory.md`及 `data/custom_data.json`。生成数量不表示所有玩法已迁移。\n- 不支持的事件命令会在游戏内显示诊断；详情见 `migration_report.md`。\n" % [title, RGMigratorVersion.DISPLAY_NAME]
+	var content := (
+		"# %s\n\n本工程由 %s 生成。\n\n- 启动后使用 Godot 原生标题界面进入新游戏。\n- 地图空闲时按 Esc/X 打开标准菜单，方向键选择，Enter/Space/Z 确认，Esc/X 返回；支持背包、基础恢复物品、装备更换与预览、角色状态及结束游戏。\n- 物品限菜单可用、确定性、对存活队友的单体/全体 HP/SP 恢复。公共事件已接通预约；复活、状态、永久属性、随机等未知队友效果不部分执行。技能列表可使用公共事件特技并扣SP，未知结算整次拒绝。菜单提供四槽位存档，标题继续游戏可恢复进度；禁止存档状态会禁用入口。\n- 测试准备由 `data/test_setup.json` 控制：`enabled` 为 true 时，新游戏自动准备测试血瓶、魔法药、全队血瓶和装备，HP/SP 默认一半。修改 stock 数量或恢复比例后重新开始游戏即可；设为 false 恢复原始开局。测试记录独立于原数据库，每次新游戏重置，不叠加。\n- 测试装备可供有效职业使用，但不绕过固定槽位；原装备遵守数据库职业限制。\n- 角色标准参数页使用原生数据库规则；0.44已导入的原始扩展属性可在状态详情的“扩展属性”查看，全部货币可点击金币查看。自定义成长、最终属性、魔塔公式与效果按0.45接入；测试物品不是源工程自定义效果的迁移结果。\n- 特技支持学习/遗忘/查询，事件 318、角色已学特技条件分支 111 与显示动画 207 已接通。独立动画播放器不计算伤害、不扣 SP；缺失动画/素材会诊断，不补取 RTP。\n- 测试准备同时授予三个测试特技。进入特技列表可点击预览动画、学习/遗忘测试特技；Esc 先关闭预览再返回。关闭测试模式后不显示这些测试按钮。另有原动画/并发入口，读取原 Animations 数据与素材，支持双位置和同一目标连续追加播放。\n- 新存档位于项目专属 user://rgmigrator_saves/ 子目录，使用格式版本、数据指纹和完整性校验；写入临时文件后替换，覆盖保留上一份备份。损坏文件或不兼容数据不会部分恢复；备份读取需确认。读档不重复发测试物资。数据库/地图或测试定义改变时可能拒绝旧进度。\n- 不读取 RM 旧存档，运行中事件已保存，动画或ME/SE瞬时音效不保存；BGM/BGS位置、记忆与淡出已保存。装备槽统一为武器、盾、头部防具、身体防具、饰品。\n- 输出关闭编辑器并行导入；未通过隔离解码检查的 MP3 或含辅助元数据 PCM WAV 保留至 legacy/unsupported_assets，图像扩展名错误修正导出副本与索引。其他原始音频仍可能需人工处理。\n- 迁移后的标准数据位于 `data/`，非 RTP 素材位于 `assets/rmxp/`。\n- 原始 Ruby 脚本与文件保留于 `legacy/`；已生成的纯GDScript位于 `runtime/generated/`，数据来源与当前覆盖见 `script_inventory.md`、`custom_data_inventory.md`及 `data/custom_data.json`。生成数量不表示所有玩法已迁移。\n- 不支持的事件命令会在游戏内显示诊断；详情见 `migration_report.md`。\n"
+		% [title, RGMigratorVersion.DISPLAY_NAME]
+	)
 	var file := FileAccess.open(path, FileAccess.WRITE)
 	if file == null:
 		warnings.append("无法写入输出 README：%s" % path)
 		return
-	file.store_string(content + EXTRA_README)
+	(
+		file
+		. store_string(
+			(
+				content
+				+ "\n## 0.52 原生事件 GDScript\n\n地图/公共事件、脚本条件和移动路线直接编辑实际GDScript，编译通过后应用并保存，重新运行生效。原Ruby仅作只读迁移来源，F8不会覆盖事件原生代码。上下文、取消、可保存重试和旧档边界见 [0.52使用说明](migration_docs/EVENT_GDSCRIPT_v0.52.md)，验证见 [0.52验收](tests/VERIFICATION_v0.52.md)。\n"
+				+ "\n## 0.53 共用图形与文本基础\n\n标题、菜单与Message复用字体和度量，提供按逻辑像素宽高塑形、换行、分页与裁切的UITextBlock；通用命令窗口修复实际内容滚动，过渡可替换和取消，导航与确认重复规则统一。事件脚本方法名与选中文字采用清晰配色。接口及后续图形恢复边界见 [0.53说明](migration_docs/UI_FOUNDATION_v0.53.md)，验收见 [0.53验证](tests/VERIFICATION_v0.53.md)。\n"
+				+ "\n## 0.57 功能窗口\n\n物品、技能配置、回路、笔记、灵视及商店恢复原窗口、素材、独立光标和富文本，继续使用同一运行状态。地图系统沿用原自绘并复核；原空分支保留。见[功能窗口说明](migration_docs/FUNCTION_WINDOWS_v0.57.md)和[内部验证](tests/VERIFICATION_v0.57.md)。0.56已通过用户验收，新分辨率窗口布局后续统一调整。\n"
+				+ "\n## 0.56 主菜单与档案\n\n使用原错位菜单文字、独立选择层、锁定项与五色货币；恢复档案卡片、章节、人物、截图、四角光标和八帧进退，读写仍经正式SaveService。见[菜单档案说明](migration_docs/MENU_ARCHIVE_v0.56.md)及[内部验证](tests/VERIFICATION_v0.56.md)。标题、菜单、档案已于0.56通过用户验收，分辨率布局后续统一调整。\n"
+				+ "\n## 0.55 标题原图恢复\n\n恢复原480帧背景、标志、七命令轮播、四张难度卡片及原设置、音乐、成就附页；过渡与输入门控沿用最终来源。音乐切曲与成就奖励在源工程未实现，保持边界；档案完整画面在0.56。见 [标题说明](migration_docs/TITLE_v0.55.md) 与 [内部验证](tests/VERIFICATION_v0.55.md)。\n"
+				+ "\n## 0.54 Message 对话气泡\n\n恢复原素材气泡、人物锚点和边缘位置、名字头像、长文暂停翻页、多行选项光标和逐位数字输入；并行提示与富文本历史沿用原事件与记录，分页及数字光标随表现现场保存。接口与边界见 [Message说明](migration_docs/MESSAGE_v0.54.md)，内部验证见 [0.54记录](tests/VERIFICATION_v0.54.md)；用户人工验收集中到后续版本。\n"
+				+ EXTRA_README
+				+ "\n## 0.50—0.51 脚本整理\n\n运行代码与魔塔编辑器已按职责分组，Game对象在前，各窗口和场景按功能组织。请从 [当前源码结构与开发入口](SCRIPT_STRUCTURE.md) 查找要修改的代码，完整路径登记见data/script_layout.json；当前验证见 [0.51验证记录](tests/VERIFICATION_v0.51.md)。事件GDScript直接编辑已于0.52接通，Message补迁和原图形恢复继续按后续规划推进。\n"
+			)
+		)
+	)
 	file.close()

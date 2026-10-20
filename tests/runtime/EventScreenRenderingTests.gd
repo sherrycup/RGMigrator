@@ -1,3 +1,89 @@
+## 职责：回归验证：验证图片、天气、震动和过渡事件的实际渲染。
+##
+## 调用方式：
+##   在独立测试工程中由测试运行器执行；场景脚本通过 --script 启动，辅助场景由对应测试调用。
+##
+## 调用接口：
+##   func run() -> void
+##     用途：执行当前迁移流程或回归场景。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func pictures_and_effects() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func weather() -> void
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func transitions(fixture: Dictionary) -> void
+##     参数 fixture（Dictionary；必填）：独立测试夹具或其数据。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func run_commands(commands: Array) -> void
+##     参数 commands（Array；必填）：保持原顺序的事件指令列表。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func refresh() -> void
+##     用途：按当前状态刷新显示或缓存。
+##     参数：无。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func frames(count: int) -> void
+##     用途：让测试现场推进指定帧数。
+##     参数 count（int；必填）：处理数量或重复次数。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##     等待：本方法包含异步等待；需要完成结果的调用方使用 await。
+##
+##   func pixel(point: Vector2i) -> Color
+##     参数 point（Vector2i；必填）：位置或几何点。
+##     返回：Color 类型的对象或值，供调用方继续使用。
+##
+##   func capture(name: String) -> void
+##     参数 name（String；必填）：对象、资源或字段名称。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+##   func changed_pixels(before: Image, after: Image) -> int
+##     参数 before（Image；必填）：操作前的状态或比较基准。
+##     参数 after（Image；必填）：操作后状态或比较目标。
+##     返回：数值结果；编号、单位与计算含义由本接口用途决定。
+##
+##   func c(code: int, p: Array = []) -> Dictionary
+##     参数 code（int；必填）：对应指令、按键或操作的编码。
+##     参数 p（Array；默认值 []）：对应事件指令的参数数组。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func tone(red: float, green: float, blue: float, gray: float) -> Dictionary
+##     参数 red（float；必填）：红色通道值。
+##     参数 green（float；必填）：绿色通道值。
+##     参数 blue（float；必填）：蓝色通道值。
+##     参数 gray（float；必填）：色调的灰度分量。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func color(red: float, green: float, blue: float, alpha: float) -> Dictionary
+##     参数 red（float；必填）：红色通道值。
+##     参数 green（float；必填）：绿色通道值。
+##     参数 blue（float；必填）：蓝色通道值。
+##     参数 alpha（float；必填）：颜色或图像的透明分量。
+##     返回：字典结果；字段结构与本方法返回的数据一致。
+##
+##   func expect(value: bool, message: String) -> void
+##     用途：记录一项断言及失败说明。
+##     参数 value（bool；必填）：需要读取、校验或写入的值。
+##     参数 message（String；必填）：提示或诊断文本。
+##     返回：无返回值；处理结果通过对象状态、界面或相应信号体现。
+##
+## 场景树回调（Godot 自动调用）：
+##   func _initialize() -> void
+##
+## 接口说明结束。
+
 extends SceneTree
 ## Native event execution in the existing Game, with actual GPU pixel checks.
 var failures: Array[String] = []
@@ -17,13 +103,13 @@ func run() -> void:
 	if DisplayServer.get_name() == "headless": printerr("FAIL: actual renderer required"); quit(1); return
 	create_timer(90).timeout.connect(func() -> void: printerr("FAIL: event screen render timeout"); quit(1))
 	DirAccess.make_dir_recursive_absolute(captures)
-	state = root.get_node("RuntimeState"); data = load("res://runtime/scripts/RuntimeData.gd")
+	state = root.get_node("RuntimeState"); data = load("res://runtime/scripts/00_Game/RuntimeData.gd")
 	for resolution in [Vector2i(640, 480), Vector2i(800, 480), Vector2i(768, 768)]:
 		size = resolution; root.content_scale_size = size; DisplayServer.window_set_size(size)
 		state.begin_new_game(data.system()); state.resume_from_save = true
-		game = load("res://scenes/Game.tscn").instantiate(); root.add_child(game); current_scene = game
+		game = load("res://scenes/03_Map/Game.tscn").instantiate(); root.add_child(game); current_scene = game
 		await frames(3); game.reset_event_execution()
-		var fixture: Dictionary = load("res://runtime/scripts/MovementFixture.gd").build()
+		var fixture: Dictionary = load("res://runtime/scripts/11_Development/MovementFixture.gd").build()
 		fixture.map.events["3"].pages[0].trigger = 4
 		fixture.map.events["3"].pages[0].list = [c(106, [20]), c(122, [8893, 8893, 1, 0, 1]), c(0)]
 		game._map.load_definition(fixture.map, fixture.tileset); game._events_enabled = true
@@ -128,7 +214,7 @@ func transitions(fixture: Dictionary) -> void:
 	capture("transition-finished")
 	game._player._process(0.25); game._player.cancel_move_route()
 	state.screen.weather(0, 0); state.timer.stop(); await refresh()
-	var masks: Array = load("res://runtime/scripts/RmxpCache.gd").list_names("Transitions")
+	var masks: Array = load("res://runtime/scripts/10_Support/Cache/RmxpCache.gd").list_names("Transitions")
 	expect(not masks.is_empty(), "source project provides actual transition mask")
 	if not masks.is_empty():
 		game._scheduler.start_main([c(221), c(223, [tone(100, 0, 0, 0), 0]), c(222, [masks[0]]), c(122, [8894, 8894, 0, 0, 2]), c(0)], 1)
@@ -142,7 +228,7 @@ func transitions(fixture: Dictionary) -> void:
 		game._transition._process(0.5); game._process(0); await refresh()
 		expect(changed_pixels(halfway, root.get_texture().get_image()) > 40 and state.variables.get("8894", 0) == 2, "mask reaches full reveal before continuation")
 		capture("transition-mask-finished")
-	var owner: RefCounted = load("res://runtime/scripts/EventInterpreter.gd").new(); owner.map_runtime = game._map
+	var owner: RefCounted = load("res://runtime/scripts/02_Event/EventInterpreter.gd").new(); owner.map_runtime = game._map
 	game._dialogue.show_diagnostic("已有消息，准备过渡等待关闭。")
 	owner.start([c(221), c(106, [20]), c(0)], 1)
 	expect(owner.wait_kind() == "screen_ready" and not game.event_screen_transition_active(), "221 retries after existing message closes")
@@ -165,7 +251,7 @@ func transitions(fixture: Dictionary) -> void:
 	var prepared: Dictionary = game.begin_event_screen_transition(221); await frames(3)
 	game._scheduler.cancel_all()
 	expect(game.event_save_reason().contains("瞬时截图"), "prepared screenshot has a save gate even without running events")
-	var saves: Script = load("res://runtime/scripts/SaveService.gd")
+	var saves: Script = load("res://runtime/scripts/10_Support/Persistence/SaveService.gd")
 	var old_directory: String = saves.directory_override
 	var isolated := captures.path_join("forbidden-saves")
 	saves.directory_override = isolated
