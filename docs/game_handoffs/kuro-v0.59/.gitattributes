@@ -1,0 +1,3 @@
+# Exported snapshots are immutable evidence; keep exact bytes for SHA256 checks.
+# Their original CRLF endings are intentional, not formatting errors.
+export_snapshot/** -text whitespace=cr-at-eol

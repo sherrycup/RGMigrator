@@ -1,0 +1,4058 @@
+{
+  "date": "2026-10-21",
+  "source_game": "D:\\Dev\\kuro",
+  "source_game_commit": "ea5d30ab51eb01b991eb739e8f1376ed436b5f17",
+  "policy": "Reuse byte-identical migrator files; preserve differing exported snapshots without overwriting canonical files.",
+  "files": [
+    {
+      "game_path": "custom_data_inventory.md",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/custom_data_inventory.md",
+      "sha256": "74a9923b5c2b03fd5e650c44dda738e665121fccf1ace02353ca38d427d222af",
+      "bytes": 4772,
+      "reused_existing": false
+    },
+    {
+      "game_path": "MAP_PRESENTATION.md",
+      "migrator_path": "templates/runtime/MAP_PRESENTATION.md",
+      "sha256": "f2df6303264c4315d4a4ea8bdef64a69ad41b272035c80486a66f6d50c866015",
+      "bytes": 6565,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/AUDIO_FIX_v0.48.md",
+      "migrator_path": "docs/AUDIO_FIX_v0.48.md",
+      "sha256": "03cfc0e3cd56aa26197205694b5a719a9c777ba14fd4953bb03e7584a29defcd",
+      "bytes": 3088,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/DIRECT_SCRIPT_EXECUTION_v0.48.md",
+      "migrator_path": "docs/DIRECT_SCRIPT_EXECUTION_v0.48.md",
+      "sha256": "03b23834c472e779a428b868991e382a286a30cd216543974d11e6297f673d25",
+      "bytes": 4088,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/ENCOUNTER_DELAY_FIX_v0.48.md",
+      "migrator_path": "docs/ENCOUNTER_DELAY_FIX_v0.48.md",
+      "sha256": "b84ee5e5af8478afb78dd85b6c5b8baa9a828a7278689353e22dee1a9faaeab3",
+      "bytes": 5276,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/EVENT_CONTINUATIONS_FIX_v0.48.md",
+      "migrator_path": "docs/EVENT_CONTINUATIONS_FIX_v0.48.md",
+      "sha256": "886ad6e1ccd5adac3d404a690594e959ef7cb3a90b1afe1acb52159e98e510fb",
+      "bytes": 2298,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/EVENT_GDSCRIPT_v0.52.md",
+      "migrator_path": "docs/EVENT_GDSCRIPT_v0.52.md",
+      "sha256": "ae264980a5e29b64d6eae6bd9b82bdbf632c1fd8a8c4df4ee6215531b379b4ba",
+      "bytes": 6251,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/EVENT_PERFORMANCE_FIX_v0.48.md",
+      "migrator_path": "docs/EVENT_PERFORMANCE_FIX_v0.48.md",
+      "sha256": "abd9ca05c649f3900c82f12e5bb40d0af26e501b54ea737572998f6188f50fe3",
+      "bytes": 5355,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/FLASH_BATTLE_GDSCRIPT_v0.45.md",
+      "migrator_path": "docs/FLASH_BATTLE_GDSCRIPT_v0.45.md",
+      "sha256": "93460f2db473692210cc788deb51d97fb7903d188293892fe3a95099c158f03c",
+      "bytes": 6804,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/FLASH_LEGACY_AUDIT_v0.45.json",
+      "migrator_path": "docs/FLASH_LEGACY_AUDIT_v0.45.json",
+      "sha256": "d533544cfc29e796c2ffaa01c2276370d9156c8b030db05f059044ab233e60b1",
+      "bytes": 101737,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/FLASH_LEGACY_AUDIT_v0.45.md",
+      "migrator_path": "docs/FLASH_LEGACY_AUDIT_v0.45.md",
+      "sha256": "3899d13025e989fd73697eb292a5589371a2be7f658ef0721976107243629aa6",
+      "bytes": 30647,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/FLASH_LIFECYCLE_AUDIT_v0.47.md",
+      "migrator_path": "docs/FLASH_LIFECYCLE_AUDIT_v0.47.md",
+      "sha256": "aab295938d8fdb2e7da20c74f38d5d4a57d0ac3e02749452c577fe2d14fa4761",
+      "bytes": 52669,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/FLASH_OBJECTS_AUDIT_v0.45.md",
+      "migrator_path": "docs/FLASH_OBJECTS_AUDIT_v0.45.md",
+      "sha256": "81661532b1098b268b794a4ef9bcae9435b914db4764ac626ffa1dec73e3bd57",
+      "bytes": 12116,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/FLASH_SCRIPT_CHECKLIST_v0.45_v0.47.json",
+      "migrator_path": "docs/FLASH_SCRIPT_CHECKLIST_v0.45_v0.47.json",
+      "sha256": "b34209340e81726c48a07522afcdbb2afd1a0b37ca184e61a3f662c3648b6068",
+      "bytes": 465960,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/FLASH_SCRIPT_CHECKLIST_v0.45_v0.47.md",
+      "migrator_path": "docs/FLASH_SCRIPT_CHECKLIST_v0.45_v0.47.md",
+      "sha256": "5d84e2ee2305eac3eb8d2e5a9cbf1a7f497e2d9f195fe495dcfad8fbc957f7a0",
+      "bytes": 69966,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/FLASH_UI_GDSCRIPT_v0.46.md",
+      "migrator_path": "docs/FLASH_UI_GDSCRIPT_v0.46.md",
+      "sha256": "7e41d20cad96f01788d309eb1820b47ae8e20cc296adf3e9660297734afaabdb",
+      "bytes": 10814,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/FUNCTION_WINDOWS_v0.57.md",
+      "migrator_path": "docs/FUNCTION_WINDOWS_v0.57.md",
+      "sha256": "9dd21831486d2a02a53270fe04a5925da14f8b8e33a7d8564a5a74c8a5cc8d09",
+      "bytes": 4983,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/INTEGRATION_v0.59.md",
+      "migrator_path": "docs/INTEGRATION_v0.59.md",
+      "sha256": "7e5b48184d05c8ab27aec1281d3ee617d420d616f0b7197c863de2902734eb0c",
+      "bytes": 2970,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/LOAD_FIXES_v0.58.md",
+      "migrator_path": "docs/LOAD_FIXES_v0.58.md",
+      "sha256": "9afc39ac8823cf01d55d0eca8d6fa16cfc55f79d3d6fe024fcda0764ae1ec09f",
+      "bytes": 2796,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/MENU_ARCHIVE_v0.56.md",
+      "migrator_path": "docs/MENU_ARCHIVE_v0.56.md",
+      "sha256": "950494f6ca5a20e7510199b83af4e62766c302936db4f5ee81dbfe1e023d11a3",
+      "bytes": 2612,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/MENU_PERFORMANCE_FIX_v0.48.md",
+      "migrator_path": "docs/MENU_PERFORMANCE_FIX_v0.48.md",
+      "sha256": "ef476e08cd93a4fb25d3f1bc1b341bf4a9555fdbd3832ffa470e604070c0976c",
+      "bytes": 4505,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/MESSAGE_v0.54.md",
+      "migrator_path": "docs/MESSAGE_v0.54.md",
+      "sha256": "ed5d7e81813f088cbcb98c805c99fc0951cb66e53a185592c74f03ffb3c35921",
+      "bytes": 4063,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/MIGRATION_AUDIT_v0.58.json",
+      "migrator_path": "docs/MIGRATION_AUDIT_v0.58.json",
+      "sha256": "3d6a237b93b5995d7c0858fdcaf721fa24ad896b548b0e1417ceeedb0d0407a1",
+      "bytes": 2278409,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/MIGRATION_AUDIT_v0.58.md",
+      "migrator_path": "docs/MIGRATION_AUDIT_v0.58.md",
+      "sha256": "bbd20dbf96011bdbc0455bb9e2781cbc5f4732b432c436ab20b785fc0cb1fbc9",
+      "bytes": 88556,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/MIGRATION_AUDIT_v0.59.json",
+      "migrator_path": "docs/MIGRATION_AUDIT_v0.59.json",
+      "sha256": "b97c0ae514c780dad4221cfdb5b91fe011529c120418734db392fdcaae94fd9b",
+      "bytes": 2262336,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/MIGRATION_AUDIT_v0.59.md",
+      "migrator_path": "docs/MIGRATION_AUDIT_v0.59.md",
+      "sha256": "acdf80b28f65b439b4a031c35f34cace6f2bd76ad386685adb68b0a141449661",
+      "bytes": 82923,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/PERFORMANCE_FIX_v0.48.md",
+      "migrator_path": "docs/PERFORMANCE_FIX_v0.48.md",
+      "sha256": "ca99b6e13a8d12735553b7fd3488b1aa37964769b0fc41702f0c95188c56eb16",
+      "bytes": 4347,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/PERFORMANCE_v0.5.md",
+      "migrator_path": "docs/PERFORMANCE_v0.5.md",
+      "sha256": "0f171dc6c08e25ee502fae0e4188573f550f717b8e81ed01645ac7e9e15898cb",
+      "bytes": 3163,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/ROADMAP_v0.5.md",
+      "migrator_path": "docs/ROADMAP_v0.5.md",
+      "sha256": "31549eddbd58756401c30653571f20f5762475b853a1c45815e9fb9f9eff4e79",
+      "bytes": 20222,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/SCRIPT_MIGRATION_v0.45.md",
+      "migrator_path": "docs/SCRIPT_MIGRATION_v0.45.md",
+      "sha256": "c4ce46b5640c32334df62609dc66287c94b272510788ad6cf2bbd2b6d309c4e5",
+      "bytes": 9171,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/SCRIPT_MIGRATION_v0.46.md",
+      "migrator_path": "docs/SCRIPT_MIGRATION_v0.46.md",
+      "sha256": "1eb75b3b359a14513b8f1c5bd65859664f2050b8ca5461e35119236446def867",
+      "bytes": 4935,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/SCRIPT_MIGRATION_v0.47.md",
+      "migrator_path": "docs/SCRIPT_MIGRATION_v0.47.md",
+      "sha256": "40af5707b898139a22d01e9241db8eb18e6496cb8072bc939c2a24f6f3b7f72f",
+      "bytes": 4865,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/SCRIPT_MIGRATION_v0.48.md",
+      "migrator_path": "docs/SCRIPT_MIGRATION_v0.48.md",
+      "sha256": "11e79472102aac3a1c699f84e0499ed2880ec1cbfd160330a345bd984fd3997c",
+      "bytes": 5586,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/SCRIPT_MIGRATION_v0.49.md",
+      "migrator_path": "docs/SCRIPT_MIGRATION_v0.49.md",
+      "sha256": "744e51fd70b1497515aea9f77de65690b8cc32f3c41107d9791c35c686daa12c",
+      "bytes": 4032,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/SCRIPT_STRUCTURE_v0.51.md",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/migration_docs/SCRIPT_STRUCTURE_v0.51.md",
+      "sha256": "4dc5356f990b48d6dca52863b386a5be75f850187ea310530ca6c20d4016dd33",
+      "bytes": 7283,
+      "reused_existing": false
+    },
+    {
+      "game_path": "migration_docs/TITLE_v0.55.md",
+      "migrator_path": "docs/TITLE_v0.55.md",
+      "sha256": "d7baa2d82f0bf84da1ec05189d377b969606bf81381a11bd3607a8a8750cd3be",
+      "bytes": 2566,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/UI_FIXES_v0.58.md",
+      "migrator_path": "docs/UI_FIXES_v0.58.md",
+      "sha256": "4785cb2504b201056e8ad78164d0f84011802e7f716da9c16c97e89a96f2258f",
+      "bytes": 2011,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/UI_FOUNDATION_v0.53.md",
+      "migrator_path": "docs/UI_FOUNDATION_v0.53.md",
+      "sha256": "eb10d1a26c50f1a099ca43f38acbaf3fb9433ce49524b2d6e58cc8100a6cabb7",
+      "bytes": 6375,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_docs/UI_OPTIMIZATION_v0.5.md",
+      "migrator_path": "docs/UI_OPTIMIZATION_v0.5.md",
+      "sha256": "ad9c9a36806c0046ff9251362e0d4e65f53c73bbcb96007aed13e34bd82a2afc",
+      "bytes": 2330,
+      "reused_existing": true
+    },
+    {
+      "game_path": "migration_report.json",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/migration_report.json",
+      "sha256": "5df01ccc5956366544f2ed6157e6b6443c96c11e48260a4e4a3ac3332b089fb0",
+      "bytes": 104713,
+      "reused_existing": false
+    },
+    {
+      "game_path": "migration_report.md",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/migration_report.md",
+      "sha256": "4928ad95d0f656752b412af4d18db3c15ca6a89b50c1f4b76b5d48005df844a9",
+      "bytes": 18494,
+      "reused_existing": false
+    },
+    {
+      "game_path": "SCRIPT_STRUCTURE.md",
+      "migrator_path": "docs/SCRIPT_STRUCTURE_v0.51.md",
+      "sha256": "8886a779f0476b81b4e9dd0f4ee6d6dec2545b7f37af8dd59f2b06df549205a8",
+      "bytes": 7277,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/HANDOFF_2026-10-21.json",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/HANDOFF_2026-10-21.json",
+      "sha256": "ed938ed2ef835fd1080e5c72be44700d212504a3c5c38cb9d9ad49780ce2f416",
+      "bytes": 1733,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/HANDOFF_2026-10-21.md",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/HANDOFF_2026-10-21.md",
+      "sha256": "022363952f65d5b367c60c14f8a6d80fa11d61540a842b09b2c07a00a4922319",
+      "bytes": 2465,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v052-native-editor.png",
+      "migrator_path": "tests/verification/v052-native-editor.png",
+      "sha256": "2c8cfb7d1cde38d2d8e9a01b87b2fb39210e309705049aa51a07c2779848310d",
+      "bytes": 157906,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v052-native-editor.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v052-native-editor.png.import",
+      "sha256": "0c2e173052d9e0ea1155f44dc165d269a6e43575d34c5c25867ea8160d92fdd3",
+      "bytes": 977,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v053-editor-selected.png",
+      "migrator_path": "tests/verification/v053-editor-selected.png",
+      "sha256": "81e4b0ec3c686161e2b11a9fc9e05ad22885e840ad71b92d503a7c5245ff8c6e",
+      "bytes": 157560,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v053-editor-selected.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v053-editor-selected.png.import",
+      "sha256": "f04ee1ceeaef2beaec949f47e3e96ca1ab9d6780945e6ff20f81ea79338f1a13",
+      "bytes": 983,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v053-editor.png",
+      "migrator_path": "tests/verification/v053-editor.png",
+      "sha256": "ac3709705e1d7b2b8ca6dd9e8ee1ce0a481d32e0dd11fe9815ea27e28431cff9",
+      "bytes": 157817,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v053-editor.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v053-editor.png.import",
+      "sha256": "0c15751213bdf10e8a5d3de155f307775586d445cffe7b1ec08211350a649217",
+      "bytes": 956,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v053-menu.png",
+      "migrator_path": "tests/verification/v053-menu.png",
+      "sha256": "545f232eb1079bcb946f8c5a5f95619edc19d1dc7fc926abc7e13bb9f6f5e55b",
+      "bytes": 60442,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v053-menu.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v053-menu.png.import",
+      "sha256": "c1ff3a80d0211106775f26a3782c3362122cb169ce4d0e8ed32f00c78b2dc5cf",
+      "bytes": 950,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v053-message.png",
+      "migrator_path": "tests/verification/v053-message.png",
+      "sha256": "c7dfb18a50e4c876b002a35fa9be75f82689d3a62debc77ac5da5139bcc24def",
+      "bytes": 30000,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v053-message.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v053-message.png.import",
+      "sha256": "48904df66871867c68d37138999821c683a44614326d9a9e0ab33c2f877cab34",
+      "bytes": 959,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v053-scroll.png",
+      "migrator_path": "tests/verification/v053-scroll.png",
+      "sha256": "2357e4257acf0ef86329b8566c69c79ce07914518618fbcdf549d4ced96655d1",
+      "bytes": 31075,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v053-scroll.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v053-scroll.png.import",
+      "sha256": "686828ff4163cbda393e38e2c86b929cb0319d2944bc138469e8e766472ccb79",
+      "bytes": 956,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v053-text.png",
+      "migrator_path": "tests/verification/v053-text.png",
+      "sha256": "2ec1f8367502bd182705de1532edcbe0eba84743e0fb8bc86f7498c9442aabd2",
+      "bytes": 36372,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v053-text.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v053-text.png.import",
+      "sha256": "c8472213340ca76e66d94bb863619291880ad127ee96865a9255888f4c536940",
+      "bytes": 950,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v053-title.png",
+      "migrator_path": "tests/verification/v053-title.png",
+      "sha256": "3e084c4fc8fbf01760130ef1412851f6e6eddacebd7d6833074fd8b48464c43c",
+      "bytes": 392100,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v053-title.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v053-title.png.import",
+      "sha256": "9eb431edd9981579d4a16ed8aede5734fb1078e6b0d4c69d17b9984f07c99dae",
+      "bytes": 953,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v054-choice.png",
+      "migrator_path": "tests/verification/v054-choice.png",
+      "sha256": "d33ac99ec12b54ce61a0a7a506eccf0b536eb8aab79ded714fec3f7e3e8365fa",
+      "bytes": 160024,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v054-choice.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v054-choice.png.import",
+      "sha256": "13a6b3755238b4de2ae74c3fc2b3a8de6e3e4d026985801e581080fe72bac920",
+      "bytes": 956,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v054-dialogue.png",
+      "migrator_path": "tests/verification/v054-dialogue.png",
+      "sha256": "3b52c554b0683eb228e9301b67a83c85ee3f8875f43c87c6b386af75c1b70024",
+      "bytes": 139472,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v054-dialogue.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v054-dialogue.png.import",
+      "sha256": "b1715165314d78661ce3e4fe3e405e2d93611441df0c1ba4a496908571c72202",
+      "bytes": 962,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v054-hint.png",
+      "migrator_path": "tests/verification/v054-hint.png",
+      "sha256": "557df612d6bae36226146b19c88513f90e45cc6859802cf5970c080315aab94a",
+      "bytes": 141477,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v054-hint.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v054-hint.png.import",
+      "sha256": "e2e50268efb7c285df4d224da46329d9b55e3e57e0310e76b219edf96a9323ce",
+      "bytes": 949,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v054-history.png",
+      "migrator_path": "tests/verification/v054-history.png",
+      "sha256": "d37796d93707484121fc55e153f2dc36ef5b714196cb37e8174f7ec24b39bbbc",
+      "bytes": 395377,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v054-history.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v054-history.png.import",
+      "sha256": "fecd1a381ccff2d49c7f9f02ba1efdbdbc62136f2f561c13757129bf1ac10127",
+      "bytes": 959,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v054-number.png",
+      "migrator_path": "tests/verification/v054-number.png",
+      "sha256": "636e32573990312cc6b5c5cdd3c8b9e39901b6f2ca0281e697df57bbebe2b5d3",
+      "bytes": 149426,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v054-number.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v054-number.png.import",
+      "sha256": "77380c31f64676f0655c26ff6b15e6f6c1d0e2c0a6d2c10e23e7e941490fd4b8",
+      "bytes": 956,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v054-pages.png",
+      "migrator_path": "tests/verification/v054-pages.png",
+      "sha256": "a849be8c9c2754eee8044afce55c2c9a504f985d478d908aa2c55decd1d44bcb",
+      "bytes": 332581,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v054-pages.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v054-pages.png.import",
+      "sha256": "b0def6cbb648a5dda495e139e2f342ac42c286165499adb9da78927a5dfdc0b5",
+      "bytes": 953,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v055-carousel-half.png",
+      "migrator_path": "tests/verification/v055-carousel-half.png",
+      "sha256": "d516208ea70582dd2eb3b98adab195d509fcfbfac0e53fc821d4d2eabd74bfd1",
+      "bytes": 365367,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v055-carousel-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v055-carousel-half.png.import",
+      "sha256": "78f72967978838a288925c32133f242bce480eb8df2d3abbdc16601a0e0b1273",
+      "bytes": 975,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v055-continue.png",
+      "migrator_path": "tests/verification/v055-continue.png",
+      "sha256": "8371069b3b69442e577257121c3d41c6e2ecb0591bbe19f43d0b9a2ae6db2681",
+      "bytes": 320245,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v055-continue.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v055-continue.png.import",
+      "sha256": "0a83d28f42f449a648cfeae77d8a631ae95126ff416ae7db4ca7fc9124357c25",
+      "bytes": 962,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v055-difficulty-ex.png",
+      "migrator_path": "tests/verification/v055-difficulty-ex.png",
+      "sha256": "0b48d796d756ed3e4fdf71ab0e995c1400a2fd5737bbef4cb2115caac4c24036",
+      "bytes": 318750,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v055-difficulty-ex.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v055-difficulty-ex.png.import",
+      "sha256": "f4731060c786b6293949c8b93cd0cc4cb47521955a604f07dc9de34547068560",
+      "bytes": 977,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v055-difficulty-hard.png",
+      "migrator_path": "tests/verification/v055-difficulty-hard.png",
+      "sha256": "914effcef21fe8c89bf17087e06360ee396dae0f2907b801e454125ba2c0a24f",
+      "bytes": 348751,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v055-difficulty-hard.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v055-difficulty-hard.png.import",
+      "sha256": "e1930ac8a8b1f364bbe1481328273f2ee2f79bcaccfdf7ec3c05bc2203d2738d",
+      "bytes": 982,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v055-disabled-command.png",
+      "migrator_path": "tests/verification/v055-disabled-command.png",
+      "sha256": "d257e269e5670c22081964da8c2f856455e01aec7b13fbb893bcdd8fee93a3e0",
+      "bytes": 368534,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v055-disabled-command.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v055-disabled-command.png.import",
+      "sha256": "0592080efc1e53427ee607b2525f44a2de20477320bccf8c8eb994ebc0582295",
+      "bytes": 985,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v055-merit-book.png",
+      "migrator_path": "tests/verification/v055-merit-book.png",
+      "sha256": "ee560bc4b9ab00ce614ff85b22987686ffb53e697919b625c386111dfd8f65aa",
+      "bytes": 578681,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v055-merit-book.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v055-merit-book.png.import",
+      "sha256": "83f6675f80f55a96e9185ca997bf35b6da70f329e86cece52f93722579a371dc",
+      "bytes": 968,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v055-merit.png",
+      "migrator_path": "tests/verification/v055-merit.png",
+      "sha256": "b029d7bfe6334d3da471e46ecb558406cf07ea5351a972c5c0702b240009a7e7",
+      "bytes": 506126,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v055-merit.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v055-merit.png.import",
+      "sha256": "dc53ab9ead1146698f7ee48c53e90165a4911036176d42f1cd4d7fffde63cb19",
+      "bytes": 953,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v055-music-half.png",
+      "migrator_path": "tests/verification/v055-music-half.png",
+      "sha256": "743abafabbc8e3d16182f2a8eb4b086ebc4897a364a30840737138e51c81331d",
+      "bytes": 467154,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v055-music-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v055-music-half.png.import",
+      "sha256": "72d83bae68b3005755c6e202f9b47ae08d696f4f2242703171b24be083f989d4",
+      "bytes": 967,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v055-music.png",
+      "migrator_path": "tests/verification/v055-music.png",
+      "sha256": "652f2d2f6ea046ac9c2f15305045e5d845bb93d9f58e1944445d5d056ccae4f9",
+      "bytes": 407742,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v055-music.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v055-music.png.import",
+      "sha256": "c1a06d9cdd710cf7633e36bf465fe87e22489b736d867f9755dddbc0383d2f6f",
+      "bytes": 952,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v055-return-title.png",
+      "migrator_path": "tests/verification/v055-return-title.png",
+      "sha256": "2a75781d5be6508cf13db0c146b28a9730575e1a4f46b954a33cc6e53859ff47",
+      "bytes": 374755,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v055-return-title.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v055-return-title.png.import",
+      "sha256": "2d022526e0037ada8749306cfe3509740715515a7572b01b2c1d9622dc43ad8e",
+      "bytes": 974,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v055-settings-1.png",
+      "migrator_path": "tests/verification/v055-settings-1.png",
+      "sha256": "92cc0d0b66bdae9c7111614931de70d52ca8b79e3e8605e52f7ccb20b98ba51e",
+      "bytes": 328644,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v055-settings-1.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v055-settings-1.png.import",
+      "sha256": "695cd2ec51cd12025d7c74f022ffef4a5a59376fdf8651d529b4461b51a342d9",
+      "bytes": 968,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v055-settings-2.png",
+      "migrator_path": "tests/verification/v055-settings-2.png",
+      "sha256": "880de192e1a2c8ef1850897003f413c5ee8981ab9c94d0e6d8443a4444ae86fa",
+      "bytes": 305319,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v055-settings-2.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v055-settings-2.png.import",
+      "sha256": "99e763882877e744b5294c9f8202ea776ac0e160f3d49ba24ed7f62f79e5df3e",
+      "bytes": 967,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v055-settings-3.png",
+      "migrator_path": "tests/verification/v055-settings-3.png",
+      "sha256": "985d522e51e05a7463ac9d9cca2e42e61a77509bcec8399e7545b5ab56c41af9",
+      "bytes": 301452,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v055-settings-3.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v055-settings-3.png.import",
+      "sha256": "4170a31864d7711c84fd40dfa6cf8a82fdade85526039cf3977e843ac7f25b19",
+      "bytes": 967,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v055-title.png",
+      "migrator_path": "tests/verification/v055-title.png",
+      "sha256": "d0a8b11aaff15ff5288b828dafe928c460cd7c7dc72212bc4a97a2679a29942b",
+      "bytes": 365105,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v055-title.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v055-title.png.import",
+      "sha256": "627873107a083894f0558da92fb9ea0ccacca18dd25aa53f7dac173c836d477a",
+      "bytes": 953,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-archive-half.png",
+      "migrator_path": "tests/verification/v056-archive-half.png",
+      "sha256": "33dbc7a1f36139ea32022b4e9d677e46c8f32a551f286613a4348e9aa178d9e2",
+      "bytes": 192388,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-archive-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-archive-half.png.import",
+      "sha256": "1791e7b7f4ba72d0605fc208347f03d7cb5d2c46daf94b9d2413e267b5cdcd59",
+      "bytes": 974,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-archive-load.png",
+      "migrator_path": "tests/verification/v056-archive-load.png",
+      "sha256": "baa75dc28195bc93192d7f9f4c61fecfa18b3411dca1f7f4c22d202ec977ce87",
+      "bytes": 258575,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-archive-load.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-archive-load.png.import",
+      "sha256": "1280ee6c24fdb4874a6a2a6a11c8be4042047dc3b502f8da911ed8b78ba340f7",
+      "bytes": 974,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-archive-new.png",
+      "migrator_path": "tests/verification/v056-archive-new.png",
+      "sha256": "ee82d6bed057c5718eb1849b58c252176fda700d5948bf3d455e24a9bf1ad919",
+      "bytes": 148887,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-archive-new.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-archive-new.png.import",
+      "sha256": "a798c1fb2136865a05ff21a629adf089b290d3755d7d3cd7830e47f37fefd30e",
+      "bytes": 971,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-archive-save.png",
+      "migrator_path": "tests/verification/v056-archive-save.png",
+      "sha256": "616dfe501fab855fa84f42e2bf10c7733cff2c532ae63d9eac8f2458ff57ecce",
+      "bytes": 255634,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-archive-save.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-archive-save.png.import",
+      "sha256": "080b103a3d4c64ac0c0b060d3d08121e4e8d2f7f5074c38919c49898c45a5c6a",
+      "bytes": 974,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-archive-scroll.png",
+      "migrator_path": "tests/verification/v056-archive-scroll.png",
+      "sha256": "fb98de57f2b7385d55b4afcf15f1c42a28ce3eed388b0fdad3a7d682a79d8cc8",
+      "bytes": 279825,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-archive-scroll.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-archive-scroll.png.import",
+      "sha256": "245d495ffe3cf765c0964f3a1d12d68ccc165df77f5d88c5eca11eaf4a77c4ce",
+      "bytes": 980,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-config.png",
+      "migrator_path": "tests/verification/v056-config.png",
+      "sha256": "7696adbe45ad5a8882811162dd4f068820b0c6ba649b5c6a9dffc429b290c530",
+      "bytes": 156536,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-config.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-config.png.import",
+      "sha256": "7b0a2a38d141550c4e8d3cc47b94c39bbe081af7c0ca1655f005f4dc062d8b96",
+      "bytes": 956,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-cursor-half.png",
+      "migrator_path": "tests/verification/v056-cursor-half.png",
+      "sha256": "fcbd39c5652529cbeedd916b10c57a6baf3b81a5c56b7690fcb2d5024b2bebd5",
+      "bytes": 306793,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-cursor-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-cursor-half.png.import",
+      "sha256": "af9dfa5b840b22b801f1382f1bfb842c29ba4e18df9ef00be4288cb186348e9d",
+      "bytes": 970,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-load-failure.png",
+      "migrator_path": "tests/verification/v056-load-failure.png",
+      "sha256": "4733c089d92360c0748394e7f35d374aba55a1b7bef11339a98de2acdf9bf271",
+      "bytes": 254425,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-load-failure.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-load-failure.png.import",
+      "sha256": "7535ada08f386a39aed5049ceb417adbc8047a96cbc6fd452d25366eac75d811",
+      "bytes": 974,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-locked.png",
+      "migrator_path": "tests/verification/v056-locked.png",
+      "sha256": "e068bdb7c2389b579b0f5956eb1a13f4599196415fc488d23ab8089a266a51e3",
+      "bytes": 157340,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-locked.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-locked.png.import",
+      "sha256": "8635d29776a6ff8e5095f9c5e4957e3119f534efbd8ad708ade5a3e98c2eb8b6",
+      "bytes": 955,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-map.png",
+      "migrator_path": "tests/verification/v056-map.png",
+      "sha256": "82c307f5ca236886ca94025675298d1f07742adfd6bfa70a26d3d4390c216d2d",
+      "bytes": 145715,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-map.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-map.png.import",
+      "sha256": "e18696d46b427a12b122decb707f3fd6af6626d2e709c6cf19b868484889f47f",
+      "bytes": 947,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-menu-half.png",
+      "migrator_path": "tests/verification/v056-menu-half.png",
+      "sha256": "9ffe7bedb4b71dd6b0ebb4a5c1edd37184766713451e98c07ddcf9543b6e6696",
+      "bytes": 156872,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-menu-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-menu-half.png.import",
+      "sha256": "34d43e199e31ba7bfefe646cf883ea95b32a006cfcd4f1098e0e00e5f6e2ed9f",
+      "bytes": 965,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-menu.png",
+      "migrator_path": "tests/verification/v056-menu.png",
+      "sha256": "fcc379dd212345a9d0ea23ac5cb8b8ac2e619fce3da02582b41a3402dae9a339",
+      "bytes": 156135,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-menu.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-menu.png.import",
+      "sha256": "80d4922daab6b50f407cc9baf09844a25666cf432fdf49d60c91ed15309e37cb",
+      "bytes": 950,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-overwrite.png",
+      "migrator_path": "tests/verification/v056-overwrite.png",
+      "sha256": "4249443a397821a9faee4e1bc06f890f5866b608194163f1f16049e781cd7d28",
+      "bytes": 249306,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-overwrite.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-overwrite.png.import",
+      "sha256": "7b79ff90044ba2e811db6398ce427c5c361043d436cf685fc4d784fc5532c84f",
+      "bytes": 965,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-return-map.png",
+      "migrator_path": "tests/verification/v056-return-map.png",
+      "sha256": "82c307f5ca236886ca94025675298d1f07742adfd6bfa70a26d3d4390c216d2d",
+      "bytes": 145715,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-return-map.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-return-map.png.import",
+      "sha256": "3ae7844471f107682a6072dc54dd742b554c4c2435585e574105e1e5abbf32d3",
+      "bytes": 968,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-title-continue.png",
+      "migrator_path": "tests/verification/v056-title-continue.png",
+      "sha256": "c797b7a49123d2830601453add1dcc7590cd64bec512ff65afc6837b3acc7d85",
+      "bytes": 419540,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-title-continue.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-title-continue.png.import",
+      "sha256": "cee48cbd9c76c11ce964c6ef24783cf3d92d55182dcb0f88b08f011f995f4e5b",
+      "bytes": 979,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-carousel-half.png",
+      "migrator_path": "tests/verification/v056-titlecheck-carousel-half.png",
+      "sha256": "d516208ea70582dd2eb3b98adab195d509fcfbfac0e53fc821d4d2eabd74bfd1",
+      "bytes": 365367,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-carousel-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-titlecheck-carousel-half.png.import",
+      "sha256": "370b7237cf5c5565de2bdc587577792dfc006bd1f68c7f89acd3715cbc4946ba",
+      "bytes": 1010,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-continue.png",
+      "migrator_path": "tests/verification/v056-titlecheck-continue.png",
+      "sha256": "1b52789b010c5088619ddcde6bc4ea4dccfd20abcfd1704d8097758992f18944",
+      "bytes": 329214,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-continue.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-titlecheck-continue.png.import",
+      "sha256": "ac2382dd05305e61d7db3a2c3e1ed12022562bad6f67618c5aaa8967fc67ead3",
+      "bytes": 994,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-difficulty-ex.png",
+      "migrator_path": "tests/verification/v056-titlecheck-difficulty-ex.png",
+      "sha256": "d82ae2b967894b6d2283efbd6d977ee1191dd85b3bfadc0c1f13d0ade35acea1",
+      "bytes": 320845,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-difficulty-ex.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-titlecheck-difficulty-ex.png.import",
+      "sha256": "129ce27ad644dc1ba1467311ca133016f476e73e037a8d6531202b86502576c9",
+      "bytes": 1009,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-difficulty-hard.png",
+      "migrator_path": "tests/verification/v056-titlecheck-difficulty-hard.png",
+      "sha256": "cb26599b7bfa0087a708de240cf51a7e39155836e8ea36c765b83a1ab3a8a914",
+      "bytes": 348292,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-difficulty-hard.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-titlecheck-difficulty-hard.png.import",
+      "sha256": "4ffbbd9ab02586c0f7a9e3b767e5c3fac25f45ef8b7c3fd0e830cd58d3db0519",
+      "bytes": 1016,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-disabled-command.png",
+      "migrator_path": "tests/verification/v056-titlecheck-disabled-command.png",
+      "sha256": "28eb2de3864bccacf91b8ef91b40daef1c9bf167c1fcffa6b1c05252c6cee408",
+      "bytes": 371421,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-disabled-command.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-titlecheck-disabled-command.png.import",
+      "sha256": "a9d47bdcaeefa19cc3afd8eb5fe40b380f931f677d83a4d8caa999a393ac6ad8",
+      "bytes": 1018,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-merit-book.png",
+      "migrator_path": "tests/verification/v056-titlecheck-merit-book.png",
+      "sha256": "c9deb867490b603f155c35a270715d1c270fd2d1bc9fad81c667ccf6905181d1",
+      "bytes": 578787,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-merit-book.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-titlecheck-merit-book.png.import",
+      "sha256": "1a20f0bee3af86728ef43de25358aae664857a9bebec8108e0b72c6507370d65",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-merit.png",
+      "migrator_path": "tests/verification/v056-titlecheck-merit.png",
+      "sha256": "47090e15fd574c262e2763e704d154811e3e70cdbf6e30b3e9a81b71b0f75eb2",
+      "bytes": 508564,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-merit.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-titlecheck-merit.png.import",
+      "sha256": "9011178e4a7e6c020c7f0f44a8bcdd615b0699808ac3cf4a88cedf12b35848de",
+      "bytes": 985,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-music-half.png",
+      "migrator_path": "tests/verification/v056-titlecheck-music-half.png",
+      "sha256": "8ac473083eaee205104f10a687454971bacf6bc7c5e9b47f78ca642b3040694d",
+      "bytes": 467390,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-music-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-titlecheck-music-half.png.import",
+      "sha256": "05f36169359984c530ba92bf7f70688e0f8e9b3472dfa2e81f6b445239f15649",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-music.png",
+      "migrator_path": "tests/verification/v056-titlecheck-music.png",
+      "sha256": "7ba3661f8fe3d5dd24d20c25ea32576cb59f26bca6b2cf15794dc99ec9318294",
+      "bytes": 407911,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-music.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-titlecheck-music.png.import",
+      "sha256": "10676efb4e36caa81d2229055029015fe9cd37f49ed0874674902baccc9fc478",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-return-title.png",
+      "migrator_path": "tests/verification/v056-titlecheck-return-title.png",
+      "sha256": "fded0c0999c2c3b0bfd1323d3e84e46b439aaf64a2c03502775c2d35af2c2692",
+      "bytes": 371623,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-return-title.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-titlecheck-return-title.png.import",
+      "sha256": "4c3bd4169c86521e3dc4927b3b6530112379821df7fbbb2b6725ccb5438891f9",
+      "bytes": 1007,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-settings-1.png",
+      "migrator_path": "tests/verification/v056-titlecheck-settings-1.png",
+      "sha256": "5365c549d716d09b6262e4ea6af7a8856dd81c80044a2574b15e824df9541134",
+      "bytes": 328280,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-settings-1.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-titlecheck-settings-1.png.import",
+      "sha256": "d76673f9246debef87269e69c43db5fd4028aa177442d0a672b9ad8418ce1967",
+      "bytes": 1000,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-settings-2.png",
+      "migrator_path": "tests/verification/v056-titlecheck-settings-2.png",
+      "sha256": "7a9bf7fac4e21b9ce2869bf40a6a3decc7c8ebafe1471af9bf17452a0da3a29c",
+      "bytes": 304524,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-settings-2.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-titlecheck-settings-2.png.import",
+      "sha256": "40c35cfe951d1821de34c01f537d1bbde193512fdc85a32be71b621cb0a88809",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-settings-3.png",
+      "migrator_path": "tests/verification/v056-titlecheck-settings-3.png",
+      "sha256": "6f2a23eddfcdedf5fd40323c93e405ec58a64f1bc190b2c82f6c7e0521004ffd",
+      "bytes": 301022,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-settings-3.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-titlecheck-settings-3.png.import",
+      "sha256": "2a01aafe2782cddfbe05add2fabdcaca095cbc7394b5c78c0514d59c561d434a",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-title.png",
+      "migrator_path": "tests/verification/v056-titlecheck-title.png",
+      "sha256": "d0a8b11aaff15ff5288b828dafe928c460cd7c7dc72212bc4a97a2679a29942b",
+      "bytes": 365105,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v056-titlecheck-title.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v056-titlecheck-title.png.import",
+      "sha256": "6c86d7a5aff4b69122e4248879f3e6f1b5e306bb80cab6eed7115ea72f2fab5c",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-blastic-preview.png",
+      "migrator_path": "tests/verification/v057-blastic-preview.png",
+      "sha256": "3ec57edb36ae05c2721755df59bef3b7148cf8e90156ce3b82f5ec1bb7891459",
+      "bytes": 262694,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-blastic-preview.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-blastic-preview.png.import",
+      "sha256": "e47eef93ebfe0b12b2c036169584e74e2d555020221f53d5ffa1a70e8f42a94c",
+      "bytes": 982,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-blastic.png",
+      "migrator_path": "tests/verification/v057-blastic.png",
+      "sha256": "a0b99eaad20d241d2db3944e73de7c5c530cd9401db5e34564d0c757369cd323",
+      "bytes": 238960,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-blastic.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-blastic.png.import",
+      "sha256": "4224ab4d63bde0c5c8e88d53394c36dfad795b5f2bd7caed3aa31ec6d17b69ad",
+      "bytes": 959,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-equipment.png",
+      "migrator_path": "tests/verification/v057-equipment.png",
+      "sha256": "0588ed0af0731196bd54bb4c7d0d00fe34fbdbdfb00f7e71db11eb9a42931bcc",
+      "bytes": 174389,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-equipment.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-equipment.png.import",
+      "sha256": "da6f7a0d13a6ae5dc0a5ad0c6ef141ad01c97d6f5220539634d9423e9eaf7cd4",
+      "bytes": 965,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-item-category.png",
+      "migrator_path": "tests/verification/v057-item-category.png",
+      "sha256": "9a84b6151e12bb2e80716f8d0797154617867c9e3a1d4c5b440d4666dada9391",
+      "bytes": 252820,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-item-category.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-item-category.png.import",
+      "sha256": "d16283661e5b2fc52e9b70713058b34279e3468d47e894b6cf931365ad213588",
+      "bytes": 976,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-item-presets.png",
+      "migrator_path": "tests/verification/v057-item-presets.png",
+      "sha256": "19a639e1cd8b5b60a260f4f2c1009e92bf2e8b7a06087bbe63b1462dd1f39759",
+      "bytes": 275403,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-item-presets.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-item-presets.png.import",
+      "sha256": "90f3986616fd0a4d25a3923e2ae1aa18b40d828df42c59b4eb1856f877ad278e",
+      "bytes": 974,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-item-scroll.png",
+      "migrator_path": "tests/verification/v057-item-scroll.png",
+      "sha256": "61040b7769ff92bb389536590d476d9c7f8f95ff1cf9894a44c3e474aa405a0b",
+      "bytes": 273993,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-item-scroll.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-item-scroll.png.import",
+      "sha256": "8fdf09aa5dd1afba6f1cc5c1252c23aa4643d2d44fc37afb69f954bd7b43bde6",
+      "bytes": 971,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-item-target.png",
+      "migrator_path": "tests/verification/v057-item-target.png",
+      "sha256": "cf21998641f533bbe31056815c6ad4c3fcf907d69d838b962d9fcb75eae0f9d8",
+      "bytes": 191829,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-item-target.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-item-target.png.import",
+      "sha256": "750ffd51e4777b3e30faff93f704b9cd8b07ff21a3c5cbf8de950199851d58a0",
+      "bytes": 970,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-map-system.png",
+      "migrator_path": "tests/verification/v057-map-system.png",
+      "sha256": "110bceb155896af6f33b5b386a67c2384e190e273a2e65b53042bd032cfb4416",
+      "bytes": 29906,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-map-system.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-map-system.png.import",
+      "sha256": "6e2c23c3058778a52ba54c5de1e28ae3c439ff1213a87a62c848f2507ad9699e",
+      "bytes": 967,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-archive-half.png",
+      "migrator_path": "tests/verification/v057-menucheck-archive-half.png",
+      "sha256": "ee04e8c874f9525ad4a314fdf96c8ac3e9d25cddef11f4ef7d66a907555df69b",
+      "bytes": 191606,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-archive-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-menucheck-archive-half.png.import",
+      "sha256": "013148a71e0d52115b8d22bf5da77a95623babb6855186868c9724b1744d714d",
+      "bytes": 1004,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-archive-load.png",
+      "migrator_path": "tests/verification/v057-menucheck-archive-load.png",
+      "sha256": "77b9bee6db41aca160bbb224a94f31904a97a5ae3ae91dae2425a7137b6fd55f",
+      "bytes": 258519,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-archive-load.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-menucheck-archive-load.png.import",
+      "sha256": "723850a564f14553b44ef71f4200096ece8b117ba02160e5d7a02987aab26862",
+      "bytes": 1003,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-archive-new.png",
+      "migrator_path": "tests/verification/v057-menucheck-archive-new.png",
+      "sha256": "ee82d6bed057c5718eb1849b58c252176fda700d5948bf3d455e24a9bf1ad919",
+      "bytes": 148887,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-archive-new.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-menucheck-archive-new.png.import",
+      "sha256": "4217cf89c35b213fa2e5ba3e7b71a50e26806d1532417e906d680709f5188d7c",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-archive-save.png",
+      "migrator_path": "tests/verification/v057-menucheck-archive-save.png",
+      "sha256": "1d571909463b6052d4280f4b0dadbb7598d551876c41ebd2e9361b195711c84e",
+      "bytes": 255586,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-archive-save.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-menucheck-archive-save.png.import",
+      "sha256": "c011d2a7bc65aa2ceb24b641951d2d084a506cf3e227489186d85ce6285ba9e1",
+      "bytes": 1004,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-archive-scroll.png",
+      "migrator_path": "tests/verification/v057-menucheck-archive-scroll.png",
+      "sha256": "9e5f26353629b5e73cf573289aac0bb40cbbea588a319f6fa3593c0bb82a7330",
+      "bytes": 279574,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-archive-scroll.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-menucheck-archive-scroll.png.import",
+      "sha256": "ca2ef668c7f9b766343785f84b2cd8606a9678b1f0346636c234b6fe8d353e05",
+      "bytes": 1010,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-config.png",
+      "migrator_path": "tests/verification/v057-menucheck-config.png",
+      "sha256": "80da00dce22d6d2c17bd10da31d47de4313dcff929f631fa13c72c10707d08d4",
+      "bytes": 156197,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-config.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-menucheck-config.png.import",
+      "sha256": "c0357892b5fe5964fd843cf611607327ee5c539a3b36417a0c705f54f213055e",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-cursor-half.png",
+      "migrator_path": "tests/verification/v057-menucheck-cursor-half.png",
+      "sha256": "b69605248956f642f6f727fe9791530672d62903a689a1b892bedb6ff6562bed",
+      "bytes": 306507,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-cursor-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-menucheck-cursor-half.png.import",
+      "sha256": "c813ade89d19a200363f7acbb9ab838a35e7bba4452d1de8e3214c74fd405126",
+      "bytes": 1000,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-load-failure.png",
+      "migrator_path": "tests/verification/v057-menucheck-load-failure.png",
+      "sha256": "072cdcba404613ba74a9b4e60d913d9cfd7f6fdd84f3c508ec0364aedc4a3fdc",
+      "bytes": 254369,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-load-failure.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-menucheck-load-failure.png.import",
+      "sha256": "77617448fb4b1bb9ee57ce45ad87cd8a6a0d618364ab4dbd9a7b21140acd398a",
+      "bytes": 1004,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-locked.png",
+      "migrator_path": "tests/verification/v057-menucheck-locked.png",
+      "sha256": "e068bdb7c2389b579b0f5956eb1a13f4599196415fc488d23ab8089a266a51e3",
+      "bytes": 157340,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-locked.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-menucheck-locked.png.import",
+      "sha256": "b3381c12db824ae813ce75ae810ffca23c0506cd41db066517549c610a81f355",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-map.png",
+      "migrator_path": "tests/verification/v057-menucheck-map.png",
+      "sha256": "82c307f5ca236886ca94025675298d1f07742adfd6bfa70a26d3d4390c216d2d",
+      "bytes": 145715,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-map.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-menucheck-map.png.import",
+      "sha256": "abb0c0f9e38e9cba9e92522934a58f05ab14387bd4f458083ebe48dd746b3af4",
+      "bytes": 977,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-menu-half.png",
+      "migrator_path": "tests/verification/v057-menucheck-menu-half.png",
+      "sha256": "9ffe7bedb4b71dd6b0ebb4a5c1edd37184766713451e98c07ddcf9543b6e6696",
+      "bytes": 156872,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-menu-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-menucheck-menu-half.png.import",
+      "sha256": "60e0a76e7dd6b57a64323366fcffc76d9c06d1039ec17ad6875ffa008f5c8db3",
+      "bytes": 995,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-menu.png",
+      "migrator_path": "tests/verification/v057-menucheck-menu.png",
+      "sha256": "fcc379dd212345a9d0ea23ac5cb8b8ac2e619fce3da02582b41a3402dae9a339",
+      "bytes": 156135,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-menu.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-menucheck-menu.png.import",
+      "sha256": "1e0076c18cea8683e8613143b7767666d83c0ecf76b98cbecc185598dee36280",
+      "bytes": 980,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-overwrite.png",
+      "migrator_path": "tests/verification/v057-menucheck-overwrite.png",
+      "sha256": "fb71cb1a52e3537e7cd9f2db41eaeaf2666e4271bdc0d943999eb674b96f1604",
+      "bytes": 249276,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-overwrite.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-menucheck-overwrite.png.import",
+      "sha256": "7c6dfd527a0858ec4539ee52fd1fed038c89e0231c9d8204d93a16c4b723b960",
+      "bytes": 995,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-return-map.png",
+      "migrator_path": "tests/verification/v057-menucheck-return-map.png",
+      "sha256": "82c307f5ca236886ca94025675298d1f07742adfd6bfa70a26d3d4390c216d2d",
+      "bytes": 145715,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-return-map.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-menucheck-return-map.png.import",
+      "sha256": "86ff1c0b8848a8714850b4995330c9e837b195f892cc880ef4ec52aaa22bd92f",
+      "bytes": 997,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-title-continue.png",
+      "migrator_path": "tests/verification/v057-menucheck-title-continue.png",
+      "sha256": "c0aa333de0c206b3e0a8e20e8be715d45d097d90699b8e2b7e6506a0f745c5ee",
+      "bytes": 419374,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-menucheck-title-continue.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-menucheck-title-continue.png.import",
+      "sha256": "b7f62474a76ae79c15e893ded777c4ba05e2047d8193a324a09cf2a2abd10f64",
+      "bytes": 1010,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-notes.png",
+      "migrator_path": "tests/verification/v057-notes.png",
+      "sha256": "670fdb2ab3a6982c4cb08631bb8dfd4a11625cb6fe009973fc300616d7006595",
+      "bytes": 156167,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-notes.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-notes.png.import",
+      "sha256": "8169bdad7cdf9022fe79241b611e8367a826b35c81c6e9690862242d3bdae0b6",
+      "bytes": 953,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-shop-buy.png",
+      "migrator_path": "tests/verification/v057-shop-buy.png",
+      "sha256": "d065fd2da956bd63f98b1437a3e23c96e993e1905b5d058c0a447d5092fcffb5",
+      "bytes": 151670,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-shop-buy.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-shop-buy.png.import",
+      "sha256": "9b98a0170575e9fe3695b10aaddc57a64a187fcfebf40a6cfb5753bece79a276",
+      "bytes": 961,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-shop-number.png",
+      "migrator_path": "tests/verification/v057-shop-number.png",
+      "sha256": "880cd6d0e3e75d79cf5a358d6334d36469262786b1224934ad9cf286c0499bf2",
+      "bytes": 161623,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-shop-number.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-shop-number.png.import",
+      "sha256": "f494a0ab41b812c9a6cee4ed81c3d81248179f7020f32c01820decdf027e21b4",
+      "bytes": 971,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-shop-sell.png",
+      "migrator_path": "tests/verification/v057-shop-sell.png",
+      "sha256": "cb3b084a2590e2f98377111f7c67a414298b43b8b4f76665058769acdaf1187d",
+      "bytes": 208620,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-shop-sell.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-shop-sell.png.import",
+      "sha256": "4e1881ce62f8c0442664237cccda42efc793a7fc46dc4687bea7635365c6f425",
+      "bytes": 965,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-sight-actions.png",
+      "migrator_path": "tests/verification/v057-sight-actions.png",
+      "sha256": "d36f18de6aecb555f58f53b3a29c41cc68969ec51312c891346e1698a10ff9e4",
+      "bytes": 126943,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-sight-actions.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-sight-actions.png.import",
+      "sha256": "360f62630660effeb66f1fe6bf852edff284a86ad5d98e2ea321dc345db51ac5",
+      "bytes": 977,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-sight-buff.png",
+      "migrator_path": "tests/verification/v057-sight-buff.png",
+      "sha256": "cc0d44bfd6925a46ae4c0d64598830f21df3ca755dfdc290c00178a94de3a1ad",
+      "bytes": 102532,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-sight-buff.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-sight-buff.png.import",
+      "sha256": "62907a1ad5894306005a3f38a15c75aa460b2b6a925288519559be03fb32c3e4",
+      "bytes": 968,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-sight-enemy.png",
+      "migrator_path": "tests/verification/v057-sight-enemy.png",
+      "sha256": "459718d3d3f79a7c4a8faaef57659da67b0b3e5ea932d30ceff6296cce4a00e2",
+      "bytes": 169267,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-sight-enemy.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-sight-enemy.png.import",
+      "sha256": "89f867e790c2d27b92c4b43c912f9ef00dc8b0531013e5d885976c03cecde006",
+      "bytes": 970,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-sight-free.png",
+      "migrator_path": "tests/verification/v057-sight-free.png",
+      "sha256": "7de82eec267bedba4136fedc0a7ee167f1440434ef737139545904d301ccde3d",
+      "bytes": 102688,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-sight-free.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-sight-free.png.import",
+      "sha256": "bbb03e563c901d547cf1714cc24470ad2017ff969b97f02022d5b21069cbdd33",
+      "bytes": 968,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-sight-items.png",
+      "migrator_path": "tests/verification/v057-sight-items.png",
+      "sha256": "b35cb4435130ca1b96ec2122235eb6b5d295c7175e40216588ed9afefc890c93",
+      "bytes": 110985,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-sight-items.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-sight-items.png.import",
+      "sha256": "8efdf307a72fa05d2120e916834fa5b2366866e7f730dfce1dd79c6df28c7df2",
+      "bytes": 971,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-sight-list.png",
+      "migrator_path": "tests/verification/v057-sight-list.png",
+      "sha256": "913c874e32c649f7aea03e2d5cee2eb75d87d8fa5861028395c5c429f9e043f8",
+      "bytes": 109326,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-sight-list.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-sight-list.png.import",
+      "sha256": "d9e2338adcd424802cff57bb8656bdcb0371002a7c7645d737e835d88c243888",
+      "bytes": 968,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-sight-skill.png",
+      "migrator_path": "tests/verification/v057-sight-skill.png",
+      "sha256": "134fb0a9169cfbbb92e570001708c874b92dfedc7ce6318ba20485944ea0e792",
+      "bytes": 170872,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-sight-skill.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-sight-skill.png.import",
+      "sha256": "58185a8b1eb838817274dc7598d4c38de95d3d04602ca4db51d92258f0404525",
+      "bytes": 970,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-skill-configured.png",
+      "migrator_path": "tests/verification/v057-skill-configured.png",
+      "sha256": "471f4b7fd5bc172cbbd63110cf4e44460799385c6802dec1208871e1bc382374",
+      "bytes": 235069,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-skill-configured.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-skill-configured.png.import",
+      "sha256": "4d74ddacfed155069013c353bb91e9c73745cc0038598636fdab3321e29c68ee",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-skills-768.png",
+      "migrator_path": "tests/verification/v057-skills-768.png",
+      "sha256": "6b7cde8b372448513127c8386622d88de132bf162f09affda02d0fc8bd714e8e",
+      "bytes": 267950,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-skills-768.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-skills-768.png.import",
+      "sha256": "999e0294128aa82bcba7d120b66d0159f3cdbf3c6c5c98ea10df0ac66f10185d",
+      "bytes": 967,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v057-skills.png",
+      "migrator_path": "tests/verification/v057-skills.png",
+      "sha256": "db47bba36b3085f14dd57d0d1b96ea939c9b56fecc9839a49ab4108aa40cea7c",
+      "bytes": 293676,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v057-skills.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v057-skills.png.import",
+      "sha256": "48dc3d577fc00528e26320aed9f86a0aa2ba2e947536ef7c6b46fe26b5e5b962",
+      "bytes": 956,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-editor-audit-stale.png",
+      "migrator_path": "tests/verification/v058-editor-audit-stale.png",
+      "sha256": "6cab066a3e6c4e08bcbe6cceb06a084e81985b5e915471b759142111f3a2896c",
+      "bytes": 172851,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-editor-audit-stale.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-editor-audit-stale.png.import",
+      "sha256": "0626e3ee9bf7a8f0073ae7724944a873a0801e1c18b733df052b650437072dfa",
+      "bytes": 992,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-editor-audit.png",
+      "migrator_path": "tests/verification/v058-editor-audit.png",
+      "sha256": "1fdfd6f3df94650d80f4c5e739d37cc5995a1eb337a936fb16e217700efa68ee",
+      "bytes": 173643,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-editor-audit.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-editor-audit.png.import",
+      "sha256": "40aba49fc745bd5c8253bb2803645f1872f72c243b82c30b93022c3f7aebc3e2",
+      "bytes": 973,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-blastic-preview.png",
+      "migrator_path": "tests/verification/v058-functional-blastic-preview.png",
+      "sha256": "3ec57edb36ae05c2721755df59bef3b7148cf8e90156ce3b82f5ec1bb7891459",
+      "bytes": 262694,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-blastic-preview.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-blastic-preview.png.import",
+      "sha256": "998f6ce4619741d5893bbb455bb2f6f0b9ca1913ff5d945ad104590ea5e9d3c5",
+      "bytes": 1015,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-blastic.png",
+      "migrator_path": "tests/verification/v058-functional-blastic.png",
+      "sha256": "a0b99eaad20d241d2db3944e73de7c5c530cd9401db5e34564d0c757369cd323",
+      "bytes": 238960,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-blastic.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-blastic.png.import",
+      "sha256": "e8b6a65d5e4667714436fff98ee6ff82d0592851958d44456cae582dcd28c2cd",
+      "bytes": 991,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-equipment.png",
+      "migrator_path": "tests/verification/v058-functional-equipment.png",
+      "sha256": "0588ed0af0731196bd54bb4c7d0d00fe34fbdbdfb00f7e71db11eb9a42931bcc",
+      "bytes": 174389,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-equipment.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-equipment.png.import",
+      "sha256": "ab11e046b9a72e1580d2fb108e0535300a13facf075524aa924f25d70c6c4485",
+      "bytes": 997,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-item-category.png",
+      "migrator_path": "tests/verification/v058-functional-item-category.png",
+      "sha256": "9a84b6151e12bb2e80716f8d0797154617867c9e3a1d4c5b440d4666dada9391",
+      "bytes": 252820,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-item-category.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-item-category.png.import",
+      "sha256": "da79dcb1db04ae6ffaeaad5a781889946f4076cf697cf6e050a33baa2662bc44",
+      "bytes": 1010,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-item-presets.png",
+      "migrator_path": "tests/verification/v058-functional-item-presets.png",
+      "sha256": "19a639e1cd8b5b60a260f4f2c1009e92bf2e8b7a06087bbe63b1462dd1f39759",
+      "bytes": 275403,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-item-presets.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-item-presets.png.import",
+      "sha256": "f51d1d2559307d3c8e17728d14e7efe2f4bf29a7f3d9cd8e6910947404c9baf2",
+      "bytes": 1006,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-item-scroll.png",
+      "migrator_path": "tests/verification/v058-functional-item-scroll.png",
+      "sha256": "61040b7769ff92bb389536590d476d9c7f8f95ff1cf9894a44c3e474aa405a0b",
+      "bytes": 273993,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-item-scroll.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-item-scroll.png.import",
+      "sha256": "48ba8af404a47f83041533571d68cf201eeef52534141ea2d505ed8c3acffedf",
+      "bytes": 1004,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-item-target.png",
+      "migrator_path": "tests/verification/v058-functional-item-target.png",
+      "sha256": "cf21998641f533bbe31056815c6ad4c3fcf907d69d838b962d9fcb75eae0f9d8",
+      "bytes": 191829,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-item-target.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-item-target.png.import",
+      "sha256": "e1cff7edaddd0a07e8444925645d6c5e6385d5b2a0da64fe3c6f78707997d96b",
+      "bytes": 1003,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-map-system.png",
+      "migrator_path": "tests/verification/v058-functional-map-system.png",
+      "sha256": "110bceb155896af6f33b5b386a67c2384e190e273a2e65b53042bd032cfb4416",
+      "bytes": 29906,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-map-system.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-map-system.png.import",
+      "sha256": "c421695103b824c9710391bf0bcd4013a7cf1b840608c8c03d8a18169d963b35",
+      "bytes": 1000,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-notes.png",
+      "migrator_path": "tests/verification/v058-functional-notes.png",
+      "sha256": "670fdb2ab3a6982c4cb08631bb8dfd4a11625cb6fe009973fc300616d7006595",
+      "bytes": 156167,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-notes.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-notes.png.import",
+      "sha256": "b5623bb80a8bc962a3fac879a1ec99dcaa0afcd1a61dc8fd32d743a91506f9f0",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-shop-buy.png",
+      "migrator_path": "tests/verification/v058-functional-shop-buy.png",
+      "sha256": "573da58c8326b795127b5cf20964c5ccf8219693f09ac72c8451d0510dfbdfa9",
+      "bytes": 151645,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-shop-buy.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-shop-buy.png.import",
+      "sha256": "ea73c04e1645a547953b32e386ce6dc3af67630056ded8cd1f672768e48e2f5e",
+      "bytes": 995,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-shop-number.png",
+      "migrator_path": "tests/verification/v058-functional-shop-number.png",
+      "sha256": "9067f4cb8726feaf4019f983970bb6c159729e0561fa328a1ec5899fe57c0432",
+      "bytes": 161596,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-shop-number.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-shop-number.png.import",
+      "sha256": "313e346965f21530801ab7e5e1a92b12d6df63fdb80eb0f66570034d5e490373",
+      "bytes": 1003,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-shop-sell.png",
+      "migrator_path": "tests/verification/v058-functional-shop-sell.png",
+      "sha256": "cb3b084a2590e2f98377111f7c67a414298b43b8b4f76665058769acdaf1187d",
+      "bytes": 208620,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-shop-sell.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-shop-sell.png.import",
+      "sha256": "43875a1a445c89c015921f4402bfc536781a989938c23d0d2a1dc0895b886dc3",
+      "bytes": 998,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-sight-actions.png",
+      "migrator_path": "tests/verification/v058-functional-sight-actions.png",
+      "sha256": "d36f18de6aecb555f58f53b3a29c41cc68969ec51312c891346e1698a10ff9e4",
+      "bytes": 126943,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-sight-actions.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-sight-actions.png.import",
+      "sha256": "b354671581332f195972c67f0536291a73a54607fe5df93282dc1a3d63d57d8c",
+      "bytes": 1010,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-sight-buff.png",
+      "migrator_path": "tests/verification/v058-functional-sight-buff.png",
+      "sha256": "cc0d44bfd6925a46ae4c0d64598830f21df3ca755dfdc290c00178a94de3a1ad",
+      "bytes": 102532,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-sight-buff.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-sight-buff.png.import",
+      "sha256": "4a21788d26d96def66e7bd9805069f6331b4545053cfdcb69477682567afbe60",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-sight-enemy.png",
+      "migrator_path": "tests/verification/v058-functional-sight-enemy.png",
+      "sha256": "459718d3d3f79a7c4a8faaef57659da67b0b3e5ea932d30ceff6296cce4a00e2",
+      "bytes": 169267,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-sight-enemy.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-sight-enemy.png.import",
+      "sha256": "c1e2c474315ab4ee51820c213b10a26c74917b45312f5dce0cd3686bd230d8ec",
+      "bytes": 1003,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-sight-free.png",
+      "migrator_path": "tests/verification/v058-functional-sight-free.png",
+      "sha256": "7de82eec267bedba4136fedc0a7ee167f1440434ef737139545904d301ccde3d",
+      "bytes": 102688,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-sight-free.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-sight-free.png.import",
+      "sha256": "f0b7b288108db53037c71b59f1600489b5de9e2b4c0c72b7ceb5900f8f7fe628",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-sight-items.png",
+      "migrator_path": "tests/verification/v058-functional-sight-items.png",
+      "sha256": "b35cb4435130ca1b96ec2122235eb6b5d295c7175e40216588ed9afefc890c93",
+      "bytes": 110985,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-sight-items.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-sight-items.png.import",
+      "sha256": "780aae1a502ec24d14b82337afb5ed42a595bdc67f54ae404310230716e4e2d3",
+      "bytes": 1003,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-sight-list.png",
+      "migrator_path": "tests/verification/v058-functional-sight-list.png",
+      "sha256": "913c874e32c649f7aea03e2d5cee2eb75d87d8fa5861028395c5c429f9e043f8",
+      "bytes": 109326,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-sight-list.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-sight-list.png.import",
+      "sha256": "f85ce77a4471c3e10057a2dd33cdbd8b2a3630bcec92d16b3f3c23f15164cf10",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-sight-skill.png",
+      "migrator_path": "tests/verification/v058-functional-sight-skill.png",
+      "sha256": "134fb0a9169cfbbb92e570001708c874b92dfedc7ce6318ba20485944ea0e792",
+      "bytes": 170872,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-sight-skill.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-sight-skill.png.import",
+      "sha256": "739ade573a66578cd14599865304ecbb56fa30c58f8a809030d4a75124550ffb",
+      "bytes": 1003,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-skill-configured.png",
+      "migrator_path": "tests/verification/v058-functional-skill-configured.png",
+      "sha256": "471f4b7fd5bc172cbbd63110cf4e44460799385c6802dec1208871e1bc382374",
+      "bytes": 235069,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-skill-configured.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-skill-configured.png.import",
+      "sha256": "c342a31aff300df82aa22ae52b5dede70642222b79c30a0ab50efe843ca6a41d",
+      "bytes": 1018,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-skills-768.png",
+      "migrator_path": "tests/verification/v058-functional-skills-768.png",
+      "sha256": "6b7cde8b372448513127c8386622d88de132bf162f09affda02d0fc8bd714e8e",
+      "bytes": 267950,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-skills-768.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-skills-768.png.import",
+      "sha256": "1e0c584efdf5b360a8c351cf1013c23eab52dbc4c2f15a7261f2ada56b42096c",
+      "bytes": 1000,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-functional-skills.png",
+      "migrator_path": "tests/verification/v058-functional-skills.png",
+      "sha256": "db47bba36b3085f14dd57d0d1b96ea939c9b56fecc9839a49ab4108aa40cea7c",
+      "bytes": 293676,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-functional-skills.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-functional-skills.png.import",
+      "sha256": "6fda0cfa1f588097e7207bd35ddf5cbb2009099735ed901d50cde2c4c938d753",
+      "bytes": 989,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-gaps-occlusion-before.png",
+      "migrator_path": "tests/verification/v058-gaps-occlusion-before.png",
+      "sha256": "040ed33c6bebbf2a9b23ca8cac58cd3d1ff741645745dc382ed7cedf54b0af0f",
+      "bytes": 3150,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-gaps-occlusion-before.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-gaps-occlusion-before.png.import",
+      "sha256": "c139b9950b8519a8279c1da5d1e643ea00fc000a251ca485f5aab588af8e2647",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-gaps-occlusion-exit.png",
+      "migrator_path": "tests/verification/v058-gaps-occlusion-exit.png",
+      "sha256": "040ed33c6bebbf2a9b23ca8cac58cd3d1ff741645745dc382ed7cedf54b0af0f",
+      "bytes": 3150,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-gaps-occlusion-exit.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-gaps-occlusion-exit.png.import",
+      "sha256": "42adffb2b55a4192a3453c88f4be4f43475af060c38baaf28155239ee1969876",
+      "bytes": 995,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-gaps-occlusion-under.png",
+      "migrator_path": "tests/verification/v058-gaps-occlusion-under.png",
+      "sha256": "42c13f3842b429dc525484140c4731291b6a0948c23c2abfe506f902b129ff39",
+      "bytes": 3168,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-gaps-occlusion-under.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-gaps-occlusion-under.png.import",
+      "sha256": "fc4497d2941e2d731766364231bd8f6970788daed06ea0d58f77dd4b76ec2c0d",
+      "bytes": 998,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-gaps-source-roof-before.png",
+      "migrator_path": "tests/verification/v058-gaps-source-roof-before.png",
+      "sha256": "ae895e1f21bacf77792b432df25ba9ed4fa10c70933059d7acd54bf4bc57a22f",
+      "bytes": 278503,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-gaps-source-roof-before.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-gaps-source-roof-before.png.import",
+      "sha256": "06a2a95c319ee495b4ed33a09d724fc2867d7161cd00a29a43ec5f0cf892f6f4",
+      "bytes": 1007,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-gaps-source-roof-exit.png",
+      "migrator_path": "tests/verification/v058-gaps-source-roof-exit.png",
+      "sha256": "ae895e1f21bacf77792b432df25ba9ed4fa10c70933059d7acd54bf4bc57a22f",
+      "bytes": 278503,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-gaps-source-roof-exit.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-gaps-source-roof-exit.png.import",
+      "sha256": "9358bec6a0953cb0443d2c6b8e43672c186e3cc6a2f03138cb9ac9921fe04bf5",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-gaps-source-roof-under.png",
+      "migrator_path": "tests/verification/v058-gaps-source-roof-under.png",
+      "sha256": "0f8e12e6b6d78fbe79611d1cdb7073329aa7697452daa376e2d4b96289526df2",
+      "bytes": 334796,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-gaps-source-roof-under.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-gaps-source-roof-under.png.import",
+      "sha256": "bf2f3d64902d641a42ce213ce14ef7e9759f37d8bce696f3caad8ccb7b92ea4a",
+      "bytes": 1004,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-load-loading-legacy.png",
+      "migrator_path": "tests/verification/v058-load-loading-legacy.png",
+      "sha256": "84cd3301d5c375207d14f944b8b00e2f5f1c2c05a812a115cf382657fb58e4aa",
+      "bytes": 43927,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-load-loading-legacy.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-load-loading-legacy.png.import",
+      "sha256": "368f24c10d7b6a404348736a1cf6b913047a2d676fc9cfec633b522e94fe7b9f",
+      "bytes": 995,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-load-loading-saved-track.png",
+      "migrator_path": "tests/verification/v058-load-loading-saved-track.png",
+      "sha256": "6134755df8eac3128722c35ccca0c7c1d128fb965739f8db88a84380166df928",
+      "bytes": 236908,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-load-loading-saved-track.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-load-loading-saved-track.png.import",
+      "sha256": "2412d69853edca2d61733884ccbec8b159b16c0dcc8b0690d1851ea2ee21df71",
+      "bytes": 1010,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-load-loading-silence.png",
+      "migrator_path": "tests/verification/v058-load-loading-silence.png",
+      "sha256": "ea3c1fa17252e1aab45dcca0c703dfe724c19a798f5cbabb5117bfbcd99c942a",
+      "bytes": 239475,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-load-loading-silence.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-load-loading-silence.png.import",
+      "sha256": "8e603209774cfb461586e1fff7c5f47bf9bee6265e411b9b251695eb0e683ce9",
+      "bytes": 998,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-load-map-music.png",
+      "migrator_path": "tests/verification/v058-load-map-music.png",
+      "sha256": "0502308aa8a9a02891081ce5cd4987116f6b0c9efe229232598d9357dc3e5587",
+      "bytes": 285756,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-load-map-music.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-load-map-music.png.import",
+      "sha256": "6932de0141de2fc6427bf66a6121e58efd8d0746a53f6b7488797bcc36ceb6bc",
+      "bytes": 980,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-load-shared-bar.png",
+      "migrator_path": "tests/verification/v058-load-shared-bar.png",
+      "sha256": "b26f675bf5712aec2e76524b6b672eb70f8aae34cc79f14c4fd3e88e98709351",
+      "bytes": 466528,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-load-shared-bar.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-load-shared-bar.png.import",
+      "sha256": "7a89bef3492fe5c632102b6f7b9920abfe5e86e5870df0dea58f120faca17d20",
+      "bytes": 983,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-menu-archive-half.png",
+      "migrator_path": "tests/verification/v058-menu-archive-half.png",
+      "sha256": "ee04e8c874f9525ad4a314fdf96c8ac3e9d25cddef11f4ef7d66a907555df69b",
+      "bytes": 191606,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-menu-archive-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-menu-archive-half.png.import",
+      "sha256": "07ab3ee0d174a4d541495731e006332ae844b8f686b17439d144932a9f8933ff",
+      "bytes": 989,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-menu-archive-load.png",
+      "migrator_path": "tests/verification/v058-menu-archive-load.png",
+      "sha256": "fcbb073d2c2fb382c2556e4d4cdac78315e1df1aa43061a7f18cb15dea6fac06",
+      "bytes": 258769,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-menu-archive-load.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-menu-archive-load.png.import",
+      "sha256": "401bb9f4b610a44c96555b82175346b4e69462daf4eca43ff754af29c2e43217",
+      "bytes": 989,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-menu-archive-new.png",
+      "migrator_path": "tests/verification/v058-menu-archive-new.png",
+      "sha256": "ee82d6bed057c5718eb1849b58c252176fda700d5948bf3d455e24a9bf1ad919",
+      "bytes": 148887,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-menu-archive-new.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-menu-archive-new.png.import",
+      "sha256": "fda3d39fd6f60441a91fc2ff011b5e49b71f6c59ad7fe3dc95ec8d0082a47747",
+      "bytes": 985,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-menu-archive-save.png",
+      "migrator_path": "tests/verification/v058-menu-archive-save.png",
+      "sha256": "62d5b0e11d22b9c0157120f7b78df5f4ab90f7b46171e2160ac8ac42b095c510",
+      "bytes": 255808,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-menu-archive-save.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-menu-archive-save.png.import",
+      "sha256": "91d43c8c9c3e40dd6285608c3c43aa0422931eccb7342438c02b51729c266b5a",
+      "bytes": 989,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-menu-archive-scroll.png",
+      "migrator_path": "tests/verification/v058-menu-archive-scroll.png",
+      "sha256": "0150cb5a2446c5a7262f5ce48704fb69e3a535fd529132b137c85a40ebd67582",
+      "bytes": 280923,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-menu-archive-scroll.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-menu-archive-scroll.png.import",
+      "sha256": "6b84b75aeb1006b67cfaca907eea1c283048dfb9540f4e11cfd57524a2f3ebaa",
+      "bytes": 995,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-menu-config.png",
+      "migrator_path": "tests/verification/v058-menu-config.png",
+      "sha256": "80da00dce22d6d2c17bd10da31d47de4313dcff929f631fa13c72c10707d08d4",
+      "bytes": 156197,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-menu-config.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-menu-config.png.import",
+      "sha256": "9baf994eecb61a7c7d41c48ce495da83426c4cde22996735bc4cfef0995ff86e",
+      "bytes": 971,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-menu-cursor-half.png",
+      "migrator_path": "tests/verification/v058-menu-cursor-half.png",
+      "sha256": "824c5454d775dfc9b0b7f9a8c184d67cda0ef5b07229a9e002a3e899bd039298",
+      "bytes": 307900,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-menu-cursor-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-menu-cursor-half.png.import",
+      "sha256": "ebb3395a5b6f401a5ab8ed7d23fd9adf66d29cba2c38847b507134f6d13cc677",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-menu-load-failure.png",
+      "migrator_path": "tests/verification/v058-menu-load-failure.png",
+      "sha256": "be1e243411e26f3928634b44d195f4a8ae6b24488b1a041e3c870df1065ca516",
+      "bytes": 254631,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-menu-load-failure.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-menu-load-failure.png.import",
+      "sha256": "a705da0e187186f56effa1106a364a4e24d114291abbfd19b34a0bbe0dd4df77",
+      "bytes": 989,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-menu-locked.png",
+      "migrator_path": "tests/verification/v058-menu-locked.png",
+      "sha256": "e068bdb7c2389b579b0f5956eb1a13f4599196415fc488d23ab8089a266a51e3",
+      "bytes": 157340,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-menu-locked.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-menu-locked.png.import",
+      "sha256": "762d4a80bafd350ded4bacf2a0bede6e8a54b9fc82c612f855efb8cf0113951b",
+      "bytes": 971,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-menu-map.png",
+      "migrator_path": "tests/verification/v058-menu-map.png",
+      "sha256": "82c307f5ca236886ca94025675298d1f07742adfd6bfa70a26d3d4390c216d2d",
+      "bytes": 145715,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-menu-map.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-menu-map.png.import",
+      "sha256": "a46839a6eb2b958cb3b8f8d3042ad6a36b4f6bdc41dd0bec851f9dd353892571",
+      "bytes": 962,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-menu-menu-half.png",
+      "migrator_path": "tests/verification/v058-menu-menu-half.png",
+      "sha256": "9ffe7bedb4b71dd6b0ebb4a5c1edd37184766713451e98c07ddcf9543b6e6696",
+      "bytes": 156872,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-menu-menu-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-menu-menu-half.png.import",
+      "sha256": "f5720a60edc7ebfa0996d5b57b1a112ee798dc36616de73938060757c286499c",
+      "bytes": 980,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-menu-menu.png",
+      "migrator_path": "tests/verification/v058-menu-menu.png",
+      "sha256": "fcc379dd212345a9d0ea23ac5cb8b8ac2e619fce3da02582b41a3402dae9a339",
+      "bytes": 156135,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-menu-menu.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-menu-menu.png.import",
+      "sha256": "db16939f35bbaaf3646febdf47e3c933dca293120e760be6b6d533491bcffe3c",
+      "bytes": 965,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-menu-overwrite.png",
+      "migrator_path": "tests/verification/v058-menu-overwrite.png",
+      "sha256": "184c7c15e7be021fe0e68a35daba6be6ef285b49ecc20400ab5f03de067b0ad3",
+      "bytes": 249496,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-menu-overwrite.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-menu-overwrite.png.import",
+      "sha256": "d60b346d12fc02e0b408afe3d7aead6f918bf58c55fb89cff17b4f9506767b29",
+      "bytes": 980,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-menu-return-map.png",
+      "migrator_path": "tests/verification/v058-menu-return-map.png",
+      "sha256": "82c307f5ca236886ca94025675298d1f07742adfd6bfa70a26d3d4390c216d2d",
+      "bytes": 145715,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-menu-return-map.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-menu-return-map.png.import",
+      "sha256": "8484d2e45b37e7624395f17181a3eb2e72d1deeb23144b107351884fa0e479d5",
+      "bytes": 982,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-menu-title-continue.png",
+      "migrator_path": "tests/verification/v058-menu-title-continue.png",
+      "sha256": "90e1eb2db702f57266deeaf0a02a3a82a4799c701a23d460bca8da933c94026b",
+      "bytes": 420531,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-menu-title-continue.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-menu-title-continue.png.import",
+      "sha256": "8af55d77e676d97d0c73d58ed885e5e781c349caec6f934ae2b8594e26bd6ddd",
+      "bytes": 995,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-message-choice.png",
+      "migrator_path": "tests/verification/v058-message-choice.png",
+      "sha256": "281d0b5bef3f52544ffd11cce64871bf22bd3c992c0c057e1ae13c76d31e09d1",
+      "bytes": 146028,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-message-choice.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-message-choice.png.import",
+      "sha256": "8c0d4f33021adea5f6e348d62173ae03827b54ff0c3a145580f269c8b7bf98d5",
+      "bytes": 980,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-message-dialogue.png",
+      "migrator_path": "tests/verification/v058-message-dialogue.png",
+      "sha256": "7051475848948fe4d16911156657ac3038e7d3ff7506eed40a818d9f26fa793a",
+      "bytes": 139261,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-message-dialogue.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-message-dialogue.png.import",
+      "sha256": "d73e8e8d79addb749a39fdd644960aa78dad2970720f9f8738827cefaf9aebe6",
+      "bytes": 985,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-message-hint.png",
+      "migrator_path": "tests/verification/v058-message-hint.png",
+      "sha256": "557df612d6bae36226146b19c88513f90e45cc6859802cf5970c080315aab94a",
+      "bytes": 141477,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-message-hint.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-message-hint.png.import",
+      "sha256": "2b1820d43f1e15172916e4ffefc7829fda7c29d5459c2560680a5664e0dcb411",
+      "bytes": 973,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-message-history.png",
+      "migrator_path": "tests/verification/v058-message-history.png",
+      "sha256": "42039a51d6efc5a08a74b2617a4b14693e15fd24f09d0d89d0d6dfc17b7e4f85",
+      "bytes": 394058,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-message-history.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-message-history.png.import",
+      "sha256": "8bb953913a239fa388a6d9497b0240dafc914b84826bf5d31dc3213a3f44d1d1",
+      "bytes": 983,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-message-number.png",
+      "migrator_path": "tests/verification/v058-message-number.png",
+      "sha256": "0e2287111032a6f0345ace348327e9457417087029bb27270d6ce96ed13ca4c9",
+      "bytes": 146893,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-message-number.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-message-number.png.import",
+      "sha256": "2ca3310fae818dc3761eaa30a910b479a022e15d0f37ac92a113dd5c1417fe72",
+      "bytes": 979,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-message-pages.png",
+      "migrator_path": "tests/verification/v058-message-pages.png",
+      "sha256": "a849be8c9c2754eee8044afce55c2c9a504f985d478d908aa2c55decd1d44bcb",
+      "bytes": 332581,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-message-pages.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-message-pages.png.import",
+      "sha256": "29d79a254c9071555c0b39e8b85e49916a55cbefd6338f52d0bd756f8c41a439",
+      "bytes": 976,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-title-carousel-half.png",
+      "migrator_path": "tests/verification/v058-title-carousel-half.png",
+      "sha256": "d516208ea70582dd2eb3b98adab195d509fcfbfac0e53fc821d4d2eabd74bfd1",
+      "bytes": 365367,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-title-carousel-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-title-carousel-half.png.import",
+      "sha256": "dfec60ad837e73c91d1941c11475486ab6ea34d6d29666ba54cd612a51e3b42c",
+      "bytes": 995,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-title-continue.png",
+      "migrator_path": "tests/verification/v058-title-continue.png",
+      "sha256": "7b05a81f6dd064c41dc066f12e9cfbe190f65a06931b19328ab7d503715bdf05",
+      "bytes": 329418,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-title-continue.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-title-continue.png.import",
+      "sha256": "bfaf0bb906c363bc22db129de2d41232e257211aa4b6980db28f680cddc01391",
+      "bytes": 980,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-title-difficulty-ex.png",
+      "migrator_path": "tests/verification/v058-title-difficulty-ex.png",
+      "sha256": "11d359113cd22510a04314390df6ac6afb8a77b8fff167f4f4f33b84f03c6c36",
+      "bytes": 320778,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-title-difficulty-ex.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-title-difficulty-ex.png.import",
+      "sha256": "6f7d96214f713fe7f237d72b8eb509d86c032af045be880037f6e8490926aade",
+      "bytes": 995,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-title-difficulty-hard.png",
+      "migrator_path": "tests/verification/v058-title-difficulty-hard.png",
+      "sha256": "c92b46a1efd284cbaea185f630b6ecb2826c1fabfcbc1d7d418645fe3be0337b",
+      "bytes": 348258,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-title-difficulty-hard.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-title-difficulty-hard.png.import",
+      "sha256": "abb47a99c398911e790585b219b9180250568938963c0dfc3779abcf2ff6470c",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-title-disabled-command.png",
+      "migrator_path": "tests/verification/v058-title-disabled-command.png",
+      "sha256": "7783d6847a68b7b86391b0d95ab5bbadd48ae64e02450f5ddb76e5c4da0a39b2",
+      "bytes": 370952,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-title-disabled-command.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-title-disabled-command.png.import",
+      "sha256": "d8da93eb98c66daa02acddfb25944b77e706469b5ea3ab8cd435c295183ed743",
+      "bytes": 1004,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-title-merit-book.png",
+      "migrator_path": "tests/verification/v058-title-merit-book.png",
+      "sha256": "ee560bc4b9ab00ce614ff85b22987686ffb53e697919b625c386111dfd8f65aa",
+      "bytes": 578681,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-title-merit-book.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-title-merit-book.png.import",
+      "sha256": "5662a868f2d40f02ad2c554f49bb22690cf82653aa71904e7f0726432d82d793",
+      "bytes": 985,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-title-merit.png",
+      "migrator_path": "tests/verification/v058-title-merit.png",
+      "sha256": "b029d7bfe6334d3da471e46ecb558406cf07ea5351a972c5c0702b240009a7e7",
+      "bytes": 506126,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-title-merit.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-title-merit.png.import",
+      "sha256": "9717eb75e3fac648e95fe5d9190b5884e80ef7ae95826ec1856b3c4667dbecf4",
+      "bytes": 970,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-title-music-half.png",
+      "migrator_path": "tests/verification/v058-title-music-half.png",
+      "sha256": "743abafabbc8e3d16182f2a8eb4b086ebc4897a364a30840737138e51c81331d",
+      "bytes": 467154,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-title-music-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-title-music-half.png.import",
+      "sha256": "7cf2c1da5c9918de4c810b907c7fb0d66a8a58125e117245a636c0af63df1f72",
+      "bytes": 985,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-title-music.png",
+      "migrator_path": "tests/verification/v058-title-music.png",
+      "sha256": "652f2d2f6ea046ac9c2f15305045e5d845bb93d9f58e1944445d5d056ccae4f9",
+      "bytes": 407742,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-title-music.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-title-music.png.import",
+      "sha256": "1af65038d0d6a7e4f7dc44799e1e554dd45e9ec50305cd1b2c7fe67fbb825add",
+      "bytes": 971,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-title-return-title.png",
+      "migrator_path": "tests/verification/v058-title-return-title.png",
+      "sha256": "2a75781d5be6508cf13db0c146b28a9730575e1a4f46b954a33cc6e53859ff47",
+      "bytes": 374755,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-title-return-title.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-title-return-title.png.import",
+      "sha256": "e67a7aa80ba9a430b059a734ceeba674ec197d38216376866c5a3ed47b4676a9",
+      "bytes": 991,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-title-settings-1.png",
+      "migrator_path": "tests/verification/v058-title-settings-1.png",
+      "sha256": "92cc0d0b66bdae9c7111614931de70d52ca8b79e3e8605e52f7ccb20b98ba51e",
+      "bytes": 328644,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-title-settings-1.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-title-settings-1.png.import",
+      "sha256": "d7cb54f0d05cea8fee0f3f4d0f678e66cf5f6231c544cb41d19b36abebb43376",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-title-settings-2.png",
+      "migrator_path": "tests/verification/v058-title-settings-2.png",
+      "sha256": "880de192e1a2c8ef1850897003f413c5ee8981ab9c94d0e6d8443a4444ae86fa",
+      "bytes": 305319,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-title-settings-2.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-title-settings-2.png.import",
+      "sha256": "d8bfb9e4c3a2ca52709d64e97684c7b3087893be3f7b700662da28bf413517c5",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-title-settings-3.png",
+      "migrator_path": "tests/verification/v058-title-settings-3.png",
+      "sha256": "985d522e51e05a7463ac9d9cca2e42e61a77509bcec8399e7545b5ab56c41af9",
+      "bytes": 301452,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-title-settings-3.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-title-settings-3.png.import",
+      "sha256": "57ef04e0a5c62ab3e597d8aefdd3755b1452d5c836d34b3ef4dbff56981be60f",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-title-title.png",
+      "migrator_path": "tests/verification/v058-title-title.png",
+      "sha256": "d0a8b11aaff15ff5288b828dafe928c460cd7c7dc72212bc4a97a2679a29942b",
+      "bytes": 365105,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-title-title.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-title-title.png.import",
+      "sha256": "8b79f5f035f10aafb41b8ff4dd7513b3675ed0cf887344d4f3a2b12da5f8169d",
+      "bytes": 970,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-ui-items.png",
+      "migrator_path": "tests/verification/v058-ui-items.png",
+      "sha256": "4da0c3b5dc70bddd0c5373d6092a92343245dc5393eadb9d7256a8a44a6a1eba",
+      "bytes": 224843,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-ui-items.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-ui-items.png.import",
+      "sha256": "61f2901e58ff7ee396bbfc482e20abf9627679946e50644077f0b598aa95a876",
+      "bytes": 962,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-ui-off.png",
+      "migrator_path": "tests/verification/v058-ui-off.png",
+      "sha256": "3ae54a1fa9cf6ca8e27344484abc04f820fdf46623de5f4f619577fd3eef3bbb",
+      "bytes": 140268,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-ui-off.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-ui-off.png.import",
+      "sha256": "42c5ee1cf1d1e5305c83054a057306eca82a9e8b5e613afe9e06e8d5d52c4d35",
+      "bytes": 956,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-ui-skills.png",
+      "migrator_path": "tests/verification/v058-ui-skills.png",
+      "sha256": "18d166edc2f6bfed0ce60cf87d3c010e11bffc540dd7d2967fb7a572b8fc217c",
+      "bytes": 201353,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-ui-skills.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-ui-skills.png.import",
+      "sha256": "9bc4b2310b5da338134819ecbcbd63ad52e6247c087b5be108efb92a2fbd9a45",
+      "bytes": 965,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-ui-solo.png",
+      "migrator_path": "tests/verification/v058-ui-solo.png",
+      "sha256": "c5d4e9445edfcbea700635ba8b8625b9b76ce9ae04174b538f355f039f7b2487",
+      "bytes": 139977,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-ui-solo.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-ui-solo.png.import",
+      "sha256": "7b72e0ce967e5005308f9739f4832ddbd1421c4e6243b3e827382df8d459a2ad",
+      "bytes": 958,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v058-ui-support.png",
+      "migrator_path": "tests/verification/v058-ui-support.png",
+      "sha256": "3b5b908461e13f7cfc88784e71072ee029c696536b850e4a8b3966c4fbce609d",
+      "bytes": 148780,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v058-ui-support.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v058-ui-support.png.import",
+      "sha256": "4a93805563a97e2c72583c2631133adf696f33b491330d15cba5ed113844e33b",
+      "bytes": 968,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-common-ui-menu.png",
+      "migrator_path": "tests/verification/v059-common-ui-menu.png",
+      "sha256": "7b33a36767437c327598f5147c81c2b988387a1a49ec41612bd2dd6ec0e56a0e",
+      "bytes": 48968,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-common-ui-menu.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-common-ui-menu.png.import",
+      "sha256": "cdaf2ec5b1a8b97f6e88b4dabbd5b0d70fe26ce1392b81402a5b4ebe0f5c691b",
+      "bytes": 978,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-common-ui-scroll-last-page.png",
+      "migrator_path": "tests/verification/v059-common-ui-scroll-last-page.png",
+      "sha256": "43188d45e4c27099e230c9232b6c04b7f810bb5985096666fbc2381aeaada865",
+      "bytes": 31084,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-common-ui-scroll-last-page.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-common-ui-scroll-last-page.png.import",
+      "sha256": "32351f6c0660b1521259ed5efc3e929bbd4efe012101b80054ce3cfb77010a16",
+      "bytes": 1016,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-common-ui-text-first-page.png",
+      "migrator_path": "tests/verification/v059-common-ui-text-first-page.png",
+      "sha256": "ad01ccb25976fc8092a91b92220bf732a614da6320d3b05f9c1cd1295d0773b5",
+      "bytes": 36376,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-common-ui-text-first-page.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-common-ui-text-first-page.png.import",
+      "sha256": "1225030fbfb5bafb667de71f87d68554f31f8f424ce84b0e957bd66e56c3b155",
+      "bytes": 1012,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-common-ui-title.png",
+      "migrator_path": "tests/verification/v059-common-ui-title.png",
+      "sha256": "f2e4ec1fdd0942b46e653ec450458860c43204482f59e374ef9213462a46ae04",
+      "bytes": 369899,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-common-ui-title.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-common-ui-title.png.import",
+      "sha256": "fa062bd311746d33b34abc732b5a4184d4e24ed8c17c52e03d96f5e3a4401d01",
+      "bytes": 983,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-editor-v053-ui-plugin-selected.png",
+      "migrator_path": "tests/verification/v059-editor-v053-ui-plugin-selected.png",
+      "sha256": "d61073f34d06757f3cfe4a9fd9e05aa770170dd1eef16abd52b4c67424685d81",
+      "bytes": 157479,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-editor-v053-ui-plugin-selected.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-editor-v053-ui-plugin-selected.png.import",
+      "sha256": "217d35730113a0b02a5732481190b91f6d9ae484a82e7841ea265eda0ea75209",
+      "bytes": 1028,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-editor-v053-ui-plugin.png",
+      "migrator_path": "tests/verification/v059-editor-v053-ui-plugin.png",
+      "sha256": "d9a05c032ca96f65781d700de94bc7f09d4ccd1c347969042bf68c248facca59",
+      "bytes": 157733,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-editor-v053-ui-plugin.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-editor-v053-ui-plugin.png.import",
+      "sha256": "09278ca49a2dffefa91a07ad23dbba882291b216c04968b304aca51f77befd3d",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-blastic-preview.png",
+      "migrator_path": "tests/verification/v059-functional-blastic-preview.png",
+      "sha256": "3ec57edb36ae05c2721755df59bef3b7148cf8e90156ce3b82f5ec1bb7891459",
+      "bytes": 262694,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-blastic-preview.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-blastic-preview.png.import",
+      "sha256": "6492e78f7c56c7e215b246c8245bda31bb671d17f00748efa580ea39891a1cbe",
+      "bytes": 1016,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-blastic.png",
+      "migrator_path": "tests/verification/v059-functional-blastic.png",
+      "sha256": "a0b99eaad20d241d2db3944e73de7c5c530cd9401db5e34564d0c757369cd323",
+      "bytes": 238960,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-blastic.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-blastic.png.import",
+      "sha256": "9968508eda8a24b0836bea303e4abcf7eb25a2a0055690470509f24fe72d61fa",
+      "bytes": 992,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-equipment.png",
+      "migrator_path": "tests/verification/v059-functional-equipment.png",
+      "sha256": "1f6c20757e38d9f13ad06d8903306cf373cddea1859cd4b56c22dbb802288b94",
+      "bytes": 174752,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-equipment.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-equipment.png.import",
+      "sha256": "538b6f027c2a733cb2e39c0d1aad02d53848c0bc3e0ad5a5e38d2e7c868d7e74",
+      "bytes": 998,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-item-category.png",
+      "migrator_path": "tests/verification/v059-functional-item-category.png",
+      "sha256": "99798c8523fcbe54dae2123c56d103c9ec5716f0690036da718fce939701c58a",
+      "bytes": 240485,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-item-category.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-item-category.png.import",
+      "sha256": "4a105bc8f524caa3e905d182a859329955b44f3644112f3e02a0e440aa23e9a9",
+      "bytes": 1010,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-item-presets.png",
+      "migrator_path": "tests/verification/v059-functional-item-presets.png",
+      "sha256": "6b562d0d28edd9954eedcd395fcb60b2ad06fe901410d7d87d8ac2cab84d4d43",
+      "bytes": 265768,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-item-presets.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-item-presets.png.import",
+      "sha256": "d4cc2ed67b62b7781f5d29f66b6bcb6653d427e2eae0d1c55b12a3f96ea1de56",
+      "bytes": 1007,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-item-scroll.png",
+      "migrator_path": "tests/verification/v059-functional-item-scroll.png",
+      "sha256": "0da9144994e938b37bf28172b253d32811f1e2e99b68538759b292e5ca865214",
+      "bytes": 264730,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-item-scroll.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-item-scroll.png.import",
+      "sha256": "cdc8d905b379583c37f6a1dd4aab8951801fb6e2b8992ca3904653cc59509c64",
+      "bytes": 1004,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-item-target.png",
+      "migrator_path": "tests/verification/v059-functional-item-target.png",
+      "sha256": "cf21998641f533bbe31056815c6ad4c3fcf907d69d838b962d9fcb75eae0f9d8",
+      "bytes": 191829,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-item-target.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-item-target.png.import",
+      "sha256": "e174d9c051a285d60fdc8baa4e643aebd0250caf32539ba6c035378eb15a4cc0",
+      "bytes": 1004,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-map-system.png",
+      "migrator_path": "tests/verification/v059-functional-map-system.png",
+      "sha256": "110bceb155896af6f33b5b386a67c2384e190e273a2e65b53042bd032cfb4416",
+      "bytes": 29906,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-map-system.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-map-system.png.import",
+      "sha256": "44c4d9c65a26db7e3b969d24ca8498d651c687ea8338632a2d72aae6eef82a8e",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-notes.png",
+      "migrator_path": "tests/verification/v059-functional-notes.png",
+      "sha256": "670fdb2ab3a6982c4cb08631bb8dfd4a11625cb6fe009973fc300616d7006595",
+      "bytes": 156167,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-notes.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-notes.png.import",
+      "sha256": "e2b3c725f04d74cb62688d8105e87a3c61554fb186db3b7b1c9eb6a2e00813ba",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-shop-buy.png",
+      "migrator_path": "tests/verification/v059-functional-shop-buy.png",
+      "sha256": "573da58c8326b795127b5cf20964c5ccf8219693f09ac72c8451d0510dfbdfa9",
+      "bytes": 151645,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-shop-buy.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-shop-buy.png.import",
+      "sha256": "c260451e0a8dd8acfab2ba78f983625e8a203dda2ecf6603a9aa8e0669db2b75",
+      "bytes": 995,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-shop-number.png",
+      "migrator_path": "tests/verification/v059-functional-shop-number.png",
+      "sha256": "9067f4cb8726feaf4019f983970bb6c159729e0561fa328a1ec5899fe57c0432",
+      "bytes": 161596,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-shop-number.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-shop-number.png.import",
+      "sha256": "ecdde23d2734d25b71ee000a02fa6b9b9af383db46ed13e9ed97d7b62601a764",
+      "bytes": 1004,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-shop-sell.png",
+      "migrator_path": "tests/verification/v059-functional-shop-sell.png",
+      "sha256": "cb3b084a2590e2f98377111f7c67a414298b43b8b4f76665058769acdaf1187d",
+      "bytes": 208620,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-shop-sell.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-shop-sell.png.import",
+      "sha256": "c01654f2fab1523bcef688d476cf583f7584a6f67302ea0bf986d6b10a1ada80",
+      "bytes": 997,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-sight-actions.png",
+      "migrator_path": "tests/verification/v059-functional-sight-actions.png",
+      "sha256": "d36f18de6aecb555f58f53b3a29c41cc68969ec51312c891346e1698a10ff9e4",
+      "bytes": 126943,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-sight-actions.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-sight-actions.png.import",
+      "sha256": "df1c63356c4df747e38407794467fa011c3ff947790cf73fbf6bdb93ae897f50",
+      "bytes": 1010,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-sight-buff.png",
+      "migrator_path": "tests/verification/v059-functional-sight-buff.png",
+      "sha256": "cc0d44bfd6925a46ae4c0d64598830f21df3ca755dfdc290c00178a94de3a1ad",
+      "bytes": 102532,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-sight-buff.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-sight-buff.png.import",
+      "sha256": "1ba1e6ad9d9d191e378fe60ec7a02de36a0ff5462507142935293b4f3989459c",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-sight-enemy.png",
+      "migrator_path": "tests/verification/v059-functional-sight-enemy.png",
+      "sha256": "459718d3d3f79a7c4a8faaef57659da67b0b3e5ea932d30ceff6296cce4a00e2",
+      "bytes": 169267,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-sight-enemy.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-sight-enemy.png.import",
+      "sha256": "273ffc34af2594f1072d565246e17436e72cbca09382100421a8f13f05f9029e",
+      "bytes": 1004,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-sight-free.png",
+      "migrator_path": "tests/verification/v059-functional-sight-free.png",
+      "sha256": "7de82eec267bedba4136fedc0a7ee167f1440434ef737139545904d301ccde3d",
+      "bytes": 102688,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-sight-free.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-sight-free.png.import",
+      "sha256": "51eff1acd2cc4ae8a800640e6dad35a15809a2e69d0e1047bb269f02682e0b8e",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-sight-items.png",
+      "migrator_path": "tests/verification/v059-functional-sight-items.png",
+      "sha256": "b35cb4435130ca1b96ec2122235eb6b5d295c7175e40216588ed9afefc890c93",
+      "bytes": 110985,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-sight-items.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-sight-items.png.import",
+      "sha256": "fd0b8a08df9d8b25917635fdc73ff5aaad72d6ae28deef524d9d228055be5354",
+      "bytes": 1004,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-sight-list.png",
+      "migrator_path": "tests/verification/v059-functional-sight-list.png",
+      "sha256": "913c874e32c649f7aea03e2d5cee2eb75d87d8fa5861028395c5c429f9e043f8",
+      "bytes": 109326,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-sight-list.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-sight-list.png.import",
+      "sha256": "09b8c623cc4af26ad918de9a3559e915d9f3747fe39c90a9596cc6e7e0a90739",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-sight-skill.png",
+      "migrator_path": "tests/verification/v059-functional-sight-skill.png",
+      "sha256": "134fb0a9169cfbbb92e570001708c874b92dfedc7ce6318ba20485944ea0e792",
+      "bytes": 170872,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-sight-skill.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-sight-skill.png.import",
+      "sha256": "a35e863bbde91d5e51bf5ac2515f8dfcabb4bf7f7340b62c7fe39dee776caa98",
+      "bytes": 1004,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-skill-configured.png",
+      "migrator_path": "tests/verification/v059-functional-skill-configured.png",
+      "sha256": "471f4b7fd5bc172cbbd63110cf4e44460799385c6802dec1208871e1bc382374",
+      "bytes": 235069,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-skill-configured.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-skill-configured.png.import",
+      "sha256": "414632e1f80989428cf91d42d6a0cbacce78c046e620740cbd2d44f29092016f",
+      "bytes": 1019,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-skills-768.png",
+      "migrator_path": "tests/verification/v059-functional-skills-768.png",
+      "sha256": "6b7cde8b372448513127c8386622d88de132bf162f09affda02d0fc8bd714e8e",
+      "bytes": 267950,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-skills-768.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-skills-768.png.import",
+      "sha256": "0d1d4aa1f15d49d87e7cd3273e877b49e3f78ecfe914c0cfbf73a3312dd7a3ca",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-functional-skills.png",
+      "migrator_path": "tests/verification/v059-functional-skills.png",
+      "sha256": "db47bba36b3085f14dd57d0d1b96ea939c9b56fecc9839a49ab4108aa40cea7c",
+      "bytes": 293676,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-functional-skills.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-functional-skills.png.import",
+      "sha256": "97065ea13a53468821ad2668da22e1254b1922373b7a653613d70ad87296dc7a",
+      "bytes": 989,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-gaps-occlusion-before.png",
+      "migrator_path": "tests/verification/v059-gaps-occlusion-before.png",
+      "sha256": "040ed33c6bebbf2a9b23ca8cac58cd3d1ff741645745dc382ed7cedf54b0af0f",
+      "bytes": 3150,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-gaps-occlusion-before.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-gaps-occlusion-before.png.import",
+      "sha256": "aac3a6440af8267496089c7f170ace57cfc4a2380a951a2da9903ed81dd438f7",
+      "bytes": 1000,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-gaps-occlusion-exit.png",
+      "migrator_path": "tests/verification/v059-gaps-occlusion-exit.png",
+      "sha256": "040ed33c6bebbf2a9b23ca8cac58cd3d1ff741645745dc382ed7cedf54b0af0f",
+      "bytes": 3150,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-gaps-occlusion-exit.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-gaps-occlusion-exit.png.import",
+      "sha256": "e795231944460f910783741c8f5d08c7e210c7430bfe12aa4c0bceda5b21d080",
+      "bytes": 995,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-gaps-occlusion-under.png",
+      "migrator_path": "tests/verification/v059-gaps-occlusion-under.png",
+      "sha256": "42c13f3842b429dc525484140c4731291b6a0948c23c2abfe506f902b129ff39",
+      "bytes": 3168,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-gaps-occlusion-under.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-gaps-occlusion-under.png.import",
+      "sha256": "351f3c5ff617e787753ff321fe648d6174c6f6c202d2c16030fac1c957ce1ddf",
+      "bytes": 997,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-gaps-source-roof-before.png",
+      "migrator_path": "tests/verification/v059-gaps-source-roof-before.png",
+      "sha256": "ae895e1f21bacf77792b432df25ba9ed4fa10c70933059d7acd54bf4bc57a22f",
+      "bytes": 278503,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-gaps-source-roof-before.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-gaps-source-roof-before.png.import",
+      "sha256": "662110aab1a6ba854cee8bcadbf33160e1136eee5209cc951d7e38b9f2787e86",
+      "bytes": 1006,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-gaps-source-roof-exit.png",
+      "migrator_path": "tests/verification/v059-gaps-source-roof-exit.png",
+      "sha256": "ae895e1f21bacf77792b432df25ba9ed4fa10c70933059d7acd54bf4bc57a22f",
+      "bytes": 278503,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-gaps-source-roof-exit.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-gaps-source-roof-exit.png.import",
+      "sha256": "ac88bd9c177a6543c955acde0cc01ba6231110fa91cf54f8ea501389ca19b384",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-gaps-source-roof-under.png",
+      "migrator_path": "tests/verification/v059-gaps-source-roof-under.png",
+      "sha256": "0f8e12e6b6d78fbe79611d1cdb7073329aa7697452daa376e2d4b96289526df2",
+      "bytes": 334796,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-gaps-source-roof-under.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-gaps-source-roof-under.png.import",
+      "sha256": "d2d040397b0daedde0cb1f977dac05b9e07fd34097ed1d672c0f5eb372d603b9",
+      "bytes": 1004,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-integration-broken-finish.png",
+      "migrator_path": "tests/verification/v059-integration-broken-finish.png",
+      "sha256": "9315486a721c1a1eea728b6616f7f70be3304a112a55cb07cefadbbca5e224d9",
+      "bytes": 343010,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-integration-broken-finish.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-integration-broken-finish.png.import",
+      "sha256": "1b94170e9f879e801164bc58150cbd19dd85ef8443975a70991e460900a3b7f0",
+      "bytes": 1013,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-integration-broken-middle.png",
+      "migrator_path": "tests/verification/v059-integration-broken-middle.png",
+      "sha256": "cdb0a99c8a7df61cf07a3d8eee8adb782acf7104874536f96def287422d818ae",
+      "bytes": 365332,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-integration-broken-middle.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-integration-broken-middle.png.import",
+      "sha256": "6a98830f8e0194168f126212ed4a3eee1fdc586a2a8aeaa6de2b8f72aecba59c",
+      "bytes": 1013,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-integration-broken-start.png",
+      "migrator_path": "tests/verification/v059-integration-broken-start.png",
+      "sha256": "5eac09b9c9c82c901d22826bd412ece3f9a160a51a0fe0da978c895d354b0254",
+      "bytes": 287280,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-integration-broken-start.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-integration-broken-start.png.import",
+      "sha256": "1fda83b993e2f4d725bd83116e40ae38b17700b607040e206fdff22d9992e5f0",
+      "bytes": 1010,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-load-loading-legacy.png",
+      "migrator_path": "tests/verification/v059-load-loading-legacy.png",
+      "sha256": "84cd3301d5c375207d14f944b8b00e2f5f1c2c05a812a115cf382657fb58e4aa",
+      "bytes": 43927,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-load-loading-legacy.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-load-loading-legacy.png.import",
+      "sha256": "091e5b67729981d5d0a627986599b5476291d1d18400068242d2bab1534dc40a",
+      "bytes": 993,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-load-loading-saved-track.png",
+      "migrator_path": "tests/verification/v059-load-loading-saved-track.png",
+      "sha256": "6134755df8eac3128722c35ccca0c7c1d128fb965739f8db88a84380166df928",
+      "bytes": 236908,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-load-loading-saved-track.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-load-loading-saved-track.png.import",
+      "sha256": "9e7113f0255b1704d422d61b382a4e987dcedf17636062040a36c26ea9967942",
+      "bytes": 1010,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-load-loading-silence.png",
+      "migrator_path": "tests/verification/v059-load-loading-silence.png",
+      "sha256": "ea3c1fa17252e1aab45dcca0c703dfe724c19a798f5cbabb5117bfbcd99c942a",
+      "bytes": 239475,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-load-loading-silence.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-load-loading-silence.png.import",
+      "sha256": "ca62ce15a4fa030f841c486c013371366e898120ed3e995ef925c745eab89ec1",
+      "bytes": 998,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-load-map-music.png",
+      "migrator_path": "tests/verification/v059-load-map-music.png",
+      "sha256": "0502308aa8a9a02891081ce5cd4987116f6b0c9efe229232598d9357dc3e5587",
+      "bytes": 285756,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-load-map-music.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-load-map-music.png.import",
+      "sha256": "486a7711010e8dabc01b9d26be93ff427bb8d4cb0a11ae9dbe876ec42dd7f1ec",
+      "bytes": 980,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-load-shared-bar.png",
+      "migrator_path": "tests/verification/v059-load-shared-bar.png",
+      "sha256": "b26f675bf5712aec2e76524b6b672eb70f8aae34cc79f14c4fd3e88e98709351",
+      "bytes": 466528,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-load-shared-bar.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-load-shared-bar.png.import",
+      "sha256": "5a297583bc9374f7ff451fd6e652fb5c349199bbe2a0132d97ceecb09d3b522a",
+      "bytes": 983,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-menu-archive-half.png",
+      "migrator_path": "tests/verification/v059-menu-archive-half.png",
+      "sha256": "ee04e8c874f9525ad4a314fdf96c8ac3e9d25cddef11f4ef7d66a907555df69b",
+      "bytes": 191606,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-menu-archive-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-menu-archive-half.png.import",
+      "sha256": "be24f26ef8125f94a32e5729894cda8d14a414bed59a513034ec54896fb962f7",
+      "bytes": 989,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-menu-archive-load.png",
+      "migrator_path": "tests/verification/v059-menu-archive-load.png",
+      "sha256": "ce2b5ffc32f0073c65dfb3aba23b55bc2396d459a9f28e32811139f3883931bf",
+      "bytes": 258417,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-menu-archive-load.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-menu-archive-load.png.import",
+      "sha256": "b6ea2105fe5bf4fb8756566164660e3076b80cf632883353066a8fbd939815d6",
+      "bytes": 989,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-menu-archive-new.png",
+      "migrator_path": "tests/verification/v059-menu-archive-new.png",
+      "sha256": "ee82d6bed057c5718eb1849b58c252176fda700d5948bf3d455e24a9bf1ad919",
+      "bytes": 148887,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-menu-archive-new.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-menu-archive-new.png.import",
+      "sha256": "4d2294626a4dcb02eaca4f9def5cc0186e2d56be1736532b6c705f7a45708dfd",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-menu-archive-save.png",
+      "migrator_path": "tests/verification/v059-menu-archive-save.png",
+      "sha256": "75a7cce1e1705d17214fd68a4f4a2787ef1323bd594d9f56933736a76170e476",
+      "bytes": 255485,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-menu-archive-save.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-menu-archive-save.png.import",
+      "sha256": "902a78ccf495964fd234e8fbdec8dbb2e85b42a8428fd9a7312d1af7936ee29f",
+      "bytes": 989,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-menu-archive-scroll.png",
+      "migrator_path": "tests/verification/v059-menu-archive-scroll.png",
+      "sha256": "daece2e1938ae2d35c1621f2e46e5b269186b1a6bd23334b98fb11b3f601dcc4",
+      "bytes": 279567,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-menu-archive-scroll.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-menu-archive-scroll.png.import",
+      "sha256": "851133409bdfd5c05d90d3855ee22fcb29bd113f22781b98914d1339c691f23a",
+      "bytes": 995,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-menu-config.png",
+      "migrator_path": "tests/verification/v059-menu-config.png",
+      "sha256": "80da00dce22d6d2c17bd10da31d47de4313dcff929f631fa13c72c10707d08d4",
+      "bytes": 156197,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-menu-config.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-menu-config.png.import",
+      "sha256": "899e7eae3a191d26352ce64d4fda5acf32e4e56413fdfbf0805379460931d7e9",
+      "bytes": 971,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-menu-cursor-half.png",
+      "migrator_path": "tests/verification/v059-menu-cursor-half.png",
+      "sha256": "a4acea59049398e1712d12be3d17fcd1ae6ffc5c93f10ecec41f21f72451db9a",
+      "bytes": 306658,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-menu-cursor-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-menu-cursor-half.png.import",
+      "sha256": "01a93fae3883db7eeba8b7c339339f0e2fd2c4d4afcc5c661f6ff743e36c3aa8",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-menu-load-failure.png",
+      "migrator_path": "tests/verification/v059-menu-load-failure.png",
+      "sha256": "f3d994f771f94047a5c92500afef52317a7cf84043a8ec8c3cd96059d83adad7",
+      "bytes": 254246,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-menu-load-failure.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-menu-load-failure.png.import",
+      "sha256": "94414f42d934978b2f0441274a915cefdc894461207e07fd903db37fc9f46b81",
+      "bytes": 989,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-menu-locked.png",
+      "migrator_path": "tests/verification/v059-menu-locked.png",
+      "sha256": "e068bdb7c2389b579b0f5956eb1a13f4599196415fc488d23ab8089a266a51e3",
+      "bytes": 157340,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-menu-locked.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-menu-locked.png.import",
+      "sha256": "76e29ccad5036766a3f25fac1006f8758630ab254aec045849175450e78d4686",
+      "bytes": 970,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-menu-map.png",
+      "migrator_path": "tests/verification/v059-menu-map.png",
+      "sha256": "82c307f5ca236886ca94025675298d1f07742adfd6bfa70a26d3d4390c216d2d",
+      "bytes": 145715,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-menu-map.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-menu-map.png.import",
+      "sha256": "1085e5eabeaf8f0d41de7c247f364b8c78fa56ada08715e5ec3a2f0136aa6518",
+      "bytes": 962,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-menu-menu-half.png",
+      "migrator_path": "tests/verification/v059-menu-menu-half.png",
+      "sha256": "9ffe7bedb4b71dd6b0ebb4a5c1edd37184766713451e98c07ddcf9543b6e6696",
+      "bytes": 156872,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-menu-menu-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-menu-menu-half.png.import",
+      "sha256": "73950e0a500b1f377f364e783f6e37538d730aca716f744185365f9ae4f548f1",
+      "bytes": 980,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-menu-menu.png",
+      "migrator_path": "tests/verification/v059-menu-menu.png",
+      "sha256": "fcc379dd212345a9d0ea23ac5cb8b8ac2e619fce3da02582b41a3402dae9a339",
+      "bytes": 156135,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-menu-menu.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-menu-menu.png.import",
+      "sha256": "55bb5968235ed6286d0d231869de8dd7647a4cc1fd217b063ab092166af74e7b",
+      "bytes": 965,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-menu-overwrite.png",
+      "migrator_path": "tests/verification/v059-menu-overwrite.png",
+      "sha256": "6f8d1c9eba7f38c052ddf52f798cc6035bf578f940b839ff10918e003def6335",
+      "bytes": 249149,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-menu-overwrite.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-menu-overwrite.png.import",
+      "sha256": "4cb0149dbdad4300b3b4e78d42e78ca00cfd3597479746c678aaea9b242a391e",
+      "bytes": 980,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-menu-return-map.png",
+      "migrator_path": "tests/verification/v059-menu-return-map.png",
+      "sha256": "82c307f5ca236886ca94025675298d1f07742adfd6bfa70a26d3d4390c216d2d",
+      "bytes": 145715,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-menu-return-map.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-menu-return-map.png.import",
+      "sha256": "fa866dfc0d7e4dbb8878b67ec8e71c185aa2c00de840af0da30615fd1a3eb9f7",
+      "bytes": 983,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-menu-title-continue.png",
+      "migrator_path": "tests/verification/v059-menu-title-continue.png",
+      "sha256": "2d045d9debe9e27eed4ab2ba5f4d216c2c5f50f4b0d74a6826e4e082e1cab021",
+      "bytes": 420390,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-menu-title-continue.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-menu-title-continue.png.import",
+      "sha256": "796b3810ef8854221293e6ee8139dee7bc21f9791954314ef4b0b272c1945f36",
+      "bytes": 995,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-message-choice.png",
+      "migrator_path": "tests/verification/v059-message-choice.png",
+      "sha256": "797b79acf1fe87d76eeacf469d5e4ead7b9c121375ff7fc1d632c5e4b3fe1497",
+      "bytes": 141650,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-message-choice.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-message-choice.png.import",
+      "sha256": "f09f24fffef1ad4e6bf5a410b3609f7fbe72bf007287d3f5fe740d5ea451c722",
+      "bytes": 979,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-message-dialogue.png",
+      "migrator_path": "tests/verification/v059-message-dialogue.png",
+      "sha256": "7051475848948fe4d16911156657ac3038e7d3ff7506eed40a818d9f26fa793a",
+      "bytes": 139261,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-message-dialogue.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-message-dialogue.png.import",
+      "sha256": "59265767e4e3e089a807392e8d96926746ab959032d7a208fd0e2fb4572f55ac",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-message-hint.png",
+      "migrator_path": "tests/verification/v059-message-hint.png",
+      "sha256": "557df612d6bae36226146b19c88513f90e45cc6859802cf5970c080315aab94a",
+      "bytes": 141477,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-message-hint.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-message-hint.png.import",
+      "sha256": "04d5e707f09e3f0ba0643b626cc89369406774db6ec48fcc08fb0b64a4c48be9",
+      "bytes": 973,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-message-history.png",
+      "migrator_path": "tests/verification/v059-message-history.png",
+      "sha256": "c187a7d4a20029d69ce1abd0d81224d69526a87cef16ee7ea5572b13fd0dd6b9",
+      "bytes": 394058,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-message-history.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-message-history.png.import",
+      "sha256": "74dfd916603134da5a2b9fa8b88735e6d84022e5ce299efd25cb5805032ce337",
+      "bytes": 983,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-message-number.png",
+      "migrator_path": "tests/verification/v059-message-number.png",
+      "sha256": "563abeeae3aa3f58e3fe93b827480d68dfe9d3186c0e43826c90f2a0759ea1dc",
+      "bytes": 142617,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-message-number.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-message-number.png.import",
+      "sha256": "6c6e940228f57e784bd28192092c3c9f2ec7d12c04701941edd96b12298dd0f6",
+      "bytes": 980,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-message-pages.png",
+      "migrator_path": "tests/verification/v059-message-pages.png",
+      "sha256": "ed0ed859fc76257625518cd5513a18a03345cce0fbe284463f0a32952144de2e",
+      "bytes": 332570,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-message-pages.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-message-pages.png.import",
+      "sha256": "a01a4054c4c393831555b47ea80165191266a203c62a89d9ee4faf13cd1ef44d",
+      "bytes": 976,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-soak-map.png",
+      "migrator_path": "tests/verification/v059-soak-map.png",
+      "sha256": "cf8a812c6540109dea35c346c7054a47dfd23479a54602bb9df4e187f27836bd",
+      "bytes": 139477,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-soak-map.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-soak-map.png.import",
+      "sha256": "ca3f520b2dfc334a1cf36a152a66ffc04b044a32b12a43e7b653c5644c6ef5f2",
+      "bytes": 962,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-support-items.png",
+      "migrator_path": "tests/verification/v059-support-items.png",
+      "sha256": "b161a523882b3c9d97e500f1b764d22f479a69ee824cd088feb2eed15068eb2f",
+      "bytes": 221732,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-support-items.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-support-items.png.import",
+      "sha256": "488059911d19917004030adb0db5591a96c5cd53c7f6c1ade19976fec27d1a76",
+      "bytes": 977,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-support-off.png",
+      "migrator_path": "tests/verification/v059-support-off.png",
+      "sha256": "3ae54a1fa9cf6ca8e27344484abc04f820fdf46623de5f4f619577fd3eef3bbb",
+      "bytes": 140268,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-support-off.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-support-off.png.import",
+      "sha256": "02b64976fc6c67fae253fabc244564cad1d4b70bb59041502d645beb6f500df1",
+      "bytes": 970,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-support-skills.png",
+      "migrator_path": "tests/verification/v059-support-skills.png",
+      "sha256": "18d166edc2f6bfed0ce60cf87d3c010e11bffc540dd7d2967fb7a572b8fc217c",
+      "bytes": 201353,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-support-skills.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-support-skills.png.import",
+      "sha256": "603bbc58c8757a82624014a30fdba03619bb170fc723d0c4343cf40bfa51d8f2",
+      "bytes": 979,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-support-solo.png",
+      "migrator_path": "tests/verification/v059-support-solo.png",
+      "sha256": "c5d4e9445edfcbea700635ba8b8625b9b76ce9ae04174b538f355f039f7b2487",
+      "bytes": 139977,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-support-solo.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-support-solo.png.import",
+      "sha256": "3edac858ebd8db9db165b5eec2c35493117456c90c8cd4861efeb0ebdd1e8bea",
+      "bytes": 974,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-support-support.png",
+      "migrator_path": "tests/verification/v059-support-support.png",
+      "sha256": "3b5b908461e13f7cfc88784e71072ee029c696536b850e4a8b3966c4fbce609d",
+      "bytes": 148780,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-support-support.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-support-support.png.import",
+      "sha256": "7d5e4632d7d33828756a83f578966c101df53a0e6e59a283550b7cbffafbcb79",
+      "bytes": 983,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-title-carousel-half.png",
+      "migrator_path": "tests/verification/v059-title-carousel-half.png",
+      "sha256": "d516208ea70582dd2eb3b98adab195d509fcfbfac0e53fc821d4d2eabd74bfd1",
+      "bytes": 365367,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-title-carousel-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-title-carousel-half.png.import",
+      "sha256": "b358b990eacd7cab5d32cac77bcb1dcb4d631e08158f17fb93c9bf1d024ac494",
+      "bytes": 995,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-title-continue.png",
+      "migrator_path": "tests/verification/v059-title-continue.png",
+      "sha256": "7bbb03f740d78157b241e64d420f7482fecb1e217b941a45cde5888cc6e58b66",
+      "bytes": 329202,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-title-continue.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-title-continue.png.import",
+      "sha256": "b2747e45125d52934bc3c8350d3ac06f10b6f20c0a9e53a2a953a5f8eb0efdad",
+      "bytes": 979,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-title-difficulty-ex.png",
+      "migrator_path": "tests/verification/v059-title-difficulty-ex.png",
+      "sha256": "563ff7421bb563c2f4db9e099305957373129fc8965f6fd554c5c02258a0ec57",
+      "bytes": 319042,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-title-difficulty-ex.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-title-difficulty-ex.png.import",
+      "sha256": "1120787d1ca6e13e26a94fbfd0591cb1239a8fa0f117a1f44dbd81caab142a04",
+      "bytes": 994,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-title-difficulty-hard.png",
+      "migrator_path": "tests/verification/v059-title-difficulty-hard.png",
+      "sha256": "18e025126550834f686d0c1164ad76572e55a87895c858163a35bbc5dfc9cc38",
+      "bytes": 347130,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-title-difficulty-hard.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-title-difficulty-hard.png.import",
+      "sha256": "01d7de8a258cc2f0a46a5bec68af8c94679466d83f56838b8fe335d84e05380e",
+      "bytes": 1001,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-title-disabled-command.png",
+      "migrator_path": "tests/verification/v059-title-disabled-command.png",
+      "sha256": "3b0f619a3c5a9ad0561765d5fefb91ad861985e376c9d2073ecfbb85e7514d56",
+      "bytes": 368750,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-title-disabled-command.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-title-disabled-command.png.import",
+      "sha256": "dca2d6e3caaf3c576c68e15bdd2ae6c3a923d53cd1a642b7355457c03fd9209a",
+      "bytes": 1004,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-title-merit-book.png",
+      "migrator_path": "tests/verification/v059-title-merit-book.png",
+      "sha256": "9dd58dca0e62df6a227e933e4a5039c23a8bf2c39ffa7500136afe6839c0f0c1",
+      "bytes": 575032,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-title-merit-book.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-title-merit-book.png.import",
+      "sha256": "6fdf9e813c72fb81812d2f9d0286d8659d4d3701ab8e60d0bdc42ed46def407f",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-title-merit.png",
+      "migrator_path": "tests/verification/v059-title-merit.png",
+      "sha256": "92533ca1902d7c0cc5f437cf89fb6449de9e68af40199deab443399a88189975",
+      "bytes": 503687,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-title-merit.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-title-merit.png.import",
+      "sha256": "1d1db1ca5bc0b12674449fad80e6e66c704927d1f7f1faec69fe8bb28492fdbc",
+      "bytes": 971,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-title-music-half.png",
+      "migrator_path": "tests/verification/v059-title-music-half.png",
+      "sha256": "f8e17ef12b07ee217da9902396677888cf7b0fbb556d783284e56407706900e1",
+      "bytes": 455692,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-title-music-half.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-title-music-half.png.import",
+      "sha256": "bf56af9d4af55824042f9c5160099d3dc99a99454cd1d7ec095ee09832450b4e",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-title-music.png",
+      "migrator_path": "tests/verification/v059-title-music.png",
+      "sha256": "0616f87f22d115d92a3ede832cbe87dfcf51f7ccc9ccc8a922655e72a5ef35a2",
+      "bytes": 397245,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-title-music.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-title-music.png.import",
+      "sha256": "49f5243cf21f4cbf525e30762912d1ea3bcee4e84d2588c7fe046560aa3e142d",
+      "bytes": 970,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-title-return-title.png",
+      "migrator_path": "tests/verification/v059-title-return-title.png",
+      "sha256": "4a5b67aedaa89ebe4867eace16158e21db36a16f80fe69f27f4c75b78941b297",
+      "bytes": 369874,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-title-return-title.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-title-return-title.png.import",
+      "sha256": "2a190cf75194c7f28ecd900994dc2293673e6d0d64ccbb39d06eea4721dd7d15",
+      "bytes": 992,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-title-settings-1.png",
+      "migrator_path": "tests/verification/v059-title-settings-1.png",
+      "sha256": "9cf55a1348045123ae8cfb128f0c10d42d65cf4c3806b26c9f4b55d37e9cd8bf",
+      "bytes": 319944,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-title-settings-1.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-title-settings-1.png.import",
+      "sha256": "0cd2eae1beea68a205ef0096a327b88757dd4603816492852a4b49fa9dcd666d",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-title-settings-2.png",
+      "migrator_path": "tests/verification/v059-title-settings-2.png",
+      "sha256": "840244a1373dd8091741ae94cd175d3f4d2359d3d05aec87f69b088a54a10a8e",
+      "bytes": 295009,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-title-settings-2.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-title-settings-2.png.import",
+      "sha256": "fa45a2fc9ea77f3bc588819e4558cfe9d8cf97bd368475fd855788b17fc2b9b5",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-title-settings-3.png",
+      "migrator_path": "tests/verification/v059-title-settings-3.png",
+      "sha256": "52cc166671e491bbbfbe3a6d453627d1fbfec6bd56990f40905482124597c3ed",
+      "bytes": 291020,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-title-settings-3.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-title-settings-3.png.import",
+      "sha256": "ec4a94335a89ab7cfd72223f1bab5b62b675747140d41967a6f8d03d10b261e4",
+      "bytes": 986,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/verification/v059-title-title.png",
+      "migrator_path": "tests/verification/v059-title-title.png",
+      "sha256": "d0a8b11aaff15ff5288b828dafe928c460cd7c7dc72212bc4a97a2679a29942b",
+      "bytes": 365105,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/verification/v059-title-title.png.import",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-title-title.png.import",
+      "sha256": "a35df14ea44d3715262326da393913d616e93b879bd5fb61ffc8c0114832143b",
+      "bytes": 971,
+      "reused_existing": false
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.45.md",
+      "migrator_path": "tests/VERIFICATION_v0.45.md",
+      "sha256": "160114857297d03732040efc054f9c6c795ed0972a12b6056f3375f6616ece5e",
+      "bytes": 4409,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.46.md",
+      "migrator_path": "tests/VERIFICATION_v0.46.md",
+      "sha256": "ac252981f384b2b6e31472d29a0a4ac3f4333e9f594794d430f911cf696b8004",
+      "bytes": 4583,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.47.md",
+      "migrator_path": "tests/VERIFICATION_v0.47.md",
+      "sha256": "cd3cc6bdf73b83e78f8987e285ef813559e172d2a02ae2fa895340e8a5488149",
+      "bytes": 3590,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.48.md",
+      "migrator_path": "tests/VERIFICATION_v0.48.md",
+      "sha256": "2d400f373c7a146f6da23c65c610559e10c4b4128e65241a76e18f4f0cb37b02",
+      "bytes": 19611,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.49.md",
+      "migrator_path": "tests/VERIFICATION_v0.49.md",
+      "sha256": "0f828739f9e0c2438853769538319d14430dc6b90d2c55fed836d2651a3ac5c1",
+      "bytes": 4310,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.5.md",
+      "migrator_path": "tests/VERIFICATION_v0.5.md",
+      "sha256": "9c5e1aeff2096823414a6d1ef07132ff764a1603e42d3e1a6733d6e3243a7c3f",
+      "bytes": 3900,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.51.json",
+      "migrator_path": "tests/VERIFICATION_v0.51.json",
+      "sha256": "1d8229540038f19b0605b38412ce729a1f0438fcdd723ebf8403b61a6086e32c",
+      "bytes": 181844,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.51.md",
+      "migrator_path": "tests/VERIFICATION_v0.51.md",
+      "sha256": "d340ba14338d69ea4408ece541fe237558befa598c635907b72c9c46e96e1e1a",
+      "bytes": 4275,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.52.json",
+      "migrator_path": "tests/VERIFICATION_v0.52.json",
+      "sha256": "9bac8a7f142ed628b622e14a2c1ab797d34ce45358b15f61a387f25cfa8139c5",
+      "bytes": 138091,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.52.md",
+      "migrator_path": "tests/VERIFICATION_v0.52.md",
+      "sha256": "903d9a4d7571ca1cc83666fe7a84efcf122121dc6fb6d99709b68001455193c5",
+      "bytes": 3550,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.53.json",
+      "migrator_path": "tests/VERIFICATION_v0.53.json",
+      "sha256": "6f0b680adde4cfb11fff755b86c3ac84fb5dbdd3db97bc48a97c58a401a20d63",
+      "bytes": 135000,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.53.md",
+      "migrator_path": "tests/VERIFICATION_v0.53.md",
+      "sha256": "9dc316b84a4078eb947ec62397c6980920d26a488280a2be74ad1b924ade2fb2",
+      "bytes": 4034,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.54.json",
+      "migrator_path": "tests/VERIFICATION_v0.54.json",
+      "sha256": "ac888b586433a35748dc58cd963170a6e31dc5058ff196b46501fd4bbab4eec6",
+      "bytes": 135695,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.54.md",
+      "migrator_path": "tests/VERIFICATION_v0.54.md",
+      "sha256": "9b44a89ab2502f5a8fed02264b672b7e7f13bdd2469238394e4bf23c52680b29",
+      "bytes": 4187,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.55.json",
+      "migrator_path": "tests/VERIFICATION_v0.55.json",
+      "sha256": "d396e15c31521da134e22cc11e2bf9704d1dfe7d400a296d4f30d2577a594b5a",
+      "bytes": 138658,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.55.md",
+      "migrator_path": "tests/VERIFICATION_v0.55.md",
+      "sha256": "b24f2ca33f046d03d8cc8f67a6bafd1dc9e41ba80993e8c83f95d5df7dbe6311",
+      "bytes": 4205,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.56.json",
+      "migrator_path": "tests/VERIFICATION_v0.56.json",
+      "sha256": "f4d7fe05fdd6efb3afb011f3468db08d5e60e290895c06eede8c888161098c32",
+      "bytes": 143780,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.56.md",
+      "migrator_path": "tests/VERIFICATION_v0.56.md",
+      "sha256": "9041beb26d59235f4dde32fcf23210754399bcfbdb25ab5e4b0ac9699a7d6d44",
+      "bytes": 4828,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.57.json",
+      "migrator_path": "tests/VERIFICATION_v0.57.json",
+      "sha256": "51c1514977239da5d312655dc809760c6ca238fce5b414370142c21dd136615d",
+      "bytes": 152904,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.57.md",
+      "migrator_path": "tests/VERIFICATION_v0.57.md",
+      "sha256": "031c91cc20ba1d31f2ba3fe9d4c3dbb47399d1b9106366be0df69343fa9ccad1",
+      "bytes": 4330,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.58.json",
+      "migrator_path": "tests/VERIFICATION_v0.58.json",
+      "sha256": "f3f328fae61f1e26a50865a2edd2ccd62f12a6b3fba036882aa8182c3f1d705c",
+      "bytes": 190271,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.58.md",
+      "migrator_path": "tests/VERIFICATION_v0.58.md",
+      "sha256": "fbcf845313cded896e560b7382135b4670ff357ab6bfcbc251485f951945a147",
+      "bytes": 5331,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.58_LOAD.json",
+      "migrator_path": "tests/VERIFICATION_v0.58_LOAD.json",
+      "sha256": "6998d915b37dfa4eaff4abcd618cc42e5f47f53273c0e8638f39375babd4aaa2",
+      "bytes": 136699,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.58_LOAD.md",
+      "migrator_path": "tests/VERIFICATION_v0.58_LOAD.md",
+      "sha256": "838f412182f58c96804c598f39410b116034999ab987545e6bf56986b82a08b2",
+      "bytes": 3539,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.58_UI.json",
+      "migrator_path": "tests/VERIFICATION_v0.58_UI.json",
+      "sha256": "81b76aea4b690c8492fad263aa18bee09b0b2af0add13c2c74b6fe5ce46d8c88",
+      "bytes": 131444,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.58_UI.md",
+      "migrator_path": "tests/VERIFICATION_v0.58_UI.md",
+      "sha256": "cd7e101c37b7088df151bb626041284cffd33cab1096e96a295253c519569fcd",
+      "bytes": 2866,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.59.json",
+      "migrator_path": "tests/VERIFICATION_v0.59.json",
+      "sha256": "53fcc1041b2088eeb3b1c390a393eee57938eef3dbd5491b2ace5e0a476130e0",
+      "bytes": 198415,
+      "reused_existing": true
+    },
+    {
+      "game_path": "tests/VERIFICATION_v0.59.md",
+      "migrator_path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/VERIFICATION_v0.59.md",
+      "sha256": "2c2c5565a88c1a29ed0230fa66670ea3e3059082539f087f07fa3a1a9d5c0bad",
+      "bytes": 4052,
+      "reused_existing": false
+    }
+  ],
+  "support": [
+    {
+      "path": "docs/game_handoffs/kuro-v0.59/export_snapshot/migration_docs/INTEGRATION_v0.59.md",
+      "sha256": "7e5b48184d05c8ab27aec1281d3ee617d420d616f0b7197c863de2902734eb0c"
+    },
+    {
+      "path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-integration-broken-middle.png",
+      "sha256": "cdb0a99c8a7df61cf07a3d8eee8adb782acf7104874536f96def287422d818ae"
+    },
+    {
+      "path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-load-shared-bar.png",
+      "sha256": "b26f675bf5712aec2e76524b6b672eb70f8aae34cc79f14c4fd3e88e98709351"
+    },
+    {
+      "path": "docs/game_handoffs/kuro-v0.59/export_snapshot/tests/verification/v059-load-loading-legacy.png",
+      "sha256": "84cd3301d5c375207d14f944b8b00e2f5f1c2c05a812a115cf382657fb58e4aa"
+    }
+  ]
+}

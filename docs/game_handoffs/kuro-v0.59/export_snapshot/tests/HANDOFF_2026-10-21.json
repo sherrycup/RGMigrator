@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-21",
+  "original_files_verified": 6654,
+  "baseline_git_blobs_verified": 6654,
+  "changed_original_files": [
+    "README.md"
+  ],
+  "generated_metadata": {
+    ".uid": 542,
+    ".import": 4310
+  },
+  "checks": [
+    {
+      "name": "resource-import",
+      "ok": true,
+      "exit": 0,
+      "seconds": 277.35,
+      "markers": [],
+      "errors": []
+    },
+    {
+      "name": "runtime-compile",
+      "ok": true,
+      "exit": 0,
+      "seconds": 11.81,
+      "markers": [
+        "RUNTIME COMPILE: PASSED / 197 scripts"
+      ],
+      "errors": []
+    },
+    {
+      "name": "editor-compile",
+      "ok": true,
+      "exit": 0,
+      "seconds": 5.83,
+      "markers": [
+        "EDITOR COMPILE: PASSED / 51 scripts"
+      ],
+      "errors": []
+    },
+    {
+      "name": "title-startup-current",
+      "ok": true,
+      "exit": 0,
+      "seconds": 13.56,
+      "markers": [
+        "FLASH TITLE V055: PASSED / 2 checks / 0 GPU states"
+      ],
+      "errors": []
+    },
+    {
+      "name": "save-restart-write",
+      "ok": true,
+      "exit": 0,
+      "seconds": 9.96,
+      "markers": [
+        "FLASH SAVE RESTART: PASSED / write / 3 checks"
+      ],
+      "errors": []
+    },
+    {
+      "name": "save-restart-read",
+      "ok": true,
+      "exit": 0,
+      "seconds": 9.84,
+      "markers": [
+        "FLASH SAVE RESTART: PASSED / read / 6 checks"
+      ],
+      "errors": []
+    }
+  ],
+  "gpu_or_full_story_retested": false,
+  "superseded_probe": {
+    "name": "StartupV049Probe",
+    "result": "Failed: confirmation arrived during the 16-tick difficulty-page transition.",
+    "replacement": "Existing TitleV055Tests --flow=1",
+    "original_evidence": ".godot/kuro-handoff/results-initial.json"
+  }
+}

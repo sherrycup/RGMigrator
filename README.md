@@ -1,6 +1,8 @@
 # RGMigrator ver0.59
 
-2026-10-20：0.59整合收尾已通过内部自查，等待用户验收。172脚本去Flash文件名前缀，旧档/绑定兼容；补默认碎屏分区图。63组整合回归及最终14组复验、5组编辑器、34个错误边界、真实GPU/EditorPlugin及五分钟持续运行通过。当前工程为`../output/0.59/release/黎之闪翼（开发中）_Godot/project.godot`；见[本轮验证](tests/VERIFICATION_v0.59.md)与[后续开发](docs/INTEGRATION_v0.59.md)。
+2026-10-21：闪翼已独立到 `D:\Dev\kuro`；游戏侧精简文档，迁移规划、审计、历史验收和交接资料统一见 [kuro 文档索引](docs/game_handoffs/kuro-v0.59/README.md)。
+
+2026-10-20：0.59整合收尾已通过内部自查，等待用户验收。172脚本去Flash文件名前缀，旧档/绑定兼容；补默认碎屏分区图。63组整合回归及最终14组复验、5组编辑器、34个错误边界、真实GPU/EditorPlugin及五分钟持续运行通过。当前独立游戏工程为`D:/Dev/kuro/project.godot`；见[本轮验证](tests/VERIFICATION_v0.59.md)与[后续开发](docs/INTEGRATION_v0.59.md)。
 
 2026-10-19 读档修正已自查：动态加载提示、旧空音频恢复地图音乐、事件只在新地图恢复，地图与物品页共用同一个右侧栏。首次资源准备仍需时间；见[验证与实测](tests/VERIFICATION_v0.58_LOAD.md)。
 
@@ -20,7 +22,7 @@
 
 0.52 事件直接编辑 GDScript 业务正文，例如 `Actor_Init.load(2)`；入口包装、来源管理和详细接口注释由框架及对应模块承载。地图、公共事件、脚本条件和自主/强制路线均可编译检查、保存并重新运行，复制、等待及重试沿用同一运行现场。原 Ruby 仅作只读迁移来源；使用说明见 [0.52 事件脚本](docs/EVENT_GDSCRIPT_v0.52.md)，验收记录见 [0.52 验证](tests/VERIFICATION_v0.52.md)。
 
-工作区按版本归档：每个现存版本保留最终工程 ZIP，索引见 [归档目录](../output/archives/README.md)；当前可直接打开的工程为 `../output/0.59/release/黎之闪翼（开发中）_Godot/project.godot`。下文历史交付路径用于追溯，旧目录已合并至对应 ZIP。源码、原 RM 输入及验收记录保留，详见 [归档说明](docs/WORKSPACE_ARCHIVES.md)。
+工作区按版本归档：每个现存版本保留最终工程 ZIP，索引见 [归档目录](../output/archives/README.md)；当前可直接打开的独立工程为 `D:/Dev/kuro/project.godot`。下文历史交付路径用于追溯，旧目录已合并至对应 ZIP。源码、原 RM 输入及验收记录保留，详见 [归档说明](docs/WORKSPACE_ARCHIVES.md)。
 
 0.50—0.51 合并交付：运行代码按 Game 对象、战斗、事件、地图和窗口功能分组，魔塔编辑器放在独立插件目录；生产代码整理排版，菜单规则、子页面构造与显示拆分。开发入口见 [脚本结构说明](docs/SCRIPT_STRUCTURE_v0.51.md)，阶段验收见 [0.51 验证记录](tests/VERIFICATION_v0.51.md)。后续原生 GDScript 事件编辑、Message 和原图形恢复按 [0.5 规划](docs/ROADMAP_v0.5.md)推进。
 
